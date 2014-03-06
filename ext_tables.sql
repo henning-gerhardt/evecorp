@@ -8,6 +8,8 @@ CREATE TABLE tx_evecorp_domain_model_eveitem (
 
 	eve_name varchar(255) DEFAULT '' NOT NULL,
 	eve_id int(11) DEFAULT '0' NOT NULL,
+	price float DEFAULT '0.0' NOT NULL,
+	cachetime int(11) DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
