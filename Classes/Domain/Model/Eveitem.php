@@ -51,6 +51,14 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $eveId;
 
 	/**
+	 * price of item
+	 *
+	 * @var \float
+	 * @validate NotEmpty
+	 */
+	protected $price;
+
+	/**
 	 * Returns the eveName
 	 *
 	 * @return \string $eveName
@@ -86,6 +94,25 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setEveId($eveId) {
 		$this->eveId = $eveId;
+	}
+
+	/**
+	 * Returns the stored price
+	 *
+	 * @return \float $price
+	 */
+	public function getPrice() {
+		return $this->price;
+	}
+
+	/**
+	 * Sets the price of item
+	 *
+	 * @param \float $price
+	 * @return void
+	 */
+	public function setPrice($price) {
+		$this->price = $eveId;
 	}
 
 }
