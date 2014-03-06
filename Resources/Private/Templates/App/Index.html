@@ -1,0 +1,22 @@
+<f:format.html>{preTableText}</f:format.html>
+<table border="1">
+    <thead>
+        <tr>
+            <th>{tableTypeContent}</th>
+            <th>Buy</th>
+            <f:if condition="{showBuyCorpColumn} == 1"><th>Buy Corp</th></f:if>
+            <th>Sell</th>
+        </tr>
+    </thead>
+    <tbody>
+    <f:for each="{result}" as="resource" key="label">
+        <tr>
+            <td>{label}</td>
+            <td style="text-align:right;">{resource.buy  -> f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td>
+            <f:if condition="{showBuyCorpColumn} == 1"><td style="text-align:right;">{resource.buyCorp ->  f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td></f:if>
+            <td style="text-align:right;">{resource.sell ->  f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td>
+        </tr>
+    </f:for>
+    </tbody>
+</table>
+<f:format.html>{postTableText}</f:format.html>

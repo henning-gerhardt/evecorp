@@ -1,0 +1,97 @@
+<T3DataStructure>
+  <meta>
+    <langDisable>1</langDisable>
+  </meta>
+  <sheets>
+    <sDefault>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>Options</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+          <settings.storagepid>
+            <TCEforms>
+              <label>Storage PID</label>
+                <config>
+                   <type>input</type>
+                   <eval>int</eval>
+                </config>
+            </TCEforms>
+          </settings.storagepid>
+          <settings.evecentralurl>
+            <TCEforms>
+              <label>EVE Central URL</label>
+                <config>
+                   <type>input</type>
+                   <default>http://api.eve-central.com/api/marketstat</default>
+                   <eval>trim</eval>
+                </config>
+            </TCEforms>
+          </settings.evecentralurl>
+          <settings.corptax>
+            <TCEforms>
+              <label>Corp tax</label>
+                <config>
+                   <type>input</type>
+                   <default>0.85</default>
+                   <eval>trim</eval>
+                </config>
+            </TCEforms>
+          </settings.corptax>
+          <settings.systemid>
+            <TCEforms>
+              <label>System ID</label>
+                <config>
+                   <type>input</type>
+                   <default>30000142</default>
+                   <eval>trim,int</eval>
+                </config>
+            </TCEforms>
+          </settings.systemid>
+          <settings.tabletypecontent>
+            <TCEforms>
+              <label>table type content</label>
+                <config>
+                   <type>input</type>
+                   <default>Minerals</default>
+                   <eval>trim</eval>
+                </config>
+            </TCEforms>
+          </settings.tabletypecontent>
+          <settings.showbuycorpcolumn>
+            <TCEforms>
+              <label>show buy corp column</label>
+                <config>
+                   <type>check</type>
+                   <default>1</default>
+                </config>
+            </TCEforms>
+          </settings.showbuycorpcolumn>
+          <settings.pretabletext>
+            <TCEforms>
+              <label>text before table</label>
+              <config>
+                 <type>text</type>
+                 <cols>24</cols>
+                 <rows>3</rows>
+              </config>
+              <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
+            </TCEforms>
+          </settings.pretabletext>
+          <settings.posttabletext>
+            <TCEforms>
+              <label>text after table</label>
+                <config>
+                   <type>text</type>
+                   <cols>24</cols>
+                   <rows>3</rows>
+                </config>
+                <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
+            </TCEforms>
+          </settings.posttabletext>
+        </el>
+      </ROOT>
+    </sDefault>
+  </sheets>
+</T3DataStructure>
