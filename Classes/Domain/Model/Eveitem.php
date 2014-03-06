@@ -120,7 +120,7 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return void
 	 */
 	public function setPrice($price) {
-		$this->price = $eveId;
+		$this->price = $price;
 	}
 
 	/**
