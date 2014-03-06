@@ -59,6 +59,14 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $price;
 
 	/**
+	 * cache time of object
+	 *
+	 * @var \integer
+	 * @validate NotEmpty
+	 */
+	protected $cacheTime;
+
+	/**
 	 * Returns the eveName
 	 *
 	 * @return \string $eveName
@@ -113,6 +121,25 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setPrice($price) {
 		$this->price = $eveId;
+	}
+
+	/**
+	 * Returns cached until time
+	 *
+	 * @return \integer $cacheTime
+	 */
+	public function getCachetime() {
+		return $this->cacheTime;
+	}
+
+	/**
+	 * Sets cache until time
+	 *
+	 * @param \integer $cachetime
+	 * @return void
+	 */
+	public function setCachetime($cacheTime) {
+		$this->cacheTime = $cacheTime;
 	}
 
 }
