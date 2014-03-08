@@ -51,12 +51,20 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $eveId;
 
 	/**
-	 * price of item
+	 * buyPrice of item
 	 *
 	 * @var \float
 	 * @validate NotEmpty
 	 */
-	protected $price;
+	protected $buyPrice;
+
+	/**
+	 * sellPrice of item
+	 *
+	 * @var \float
+	 * @validate NotEmpty
+	 */
+	protected $sellPrice;
 
 	/**
 	 * cache time of object
@@ -105,22 +113,41 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Returns the stored price
+	 * Returns the stored buyPrice
 	 *
-	 * @return \float $price
+	 * @return \float $buyPrice
 	 */
-	public function getPrice() {
-		return $this->price;
+	public function getBuyPrice() {
+		return $this->buyPrice;
 	}
 
 	/**
-	 * Sets the price of item
+	 * Sets the buyPrice of item
 	 *
-	 * @param \float $price
+	 * @param \float $buyPrice
 	 * @return void
 	 */
-	public function setPrice($price) {
-		$this->price = $price;
+	public function setBuyPrice($buyPrice) {
+		$this->buyPrice = $buyPrice;
+	}
+
+	/**
+	 * Returns the stored sellPrice
+	 *
+	 * @return \float $sellPrice
+	 */
+	public function getSellPrice() {
+		return $this->sellPrice;
+	}
+
+	/**
+	 * Sets the sellPrice of item
+	 *
+	 * @param \float $sellPrice
+	 * @return void
+	 */
+	public function setSellPrice($sellPrice) {
+		$this->sellPrice = $sellPrice;
 	}
 
 	/**
@@ -128,7 +155,7 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @return \integer $cacheTime
 	 */
-	public function getCachetime() {
+	public function getCacheTime() {
 		return $this->cacheTime;
 	}
 
@@ -138,7 +165,7 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @param \integer $cachetime
 	 * @return void
 	 */
-	public function setCachetime($cacheTime) {
+	public function setCacheTime($cacheTime) {
 		$this->cacheTime = $cacheTime;
 	}
 
