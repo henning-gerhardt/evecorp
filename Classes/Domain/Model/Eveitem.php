@@ -169,5 +169,22 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->cacheTime = $cacheTime;
 	}
 
+	/**
+	 * Checks if item is up to date with cached time
+	 *
+	 * @param \integer $timeToCache
+	 * @return boolean
+	 */
+	public function isUpToDate($timeToCache) {
+		$result = true;
+		$timeToCacheInSeconds = $timeToCache * 60;
+		$currentTime = time();
+		var_dump(array($this->eveName, $this->cacheTime, $timeToCacheInSeconds, $currentTime));
+		if (($this->cacheTime + $timeToCacheInSeconds) < $currentTime ) {
+			var_dump('needs update');
+			$result = false;
+		}
+		return $result;
+	}
 }
 ?>
