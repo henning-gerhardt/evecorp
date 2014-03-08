@@ -34,7 +34,9 @@ namespace gerh\Evecorp\Controller;
  */
 class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-    private $mapping;
+    private $allMappings = array();
+
+    private $needsUpdate = array();
 
     /**
      * eveitemRepository
@@ -45,8 +47,12 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
     protected $eveitemRepository;
 
     public function initializeAction() {
-        foreach( $this->eveitemRepository->findAllForStoragePids(array($this->settings['storagepid'])) as $entry) {
-            $this->mapping[$entry->getEveId()] = $entry->getEveName();
+        $timeToCache = 5;
+        foreach($this->eveitemRepository->findAllForStoragePids(array($this->settings['storagepid'])) as $entry) {
+            if ($entry->isUpToDate($timeToCache) === false) {
+                $this->needsUpdate[$entry->getEveId()] = $entry->getEveName();
+            }
+            array_push($this->allMappings, $entry);
         }
     }
 
@@ -58,10 +64,26 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
     public function indexAction() {
         $fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
         $fetcher->setBaseUri($this->settings['evecentralurl']);
-        $fetcher->setCorpTax($this->settings['corptax']);
         $fetcher->setSystemId($this->settings['systemid']);
-        $fetcher->setTypeIds($this->mapping);
-        $result = $fetcher->query();
+        $fetcher->setTypeIds($this->needsUpdate);
+        $updateResult = $fetcher->query();
+
+        $result = array();
+        foreach($this->allMappings as $dbEntry) { {
+            foreach($updateResult as $eveName => $values)
+                if ($dbEntry->getEveName() == $eveName) {
+                    $dbEntry->setBuyPrice($values['buy']);
+                    $dbEntry->setSellPrice($values['sell']);
+                    $dbEntry->setCacheTime(time());
+                    $this->eveitemRepository->update($dbEntry);
+                }
+            }
+            $result[$dbEntry->getEveName()] = array(
+                'buy' =>$dbEntry->getBuyPrice(),
+                'buyCorp' => round($dbEntry->getBuyPrice() * $this->settings['corptax'], 2),
+                'sell' =>$dbEntry->getSellPrice()
+                );
+        }
         ksort($result);
 
         $this->view->assign('result', $result);
