@@ -111,6 +111,21 @@ $TCA['tx_evecorp_domain_model_eveitem'] = array(
 				'eval' => 'int,required'
 			),
 		),
+		'buy_price' => array(
+			'exclude' => 0,
+			'label' => 'buy_price',
+			'config' => array(),
+		),
+		'sell_price' => array(
+			'exclude' => 0,
+			'label' => 'sell_price',
+			'config' => array(),
+		),
+		'cache_time' => array(
+			'exclude' => 0,
+			'label' => 'cache_time',
+			'config' => array(),
+		),
 	),
 );
 
