@@ -47,7 +47,7 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
     protected $eveitemRepository;
 
     public function initializeAction() {
-        $timeToCache = 5;
+        $timeToCache = $this->settings['cachingtime'];
         foreach($this->eveitemRepository->findAllForStoragePids(array($this->settings['storagepid'])) as $entry) {
             if ($entry->isUpToDate($timeToCache) === false) {
                 $this->needsUpdate[$entry->getEveId()] = $entry->getEveName();
