@@ -50,29 +50,20 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
         }
     }
 
-    private function buildQuery() {
-        $result = $this->settings['evecentralurl'] . '?usesystem=' . $this->settings['systemid'];
-        foreach(array_keys($this->mapping) as $key) {
-            $result .= '&typeid=' . $key;
-        }
-        return $result;
-    }
-
-    private function query($url) {
-        $content = file_get_contents($url);
-        $result = $this->parse($content);
-        return $result;
-    }
-
     /**
      * action index
      *
      * @return void
      */
     public function indexAction() {
-        $query = $this->buildQuery();
-        $result = $this->query($query);
+        $fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+        $fetcher->setBaseUri($this->settings['evecentralurl']);
+        $fetcher->setCorpTax($this->settings['corptax']);
+        $fetcher->setSystemId($this->settings['systemid']);
+        $fetcher->setTypeIds($this->mapping);
+        $result = $fetcher->query();
         ksort($result);
+
         $this->view->assign('result', $result);
         $this->view->assign('tableTypeContent', $this->settings['tabletypecontent']);
         $this->view->assign('preTableText', $this->settings['pretabletext']);
@@ -80,27 +71,4 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
         $this->view->assign('showBuyCorpColumn', $this->settings['showbuycorpcolumn']);
     }
 
-    private function parse($content) {
-        $result = array();
-
-        $doc = new \DOMDocument();
-        $doc->loadXML($content);
-        $xpath = new \DOMXPath($doc);
-
-        $resourceTypes = $xpath->evaluate('.//type');
-        for ($i = 0 ; $i < $resourceTypes->length; $i++) {
-            $resource = $resourceTypes->item($i);
-            $resourceId = $resource->getAttribute('id');
-            $resourceBuyMax = $xpath->evaluate('.//buy/max', $resource)->item(0)->textContent;
-            $resourceSellMin = $xpath->evaluate('.//sell/min', $resource)->item(0)->textContent;
-            $interim = array(
-                'buy' => $resourceBuyMax,
-                'buyCorp' => round($resourceBuyMax * $this->settings['corptax'], 2),
-                'sell' => $resourceSellMin,
-            );
-            $result[$this->mapping[$resourceId]] = $interim;
-        }
-
-        return $result;
-    }
 }
