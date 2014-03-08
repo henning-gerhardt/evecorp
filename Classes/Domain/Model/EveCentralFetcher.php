@@ -4,7 +4,7 @@ namespace gerh\Evecorp\Domain\Model;
 /***************************************************************
  *	Copyright notice
  *
- *	(c) 2013 Henning Gerhardt 
+ *	(c) 2014 Henning Gerhardt 
  *	
  *	All rights reserved
  *
