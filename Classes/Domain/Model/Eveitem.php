@@ -179,9 +179,7 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$result = true;
 		$timeToCacheInSeconds = $timeToCache * 60;
 		$currentTime = time();
-		var_dump(array($this->eveName, $this->cacheTime, $timeToCacheInSeconds, $currentTime));
 		if (($this->cacheTime + $timeToCacheInSeconds) < $currentTime ) {
-			var_dump('needs update');
 			$result = false;
 		}
 		return $result;
