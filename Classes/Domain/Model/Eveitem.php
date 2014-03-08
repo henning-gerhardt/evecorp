@@ -28,7 +28,7 @@ namespace gerh\Evecorp\Domain\Model;
 /**
  *
  *
- * @package testing
+ * @package evecorp
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
@@ -49,6 +49,30 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @validate NotEmpty
 	 */
 	protected $eveId;
+
+	/**
+	 * buyPrice of item
+	 *
+	 * @var \float
+	 * @validate NotEmpty
+	 */
+	protected $buyPrice;
+
+	/**
+	 * sellPrice of item
+	 *
+	 * @var \float
+	 * @validate NotEmpty
+	 */
+	protected $sellPrice;
+
+	/**
+	 * cache time of object
+	 *
+	 * @var \integer
+	 * @validate NotEmpty
+	 */
+	protected $cacheTime;
 
 	/**
 	 * Returns the eveName
@@ -88,5 +112,83 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->eveId = $eveId;
 	}
 
+	/**
+	 * Returns the stored buyPrice
+	 *
+	 * @return \float $buyPrice
+	 */
+	public function getBuyPrice() {
+		return $this->buyPrice;
+	}
+
+	/**
+	 * Sets the buyPrice of item
+	 *
+	 * @param \float $buyPrice
+	 * @return void
+	 */
+	public function setBuyPrice($buyPrice) {
+		$this->buyPrice = $buyPrice;
+	}
+
+	/**
+	 * Returns the stored sellPrice
+	 *
+	 * @return \float $sellPrice
+	 */
+	public function getSellPrice() {
+		return $this->sellPrice;
+	}
+
+	/**
+	 * Sets the sellPrice of item
+	 *
+	 * @param \float $sellPrice
+	 * @return void
+	 */
+	public function setSellPrice($sellPrice) {
+		$this->sellPrice = $sellPrice;
+	}
+
+	/**
+	 * Returns cached until time
+	 *
+	 * @return \integer $cacheTime
+	 */
+	public function getCacheTime() {
+		return $this->cacheTime;
+	}
+
+	/**
+	 * Sets cache until time
+	 *
+	 * @param \integer $cachetime
+	 * @return void
+	 */
+	public function setCacheTime($cacheTime) {
+		$this->cacheTime = $cacheTime;
+	}
+
+	/**
+	 * Checks if item is up to date with cached time
+	 *
+	 * @param \integer $timeToCache
+	 * @return boolean
+	 */
+	public function isUpToDate($timeToCache) {
+		$result = true;
+
+		if (($timeToCache == null) or ($timeToCache < 0)) {
+			$timeToCache = 0;
+		}
+
+		$timeToCacheInSeconds = $timeToCache * 60;
+		$currentTime = time();
+
+		if (($this->cacheTime + $timeToCacheInSeconds) < $currentTime ) {
+			$result = false;
+		}
+		return $result;
+	}
 }
 ?>

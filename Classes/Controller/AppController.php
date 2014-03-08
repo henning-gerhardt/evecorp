@@ -34,7 +34,9 @@ namespace gerh\Evecorp\Controller;
  */
 class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-    private $mapping;
+    private $allMappings = array();
+
+    private $needsUpdate = array();
 
     /**
      * eveitemRepository
@@ -45,23 +47,13 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
     protected $eveitemRepository;
 
     public function initializeAction() {
-        foreach( $this->eveitemRepository->findAllForStoragePids(array($this->settings['storagepid'])) as $entry) {
-            $this->mapping[$entry->getEveId()] = $entry->getEveName();
+        $timeToCache = $this->settings['cachingtime'];
+        foreach($this->eveitemRepository->findAllForStoragePids(array($this->settings['storagepid'])) as $entry) {
+            if ($entry->isUpToDate($timeToCache) === false) {
+                $this->needsUpdate[$entry->getEveId()] = $entry->getEveName();
+            }
+            array_push($this->allMappings, $entry);
         }
-    }
-
-    private function buildQuery() {
-        $result = $this->settings['evecentralurl'] . '?usesystem=' . $this->settings['systemid'];
-        foreach(array_keys($this->mapping) as $key) {
-            $result .= '&typeid=' . $key;
-        }
-        return $result;
-    }
-
-    private function query($url) {
-        $content = file_get_contents($url);
-        $result = $this->parse($content);
-        return $result;
     }
 
     /**
@@ -70,9 +62,30 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
      * @return void
      */
     public function indexAction() {
-        $query = $this->buildQuery();
-        $result = $this->query($query);
+        $fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+        $fetcher->setBaseUri($this->settings['evecentralurl']);
+        $fetcher->setSystemId($this->settings['systemid']);
+        $fetcher->setTypeIds($this->needsUpdate);
+        $updateResult = $fetcher->query();
+
+        $result = array();
+        foreach($this->allMappings as $dbEntry) { {
+            foreach($updateResult as $eveName => $values)
+                if ($dbEntry->getEveName() == $eveName) {
+                    $dbEntry->setBuyPrice($values['buy']);
+                    $dbEntry->setSellPrice($values['sell']);
+                    $dbEntry->setCacheTime(time());
+                    $this->eveitemRepository->update($dbEntry);
+                }
+            }
+            $result[$dbEntry->getEveName()] = array(
+                'buy' =>$dbEntry->getBuyPrice(),
+                'buyCorp' => round($dbEntry->getBuyPrice() * $this->settings['corptax'], 2),
+                'sell' =>$dbEntry->getSellPrice()
+                );
+        }
         ksort($result);
+
         $this->view->assign('result', $result);
         $this->view->assign('tableTypeContent', $this->settings['tabletypecontent']);
         $this->view->assign('preTableText', $this->settings['pretabletext']);
@@ -80,27 +93,4 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
         $this->view->assign('showBuyCorpColumn', $this->settings['showbuycorpcolumn']);
     }
 
-    private function parse($content) {
-        $result = array();
-
-        $doc = new \DOMDocument();
-        $doc->loadXML($content);
-        $xpath = new \DOMXPath($doc);
-
-        $resourceTypes = $xpath->evaluate('.//type');
-        for ($i = 0 ; $i < $resourceTypes->length; $i++) {
-            $resource = $resourceTypes->item($i);
-            $resourceId = $resource->getAttribute('id');
-            $resourceBuyMax = $xpath->evaluate('.//buy/max', $resource)->item(0)->textContent;
-            $resourceSellMin = $xpath->evaluate('.//sell/min', $resource)->item(0)->textContent;
-            $interim = array(
-                'buy' => $resourceBuyMax,
-                'buyCorp' => round($resourceBuyMax * $this->settings['corptax'], 2),
-                'sell' => $resourceSellMin,
-            );
-            $result[$this->mapping[$resourceId]] = $interim;
-        }
-
-        return $result;
-    }
 }
