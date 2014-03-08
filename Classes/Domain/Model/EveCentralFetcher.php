@@ -81,9 +81,7 @@ class EveCentralFetcher {
 
 	public function query() {
 		$query = $this->buildQuery();
-		var_dump($query);
 		$content = file_get_contents($query);
-		var_dump($content);
 		return $this->parse($content);
 	}
 
