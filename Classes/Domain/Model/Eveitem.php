@@ -177,8 +177,14 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function isUpToDate($timeToCache) {
 		$result = true;
+
+		if (($timeToCache == null) or ($timeToCache < 0)) {
+			$timeToCache = 0;
+		}
+
 		$timeToCacheInSeconds = $timeToCache * 60;
 		$currentTime = time();
+
 		if (($this->cacheTime + $timeToCacheInSeconds) < $currentTime ) {
 			$result = false;
 		}
