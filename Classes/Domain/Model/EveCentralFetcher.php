@@ -37,8 +37,6 @@ class EveCentralFetcher {
 
 	private $baseUri = null;
 
-	private $corpTax = 1.0;
-
 	private $systemId = 0;
 
 	private $typeIds = array();
@@ -49,14 +47,6 @@ class EveCentralFetcher {
 
 	public function setBaseUri($baseUri) {
 		$this->baseUri = $baseUri;
-	}
-
-	public function getCorpTax() {
-		return $this->corpTax;
-	}
-
-	public function setCorpTax($corpTax) {
-		$this->corpTax = $corpTax;
 	}
 
 	public function getSystemId() {
@@ -108,7 +98,6 @@ class EveCentralFetcher {
 			$resourceSellMin = $xpath->evaluate('.//sell/min', $resource)->item(0)->textContent;
 			$interim = array(
 				'buy' => $resourceBuyMax,
-				'buyCorp' => round($resourceBuyMax * $this->corpTax, 2),
 				'sell' => $resourceSellMin,
 			);
 			$result[$this->typeIds[$resourceId]] = $interim;
