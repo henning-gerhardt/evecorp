@@ -34,63 +34,100 @@ namespace gerh\Evecorp\Controller;
  */
 class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-    private $allMappings = array();
+	/**
+	 * eveitemRepository
+	 *
+	 * @var \gerh\Evecorp\Domain\Repository\EveitemRepository
+	 * @inject
+	 */
+	protected $eveitemRepository;
 
-    private $needsUpdate = array();
+	/**
+	 * action index
+	 *
+	 * @return void
+	 */
+	public function indexAction() {
+		$this->updateEveItems();
+		$result = $this->getAllItems();
+		ksort($result);
 
-    /**
-     * eveitemRepository
-     *
-     * @var \gerh\Evecorp\Domain\Repository\EveitemRepository
-     * @inject
-     */
-    protected $eveitemRepository;
+		$this->view->assign('result', $result);
+		$this->view->assign('tableTypeContent', $this->settings['tabletypecontent']);
+		$this->view->assign('preTableText', $this->settings['pretabletext']);
+		$this->view->assign('postTableText', $this->settings['posttabletext']);
+		$this->view->assign('showBuyCorpColumn', $this->settings['showbuycorpcolumn']);
+	}
 
-    public function initializeAction() {
-        $timeToCache = $this->settings['cachingtime'];
-        foreach($this->eveitemRepository->findAllForStoragePids(array($this->settings['storagepid'])) as $entry) {
-            if ($entry->isUpToDate($timeToCache) === false) {
-                $this->needsUpdate[$entry->getEveId()] = $entry->getEveName();
-            }
-            array_push($this->allMappings, $entry);
-        }
-    }
+	/**
+	 * Check and update out of date Eve items.
+	 */
+	private function updateEveItems() {
+		$updateableItems = $this->getUpdateableEveItems();
+		if (count($updateableItems) > 0) {
+			$updatedItems = $this->fetchItems($updateableItems);
+			$this->updateItems($updatedItems);
+		}
+	}
+	/**
+	 * get all updateable items
+	 * 
+	 * @return array
+	 */
+	private function getUpdateableEveItems() {
+		$result = array();
+		$timeToCache = (int)$this->settings['cachingtime'];
+		foreach($this->eveitemRepository->findAllUpdateableItems(array($this->settings['storagepid']), $timeToCache) as $entry) {
+			$result[$entry->getEveId()] = $entry->getEveName();
+		}
+		return $result;
+	}
 
-    /**
-     * action index
-     *
-     * @return void
-     */
-    public function indexAction() {
-        $fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
-        $fetcher->setBaseUri($this->settings['evecentralurl']);
-        $fetcher->setSystemId($this->settings['systemid']);
-        $fetcher->setTypeIds($this->needsUpdate);
-        $updateResult = $fetcher->query();
+	/**
+	 * fetch items from Eve Central
+	 * 
+	 * @param array $fetchItems
+	 * @return array
+	 */
+	private function fetchItems(array $fetchItems) {
+		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher->setBaseUri($this->settings['evecentralurl']);
+		$fetcher->setSystemId($this->settings['systemid']);
+		$fetcher->setTypeIds($fetchItems);
+		$result = $fetcher->query();
+		return $result;
+	}
 
-        $result = array();
-        foreach($this->allMappings as $dbEntry) { {
-            foreach($updateResult as $eveName => $values)
-                if ($dbEntry->getEveName() == $eveName) {
-                    $dbEntry->setBuyPrice($values['buy']);
-                    $dbEntry->setSellPrice($values['sell']);
-                    $dbEntry->setCacheTime(time());
-                    $this->eveitemRepository->update($dbEntry);
-                }
-            }
-            $result[$dbEntry->getEveName()] = array(
-                'buy' =>$dbEntry->getBuyPrice(),
-                'buyCorp' => round($dbEntry->getBuyPrice() * $this->settings['corptax'], 2),
-                'sell' =>$dbEntry->getSellPrice()
-                );
-        }
-        ksort($result);
+	/**
+	 * update items in database
+	 * 
+	 * @param array $itemsToUpdate
+	 */
+	private function updateItems(array $itemsToUpdate) {
+		foreach($itemsToUpdate as $eveName => $values) {
+			foreach($this->eveitemRepository->findByEveName(array($this->settings['storagepid']), $eveName) as $dbEntry) {
+				$dbEntry->setBuyPrice($values['buy']);
+				$dbEntry->setSellPrice($values['sell']);
+				$dbEntry->setCacheTime(time());
+				$this->eveitemRepository->update($dbEntry);
+			}
+		}
+	}
 
-        $this->view->assign('result', $result);
-        $this->view->assign('tableTypeContent', $this->settings['tabletypecontent']);
-        $this->view->assign('preTableText', $this->settings['pretabletext']);
-        $this->view->assign('postTableText', $this->settings['posttabletext']);
-        $this->view->assign('showBuyCorpColumn', $this->settings['showbuycorpcolumn']);
-    }
-
+	/**
+	 * fetch all current items
+	 * 
+	 * @return array
+	 */
+	private function getAllItems() {
+		$result = array();
+		foreach ($this->eveitemRepository->findAllForStoragePids(array($this->settings['storagepid'])) as $dbEntry) {
+			$result[$dbEntry->getEveName()] = array(
+				'buy' => $dbEntry->getBuyPrice(),
+				'buyCorp' => round($dbEntry->getBuyPrice() * $this->settings['corptax'], 2),
+				'sell' => $dbEntry->getSellPrice()
+				);
+		}
+		return $result;
+	}
 }
