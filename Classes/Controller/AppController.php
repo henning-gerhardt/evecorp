@@ -43,6 +43,14 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	protected $eveitemRepository;
 
 	/**
+	 * Holds an instance of current support fetcher (EveCentral)
+	 * 
+	 * @var \gerh\Evecorp\Domain\Model\EveCentralFetcher
+	 * @inject
+	 */
+	protected $fetcher;
+
+	/**
 	 * action index
 	 *
 	 * @return void
@@ -90,11 +98,10 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	 * @return array
 	 */
 	private function fetchItems(array $fetchItems) {
-		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
-		$fetcher->setBaseUri($this->settings['evecentralurl']);
-		$fetcher->setSystemId($this->settings['systemid']);
-		$fetcher->setTypeIds($fetchItems);
-		$result = $fetcher->query();
+		$this->fetcher->setBaseUri($this->settings['evecentralurl']);
+		$this->fetcher->setSystemId($this->settings['systemid']);
+		$this->fetcher->setTypeIds($fetchItems);
+		$result = $this->fetcher->query();
 		return $result;
 	}
 
