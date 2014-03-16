@@ -131,10 +131,11 @@ class MarketData {
 	 */
 	protected function getAllItems() {
 		$result = array();
+		$corpTax = round(1 - ($this->getCorpTax() / 100), 2);
 		foreach ($this->eveitemRepository->findAll() as $dbEntry) {
 			$result[$dbEntry->getEveName()] = array(
 				'buy' => $dbEntry->getBuyPrice(),
-				'buyCorp' => round($dbEntry->getBuyPrice() * $this->getCorpTax(), 2),
+				'buyCorp' => round($dbEntry->getBuyPrice() * $corpTax, 2),
 				'sell' => $dbEntry->getSellPrice()
 				);
 		}
@@ -184,6 +185,9 @@ class MarketData {
 	 * @param integer $corpTax
 	 */
 	public function setCorpTax($corpTax) {
+		if (($corpTax < 0) || ($corpTax > 100)) {
+			$corpTax = 0;
+		}
 		$this->corpTax = $corpTax;
 	}
 	

@@ -22,11 +22,11 @@
           </settings.evecentralurl>
           <settings.corptax>
             <TCEforms>
-              <label>Corp tax</label>
+              <label>Corp tax (in percent)</label>
                 <config>
                    <type>input</type>
-                   <default>0.85</default>
-                   <eval>trim</eval>
+                   <default>15</default>
+                   <eval>trim,int</eval>
                 </config>
             </TCEforms>
           </settings.corptax>
