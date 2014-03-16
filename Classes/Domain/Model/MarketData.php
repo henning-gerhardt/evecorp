@@ -35,26 +35,22 @@ namespace gerh\Evecorp\Domain\Model;
 class MarketData {
 	
 	/**
-	 *
-	 * @var integer
+	 * @var integer Holds time in minutes for caching a value
 	 */
 	private $cachingTime;
 	
 	/**
-	 *
-	 * @var integer
+	 * @var integer Holds current used tax rate
 	 */
 	private $corpTax;
 
 	/**
-	 *
-	 * @var string
+	 * @var string Holds uri to eve-central.com
 	 */
 	private $eveCentralUri;
 	
 	/**
-	 *
-	 * @var integer
+	 * @var integer Holds system id of EvE station (f.e. Jita 4-4)
 	 */
 	private $systemId;
 	
@@ -73,10 +69,10 @@ class MarketData {
 	 * @inject
 	 */
 	protected $fetcher;
+
 	/**
 	 * Check and update out of date Eve items.
 	 */
-
 	protected function updateEveItems() {
 		$updateableItems = $this->getUpdateableEveItems();
 		if (count($updateableItems) > 0) {
@@ -145,12 +141,18 @@ class MarketData {
 		return $result;
 	}
 
+	/**
+	 * Return all market data (up to date).
+	 * 
+	 * @return array
+	 */
 	public function getMarketData() {
 		$this->updateEveItems();		
 		return $this->getAllItems();
 	}
 	
 	/**
+	 * Return current caching time in minutes
 	 * 
 	 * @return integer
 	 */
@@ -159,6 +161,7 @@ class MarketData {
 	}
 	
 	/**
+	 * Set caching time in minutes
 	 * 
 	 * @param integer $cachingTime
 	 */
@@ -167,6 +170,7 @@ class MarketData {
 	}
 	
 	/**
+	 * Return current corporation tax rate
 	 * 
 	 * @return integer
 	 */
@@ -175,6 +179,7 @@ class MarketData {
 	}
 	
 	/**
+	 * Set corporation tax rate
 	 * 
 	 * @param integer $corpTax
 	 */
@@ -183,6 +188,7 @@ class MarketData {
 	}
 	
 	/**
+	 * Return used eve-central.com uri
 	 * 
 	 * @return string
 	 */
@@ -191,6 +197,7 @@ class MarketData {
 	}
 	
 	/**
+	 * Set eve-central.com api uri
 	 * 
 	 * @param string $eveCentralUri
 	 */
@@ -199,6 +206,7 @@ class MarketData {
 	}
 	
 	/**
+	 * Return used system id
 	 * 
 	 * @return integer
 	 */
@@ -207,6 +215,7 @@ class MarketData {
 	}
 	
 	/**
+	 * Set system id
 	 * 
 	 * @param integer $systemId
 	 */
