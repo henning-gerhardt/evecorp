@@ -85,7 +85,7 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	private function getUpdateableEveItems() {
 		$result = array();
 		$timeToCache = (int)$this->settings['cachingtime'];
-		foreach($this->eveitemRepository->findAllUpdateableItems(array($this->settings['storagepid']), $timeToCache) as $entry) {
+		foreach($this->eveitemRepository->findAllUpdateableItems($timeToCache) as $entry) {
 			$result[$entry->getEveId()] = $entry->getEveName();
 		}
 		return $result;
@@ -112,7 +112,7 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	 */
 	private function updateItems(array $itemsToUpdate) {
 		foreach($itemsToUpdate as $eveName => $values) {
-			foreach($this->eveitemRepository->findByEveName(array($this->settings['storagepid']), $eveName) as $dbEntry) {
+			foreach($this->eveitemRepository->findByEveName($eveName) as $dbEntry) {
 				$dbEntry->setBuyPrice($values['buy']);
 				$dbEntry->setSellPrice($values['sell']);
 				$dbEntry->setCacheTime(time());
@@ -128,7 +128,7 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	 */
 	private function getAllItems() {
 		$result = array();
-		foreach ($this->eveitemRepository->findAllForStoragePids(array($this->settings['storagepid'])) as $dbEntry) {
+		foreach ($this->eveitemRepository->findAll() as $dbEntry) {
 			$result[$dbEntry->getEveName()] = array(
 				'buy' => $dbEntry->getBuyPrice(),
 				'buyCorp' => round($dbEntry->getBuyPrice() * $this->settings['corptax'], 2),

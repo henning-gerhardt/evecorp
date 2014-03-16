@@ -35,30 +35,17 @@ namespace gerh\Evecorp\Domain\Repository;
 class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
-	 * Returns all objects of this repository with given storage pid.
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
-	 */
-	public function findAllForStoragePids(array $storagePids) {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setStoragePageIds($storagePids);
-		return $query->execute();
-	}
-
-	/**
 	 * Find all updateable eve items
 	 * 
-	 * @param array $storagePids
 	 * @param int $timeToCache
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
 	 */
-	public function findAllUpdateableItems(array $storagePids, $timeToCache) {
+	public function findAllUpdateableItems( $timeToCache) {
 		if (($timeToCache == null) || ($timeToCache < 1)) {
 			$timeToCache = 1;
 		}
 		$cacheTime = time() - (60 * $timeToCache);
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setStoragePageIds($storagePids);
 		$query->matching($query->lessThan('cache_time', $cacheTime));
 		return $query->execute();
 	}
@@ -66,13 +53,11 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	/**
 	 * Find Eve items by Eve name
 	 * 
-	 * @param array $storagePids
 	 * @param string $eveName
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
 	 */
-	public function findByEveName(array $storagePids, $eveName) {
+	public function findByEveName($eveName) {
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setStoragePageIds($storagePids);
 		$query->matching($query->equals('eve_name', $eveName));
 		return $query->execute();
 	}

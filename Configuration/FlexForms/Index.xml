@@ -10,15 +10,6 @@
         </TCEforms>
         <type>array</type>
         <el>
-          <settings.storagepid>
-            <TCEforms>
-              <label>Storage PID</label>
-                <config>
-                   <type>input</type>
-                   <eval>int</eval>
-                </config>
-            </TCEforms>
-          </settings.storagepid>
           <settings.evecentralurl>
             <TCEforms>
               <label>EVE Central URL</label>
