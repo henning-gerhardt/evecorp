@@ -50,16 +50,5 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		return $query->execute();
 	}
 
-	/**
-	 * Find Eve items by Eve name
-	 * 
-	 * @param string $eveName
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
-	 */
-	public function findByEveName($eveName) {
-		$query = $this->createQuery();
-		$query->matching($query->equals('eve_name', $eveName));
-		return $query->execute();
-	}
 }
 ?>
