@@ -35,29 +35,27 @@ namespace gerh\Evecorp\Controller;
 class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
-	 * eveitemRepository
-	 *
-	 * @var \gerh\Evecorp\Domain\Repository\EveitemRepository
-	 * @inject
-	 */
-	protected $eveitemRepository;
-
-	/**
-	 * Holds an instance of current support fetcher (EveCentral)
+	 * Holds instance for market data
 	 * 
-	 * @var \gerh\Evecorp\Domain\Model\EveCentralFetcher
+	 * @var \gerh\Evecorp\Domain\Model\MarketData
 	 * @inject
 	 */
-	protected $fetcher;
+	protected $marketData;
 
+	public function initializeAction() {		
+		$this->marketData->setEveCentralUri($this->settings['evecentralurl']);
+		$this->marketData->setSystemId($this->settings['systemid']);
+		$this->marketData->setCorpTax($this->settings['corptax']);
+		$this->marketData->setCachingTime($this->settings['cachingtime']);
+	}
+	
 	/**
 	 * action index
 	 *
 	 * @return void
 	 */
 	public function indexAction() {
-		$this->updateEveItems();
-		$result = $this->getAllItems();
+		$result = $this->marketData->getMarketData();
 		ksort($result);
 
 		$this->view->assign('result', $result);
@@ -67,74 +65,4 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 		$this->view->assign('showBuyCorpColumn', $this->settings['showbuycorpcolumn']);
 	}
 
-	/**
-	 * Check and update out of date Eve items.
-	 */
-	private function updateEveItems() {
-		$updateableItems = $this->getUpdateableEveItems();
-		if (count($updateableItems) > 0) {
-			$updatedItems = $this->fetchItems($updateableItems);
-			$this->updateItems($updatedItems);
-		}
-	}
-	/**
-	 * get all updateable items
-	 * 
-	 * @return array
-	 */
-	private function getUpdateableEveItems() {
-		$result = array();
-		$timeToCache = (int)$this->settings['cachingtime'];
-		foreach($this->eveitemRepository->findAllUpdateableItems($timeToCache) as $entry) {
-			$result[$entry->getEveId()] = $entry->getEveName();
-		}
-		return $result;
-	}
-
-	/**
-	 * fetch items from Eve Central
-	 * 
-	 * @param array $fetchItems
-	 * @return array
-	 */
-	private function fetchItems(array $fetchItems) {
-		$this->fetcher->setBaseUri($this->settings['evecentralurl']);
-		$this->fetcher->setSystemId($this->settings['systemid']);
-		$this->fetcher->setTypeIds($fetchItems);
-		$result = $this->fetcher->query();
-		return $result;
-	}
-
-	/**
-	 * update items in database
-	 * 
-	 * @param array $itemsToUpdate
-	 */
-	private function updateItems(array $itemsToUpdate) {
-		foreach($itemsToUpdate as $eveName => $values) {
-			foreach($this->eveitemRepository->findByEveName($eveName) as $dbEntry) {
-				$dbEntry->setBuyPrice($values['buy']);
-				$dbEntry->setSellPrice($values['sell']);
-				$dbEntry->setCacheTime(time());
-				$this->eveitemRepository->update($dbEntry);
-			}
-		}
-	}
-
-	/**
-	 * fetch all current items
-	 * 
-	 * @return array
-	 */
-	private function getAllItems() {
-		$result = array();
-		foreach ($this->eveitemRepository->findAll() as $dbEntry) {
-			$result[$dbEntry->getEveName()] = array(
-				'buy' => $dbEntry->getBuyPrice(),
-				'buyCorp' => round($dbEntry->getBuyPrice() * $this->settings['corptax'], 2),
-				'sell' => $dbEntry->getSellPrice()
-				);
-		}
-		return $result;
-	}
 }
