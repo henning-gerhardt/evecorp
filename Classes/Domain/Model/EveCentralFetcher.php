@@ -88,12 +88,12 @@ class EveCentralFetcher {
 	}
 
 	/**
-	 * Returns current used EVEE type ids
+	 * Returns current used EVE type ids
 	 * 
 	 * @return array
 	 */
 	public function getTypeIds() {
-		return $this->getTypeIds;
+		return $this->typeIds;
 	}
 
 	/**
