@@ -35,55 +35,115 @@ namespace gerh\Evecorp\Domain\Model;
  */
 class EveCentralFetcher {
 
+	/**
+	 * @var string Holds static part of Eve-Central uri
+	 */
 	private $baseUri = null;
 
+	/**
+	 * @var integer Holds used system / station id on queries 
+	 */
 	private $systemId = 0;
 
+	/**
+	 *
+	 * @var array Holds a list of EvE item type ids. 
+	 */
 	private $typeIds = array();
 
+	/**
+	 * Returns current used EvE-Central uri.
+	 * 
+	 * @return string
+	 */
 	public function getBaseUri() {
 		return $this->baseUri;
 	}
 
+	/**
+	 * Set static part of EVE-Central uri
+	 * 
+	 * @param string $baseUri
+	 */
 	public function setBaseUri($baseUri) {
 		$this->baseUri = $baseUri;
 	}
 
+	/**
+	 * Returns current used system / station id
+	 * 
+	 * @return integer
+	 */
 	public function getSystemId() {
 		return $this->systemId;
 	}
 
+	/**
+	 * Set to used system / station id
+	 * 
+	 * @param integer $systemId
+	 */
 	public function setSystemId($systemId) {
 		$this->systemId = $systemId;
 	}
 
+	/**
+	 * Add a EVE type id
+	 * 
+	 * @param integer $typeId
+	 */
 	public function addTypeId($typeId) {
 		array_push($this->typeIds, $typeId);
 	}
 
+	/**
+	 * Returns current used EVEE type ids
+	 * 
+	 * @return array
+	 */
 	public function getTypeIds() {
 		return $this->getTypeIds;
 	}
 
+	/**
+	 * Set a list of EVE type ids
+	 * 
+	 * @param array $typeIds
+	 */
 	public function setTypeIds(array $typeIds) {
 		$this->typeIds = $typeIds;
 	}
 
+	/**
+	 * Fetch data based on system id and type ids and returns buy and sell values of types.
+	 * 
+	 * @return array
+	 */
 	public function query() {
 		$query = $this->buildQuery();
 		$content = file_get_contents($query);
 		return $this->parse($content);
 	}
 
-	private function buildQuery() {
+	/**
+	 * Concat static part of uri with system / station id and type ids to a HTTP query
+	 * @return string
+	 */
+	protected function buildQuery() {
 		$result = $this->baseUri . '?usesystem=' . $this->systemId;
 		foreach(array_keys($this->typeIds) as $typeId) {
-			$result .= '&typeid=' . $typeId;
+			$result .= '&amp;typeid=' . $typeId;
 		}
 		return $result;
 	}
 
-	private function parse($content) {
+	/**
+	 * Parse returned HTTP query value
+	 * 
+	 * @param string $content
+	 * @return array
+	 */
+	protected function parse($content) {
 		$result = array();
 
 		$doc = new \DOMDocument();
@@ -96,14 +156,12 @@ class EveCentralFetcher {
 			$resourceId = $resource->getAttribute('id');
 			$resourceBuyMax = $xpath->evaluate('.//buy/max', $resource)->item(0)->textContent;
 			$resourceSellMin = $xpath->evaluate('.//sell/min', $resource)->item(0)->textContent;
-			$interim = array(
+			$result[$this->typeIds[$resourceId]] = array(
 				'buy' => $resourceBuyMax,
 				'sell' => $resourceSellMin,
 			);
-			$result[$this->typeIds[$resourceId]] = $interim;
 		}
 
 		return $result;
 	}
 }
-?>
