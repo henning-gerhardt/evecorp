@@ -162,7 +162,7 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets cache until time
 	 *
-	 * @param \integer $cachetime
+	 * @param \integer $cacheTime
 	 * @return void
 	 */
 	public function setCacheTime($cacheTime) {
