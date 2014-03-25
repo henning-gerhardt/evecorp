@@ -88,15 +88,6 @@ class EveCentralFetcher {
 	}
 
 	/**
-	 * Add a EVE type id
-	 * 
-	 * @param integer $typeId
-	 */
-	public function addTypeId($typeId) {
-		array_push($this->typeIds, $typeId);
-	}
-
-	/**
 	 * Returns current used EVEE type ids
 	 * 
 	 * @return array
