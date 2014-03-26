@@ -15,6 +15,11 @@ Integration of EvE data through Eve API calls or data from other EvE third party
 * insert plugin on any site you want
 * connect created system through behaviour tab inside plugin configuration
 
+### PhealNG hints
+
+* create and secure directory called 'phealng' inside your typo3temp as cache directory for PhealNG
+* sorry, name of directory and typo3temp are not configurable yet.
+
 ## Background
 
 Why not develop something in two things which makes fun? Typo3 extension development on one side and playing EvE on the other?

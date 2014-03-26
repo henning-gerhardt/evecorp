@@ -14,3 +14,15 @@ if (!defined ('TYPO3_MODE')) {
         'App' => 'index'
     )
 );
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    'gerh.' . $_EXTKEY,
+    'Pi2',
+    array(
+        'ServerStatus' => 'index',
+    ),
+    // non-cacheable actions
+    array(
+        'ServerStatus' => 'index',
+    )
+);

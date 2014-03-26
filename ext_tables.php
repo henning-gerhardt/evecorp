@@ -9,6 +9,12 @@ if (!defined ('TYPO3_MODE')) {
     'EvE Market'
 );
 
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+    $_EXTKEY,
+    'Pi2',
+    'EvE Server Status'
+);
+
 $extensionName = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY));
 $pluginName = strtolower('Pi1');
 $pluginSignature = $extensionName.'_'.$pluginName;
