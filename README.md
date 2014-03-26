@@ -24,4 +24,5 @@ Started as basic example of Typo3 extension development on version 6.0 (how its 
 ## Copyright notice
 
 * EvE and any IP of EvE are copyrighted by CCP hf. ( ©CCP hf. All rights reserved. Used with permission. )
-* Plugin developed and licensed under GPL 3.0 or any later
+* [PhealNG](https://github.com/3rdpartyeve/phealng) developed by Peter Petermann
+* Evecorp Extension developed and licensed under GPL 3.0 or any later
