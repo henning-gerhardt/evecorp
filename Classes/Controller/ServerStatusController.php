@@ -4,8 +4,8 @@ namespace gerh\Evecorp\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt 
- *  
+ *  (c) 2014 Henning Gerhardt
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -39,7 +39,7 @@ class ServerStatusController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @inject
 	 */
 	protected $phealService;
-	
+
 	/**
 	 *
 	 * @var \Pheal\Pheal
@@ -47,10 +47,9 @@ class ServerStatusController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	private $pheal;
 
 	/**
-	 * 
+	 *
 	 */
 	public function initializeAction() {
-		
 		$this->phealService =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('gerh\Evecorp\Service\PhealService');
 		$this->pheal = $this->phealService->getPhealInstance();
 	}
@@ -60,8 +59,17 @@ class ServerStatusController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 * @return void
 	 */
 	public function indexAction() {
-		$response = $this->pheal->serverScope->ServerStatus();
-		$this->view->assign('server_status', $response->serverOpen);
-		$this->view->assign('online_players', $response->onlinePlayers);
+
+		try {
+			$response = $this->pheal->serverScope->ServerStatus();
+			$serverStatus = $response->serverOpen;
+			$onlinePlayers = $response->onlinePlayers;
+		} catch (\Pheal\Exceptions\PhealException $e) {
+			$serverStatus = false;
+			$onlinePlayers = 0;
+		}
+
+		$this->view->assign('server_status', $serverStatus);
+		$this->view->assign('online_players', $onlinePlayers);
 	}
 }
