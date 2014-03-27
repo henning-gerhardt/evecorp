@@ -4,8 +4,8 @@ namespace gerh\Evecorp\Service;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt 
- *  
+ *  (c) 2014 Henning Gerhardt
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -38,24 +38,112 @@ use Pheal\Core\Config;
 class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
-	 * @var Pheal\Pheal 
+	 * @var \string
+	 */
+	protected $phealCacheDirectory;
+
+	/**
+	 * @var \integer
+	 */
+	protected $phealConnectionTimeout;
+
+	/**
+	 * @var \boolean
+	 */
+	protected $phealVerifyHttpsConnecton;
+
+	/**
+	 * @var \Pheal\Pheal
 	 */
 	protected $pheal;
-	
+
+	/**
+	 * class constructor
+	 * @return void
+	 */
 	public function __construct() {
-		$tempPath = PATH_site . 'typo3temp' . DIRECTORY_SEPARATOR . 'phealng' . DIRECTORY_SEPARATOR;
-		Config::getInstance()->http_ssl_verifypeer = false;
-		Config::getInstance()->http_timeout = 120;
-		Config::getInstance()->cache = new \Pheal\Cache\FileStorage($tempPath);
+		$extconf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
+		$this->setPhealCacheDirectory($extconf['phealCacheDirectory']);
+		$this->setHttpsConnectionVerified($extconf['phealVerifyingHttpsConnection']);
+		$this->setConnectionTimeout($extconf['phealConnectionTimeout']);
+
+		Config::getInstance()->http_ssl_verifypeer = $this->isHttpsConnectionVerified();
+		Config::getInstance()->http_timeout = $this->getConnectionTimeout();
+		Config::getInstance()->cache = new \Pheal\Cache\FileStorage($this->getPhealCacheDirectory() . DIRECTORY_SEPARATOR);
 		Config::getInstance()->access = new \Pheal\Access\StaticCheck();
 		$this->pheal = new Pheal();
 	}
-	
+
 	/**
 	 * Return fully configured Pheal object.
 	 * @return Pheal\Pheal
 	 */
 	public function getPhealInstance() {
 		return $this->pheal;
+	}
+
+	/**
+	 * Get used PhealNG cache directory
+	 *
+	 * @return \string
+	 */
+	public function getPhealCacheDirectory() {
+		return $this->phealCacheDirectory;
+	}
+
+	/**
+	 *
+	 * @param \string $phealCacheDirectory
+	 */
+	protected function setPhealCacheDirectory($phealCacheDirectory) {
+		if ((! \file_exists($phealCacheDirectory)) || (!\is_dir($phealCacheDirectory)) || (! \is_writable($phealCacheDirectory))) {
+			$this->phealCacheDirectory = \realpath(PATH_site . 'typo3temp');
+		} else {
+			$this->phealCacheDirectory = \realpath($phealCacheDirectory);
+		}
+	}
+
+	/**
+	 * Get current connection timeout in seconds used in HTTPS connections
+	 *
+	 * @return \integer
+	 */
+	public function getConnectionTimeout() {
+		return $this->phealConnectionTimeout;
+	}
+
+	/**
+	 * Set connection timeout in seconds
+	 *
+	 * @param \integer $timeout
+	 */
+	protected function setConnectionTimeout($timeout) {
+		if (\is_int($timeout) && ($timeout > 0)) {
+			$this->phealConnectionTimeout = (int) $timeout;
+		} else {
+			$this->phealConnectionTimeout = 120;
+		}
+	}
+
+	/**
+	 * Is HTTPS connection verified?
+	 *
+	 * @return \boolean
+	 */
+	public function isHttpsConnectionVerified() {
+		return $this->phealVerifyHttpsConnecton;
+	}
+
+	/**
+	 * Set if HTTPS connection should be verified. Host must be able to verify certificates!
+	 *
+	 * @param \boolean $verified
+	 */
+	protected function setHttpsConnectionVerified($verified) {
+		if (\is_bool($verified) && $verified) {
+			$this->phealVerifyHttpsConnecton = true;
+		} else {
+			$this->phealVerifyHttpsConnecton = false;
+		}
 	}
 }

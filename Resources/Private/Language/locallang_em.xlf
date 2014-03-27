@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-03-27T14:50:55Z" product-name="evecorp">
+		<header/>
+		<body>
+			<trans-unit id="evecorp.backendconfig.cacheDirectory" xml:space="preserve">
+				<source>Cache directory for PhealNG data: Full path to a existing and writable directory. If not defined (maybe insecure) typo3temp directory will be used.</source>
+			</trans-unit>
+			<trans-unit id="evecorp.backendconfig.connectionTimeout" xml:space="preserve">
+				<source>Timeout value for used connections: Value in seconds. Default are 120 seconds.</source>
+			</trans-unit>
+			<trans-unit id="evecorp.backendconfig.verifyingHttpsConnection" xml:space="preserve">
+				<source>Should HTTPS connection be verified? Be sure that your typo3 system could verify CCP certificate.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

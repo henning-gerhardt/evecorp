@@ -17,8 +17,7 @@ Integration of EvE data through Eve API calls or data from other EvE third party
 
 ### PhealNG hints
 
-* create and secure directory called 'phealng' inside your typo3temp as cache directory for PhealNG
-* sorry, name of directory and typo3temp are not configurable yet.
+* configure PhealNG existing and writable caching directory through backend module inside Extension Manager
 
 ## Background
 
