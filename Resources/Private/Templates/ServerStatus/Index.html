@@ -1,17 +1,11 @@
-<table border="1">
-    <tbody>
-        <tr>
-            <td>Server state:</td>
-            <td style="text-align:right;">
-                <f:if condition="{server_status}">
-                    <f:then>open</f:then>
-                    <f:else>closed</f:else>
-                </f:if>
-            </td>
-        </tr>
-        <tr>
-            <td>Online players:</td>
-            <td style="text-align:right;">{online_players -> f:format.number(decimals: 0, thousandsSeparator: '.')}</td>
-        </tr>
-    </tbody>
-</table>
+<dl>
+    <dt>Server state</dt>
+    <dd>
+        <f:if condition="{server_status}">
+            <f:then>open</f:then>
+            <f:else>closed</f:else>
+        </f:if>
+    </dd>
+    <dt>Online players</dt>
+    <dd>{online_players -> f:format.number(decimals: 0, thousandsSeparator: '.')}</dd>
+</dl>
