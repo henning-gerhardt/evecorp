@@ -33,13 +33,64 @@ namespace gerh\Evecorp\Task;
  *
  */
 class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
-			
+
+	/**
+	 * Update outdated stored EVE item
+	 *
+	 * @return void
+	 */
+	protected function updateEveItemList() {
+		/** @todo replace with configurable value */
+		$eveCentralUri = 'http://api.eve-central.com/api/marketstat';
+		/** @todo replace with configurable value */
+		$systemId = 30000142;
+		/** @todo replace with configurable value */
+		$timeToCache = 5;
+
+		/** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
+		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+
+		/** @var $eveItemRepository \gerh\Evecorp\Domain\Repository\EveitemRepository */
+		$eveItemRepository = $objectManager->get('gerh\\Evecorp\\Domain\\Repository\\EveitemRepository');
+
+		// get out dated items
+		$fetchList = array();
+		$dbEntryList = $eveItemRepository->findAllUpdateableItems($timeToCache);
+		foreach($dbEntryList as $entry) {
+			$fetchList[$entry->getEveId()] = $entry->getEveName();
+		}
+
+		// fetch current values for this items
+		/** @var $fetcher \gerh\Evecorp\Domain\Model\EveCentralFetcher */
+		$fetcher = $objectManager->get('gerh\\Evecorp\\Domain\\Model\\EveCentralFetcher');
+		$fetcher->setBaseUri($eveCentralUri);
+		$fetcher->setSystemId($systemId);
+		$fetcher->setTypeIds($fetchList);
+		$newValuesForDb = $fetcher->query();
+
+		// update database
+		foreach($newValuesForDb as $eveId => $values) {
+			foreach($eveItemRepository->findByEveId($eveId) as $dbEntry) {
+				$dbEntry->setBuyPrice($values['buy']);
+				$dbEntry->setSellPrice($values['sell']);
+				$dbEntry->setCacheTime(time());
+				$eveItemRepository->update($dbEntry);
+			}
+		}
+
+		/** @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
+		$persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+		$persistenceManager->persistAll();
+	}
+
 	/**
 	 * Public method, called by scheduler.
 	 *
 	 * @return boolean TRUE on success
 	 */
 	public function execute() {
+		$this->updateEveItemList();
+
 		return true;
 	}
 
