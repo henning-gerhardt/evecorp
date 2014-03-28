@@ -43,10 +43,7 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	protected $marketData;
 
 	public function initializeAction() {		
-		$this->marketData->setEveCentralUri($this->settings['evecentralurl']);
-		$this->marketData->setSystemId($this->settings['systemid']);
 		$this->marketData->setCorpTax($this->settings['corptax']);
-		$this->marketData->setCachingTime($this->settings['cachingtime']);
 	}
 	
 	/**
