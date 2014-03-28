@@ -1,11 +1,11 @@
 <?php
-namespace gerh\Evecorp\Controller;
+namespace gerh\Evecorp\Test\Task;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013 - 2014 Henning Gerhardt 
- *  
+ *  (c) 2014 Henning Gerhardt
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -32,34 +32,13 @@ namespace gerh\Evecorp\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-
-	/**
-	 * Holds instance for market data
-	 * 
-	 * @var \gerh\Evecorp\Domain\Model\MarketData
-	 * @inject
-	 */
-	protected $marketData;
-
-	public function initializeAction() {		
-		$this->marketData->setCorpTax($this->settings['corptax']);
-	}
+class UpdateEveItemListTaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	
 	/**
-	 * action index
-	 *
-	 * @return void
+	 * @test
 	 */
-	public function indexAction() {
-		$result = $this->marketData->getMarketData();
-		ksort($result);
-
-		$this->view->assign('result', $result);
-		$this->view->assign('tableTypeContent', $this->settings['tabletypecontent']);
-		$this->view->assign('preTableText', $this->settings['pretabletext']);
-		$this->view->assign('postTableText', $this->settings['posttabletext']);
-		$this->view->assign('showBuyCorpColumn', $this->settings['showbuycorpcolumn']);
+	public function updateEveItemListTaskIsInstanceOfAbstractTask() {
+		$taskMock = $this->getMock('gerh\Evecorp\Task\UpdateEveItemListTask');
+		$this->assertInstanceOf('TYPO3\\CMS\\Scheduler\Task\\AbstractTask', $taskMock);
 	}
-
 }

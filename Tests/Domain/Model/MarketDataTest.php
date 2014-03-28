@@ -42,15 +42,6 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function setUp() {
 		$this->mockObjectManager = $this->getMock('TYPO3\CMS\Extbase\Object\ObjectManagerInterface');
 	}
-	/**
-	 * @test
-	 */
-	public function cachingTimeCouldBeSet() {
-		$cacheTime = 5;
-		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
-		$marketData->setCachingTime($cacheTime);
-		$this->assertEquals($cacheTime, $marketData->getCachingTime());
-	}
 
 	/**
 	 * @test
@@ -80,26 +71,6 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
 		$marketData->setCorpTax($corpTax);
 		$this->assertEquals(0, $marketData->getCorpTax());
-	}
-
-	/**
-	 * @test
-	 */
-	public function eveCentralUriCouldBeSet() {
-		$eveCentralUri = 'http://api.eve-central.com/api/marketstat';
-		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
-		$marketData->setEveCentralUri($eveCentralUri);
-		$this->assertEquals($eveCentralUri, $marketData->getEveCentralUri());
-	}
-
-	/**
-	 * @test
-	 */
-	public function systemIdCouldBeSet() {
-		$systemId = 30000142;
-		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
-		$marketData->setSystemId($systemId);
-		$this->assertEquals($systemId, $marketData->getSystemId());
 	}
 
 	/**
@@ -152,32 +123,6 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		);
 
 		$actual = $this->callInaccessibleMethod($marketData, 'getAllItems');
-		$this->assertEquals($expected, $actual);
-	}
-
-	/**
-	 * @test
-	 */
-	public function getUpdateableEveItemsReturnsCorrectArrayStructure() {
-		$eveName = 'Tritanium';
-		$eveId = 34;
-
-		$eveItemOne = new \gerh\Evecorp\Domain\Model\Eveitem();
-		$eveItemOne->setEveName($eveName);
-		$eveItemOne->setEveId($eveId);
-
-		$mockedRepository = $this->getMock('gerh\Evecorp\Domain\Repository\EveitemRepository', array('findAllUpdateableItems'), array($this->mockObjectManager));
-		$mockedRepository
-			->expects($this->once())
-			->method('findAllUpdateableItems')
-			->will($this->returnValue(array($eveItemOne)));
-
-		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
-		$this->inject($marketData, 'eveitemRepository', $mockedRepository);
-
-		$expected = array($eveId => $eveName);
-		$actual = $this->callInaccessibleMethod($marketData, 'getUpdateableEveItems');
-
 		$this->assertEquals($expected, $actual);
 	}
 

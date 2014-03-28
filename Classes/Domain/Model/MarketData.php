@@ -35,25 +35,10 @@ namespace gerh\Evecorp\Domain\Model;
 class MarketData {
 	
 	/**
-	 * @var integer Holds time in minutes for caching a value
-	 */
-	private $cachingTime;
-	
-	/**
 	 * @var integer Holds current used tax rate
 	 */
 	private $corpTax;
 
-	/**
-	 * @var string Holds uri to eve-central.com
-	 */
-	private $eveCentralUri;
-	
-	/**
-	 * @var integer Holds system id of EvE station (f.e. Jita 4-4)
-	 */
-	private $systemId;
-	
 	/**
 	 * eveitemRepository
 	 *
@@ -61,68 +46,6 @@ class MarketData {
 	 * @inject
 	 */
 	protected $eveitemRepository;
-
-	/**
-	 * Holds an instance of current support fetcher (EveCentral)
-	 * 
-	 * @var \gerh\Evecorp\Domain\Model\EveCentralFetcher
-	 * @inject
-	 */
-	protected $fetcher;
-
-	/**
-	 * Check and update out of date Eve items.
-	 */
-	protected function updateEveItems() {
-		$updateableItems = $this->getUpdateableEveItems();
-		if (count($updateableItems) > 0) {
-			$updatedItems = $this->fetchItems($updateableItems);
-			$this->updateItems($updatedItems);
-		}
-	}
-	/**
-	 * get all updateable items
-	 * 
-	 * @return array
-	 */
-	protected function getUpdateableEveItems() {
-		$result = array();
-		$timeToCache = (int)$this->getCachingTime();
-		foreach($this->eveitemRepository->findAllUpdateableItems($timeToCache) as $entry) {
-			$result[$entry->getEveId()] = $entry->getEveName();
-		}
-		return $result;
-	}
-
-	/**
-	 * fetch items from Eve Central
-	 * 
-	 * @param array $fetchItems
-	 * @return array
-	 */
-	protected function fetchItems(array $fetchItems) {
-		$this->fetcher->setBaseUri($this->getEveCentralUri());
-		$this->fetcher->setSystemId($this->getSystemId());
-		$this->fetcher->setTypeIds($fetchItems);
-		$result = $this->fetcher->query();
-		return $result;
-	}
-
-	/**
-	 * update items in database
-	 * 
-	 * @param array $itemsToUpdate
-	 */
-	protected function updateItems(array $itemsToUpdate) {
-		foreach($itemsToUpdate as $eveName => $values) {
-			foreach($this->eveitemRepository->findByEveName($eveName) as $dbEntry) {
-				$dbEntry->setBuyPrice($values['buy']);
-				$dbEntry->setSellPrice($values['sell']);
-				$dbEntry->setCacheTime(time());
-				$this->eveitemRepository->update($dbEntry);
-			}
-		}
-	}
 
 	/**
 	 * fetch all current items
@@ -157,26 +80,7 @@ class MarketData {
 	 * @return array
 	 */
 	public function getMarketData() {
-		$this->updateEveItems();		
 		return $this->getAllItems();
-	}
-	
-	/**
-	 * Return current caching time in minutes
-	 * 
-	 * @return integer
-	 */
-	public function getCachingTime() {
-		return $this->cachingTime;
-	}
-	
-	/**
-	 * Set caching time in minutes
-	 * 
-	 * @param integer $cachingTime
-	 */
-	public function setCachingTime($cachingTime) {
-		$this->cachingTime = $cachingTime;
 	}
 	
 	/**
@@ -200,39 +104,4 @@ class MarketData {
 		$this->corpTax = $corpTax;
 	}
 	
-	/**
-	 * Return used eve-central.com uri
-	 * 
-	 * @return string
-	 */
-	public function getEveCentralUri() {
-		return $this->eveCentralUri;
-	}
-	
-	/**
-	 * Set eve-central.com api uri
-	 * 
-	 * @param string $eveCentralUri
-	 */
-	public function setEveCentralUri($eveCentralUri) {
-		$this->eveCentralUri = $eveCentralUri;
-	}
-	
-	/**
-	 * Return used system id
-	 * 
-	 * @return integer
-	 */
-	public function getSystemId() {
-		return $this->systemId;
-	}
-	
-	/**
-	 * Set system id
-	 * 
-	 * @param integer $systemId
-	 */
-	public function setSystemId($systemId) {
-		$this->systemId = $systemId;
-	}
 }

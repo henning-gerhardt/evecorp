@@ -26,3 +26,11 @@ if (!defined ('TYPO3_MODE')) {
         'ServerStatus' => 'index',
     )
 );
+
+// Register EVE item list update task
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['gerh\\Evecorp\\Task\\UpdateEveItemListTask'] = array(
+	'extension' => $_EXTKEY,
+	'title' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang.xlf:task.updateEveItemListTask.name',
+	'description' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang.xlf:task.updateEveItemListTask.description',
+	'additionalFields' => '',
+);

@@ -13,7 +13,12 @@
 			<trans-unit id="tx_evecorp_domain_model_eveitem.eve_id">
 				<source>eveId</source>
 			</trans-unit>
-			
+                        <trans-unit id="task.updateEveItemListTask.name" xml:space="preserve">
+				<source>Update EVE item list</source>
+			</trans-unit>
+			<trans-unit id="task.updateEveItemListTask.description" xml:space="preserve">
+				<source>Updating of EVE items is ...</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

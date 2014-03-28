@@ -10,16 +10,6 @@
         </TCEforms>
         <type>array</type>
         <el>
-          <settings.evecentralurl>
-            <TCEforms>
-              <label>EVE Central URL</label>
-                <config>
-                   <type>input</type>
-                   <default>http://api.eve-central.com/api/marketstat</default>
-                   <eval>trim</eval>
-                </config>
-            </TCEforms>
-          </settings.evecentralurl>
           <settings.corptax>
             <TCEforms>
               <label>Corp tax (in percent)</label>
@@ -30,26 +20,6 @@
                 </config>
             </TCEforms>
           </settings.corptax>
-          <settings.systemid>
-            <TCEforms>
-              <label>System ID</label>
-                <config>
-                   <type>input</type>
-                   <default>30000142</default>
-                   <eval>trim,int</eval>
-                </config>
-            </TCEforms>
-          </settings.systemid>
-          <settings.cachingtime>
-            <TCEforms>
-              <label>Cache time in minutes</label>
-                <config>
-                   <type>input</type>
-                   <default>5</default>
-                   <eval>trim,int</eval>
-                </config>
-            </TCEforms>
-          </settings.cachingtime>
           <settings.tabletypecontent>
             <TCEforms>
               <label>table type content</label>
