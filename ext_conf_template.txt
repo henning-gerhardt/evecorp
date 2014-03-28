@@ -4,3 +4,5 @@ phealCacheDirectory =
 phealConnectionTimeout = 120
 # cat=basic/enable; type=boolean; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.verifyingHttpsConnection
 phealVerifyingHttpsConnection = 0
+# cat=basic/enable; type=string; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.evecentraluri
+evecentralUri = http://api.eve-central.com/api/marketstat

@@ -40,8 +40,9 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	 * @return void
 	 */
 	protected function updateEveItemList() {
-		/** @todo replace with configurable value */
-		$eveCentralUri = 'http://api.eve-central.com/api/marketstat';
+		$extconf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
+
+		$eveCentralUri = $extconf['evecentralUri'];
 		/** @todo replace with configurable value */
 		$systemId = 30000142;
 		/** @todo replace with configurable value */

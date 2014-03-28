@@ -12,6 +12,9 @@
 			<trans-unit id="evecorp.backendconfig.verifyingHttpsConnection" xml:space="preserve">
 				<source>Should HTTPS connection be verified? Be sure that your typo3 system could verify CCP certificate.</source>
 			</trans-unit>
+			<trans-unit id="evecorp.backendconfig.evecentraluri" xml:space="preserve">
+				<source>Static URI part to eve-central: Default to http://api.eve-central.com/api/marketstat </source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
