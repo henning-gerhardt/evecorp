@@ -32,6 +32,17 @@ namespace gerh\Evecorp\Test\Domain\Model;
 class MarketDataTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 */
+	protected $mockObjectManager;
+
+	/**
+	 * Sets up this test case.
+	 */
+	public function setUp() {
+		$this->mockObjectManager = $this->getMock('TYPO3\CMS\Extbase\Object\ObjectManagerInterface');
+	}
+	/**
 	 * @test
 	 */
 	public function cachingTimeCouldBeSet() {
@@ -89,6 +100,142 @@ class MarketDataTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
 		$marketData->setSystemId($systemId);
 		$this->assertEquals($systemId, $marketData->getSystemId());
+	}
+
+	/**
+	 * @test
+	 */
+	public function getCorpTaxModifierWorksAsExpected() {
+		$corpTax = 10;
+
+		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
+		$marketData->setCorpTax($corpTax);
+
+		$expected = 0.9;
+		$actual = $this->callInaccessibleMethod($marketData, 'getCorpTaxModifier');
+
+		$this->assertEquals($expected, $actual);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getAllItemsReturnsCorrectArrayStructure() {
+		$eveName = 'Tritanium';
+		$buyPrice = 4.54;
+		$sellPrice = 4.56;
+		$corpTax = 10;
+
+		$eveItemOne = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$eveItemOne->setEveName($eveName);
+		$eveItemOne->setBuyPrice($buyPrice);
+		$eveItemOne->setSellPrice($sellPrice);
+
+		$mockedRepository = $this->getMock('gerh\Evecorp\Domain\Repository\EveitemRepository', array('findAll'), array($this->mockObjectManager));
+		$mockedRepository
+			->expects($this->once())
+			->method('findAll')
+			->will($this->returnValue(array($eveItemOne)));
+
+		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
+		$marketData->setCorpTax($corpTax);
+
+		$this->inject($marketData, 'eveitemRepository', $mockedRepository);
+
+		$buyCorpPrice = \round($buyPrice * $this->callInaccessibleMethod($marketData, 'getCorpTaxModifier'), 2);
+		$expected = array(
+			$eveName => array(
+				'buy' => $buyPrice,
+				'buyCorp' => $buyCorpPrice,
+				'sell' => $sellPrice,
+			)
+		);
+
+		$actual = $this->callInaccessibleMethod($marketData, 'getAllItems');
+		$this->assertEquals($expected, $actual);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getUpdateableEveItemsReturnsCorrectArrayStructure() {
+		$eveName = 'Tritanium';
+		$eveId = 34;
+
+		$eveItemOne = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$eveItemOne->setEveName($eveName);
+		$eveItemOne->setEveId($eveId);
+
+		$mockedRepository = $this->getMock('gerh\Evecorp\Domain\Repository\EveitemRepository', array('findAllUpdateableItems'), array($this->mockObjectManager));
+		$mockedRepository
+			->expects($this->once())
+			->method('findAllUpdateableItems')
+			->will($this->returnValue(array($eveItemOne)));
+
+		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
+		$this->inject($marketData, 'eveitemRepository', $mockedRepository);
+
+		$expected = array($eveId => $eveName);
+		$actual = $this->callInaccessibleMethod($marketData, 'getUpdateableEveItems');
+
+		$this->assertEquals($expected, $actual);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getMarketDataReturnsEmptyArrayOnEmptyRepository(){
+		$marketData = $this->getMock('\gerh\Evecorp\Domain\Model\MarketData', array('updateEveItems'));
+
+		$mockedQueryInterface = $this->getMock('TYPO3\CMS\Extbase\Persistence\QueryInterface');
+		$mockedRepository = $this->getMock('gerh\Evecorp\Domain\Repository\EveitemRepository', array('findAll'), array($this->mockObjectManager));
+		$mockedRepository
+			->expects($this->once())
+			->method('findAll')
+			->will($this->returnValue($mockedQueryInterface));
+
+		$this->inject($marketData, 'eveitemRepository', $mockedRepository);
+
+		$expected = array();
+		$actual = $marketData->getMarketData();
+		$this->assertEquals($expected, $actual);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getMarketDataReturnsExpectedArrayStructure(){
+		$eveName = 'Tritanium';
+		$buyPrice = 4.54;
+		$sellPrice = 4.56;
+		$corpTax = 10;
+
+		$eveItemOne = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$eveItemOne->setEveName($eveName);
+		$eveItemOne->setBuyPrice($buyPrice);
+		$eveItemOne->setSellPrice($sellPrice);
+		
+		$marketData = $this->getMock('\gerh\Evecorp\Domain\Model\MarketData', array('updateEveItems'));
+		$marketData->setCorpTax($corpTax);
+
+		$mockedRepository = $this->getMock('gerh\Evecorp\Domain\Repository\EveitemRepository', array('findAll'), array($this->mockObjectManager));
+		$mockedRepository
+			->expects($this->once())
+			->method('findAll')
+			->will($this->returnValue(array($eveItemOne)));
+
+		$this->inject($marketData, 'eveitemRepository', $mockedRepository);
+
+		$buyCorpPrice = \round($buyPrice * $this->callInaccessibleMethod($marketData, 'getCorpTaxModifier'), 2);
+		$expected = array(
+			$eveName => array(
+				'buy' => $buyPrice,
+				'buyCorp' => $buyCorpPrice,
+				'sell' => $sellPrice,
+			)
+		);
+		$actual = $marketData->getMarketData();
+		$this->assertEquals($expected, $actual);
 	}
 
 }

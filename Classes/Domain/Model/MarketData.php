@@ -131,14 +131,23 @@ class MarketData {
 	 */
 	protected function getAllItems() {
 		$result = array();
-		$corpTax = round(1 - ($this->getCorpTax() / 100), 2);
 		foreach ($this->eveitemRepository->findAll() as $dbEntry) {
 			$result[$dbEntry->getEveName()] = array(
 				'buy' => $dbEntry->getBuyPrice(),
-				'buyCorp' => round($dbEntry->getBuyPrice() * $corpTax, 2),
+				'buyCorp' => round($dbEntry->getBuyPrice() * $this->getCorpTaxModifier(), 2),
 				'sell' => $dbEntry->getSellPrice()
 				);
 		}
+		return $result;
+	}
+
+	/**
+	 * Calculate corporation tax modifier
+	 * 
+	 * @return real
+	 */
+	protected function getCorpTaxModifier() {
+		$result = \round(1 - ($this->getCorpTax() / 100), 2);
 		return $result;
 	}
 
