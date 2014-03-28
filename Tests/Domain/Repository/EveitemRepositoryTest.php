@@ -32,7 +32,7 @@ namespace gerh\Evecorp\Test\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EveitemRepositoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class EveitemRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface

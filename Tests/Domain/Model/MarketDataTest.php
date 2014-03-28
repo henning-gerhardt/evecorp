@@ -29,7 +29,7 @@ namespace gerh\Evecorp\Test\Domain\Model;
 /**
  * Testcase for MarketData
  */
-class MarketDataTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface

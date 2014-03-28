@@ -29,7 +29,7 @@ namespace gerh\Evecorp\Test\Domain\Model;
 /**
  * Testcase for Eveitem
  */
-class EveitemTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test

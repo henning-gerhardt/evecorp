@@ -29,7 +29,7 @@ namespace gerh\Evecorp\Test\Domain\Model;
 /**
  * Testcase for EveCentralFetcher
  */
-class EveCentralFetcherTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test

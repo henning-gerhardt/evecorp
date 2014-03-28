@@ -29,7 +29,7 @@ namespace gerh\Evecorp\Test\Service;
 /**
  * Testcase for PhealService
  */
-class PhealServiceTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
