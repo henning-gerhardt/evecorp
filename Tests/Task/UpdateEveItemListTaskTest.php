@@ -32,13 +32,13 @@ namespace gerh\Evecorp\Test\Task;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class UpdateEveItemListTaskTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class UpdateEveItemListTaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	
 	/**
 	 * @test
 	 */
 	public function updateEveItemListTaskIsInstanceOfAbstractTask() {
-		$task = new \gerh\Evecorp\Task\UpdateEveItemListTask();
-		$this->assertInstanceOf('TYPO3\\CMS\\Scheduler\Task\\AbstractTask', $task);
+		$taskMock = $this->getMock('gerh\Evecorp\Task\UpdateEveItemListTask');
+		$this->assertInstanceOf('TYPO3\\CMS\\Scheduler\Task\\AbstractTask', $taskMock);
 	}
 }
