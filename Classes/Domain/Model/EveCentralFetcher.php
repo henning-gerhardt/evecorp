@@ -147,7 +147,7 @@ class EveCentralFetcher {
 			$resourceId = $resource->getAttribute('id');
 			$resourceBuyMax = $xpath->evaluate('.//buy/max', $resource)->item(0)->textContent;
 			$resourceSellMin = $xpath->evaluate('.//sell/min', $resource)->item(0)->textContent;
-			$result[$this->typeIds[$resourceId]] = array(
+			$result[$resourceId] = array(
 				'buy' => $resourceBuyMax,
 				'sell' => $resourceSellMin,
 			);
