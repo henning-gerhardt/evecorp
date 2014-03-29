@@ -84,7 +84,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	 */
 	protected function getListOfOutdatedItemsForSystem($systemId) {
 		$fetchList = array();
-		
+
 		if (($systemId == null) || ($systemId == 0)) {
 			return $fetchList;
 		}
@@ -103,26 +103,26 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	 * @return array
 	 */
 	protected function fetchUpdateableItems($fetchList, $systemId) {
-		
+
 		if ((count($fetchList) == 0) || ($systemId == null) || ($systemId == 0)) {
 			return array();
 		}
-		
+
 		$this->eveCentralFetcher->setSystemId($systemId);
 		$this->eveCentralFetcher->setTypeIds($fetchList);
 		$result = $this->eveCentralFetcher->query();
-		
+
 		return $result;
 	}
 
 	/**
 	 * Update changed EVE items with new values
-	 * 
+	 *
 	 * @param array $eveItemUpdateList
 	 * @param \integer $systemId
 	 */
 	protected function updateEveItemsForSystem($eveItemUpdateList, $systemId) {
-		
+
 		if ((count($eveItemUpdateList) == 0) || ($systemId == null) || $systemId == 0) {
 			return;
 		}
