@@ -9,7 +9,7 @@ $TCA['tx_evecorp_domain_model_eveitem'] = array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, eve_name, eve_id',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, eve_name, eve_id,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, eve_name, eve_id, system_id, time_to_cache,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -107,8 +107,11 @@ $TCA['tx_evecorp_domain_model_eveitem'] = array(
 			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_eveitem.eve_id',
 			'config' => array(
 				'type' => 'input',
-				'size' => 4,
-				'eval' => 'int,required'
+				'size' => 10,
+				'eval' => 'int,required',
+				'range' => array(
+					'lower' => 0
+				)
 			),
 		),
 		'buy_price' => array(
@@ -125,6 +128,32 @@ $TCA['tx_evecorp_domain_model_eveitem'] = array(
 			'exclude' => 0,
 			'label' => 'cache_time',
 			'config' => array(),
+		),
+		'system_id' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_eveitem.system_id',
+			'config' => array(
+				'type' => 'input',
+				'size' => 10,
+				'eval' => 'int,required',
+				'range' => array(
+					'lower' => 0,
+				)
+			),
+
+		),
+		'time_to_cache' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_eveitem.time_to_cache',
+			'config' => array(
+				'type' => 'input',
+				'size' => 10,
+				'eval' => 'int,required',
+				'default' => 5,
+				'range' => array(
+					'lower' => 1,					
+				)
+			),
 		),
 	),
 );

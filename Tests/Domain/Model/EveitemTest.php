@@ -80,4 +80,47 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$item->setCacheTime($cacheTime);
 		$this->assertEquals($cacheTime, $item->getCacheTime());
 	}
+	
+	/**
+	 * @test
+	 */
+	public function systemIdOfEveitemCouldBeSet() {
+		$systemId = 30000142;
+		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item->setSystemId($systemId);
+		$this->assertEquals($systemId, $item->getSystemId());
+	}
+
+	/**
+	 * @test
+	 */
+	public function systemIdCouldNotSetBelowZero() {
+		$systemId = -1;
+		$expected = 0;
+		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item->setSystemId($systemId);
+		$this->assertEquals($expected, $item->getSystemId());
+	}
+
+	/**
+	 * @test
+	 */
+	public function timeToCacheOfEveitemCouldBeSet() {
+		$timeToCache = 5;
+		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item->setTimeToCache($timeToCache);
+		$this->assertEquals($timeToCache, $item->getTimeToCache());
+	}
+	
+	/**
+	 * @test
+	 */
+	public function timeToCacheCouldNotBeSetBelowOne() {
+		$timeToCache = 0;
+		$expected = 1;
+		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item->setTimeToCache($timeToCache);
+		$this->assertEquals($expected, $item->getTimeToCache());
+	}
+	
 }

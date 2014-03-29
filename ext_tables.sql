@@ -11,6 +11,8 @@ CREATE TABLE tx_evecorp_domain_model_eveitem (
 	buy_price decimal(20,3) DEFAULT '0.000' NOT NULL,
 	sell_price decimal(20,3) DEFAULT '0.000' NOT NULL,
 	cache_time int(11) DEFAULT '0' NOT NULL,
+	system_id int(11) DEFAULT '0' NOT NULL,
+	time_to_cache int(11) DEFAULT '1' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,

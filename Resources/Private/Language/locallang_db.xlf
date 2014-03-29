@@ -13,6 +13,12 @@
 			<trans-unit id="tx_evecorp_domain_model_eveitem.eve_id">
 				<source>Eve Id</source>
 			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_eveitem.system_id">
+				<source>System ID</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_eveitem.time_to_cache">
+				<source>Time to cache (in minutes)</source>
+			</trans-unit>
 
 		</body>
 	</file>

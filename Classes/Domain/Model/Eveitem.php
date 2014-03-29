@@ -4,8 +4,8 @@ namespace gerh\Evecorp\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013 - 2014 Henning Gerhardt 
- *  
+ *  (c) 2013 - 2014 Henning Gerhardt
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -73,6 +73,22 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @validate NotEmpty
 	 */
 	protected $cacheTime;
+
+	/**
+	 * system id
+	 *
+	 * @var \integer
+	 * @validate NotEmpty
+	 */
+	protected $systemId;
+
+	/**
+	 * time to cache (in minutes)
+	 *
+	 * @var \integer
+	 * @validate NotEmpty
+	 */
+	protected $timeToCache;
 
 	/**
 	 * Returns the eveName
@@ -169,5 +185,50 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->cacheTime = $cacheTime;
 	}
 
+	/**
+	 * Return used system id
+	 *
+	 * @return \integer $cacheTime
+	 */
+	public function getSystemId() {
+		return $this->systemId;
+	}
+
+	/**
+	 * Set system id
+	 *
+	 * @param \integer $systemId
+	 * @return void
+	 */
+	public function setSystemId($systemId) {
+		if (is_int($systemId) && ($systemId >= 0)) {
+			$this->systemId = (int) $systemId;
+		} else {
+			$this->systemId = 0;
+		}
+	}
+
+	/**
+	 * Return used time to cache (in minutes)
+	 *
+	 * @return \integer $cacheTime
+	 */
+	public function getTimeToCache() {
+		return $this->timeToCache;
+	}
+
+	/**
+	 * Set time to cache (in minutes)
+	 *
+	 * @param \integer $timeToCache
+	 * @return void
+	 */
+	public function setTimeToCache($timeToCache) {
+		if (is_int($timeToCache) && ($timeToCache > 0)) {
+			$this->timeToCache = (int) $timeToCache;
+		} else {
+			$this->timeToCache = 1;
+		}
+	}
+
 }
-?>
