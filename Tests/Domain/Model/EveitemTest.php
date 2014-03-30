@@ -80,7 +80,7 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$item->setCacheTime($cacheTime);
 		$this->assertEquals($cacheTime, $item->getCacheTime());
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -111,7 +111,7 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$item->setTimeToCache($timeToCache);
 		$this->assertEquals($timeToCache, $item->getTimeToCache());
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -122,5 +122,26 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$item->setTimeToCache($timeToCache);
 		$this->assertEquals($expected, $item->getTimeToCache());
 	}
-	
+
+	/**
+	 * @test
+	 */
+	public function regionIdCouldBeSet() {
+		$regionId = 10000002;
+		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item->setRegionId($regionId);
+		$this->assertEquals($regionId, $item->getRegionId());
+	}
+
+	/**
+	 * @test
+	 */
+	public function regionIdCouldNotBeSetBelowZero() {
+		$regionId = -1;
+		$expected = 0;
+		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item->setRegionId($regionId);
+		$this->assertEquals($expected, $item->getRegionId());
+	}
+
 }
