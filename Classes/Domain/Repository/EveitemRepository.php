@@ -58,6 +58,33 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	}
 
 	/**
+	 * Get array of unique used region ids
+	 * 
+	 * @return array
+	 */
+	public function getListOfUniqueRegionId() {
+
+		/** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setReturnRawQueryResult(true);
+
+		/** todo replace if possible with matching query */
+		$statement = 'SELECT DISTINCT `region_id` FROM `tx_evecorp_domain_model_eveitem` ';
+		$statement .= ' WHERE (`deleted` = 0) AND (`hidden` = 0) ';
+		$rowData = $query->statement($statement)->execute();
+
+		// own data mapping
+		$result = array();
+		foreach($rowData as $rows) {
+			foreach($rows as $columnValue) {
+				$result[] = $columnValue;
+			}
+		}
+
+		return $result;
+	}
+	
+	/**
 	 * Get array of unique used system ids
 	 * 
 	 * @return array
@@ -80,6 +107,35 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 				$result[] = $columnValue;
 			}
 		}
+
+		return $result;
+	}
+
+	/**
+	 * Search for all out of date EVE items for a given region
+	 * 
+	 * @param \integer $regionId
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+	 */
+	public function findAllUpdateableItemsForRegion($regionId) {
+
+		if ($regionId == null || $regionId == 0) {
+			return new \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult();
+		}
+
+		/** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
+		$query = $this->createQuery();
+
+		/** @todo replace if possible with matching query */
+		$statement = 'SELECT * FROM `tx_evecorp_domain_model_eveitem` ';
+		$statement .= ' WHERE `cache_time` < (UNIX_TIMESTAMP() - (`time_to_cache` * 60)) ';
+		$statement .= ' AND (`region_id` = ?) ';
+		$statement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
+
+		$query->statement($statement, array((int)$regionId));
+
+		/** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
+		$result = $query->execute();
 
 		return $result;
 	}
@@ -110,6 +166,31 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		/** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
 		$result = $query->execute();
 
+		return $result;
+	}
+
+	/**
+	 * Search for a specific EVE item and region
+	 * 
+	 * @param \integer $eveId
+	 * @param \integer $regionId
+	 * @param \boolean $respectStoragePage
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+	 */
+	public function findByEveIdAndRegionId($eveId, $regionId, $respectStoragePage = false) {
+		/** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
+		$query = $this->createQuery();
+
+		$query->matching($query->logicalAnd(
+			$query->equals('EveId', $eveId),
+			$query->equals('RegionId', $regionId)
+		));
+
+		// using or ignoring of storage page must be set after matching query
+		$query->getQuerySettings()->setRespectStoragePage($respectStoragePage);
+
+		/** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
+		$result = $query->execute();
 		return $result;
 	}
 
