@@ -34,4 +34,52 @@ namespace gerh\Evecorp\Test\Domain\Repository;
  */
 class EveitemRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
+	/**
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 */
+	protected $mockObjectManager;
+
+	/**
+	 * @var \gerh\Evecorp\Domain\Repository\EveitemRepository
+	 */
+	protected $fixture;
+
+	public function setUp() {
+		$this->mockObjectManager = $this->getMock('TYPO3\CMS\Extbase\Object\ObjectManagerInterface');
+		/** @var $fixture \gerh\Evecorp\Domain\Repository\EveitemRepository|\PHPUnit_Framework_MockObject_MockObject */
+		$this->fixture = $this->getMock('gerh\Evecorp\Domain\Repository\EveitemRepository', array(), array($this->mockObjectManager));
+	}
+
+	/**
+	 * @test
+	 */
+	public function getCorrectUpdateableItems() {
+		$this->markTestIncomplete('Not yet full implemented.');
+
+		$timeToCache = 1;
+		$currentTime = \time();
+		$oldTime = $currentTime - ($timeToCache * 60);
+
+		$mockModelOne = $this->getMock('gerh\Evecorp\Domain\Model\Eveitem');
+		$mockModelOne->setEveName('Tritanium');
+		$mockModelOne->setEveId(34);
+		$mockModelOne
+			->expects(($this->once()))
+			->method('getCacheTime')
+			->will($this->returnValue($currentTime));
+
+		$mockModelTwo = $this->getMock('gerh\Evecorp\Domain\Model\Eveitem');
+		$mockModelTwo->setEveName('Pyrite');
+		$mockModelTwo->setEveId(35);
+		$mockModelTwo
+			->expects(($this->once()))
+			->method('getCacheTime')
+			->will($this->returnValue($oldTime));
+
+		$this->fixture->add(mockModelOne);
+		$this->fixture->add(mockModelTwo);
+
+		$actual = $this->fixture->findAllUpdateableItems($timeToCache);
+		$this->assertSame($mockModelTwo, $actual);		
+	}
 }
