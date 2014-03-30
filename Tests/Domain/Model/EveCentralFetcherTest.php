@@ -50,7 +50,7 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$fetcher->setRegionId($regionId);
 		$this->assertEquals($regionId, $fetcher->getRegionId());
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -91,6 +91,15 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
 		$fetcher->setTypeIds($typeIds);
 		$this->assertEquals($typeIds, $fetcher->getTypeIds());
+	}
+
+	/**
+	 * @test
+	 */
+	public function queryReturnsEmptyArrayOnNonConfiguredFetcher() {
+		$expected = array();
+		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$this->assertEquals($expected, $fetcher->query());
 	}
 
 }

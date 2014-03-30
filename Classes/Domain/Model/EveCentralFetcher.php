@@ -76,7 +76,7 @@ class EveCentralFetcher {
 
 	/**
 	 * Get current used region id
-	 * 
+	 *
 	 * @return \integer
 	 */
 	public function getRegionId() {
@@ -85,7 +85,7 @@ class EveCentralFetcher {
 
 	/**
 	 * Set region id
-	 * 
+	 *
 	 * @param \integer $regionId
 	 */
 	public function setRegionId($regionId) {
@@ -142,9 +142,16 @@ class EveCentralFetcher {
 	 * @return array
 	 */
 	public function query() {
+		$result = array();
 		$query = $this->buildQuery();
-		$content = file_get_contents($query);
-		return $this->parse($content);
+		if (! empty($query)) {
+			$content = file_get_contents($query);
+			if (! empty($content)) {
+				$result = $this->parse($content);
+			}
+		}
+
+		return $result;
 	}
 
 	/**
@@ -158,6 +165,8 @@ class EveCentralFetcher {
 			$result .= '?usesystem=' . $this->getSystemId();
 		} else if ($this->getRegionId() > 0) {
 			$result .= '?regionlimit=' . $this->getRegionId();
+		} else {
+			return '';
 		}
 
 		foreach($this->typeIds as $typeId) {
@@ -175,6 +184,10 @@ class EveCentralFetcher {
 	 */
 	protected function parse($content) {
 		$result = array();
+
+		if (empty($content)) {
+			return $result;
+		}
 
 		$doc = new \DOMDocument();
 		$doc->loadXML($content);
