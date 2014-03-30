@@ -91,6 +91,13 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $timeToCache;
 
 	/**
+	 * region id
+	 * @var \integer
+	 * @validate NotEmpty
+	 */
+	protected $regionId;
+
+	/**
 	 * Returns the eveName
 	 *
 	 * @return \string $eveName
@@ -228,6 +235,28 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 			$this->timeToCache = (int) $timeToCache;
 		} else {
 			$this->timeToCache = 1;
+		}
+	}
+
+	/**
+	 * Get current region id
+	 *
+	 * @return \integer
+	 */
+	public function getRegionId() {
+		return $this->regionId;
+	}
+
+	/**
+	 * Set region id
+	 *
+	 * @param \integer $regionId
+	 */
+	public function setRegionId($regionId) {
+		if ($regionId > 0) {
+			$this->regionId = $regionId;
+		} else {
+			$this->regionId = 0;
 		}
 	}
 

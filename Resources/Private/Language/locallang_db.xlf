@@ -19,6 +19,9 @@
 			<trans-unit id="tx_evecorp_domain_model_eveitem.time_to_cache">
 				<source>Time to cache (in minutes)</source>
 			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_eveitem.region_id">
+				<source>Region ID</source>
+			</trans-unit>
 
 		</body>
 	</file>
