@@ -35,29 +35,6 @@ namespace gerh\Evecorp\Domain\Repository;
 class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
-	 * Find all updateable eve items
-	 *
-	 * @param int $timeToCache
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
-	 */
-	public function findAllUpdateableItems($timeToCache) {
-		/** @var $defaultQuerySettings \TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface */
-		$defaultQuerySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QuerySettingsInterface');
-		$defaultQuerySettings->setRespectStoragePage(FALSE);
-		$this->setDefaultQuerySettings($defaultQuerySettings);
-
-		if (($timeToCache == null) || ($timeToCache < 1)) {
-			$timeToCache = 1;
-		}
-		$cacheTime = time() - (60 * $timeToCache);
-
-		/** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
-		$query = $this->createQuery();
-		$query->matching($query->lessThan('cache_time', $cacheTime));
-		return $query->execute();
-	}
-
-	/**
 	 * Check is given column name 'region_id' or 'system_id'
 	 *
 	 * @param \string $columnName
