@@ -155,7 +155,8 @@ class EveCentralFetcher {
 	}
 
 	/**
-	 * Concat static part of uri with system / station id and type ids to a HTTP query
+	 * Concat static part of uri with system or region id and type ids to a HTTP query
+	 * 
 	 * @return string
 	 */
 	protected function buildQuery() {
