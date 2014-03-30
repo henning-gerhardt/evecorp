@@ -59,6 +59,17 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 		$extconf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
 		$this->eveCentralFetcher->setBaseUri($extconf['evecentralUri']);
 
+		$this->updateItemsBasedOnSystemId();
+
+		/** @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
+		$persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+		$persistenceManager->persistAll();
+	}
+
+	/**
+	 * Update out dated EVE items on base of system id
+	 */
+	protected function updateItemsBasedOnSystemId() {
 		foreach($this->eveItemRepository->getListOfUniqueSystemId() as $systemId) {
 
 			// get out dated items
@@ -70,10 +81,6 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 			// update database
 			$this->updateEveItemsForSystem($newValuesForDb, $systemId);
 		}
-
-		/** @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
-		$persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-		$persistenceManager->persistAll();
 	}
 
 	/**
