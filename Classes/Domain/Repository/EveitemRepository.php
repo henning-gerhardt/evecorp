@@ -70,7 +70,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 		/** todo replace if possible with matching query */
 		$statement = 'SELECT DISTINCT `region_id` FROM `tx_evecorp_domain_model_eveitem` ';
-		$statement .= ' WHERE (`deleted` = 0) AND (`hidden` = 0) ';
+		$statement .= ' WHERE (`region_id` > 0) AND (`deleted` = 0) AND (`hidden` = 0) ';
 		$rowData = $query->statement($statement)->execute();
 
 		// own data mapping
@@ -97,7 +97,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 		/** todo replace if possible with matching query */
 		$statement = 'SELECT DISTINCT `system_id` FROM `tx_evecorp_domain_model_eveitem` ';
-		$statement .= ' WHERE (`deleted` = 0) AND (`hidden` = 0) ';
+		$statement .= ' WHERE (`system_id` > 0) AND (`deleted` = 0) AND (`hidden` = 0) ';
 		$rowData = $query->statement($statement)->execute();
 
 		// own data mapping
