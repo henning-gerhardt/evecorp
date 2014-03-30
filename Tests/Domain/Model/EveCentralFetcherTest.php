@@ -44,11 +44,43 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
+	public function regionIdCouldBeSet() {
+		$regionId = 10000002;
+		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher->setRegionId($regionId);
+		$this->assertEquals($regionId, $fetcher->getRegionId());
+	}
+	
+	/**
+	 * @test
+	 */
+	public function regionIdCouldNotBeSetBelowZero() {
+		$regionId = -1;
+		$expected = 0;
+		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher->setRegionId($regionId);
+		$this->assertEquals($expected, $fetcher->getRegionId());
+	}
+
+	/**
+	 * @test
+	 */
 	public function systemIdCouldBeSet() {
 		$systemId = 30000142;
 		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
 		$fetcher->setSystemId($systemId);
 		$this->assertEquals($systemId, $fetcher->getSystemId());
+	}
+
+	/**
+	 * @test
+	 */
+	public function systemIdCouldNotBeSetBelowZero() {
+		$systemId = -1;
+		$expected = 0;
+		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher->setSystemId($systemId);
+		$this->assertEquals($expected, $fetcher->getSystemId());
 	}
 
 	/**

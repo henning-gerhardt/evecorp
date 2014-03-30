@@ -4,8 +4,8 @@ namespace gerh\Evecorp\Domain\Model;
 /***************************************************************
  *	Copyright notice
  *
- *	(c) 2014 Henning Gerhardt 
- *	
+ *	(c) 2014 Henning Gerhardt
+ *
  *	All rights reserved
  *
  *	This script is part of the TYPO3 project. The TYPO3 project is
@@ -41,19 +41,24 @@ class EveCentralFetcher {
 	private $baseUri = null;
 
 	/**
-	 * @var integer Holds used system / station id on queries 
+	 * @var \integer Holds used region id
+	 */
+	private $regionId = 0;
+
+	/**
+	 * @var \integer Holds used system id
 	 */
 	private $systemId = 0;
 
 	/**
 	 *
-	 * @var array Holds a list of EvE item type ids. 
+	 * @var array Holds a list of EvE item type ids.
 	 */
 	private $typeIds = array();
 
 	/**
 	 * Returns current used EvE-Central uri.
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getBaseUri() {
@@ -62,7 +67,7 @@ class EveCentralFetcher {
 
 	/**
 	 * Set static part of EVE-Central uri
-	 * 
+	 *
 	 * @param string $baseUri
 	 */
 	public function setBaseUri($baseUri) {
@@ -70,26 +75,52 @@ class EveCentralFetcher {
 	}
 
 	/**
-	 * Returns current used system / station id
+	 * Get current used region id
 	 * 
-	 * @return integer
+	 * @return \integer
+	 */
+	public function getRegionId() {
+		return $this->regionId;
+	}
+
+	/**
+	 * Set region id
+	 * 
+	 * @param \integer $regionId
+	 */
+	public function setRegionId($regionId) {
+		if ($regionId > 0) {
+			$this->regionId = $regionId;
+		} else {
+			$this->regionId = 0;
+		}
+	}
+
+	/**
+	 * Returns current used system id
+	 *
+	 * @return \integer
 	 */
 	public function getSystemId() {
 		return $this->systemId;
 	}
 
 	/**
-	 * Set to used system / station id
-	 * 
-	 * @param integer $systemId
+	 * Set to used system id
+	 *
+	 * @param \integer $systemId
 	 */
 	public function setSystemId($systemId) {
-		$this->systemId = $systemId;
+		if ($systemId > 0) {
+			$this->systemId = $systemId;
+		} else {
+			$this->systemId = 0;
+		}
 	}
 
 	/**
 	 * Returns current used EVE type ids
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getTypeIds() {
@@ -98,7 +129,7 @@ class EveCentralFetcher {
 
 	/**
 	 * Set a list of EVE type ids
-	 * 
+	 *
 	 * @param array $typeIds
 	 */
 	public function setTypeIds(array $typeIds) {
@@ -107,7 +138,7 @@ class EveCentralFetcher {
 
 	/**
 	 * Fetch data based on system id and type ids and returns buy and sell values of types.
-	 * 
+	 *
 	 * @return array
 	 */
 	public function query() {
@@ -121,16 +152,24 @@ class EveCentralFetcher {
 	 * @return string
 	 */
 	protected function buildQuery() {
-		$result = $this->baseUri . '?usesystem=' . $this->systemId;
+		$result = $this->baseUri;
+
+		if ($this->getSystemId() > 0) {
+			$result .= '?usesystem=' . $this->getSystemId();
+		} else if ($this->getRegionId() > 0) {
+			$result .= '?regionlimit=' . $this->getRegionId();
+		}
+
 		foreach($this->typeIds as $typeId) {
 			$result .= '&typeid=' . $typeId;
 		}
+
 		return $result;
 	}
 
 	/**
 	 * Parse returned HTTP query value
-	 * 
+	 *
 	 * @param string $content
 	 * @return array
 	 */
