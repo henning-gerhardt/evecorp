@@ -122,7 +122,7 @@ class EveCentralFetcher {
 	 */
 	protected function buildQuery() {
 		$result = $this->baseUri . '?usesystem=' . $this->systemId;
-		foreach(array_keys($this->typeIds) as $typeId) {
+		foreach($this->typeIds as $typeId) {
 			$result .= '&typeid=' . $typeId;
 		}
 		return $result;

@@ -90,7 +90,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 		}
 
 		foreach($this->eveItemRepository->findAllUpdateableItemsForSystem($systemId) as $entry) {
-			$fetchList[$entry->getEveId()] = $entry->getEveName();
+			$fetchList[] = $entry->getEveId();
 		}
 		return $fetchList;
 	}

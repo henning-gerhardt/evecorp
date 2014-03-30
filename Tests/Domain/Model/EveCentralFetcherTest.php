@@ -55,7 +55,7 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function typeIdsCouldBeSet() {
-		$typeIds = array(34 => 'Tritanium', 35 => 'Pyrite');
+		$typeIds = array(34, 35);
 		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
 		$fetcher->setTypeIds($typeIds);
 		$this->assertEquals($typeIds, $fetcher->getTypeIds());
