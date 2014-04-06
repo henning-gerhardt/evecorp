@@ -9,7 +9,7 @@ $TCA['tx_evecorp_domain_model_eveitem'] = array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, eve_name, eve_id',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, eve_name, eve_id, system_id, region_id, time_to_cache,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, eve_name, eve_id, system_id, region, time_to_cache,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -142,17 +142,29 @@ $TCA['tx_evecorp_domain_model_eveitem'] = array(
 				)
 			),
 		),
-		'region_id' => array(
+		'region' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_eveitem.region_id',
+			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_eveitem.region',
+			'readOnly' => 1,
 			'config' => array(
-				'type' => 'input',
-				'size' => 10,
-				'eval' => 'int',
-				'default' => 0,
-				'range' => array(
-					'lower' => 0,
-				)
+				'type' => 'select',
+				'foreign_table' => 'tx_evecorp_domain_model_evemapregion',
+				'size' => 1,
+				'minitems' => 0,
+				'maxitems' => 1,
+				'disableNoMatchingValueElement' => 1,
+				'items' => array(
+					array('LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_eveitem.region.noRegionSelected', '0'),
+					array('', '--div--'),
+				),
+				'wizards' => array(
+					'suggest' => array(
+						'type' => 'suggest',
+						'default' => array(
+							'searchWholePhrase' => 1,
+						),
+					),
+				),
 			),
 		),
 		'time_to_cache' => array(
@@ -164,7 +176,7 @@ $TCA['tx_evecorp_domain_model_eveitem'] = array(
 				'eval' => 'int,required',
 				'default' => 5,
 				'range' => array(
-					'lower' => 1,					
+					'lower' => 1,
 				)
 			),
 		),

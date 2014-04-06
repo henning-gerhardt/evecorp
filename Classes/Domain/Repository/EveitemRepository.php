@@ -35,14 +35,14 @@ namespace gerh\Evecorp\Domain\Repository;
 class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
-	 * Check is given column name 'region_id' or 'system_id'
+	 * Check is given column name 'region' or 'system_id'
 	 *
 	 * @param \string $columnName
 	 * @return boolean
 	 */
 	protected function isCorrectColumn($columnName) {
 
-		if (($columnName === 'region_id') || ($columnName === 'system_id')) {
+		if (($columnName === 'region') || ($columnName === 'system_id')) {
 			$result = true;
 		} else {
 			$result = false;
@@ -54,7 +54,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	/**
 	 * Return a list of unique ids for a specific column
 	 *
-	 * @param \string $searchColumn Must be 'region_id' or 'system_id'
+	 * @param \string $searchColumn Must be 'region' or 'system_id'
 	 * @return array
 	 */
 	protected function getListOfUniqueColumn($searchColumn) {
@@ -87,7 +87,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 * Search for all out of date EVE items for a given region or system
 	 *
 	 * @param \integer $searchId
-	 * @param \string  $searchColumn Must be 'region_id' or 'system_id'
+	 * @param \string  $searchColumn Must be 'region' or 'system_id'
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
 	 */
 	protected function findAllUpdateableItemsForColumn($searchId, $searchColumn) {
@@ -122,7 +122,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 *
 	 * @param \integer $eveId
 	 * @param \integer $searchId
-	 * @param \string  $searchColumn Must be 'region_id' or 'system_id'
+	 * @param \string  $searchColumn Must be 'region' or 'system_id'
 	 * @param \boolean $respectStoragePage
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
 	 */
@@ -138,8 +138,8 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$contraints = array();
 		$contraints[] = $query->equals('EveId', $eveId);
 
-		if ($searchColumn == 'region_id') {
-			$contrains[] = $query->equals('RegionId', $searchId);
+		if ($searchColumn == 'region') {
+			$contrains[] = $query->equals('region', $searchId);
 		} else {
 			$contrains[] = $query->equals('SystemId', $searchId);
 		}
@@ -161,7 +161,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 */
 	public function getListOfUniqueRegionId() {
 
-		$result = $this->getListOfUniqueColumn('region_id');
+		$result = $this->getListOfUniqueColumn('region');
 
 		return $result;
 	}
@@ -186,7 +186,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 */
 	public function findAllUpdateableItemsForRegion($regionId) {
 
-		$result = $this->findAllUpdateableItemsForColumn($regionId, 'region_id');
+		$result = $this->findAllUpdateableItemsForColumn($regionId, 'region');
 
 		return $result;
 	}
@@ -214,7 +214,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 */
 	public function findByEveIdAndRegionId($eveId, $regionId, $respectStoragePage = false) {
 
-		$result = $this->findByEveIdAndColumn($eveId, $regionId, 'region_id', $respectStoragePage);
+		$result = $this->findByEveIdAndColumn($eveId, $regionId, 'region', $respectStoragePage);
 
 		return $result;
 	}

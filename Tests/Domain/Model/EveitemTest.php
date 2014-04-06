@@ -126,22 +126,15 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function regionIdCouldBeSet() {
-		$regionId = 10000002;
-		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
-		$item->setRegionId($regionId);
-		$this->assertEquals($regionId, $item->getRegionId());
-	}
+	public function regionCouldBeSet() {
+		$region = new \gerh\Evecorp\Domain\Model\EveMapRegion();
+		$region->setRegionId(10000002);
+		$region->setRegionName('The Forge');
 
-	/**
-	 * @test
-	 */
-	public function regionIdCouldNotBeSetBelowZero() {
-		$regionId = -1;
-		$expected = 0;
 		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
-		$item->setRegionId($regionId);
-		$this->assertEquals($expected, $item->getRegionId());
+		$item->setRegion($region);
+
+		$this->assertEquals($region, $item->getRegion());
 	}
 
 }

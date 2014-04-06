@@ -91,11 +91,11 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $timeToCache;
 
 	/**
-	 * region id
-	 * @var \integer
-	 * @validate NotEmpty
+	 * region 
+	 *
+	 * @var \Gerh\Evecorp\Domain\Model\EveMapRegion
 	 */
-	protected $regionId;
+	protected $region;
 
 	/**
 	 * Returns the eveName
@@ -239,25 +239,21 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Get current region id
+	 * Get current region
 	 *
-	 * @return \integer
+	 * @return \gerh\Evecorp\Domain\Model\EveMapRegion
 	 */
-	public function getRegionId() {
-		return $this->regionId;
+	public function getRegion() {
+		return $this->region;
 	}
 
 	/**
-	 * Set region id
+	 * Set region
 	 *
-	 * @param \integer $regionId
+	 * @param \gerh\Evecorp\Domain\Model\EveMapRegion $region
 	 */
-	public function setRegionId($regionId) {
-		if ($regionId > 0) {
-			$this->regionId = $regionId;
-		} else {
-			$this->regionId = 0;
-		}
+	public function setRegion(\gerh\Evecorp\Domain\Model\EveMapRegion $region) {
+		$this->region = $region;
 	}
 
 }

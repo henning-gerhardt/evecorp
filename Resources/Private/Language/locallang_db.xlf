@@ -19,8 +19,20 @@
 			<trans-unit id="tx_evecorp_domain_model_eveitem.time_to_cache">
 				<source>Time to cache (in minutes)</source>
 			</trans-unit>
-			<trans-unit id="tx_evecorp_domain_model_eveitem.region_id">
-				<source>Region ID</source>
+			<trans-unit id="tx_evecorp_domain_model_eveitem.region">
+				<source>Region</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_eveitem.region.noRegionSelected">
+				<source>No EVE region selected</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_evemapregion">
+				<source>EVE region map (based on static dump)</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_evemapregion.region_id">
+				<source>Region id</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_evemapregion.region_name">
+				<source>Region name</source>
 			</trans-unit>
 
 		</body>

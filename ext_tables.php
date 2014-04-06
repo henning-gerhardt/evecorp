@@ -20,7 +20,7 @@ $pluginName = strtolower('Pi1');
 $pluginSignature = $extensionName.'_'.$pluginName;
 
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$_EXTKEY . '/Configuration/FlexForms/Index.xml'); 
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$_EXTKEY . '/Configuration/FlexForms/Index.xml');
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Evecorp');
 
@@ -51,4 +51,21 @@ $TCA['tx_evecorp_domain_model_eveitem'] = array(
         'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Eveitem.php',
         'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
     ),
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_evemapregion');
+$TCA['tx_evecorp_domain_model_evemapregion'] = array (
+	'ctrl' => array (
+		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_evemapregion',
+		'label' => 'region_name',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden'
+		),
+		'searchFields' => 'region_id, region_name,',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/EveMapRegion.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+	)
 );
