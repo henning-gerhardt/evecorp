@@ -95,9 +95,13 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	}
 
 	/**
+	 * @backupGlobals enabled
 	 * @test
 	 */
 	public function defaultCachePathIsUsedIfNonConfigurated() {
+		$modifier = array('phealCacheDirectory' => null);
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
+
 		$service = new \gerh\Evecorp\Service\PhealService();
 		$expected = \realpath(PATH_site . 'typo3temp');
 		$this->assertEquals($expected, $service->getPhealCacheDirectory());
