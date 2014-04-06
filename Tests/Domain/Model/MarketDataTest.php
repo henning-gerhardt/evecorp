@@ -115,7 +115,8 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$buyCorpPrice = \round($buyPrice * $this->callInaccessibleMethod($marketData, 'getCorpTaxModifier'), 2);
 		$expected = array(
-			$eveName => array(
+			0 => array(
+				'displayName' => $eveName,
 				'buy' => $buyPrice,
 				'buyCorp' => $buyCorpPrice,
 				'sell' => $sellPrice,
@@ -173,7 +174,8 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$buyCorpPrice = \round($buyPrice * $this->callInaccessibleMethod($marketData, 'getCorpTaxModifier'), 2);
 		$expected = array(
-			$eveName => array(
+			0 => array(
+				'displayName' => $eveName,
 				'buy' => $buyPrice,
 				'buyCorp' => $buyCorpPrice,
 				'sell' => $sellPrice,
