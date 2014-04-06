@@ -9,9 +9,9 @@
         </tr>
     </thead>
     <tbody>
-    <f:for each="{result}" as="resource" key="label">
+    <f:for each="{result}" as="resource">
         <tr>
-            <td>{label}</td>
+            <td>{resource.displayName}</td>
             <td style="text-align:right;">{resource.buy  -> f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td>
             <f:if condition="{showBuyCorpColumn} == 1"><td style="text-align:right;">{resource.buyCorp ->  f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td></f:if>
             <td style="text-align:right;">{resource.sell ->  f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td>
