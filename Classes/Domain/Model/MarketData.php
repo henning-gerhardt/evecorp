@@ -55,7 +55,8 @@ class MarketData {
 	protected function getAllItems() {
 		$result = array();
 		foreach ($this->eveitemRepository->findAll() as $dbEntry) {
-			$result[$dbEntry->getEveName()] = array(
+			$result[] = array(
+				'displayName' => $dbEntry->getEveName(),
 				'buy' => $dbEntry->getBuyPrice(),
 				'buyCorp' => round($dbEntry->getBuyPrice() * $this->getCorpTaxModifier(), 2),
 				'sell' => $dbEntry->getSellPrice()

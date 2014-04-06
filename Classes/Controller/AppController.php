@@ -53,7 +53,6 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	 */
 	public function indexAction() {
 		$result = $this->marketData->getMarketData();
-		ksort($result);
 
 		$this->view->assign('result', $result);
 		$this->view->assign('tableTypeContent', $this->settings['tabletypecontent']);
