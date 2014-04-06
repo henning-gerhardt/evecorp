@@ -35,14 +35,14 @@ namespace gerh\Evecorp\Domain\Repository;
 class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
-	 * Check is given column name 'region' or 'system_id'
+	 * Check is given column name 'region' or 'solar_system'
 	 *
 	 * @param \string $columnName
 	 * @return boolean
 	 */
 	protected function isCorrectColumn($columnName) {
 
-		if (($columnName === 'region') || ($columnName === 'system_id')) {
+		if (($columnName === 'region') || ($columnName === 'solar_system')) {
 			$result = true;
 		} else {
 			$result = false;
@@ -54,7 +54,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	/**
 	 * Return a list of unique ids for a specific column
 	 *
-	 * @param \string $searchColumn Must be 'region' or 'system_id'
+	 * @param \string $searchColumn Must be 'region' or 'solar_system'
 	 * @return array
 	 */
 	protected function getListOfUniqueColumn($searchColumn) {
@@ -87,7 +87,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 * Search for all out of date EVE items for a given region or system
 	 *
 	 * @param \integer $searchId
-	 * @param \string  $searchColumn Must be 'region' or 'system_id'
+	 * @param \string  $searchColumn Must be 'region' or 'solar_system'
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
 	 */
 	protected function findAllUpdateableItemsForColumn($searchId, $searchColumn) {
@@ -122,7 +122,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 *
 	 * @param \integer $eveId
 	 * @param \integer $searchId
-	 * @param \string  $searchColumn Must be 'region' or 'system_id'
+	 * @param \string  $searchColumn Must be 'region' or 'system'
 	 * @param \boolean $respectStoragePage
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
 	 */
@@ -141,7 +141,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		if ($searchColumn == 'region') {
 			$contrains[] = $query->equals('region', $searchId);
 		} else {
-			$contrains[] = $query->equals('SystemId', $searchId);
+			$contrains[] = $query->equals('solar_system', $searchId);
 		}
 
 		$query->matching($query->logicalAnd($contraints));
@@ -173,7 +173,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 */
 	public function getListOfUniqueSystemId() {
 
-		$result = $this->getListOfUniqueColumn('system_id');
+		$result = $this->getListOfUniqueColumn('solar_system');
 
 		return $result;
 	}
@@ -199,7 +199,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 */
 	public function findAllUpdateableItemsForSystem($systemId) {
 
-		$result = $this->findAllUpdateableItemsForColumn($systemId, 'system_id');
+		$result = $this->findAllUpdateableItemsForColumn($systemId, 'solar_system');
 
 		return $result;
 	}
@@ -229,7 +229,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 */
 	public function findByEveIdAndSystemId($eveId, $systemId, $respectStoragePage = false) {
 
-		$result = $this->findByEveIdAndColumn($eveId, $systemId, 'system_id', $respectStoragePage);
+		$result = $this->findByEveIdAndColumn($eveId, $systemId, 'solar_system', $respectStoragePage);
 
 		return $result;
 	}

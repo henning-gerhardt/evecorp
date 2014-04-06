@@ -84,22 +84,15 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function systemIdOfEveitemCouldBeSet() {
-		$systemId = 30000142;
-		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
-		$item->setSystemId($systemId);
-		$this->assertEquals($systemId, $item->getSystemId());
-	}
+	public function solarSystemOfEveitemCouldBeSet() {
+		$solarSystem = new \gerh\Evecorp\Domain\Model\EveMapSolarSystem();
+		$solarSystem->setSolarSystemId(30000142);
+		$solarSystem->setSolarSystemName('Jita');
 
-	/**
-	 * @test
-	 */
-	public function systemIdCouldNotSetBelowZero() {
-		$systemId = -1;
-		$expected = 0;
 		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
-		$item->setSystemId($systemId);
-		$this->assertEquals($expected, $item->getSystemId());
+		$item->setSolarSystem($solarSystem);
+
+		$this->assertEquals($solarSystem, $item->getSolarSystem());
 	}
 
 	/**

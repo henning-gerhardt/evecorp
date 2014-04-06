@@ -13,9 +13,6 @@
 			<trans-unit id="tx_evecorp_domain_model_eveitem.eve_id">
 				<source>Eve Id</source>
 			</trans-unit>
-			<trans-unit id="tx_evecorp_domain_model_eveitem.system_id">
-				<source>System ID</source>
-			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_eveitem.time_to_cache">
 				<source>Time to cache (in minutes)</source>
 			</trans-unit>
@@ -25,6 +22,12 @@
 			<trans-unit id="tx_evecorp_domain_model_eveitem.region.noRegionSelected">
 				<source>No EVE region selected</source>
 			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_eveitem.solarsystem">
+				<source>Solar system</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_eveitem.solarsystem.noSolarSystemSelected">
+				<source>No EVE solar system selected</source>
+			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_evemapregion">
 				<source>EVE region map (based on static dump)</source>
 			</trans-unit>
@@ -33,6 +36,15 @@
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_evemapregion.region_name">
 				<source>Region name</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_evemapsolarsystem">
+				<source>EVE solar system map (based on static dump)</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_evemapsolarsystem.solar_system_id">
+				<source>Solar system id</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_evemapsolarsystem.solar_system_name">
+				<source>Solar system name</source>
 			</trans-unit>
 
 		</body>

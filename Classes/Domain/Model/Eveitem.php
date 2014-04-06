@@ -75,14 +75,6 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $cacheTime;
 
 	/**
-	 * system id
-	 *
-	 * @var \integer
-	 * @validate NotEmpty
-	 */
-	protected $systemId;
-
-	/**
 	 * time to cache (in minutes)
 	 *
 	 * @var \integer
@@ -91,11 +83,18 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $timeToCache;
 
 	/**
-	 * region 
+	 * region
 	 *
 	 * @var \Gerh\Evecorp\Domain\Model\EveMapRegion
 	 */
 	protected $region;
+
+	/**
+	 * solar system
+	 *
+	 * @var \Gerh\Evecorp\Domain\Model\EveMapSolarSystem
+	 */
+	protected $solarSystem;
 
 	/**
 	 * Returns the eveName
@@ -193,29 +192,6 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Return used system id
-	 *
-	 * @return \integer $cacheTime
-	 */
-	public function getSystemId() {
-		return $this->systemId;
-	}
-
-	/**
-	 * Set system id
-	 *
-	 * @param \integer $systemId
-	 * @return void
-	 */
-	public function setSystemId($systemId) {
-		if (is_int($systemId) && ($systemId >= 0)) {
-			$this->systemId = (int) $systemId;
-		} else {
-			$this->systemId = 0;
-		}
-	}
-
-	/**
 	 * Return used time to cache (in minutes)
 	 *
 	 * @return \integer $cacheTime
@@ -256,4 +232,22 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->region = $region;
 	}
 
+	/**
+	 * Return used solar system
+	 *
+	 * @return \gerh\Evecorp\Domain\Model\EveMapSolarSystem
+	 */
+	public function getSolarSystem() {
+		return $this->solarSystem;
+	}
+
+	/**
+	 * Set solar system
+	 *
+	 * @param \gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem
+	 * @return void
+	 */
+	public function setSolarSystem(\gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem) {
+		$this->solarSystem = $solarSystem;
+	}
 }
