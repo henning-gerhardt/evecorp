@@ -91,6 +91,8 @@ class EveCentralFetcher {
 	public function setRegionId($regionId) {
 		if ($regionId > 0) {
 			$this->regionId = $regionId;
+			// region and solar system id could not be set at the same time
+			$this->systemId = 0;
 		} else {
 			$this->regionId = 0;
 		}
@@ -113,6 +115,8 @@ class EveCentralFetcher {
 	public function setSystemId($systemId) {
 		if ($systemId > 0) {
 			$this->systemId = $systemId;
+			// region and solar system id could not be set at the same time
+			$this->regionId = 0;
 		} else {
 			$this->systemId = 0;
 		}
@@ -156,7 +160,7 @@ class EveCentralFetcher {
 
 	/**
 	 * Concat static part of uri with system or region id and type ids to a HTTP query
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function buildQuery() {

@@ -135,20 +135,13 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		/** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
 		$query = $this->createQuery();
 
-		$contraints = array();
-		$contraints[] = $query->equals('EveId', $eveId);
+		/** @todo replace if possible with matching query */
+		$statement = 'SELECT * FROM `tx_evecorp_domain_model_eveitem` ';
+		$statement .= ' WHERE (`eve_id` = ?) ';
+		$statement .= ' AND (`' . $searchColumn . '` = ?) ';
+		$statement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
 
-		if ($searchColumn == 'region') {
-			$contrains[] = $query->equals('region', $searchId);
-		} else {
-			$contrains[] = $query->equals('solar_system', $searchId);
-		}
-
-		$query->matching($query->logicalAnd($contraints));
-
-		// using or ignoring of storage page must be set after matching query
-		$query->getQuerySettings()->setRespectStoragePage($respectStoragePage);
-
+		$query->statement($statement, array((int)$eveId, (int)$searchId));
 		/** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
 		$result = $query->execute();
 		return $result;
