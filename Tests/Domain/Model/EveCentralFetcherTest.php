@@ -102,4 +102,27 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->assertEquals($expected, $fetcher->query());
 	}
 
+	/**
+	 * @test
+	 */
+	public function regionAndSystemIdCouldNotBeSetAtSameTime() {
+		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher->setRegionId(1);
+		$fetcher->setSystemId(2);
+		
+		$this->assertEquals(0, $fetcher->getRegionId());
+		$this->assertEquals(2, $fetcher->getSystemId());
+	}
+	
+	/**
+	 * @test
+	 */
+	public function systemAndRegionIdCouldNotBeSetAtSameTime() {
+		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher->setSystemId(1);
+		$fetcher->setRegionId(2);
+		
+		$this->assertEquals(2, $fetcher->getRegionId());
+		$this->assertEquals(0, $fetcher->getSystemId());
+	}
 }
