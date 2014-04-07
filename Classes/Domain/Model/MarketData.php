@@ -4,8 +4,8 @@ namespace gerh\Evecorp\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt 
- *  
+ *  (c) 2014 Henning Gerhardt
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -33,7 +33,7 @@ namespace gerh\Evecorp\Domain\Model;
  *
  */
 class MarketData {
-	
+
 	/**
 	 * @var integer Holds current used tax rate
 	 */
@@ -48,26 +48,70 @@ class MarketData {
 	protected $eveitemRepository;
 
 	/**
-	 * fetch all current items
-	 * 
-	 * @return array
+	 * Extract database data to an array structure
+	 *
+	 * @param \gerh\Evecorp\Domain\Model\EveItem $entry
+	 * @return \array
 	 */
-	protected function getAllItems() {
+	protected function extractDisplayData(\gerh\Evecorp\Domain\Model\EveItem $entry = null) {
 		$result = array();
-		foreach ($this->eveitemRepository->findAll() as $dbEntry) {
-			$result[] = array(
-				'displayName' => $dbEntry->getEveName(),
-				'buy' => $dbEntry->getBuyPrice(),
-				'buyCorp' => round($dbEntry->getBuyPrice() * $this->getCorpTaxModifier(), 2),
-				'sell' => $dbEntry->getSellPrice()
+		if ($entry != null) {
+			$result = array(
+				'displayName' => $entry->getEveName(),
+				'buy' => $entry->getBuyPrice(),
+				'buyCorp' => round($entry->getBuyPrice() * $this->getCorpTaxModifier(), 2),
+				'sell' => $entry->getSellPrice(),
+				'region' => $this->extractRegionName($entry->getRegion()),
+				'solarSystem' => $this->extractSolarSystemName($entry->getSolarSystem()),
 				);
 		}
 		return $result;
 	}
 
 	/**
+	 * Extract region name
+	 *
+	 * @param \gerh\Evecorp\Domain\Model\EveMapRegion $region
+	 * @return \string
+	 */
+	protected function extractRegionName(\gerh\Evecorp\Domain\Model\EveMapRegion $region = null) {
+		$result = '';
+		if ($region != null) {
+			$result = $region->getRegionName();
+		}
+		return $result;
+	}
+
+	/**
+	 * Extract solar system name
+	 *
+	 * @param \gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem
+	 * @return \string
+	 */
+	protected function extractSolarSystemName(\gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem = null) {
+		$result = '';
+		if ($solarSystem != null) {
+			$result = $solarSystem->getSolarSystemName();
+		}
+		return $result;
+	}
+
+	/**
+	 * fetch all current items
+	 *
+	 * @return array
+	 */
+	protected function getAllItems() {
+		$result = array();
+		foreach ($this->eveitemRepository->findAll() as $dbEntry) {
+			$result[] = $this->extractDisplayData($dbEntry);
+		}
+		return $result;
+	}
+
+	/**
 	 * Calculate corporation tax modifier
-	 * 
+	 *
 	 * @return real
 	 */
 	protected function getCorpTaxModifier() {
@@ -77,25 +121,25 @@ class MarketData {
 
 	/**
 	 * Return all market data (up to date).
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getMarketData() {
 		return $this->getAllItems();
 	}
-	
+
 	/**
 	 * Return current corporation tax rate
-	 * 
+	 *
 	 * @return integer
 	 */
 	public function getCorpTax() {
 		return $this->corpTax;
 	}
-	
+
 	/**
 	 * Set corporation tax rate
-	 * 
+	 *
 	 * @param integer $corpTax
 	 */
 	public function setCorpTax($corpTax) {
@@ -104,5 +148,5 @@ class MarketData {
 		}
 		$this->corpTax = $corpTax;
 	}
-	
+
 }

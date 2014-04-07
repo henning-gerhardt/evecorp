@@ -96,11 +96,16 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$buyPrice = 4.54;
 		$sellPrice = 4.56;
 		$corpTax = 10;
+		$solarSystemName = 'Jita';
+
+		$solarSystem = new \gerh\Evecorp\Domain\Model\EveMapSolarSystem();
+		$solarSystem->setSolarSystemName($solarSystemName);
 
 		$eveItemOne = new \gerh\Evecorp\Domain\Model\Eveitem();
 		$eveItemOne->setEveName($eveName);
 		$eveItemOne->setBuyPrice($buyPrice);
 		$eveItemOne->setSellPrice($sellPrice);
+		$eveItemOne->setSolarSystem($solarSystem);
 
 		$mockedRepository = $this->getMock('gerh\Evecorp\Domain\Repository\EveitemRepository', array('findAll'), array($this->mockObjectManager));
 		$mockedRepository
@@ -120,6 +125,8 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 				'buy' => $buyPrice,
 				'buyCorp' => $buyCorpPrice,
 				'sell' => $sellPrice,
+				'region' => '',
+				'solarSystem' => $solarSystemName,
 			)
 		);
 
@@ -146,7 +153,7 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$actual = $marketData->getMarketData();
 		$this->assertEquals($expected, $actual);
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -155,12 +162,17 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$buyPrice = 4.54;
 		$sellPrice = 4.56;
 		$corpTax = 10;
+		$regionName = 'The Forge';
+
+		$region = new \gerh\Evecorp\Domain\Model\EveMapRegion();
+		$region->setRegionName($regionName);
 
 		$eveItemOne = new \gerh\Evecorp\Domain\Model\Eveitem();
 		$eveItemOne->setEveName($eveName);
 		$eveItemOne->setBuyPrice($buyPrice);
 		$eveItemOne->setSellPrice($sellPrice);
-		
+		$eveItemOne->setRegion($region);
+
 		$marketData = $this->getMock('\gerh\Evecorp\Domain\Model\MarketData', array('updateEveItems'));
 		$marketData->setCorpTax($corpTax);
 
@@ -179,6 +191,8 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 				'buy' => $buyPrice,
 				'buyCorp' => $buyCorpPrice,
 				'sell' => $sellPrice,
+				'region' => $regionName,
+				'solarSystem' => '',
 			)
 		);
 		$actual = $marketData->getMarketData();
