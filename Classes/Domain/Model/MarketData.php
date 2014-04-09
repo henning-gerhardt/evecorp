@@ -4,8 +4,8 @@ namespace gerh\Evecorp\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt 
- *  
+ *  (c) 2014 Henning Gerhardt
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -33,9 +33,9 @@ namespace gerh\Evecorp\Domain\Model;
  *
  */
 class MarketData {
-	
+
 	/**
-	 * @var integer Holds current used tax rate
+	 * @var \float Holds current used tax rate
 	 */
 	private $corpTax;
 
@@ -48,61 +48,59 @@ class MarketData {
 	protected $eveitemRepository;
 
 	/**
-	 * fetch all current items
-	 * 
-	 * @return array
+	 * Extract database data to an array structure
+	 *
+	 * @param \gerh\Evecorp\Domain\Model\EveItem $entry
+	 * @return \array
 	 */
-	protected function getAllItems() {
-		$result = array();
-		foreach ($this->eveitemRepository->findAll() as $dbEntry) {
-			$result[] = array(
-				'displayName' => $dbEntry->getEveName(),
-				'buy' => $dbEntry->getBuyPrice(),
-				'buyCorp' => round($dbEntry->getBuyPrice() * $this->getCorpTaxModifier(), 2),
-				'sell' => $dbEntry->getSellPrice()
-				);
-		}
-		return $result;
-	}
+	protected function extractDisplayData(\gerh\Evecorp\Domain\Model\EveItem $entry) {
 
-	/**
-	 * Calculate corporation tax modifier
-	 * 
-	 * @return real
-	 */
-	protected function getCorpTaxModifier() {
-		$result = \round(1 - ($this->getCorpTax() / 100), 2);
+		$result = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$result->setDisplayName($entry->getEveName());
+		$result->setBuyPrice($entry->getBuyPrice());
+		$result->setSellPrice($entry->getSellPrice());
+		$result->setCorpTax($this->getCorpTax());
+		$result->setRegionNameByRegion($entry->getRegion());
+		$result->setSolarSystemNameBySolarSystem($entry->getSolarSystem());
+
 		return $result;
 	}
 
 	/**
 	 * Return all market data (up to date).
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getMarketData() {
-		return $this->getAllItems();
+		$result = array();
+		foreach ($this->eveitemRepository->findAll() as $dbEntry) {
+			if ($dbEntry != null) {
+				$result[] = $this->extractDisplayData($dbEntry);
+			}
+		}
+
+		return $result;
 	}
-	
+
 	/**
 	 * Return current corporation tax rate
-	 * 
+	 *
 	 * @return integer
 	 */
 	public function getCorpTax() {
 		return $this->corpTax;
 	}
-	
+
 	/**
 	 * Set corporation tax rate
-	 * 
-	 * @param integer $corpTax
+	 *
+	 * @param \float $corpTax
 	 */
 	public function setCorpTax($corpTax) {
-		if (($corpTax < 0) || ($corpTax > 100)) {
+		if (($corpTax < 0.0) || ($corpTax > 100.0)) {
 			$corpTax = 0;
 		}
 		$this->corpTax = $corpTax;
 	}
-	
+
 }

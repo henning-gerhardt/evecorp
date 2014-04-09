@@ -6,15 +6,26 @@
             <th>Buy</th>
             <f:if condition="{showBuyCorpColumn} == 1"><th>Buy Corp</th></f:if>
             <th>Sell</th>
+			<th></th>
         </tr>
     </thead>
     <tbody>
     <f:for each="{result}" as="resource">
         <tr>
             <td>{resource.displayName}</td>
-            <td style="text-align:right;">{resource.buy  -> f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td>
-            <f:if condition="{showBuyCorpColumn} == 1"><td style="text-align:right;">{resource.buyCorp ->  f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td></f:if>
-            <td style="text-align:right;">{resource.sell ->  f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td>
+            <td style="text-align:right;">{resource.buyPrice  -> f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td>
+            <f:if condition="{showBuyCorpColumn} == 1"><td style="text-align:right;">{resource.corpBuyPrice ->  f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td></f:if>
+            <td style="text-align:right;">{resource.sellPrice ->  f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td>
+			<td>
+				<f:if condition="{resource.regionName} != ''">
+				<f:then>
+					Region: {resource.regionName}
+				</f:then>
+				<f:else>
+					System: {resource.solarSystemName}
+				</f:else>
+			</f:if>
+			</td>
         </tr>
     </f:for>
     </tbody>
