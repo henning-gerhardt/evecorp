@@ -35,7 +35,7 @@ namespace gerh\Evecorp\Domain\Model;
 class MarketData {
 
 	/**
-	 * @var integer Holds current used tax rate
+	 * @var \float Holds current used tax rate
 	 */
 	private $corpTax;
 
@@ -53,69 +53,16 @@ class MarketData {
 	 * @param \gerh\Evecorp\Domain\Model\EveItem $entry
 	 * @return \array
 	 */
-	protected function extractDisplayData(\gerh\Evecorp\Domain\Model\EveItem $entry = null) {
-		$result = array();
-		if ($entry != null) {
-			$result = array(
-				'displayName' => $entry->getEveName(),
-				'buy' => $entry->getBuyPrice(),
-				'buyCorp' => round($entry->getBuyPrice() * $this->getCorpTaxModifier(), 2),
-				'sell' => $entry->getSellPrice(),
-				'region' => $this->extractRegionName($entry->getRegion()),
-				'solarSystem' => $this->extractSolarSystemName($entry->getSolarSystem()),
-				);
-		}
-		return $result;
-	}
+	protected function extractDisplayData(\gerh\Evecorp\Domain\Model\EveItem $entry) {
 
-	/**
-	 * Extract region name
-	 *
-	 * @param \gerh\Evecorp\Domain\Model\EveMapRegion $region
-	 * @return \string
-	 */
-	protected function extractRegionName(\gerh\Evecorp\Domain\Model\EveMapRegion $region = null) {
-		$result = '';
-		if ($region != null) {
-			$result = $region->getRegionName();
-		}
-		return $result;
-	}
+		$result = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$result->setDisplayName($entry->getEveName());
+		$result->setBuyPrice($entry->getBuyPrice());
+		$result->setSellPrice($entry->getSellPrice());
+		$result->setCorpTax($this->getCorpTax());
+		$result->setRegionNameByRegion($entry->getRegion());
+		$result->setSolarSystemNameBySolarSystem($entry->getSolarSystem());
 
-	/**
-	 * Extract solar system name
-	 *
-	 * @param \gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem
-	 * @return \string
-	 */
-	protected function extractSolarSystemName(\gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem = null) {
-		$result = '';
-		if ($solarSystem != null) {
-			$result = $solarSystem->getSolarSystemName();
-		}
-		return $result;
-	}
-
-	/**
-	 * fetch all current items
-	 *
-	 * @return array
-	 */
-	protected function getAllItems() {
-		$result = array();
-		foreach ($this->eveitemRepository->findAll() as $dbEntry) {
-			$result[] = $this->extractDisplayData($dbEntry);
-		}
-		return $result;
-	}
-
-	/**
-	 * Calculate corporation tax modifier
-	 *
-	 * @return real
-	 */
-	protected function getCorpTaxModifier() {
-		$result = \round(1 - ($this->getCorpTax() / 100), 2);
 		return $result;
 	}
 
@@ -125,7 +72,14 @@ class MarketData {
 	 * @return array
 	 */
 	public function getMarketData() {
-		return $this->getAllItems();
+		$result = array();
+		foreach ($this->eveitemRepository->findAll() as $dbEntry) {
+			if ($dbEntry != null) {
+				$result[] = $this->extractDisplayData($dbEntry);
+			}
+		}
+
+		return $result;
 	}
 
 	/**
@@ -140,10 +94,10 @@ class MarketData {
 	/**
 	 * Set corporation tax rate
 	 *
-	 * @param integer $corpTax
+	 * @param \float $corpTax
 	 */
 	public function setCorpTax($corpTax) {
-		if (($corpTax < 0) || ($corpTax > 100)) {
+		if (($corpTax < 0.0) || ($corpTax > 100.0)) {
 			$corpTax = 0;
 		}
 		$this->corpTax = $corpTax;

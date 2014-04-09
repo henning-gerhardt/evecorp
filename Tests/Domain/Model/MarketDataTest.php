@@ -57,7 +57,7 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function corpTaxCouldNotBeSetLowerThanZero() {
-		$corpTax = -1;
+		$corpTax = -0.1;
 		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
 		$marketData->setCorpTax($corpTax);
 		$this->assertEquals(0, $marketData->getCorpTax());
@@ -67,71 +67,10 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function corpTaxCouldNotBeSetHigherThanOneHundred() {
-		$corpTax = 101;
+		$corpTax = 100.1;
 		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
 		$marketData->setCorpTax($corpTax);
 		$this->assertEquals(0, $marketData->getCorpTax());
-	}
-
-	/**
-	 * @test
-	 */
-	public function getCorpTaxModifierWorksAsExpected() {
-		$corpTax = 10;
-
-		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
-		$marketData->setCorpTax($corpTax);
-
-		$expected = 0.9;
-		$actual = $this->callInaccessibleMethod($marketData, 'getCorpTaxModifier');
-
-		$this->assertEquals($expected, $actual);
-	}
-
-	/**
-	 * @test
-	 */
-	public function getAllItemsReturnsCorrectArrayStructure() {
-		$eveName = 'Tritanium';
-		$buyPrice = 4.54;
-		$sellPrice = 4.56;
-		$corpTax = 10;
-		$solarSystemName = 'Jita';
-
-		$solarSystem = new \gerh\Evecorp\Domain\Model\EveMapSolarSystem();
-		$solarSystem->setSolarSystemName($solarSystemName);
-
-		$eveItemOne = new \gerh\Evecorp\Domain\Model\Eveitem();
-		$eveItemOne->setEveName($eveName);
-		$eveItemOne->setBuyPrice($buyPrice);
-		$eveItemOne->setSellPrice($sellPrice);
-		$eveItemOne->setSolarSystem($solarSystem);
-
-		$mockedRepository = $this->getMock('gerh\Evecorp\Domain\Repository\EveitemRepository', array('findAll'), array($this->mockObjectManager));
-		$mockedRepository
-			->expects($this->once())
-			->method('findAll')
-			->will($this->returnValue(array($eveItemOne)));
-
-		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
-		$marketData->setCorpTax($corpTax);
-
-		$this->inject($marketData, 'eveitemRepository', $mockedRepository);
-
-		$buyCorpPrice = \round($buyPrice * $this->callInaccessibleMethod($marketData, 'getCorpTaxModifier'), 2);
-		$expected = array(
-			0 => array(
-				'displayName' => $eveName,
-				'buy' => $buyPrice,
-				'buyCorp' => $buyCorpPrice,
-				'sell' => $sellPrice,
-				'region' => '',
-				'solarSystem' => $solarSystemName,
-			)
-		);
-
-		$actual = $this->callInaccessibleMethod($marketData, 'getAllItems');
-		$this->assertEquals($expected, $actual);
 	}
 
 	/**
@@ -150,51 +89,6 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->inject($marketData, 'eveitemRepository', $mockedRepository);
 
 		$expected = array();
-		$actual = $marketData->getMarketData();
-		$this->assertEquals($expected, $actual);
-	}
-
-	/**
-	 * @test
-	 */
-	public function getMarketDataReturnsExpectedArrayStructure(){
-		$eveName = 'Tritanium';
-		$buyPrice = 4.54;
-		$sellPrice = 4.56;
-		$corpTax = 10;
-		$regionName = 'The Forge';
-
-		$region = new \gerh\Evecorp\Domain\Model\EveMapRegion();
-		$region->setRegionName($regionName);
-
-		$eveItemOne = new \gerh\Evecorp\Domain\Model\Eveitem();
-		$eveItemOne->setEveName($eveName);
-		$eveItemOne->setBuyPrice($buyPrice);
-		$eveItemOne->setSellPrice($sellPrice);
-		$eveItemOne->setRegion($region);
-
-		$marketData = $this->getMock('\gerh\Evecorp\Domain\Model\MarketData', array('updateEveItems'));
-		$marketData->setCorpTax($corpTax);
-
-		$mockedRepository = $this->getMock('gerh\Evecorp\Domain\Repository\EveitemRepository', array('findAll'), array($this->mockObjectManager));
-		$mockedRepository
-			->expects($this->once())
-			->method('findAll')
-			->will($this->returnValue(array($eveItemOne)));
-
-		$this->inject($marketData, 'eveitemRepository', $mockedRepository);
-
-		$buyCorpPrice = \round($buyPrice * $this->callInaccessibleMethod($marketData, 'getCorpTaxModifier'), 2);
-		$expected = array(
-			0 => array(
-				'displayName' => $eveName,
-				'buy' => $buyPrice,
-				'buyCorp' => $buyCorpPrice,
-				'sell' => $sellPrice,
-				'region' => $regionName,
-				'solarSystem' => '',
-			)
-		);
 		$actual = $marketData->getMarketData();
 		$this->assertEquals($expected, $actual);
 	}

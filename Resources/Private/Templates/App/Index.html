@@ -13,16 +13,16 @@
     <f:for each="{result}" as="resource">
         <tr>
             <td>{resource.displayName}</td>
-            <td style="text-align:right;">{resource.buy  -> f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td>
-            <f:if condition="{showBuyCorpColumn} == 1"><td style="text-align:right;">{resource.buyCorp ->  f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td></f:if>
-            <td style="text-align:right;">{resource.sell ->  f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td>
+            <td style="text-align:right;">{resource.buyPrice  -> f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td>
+            <f:if condition="{showBuyCorpColumn} == 1"><td style="text-align:right;">{resource.corpBuyPrice ->  f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td></f:if>
+            <td style="text-align:right;">{resource.sellPrice ->  f:format.currency(decimalSeparator: ',', thousandsSeparator: '.')}</td>
 			<td>
-				<f:if condition="{resource.region} != ''">
+				<f:if condition="{resource.regionName} != ''">
 				<f:then>
-					Region: {resource.region}
+					Region: {resource.regionName}
 				</f:then>
 				<f:else>
-					System: {resource.solarSystem}
+					System: {resource.solarSystemName}
 				</f:else>
 			</f:if>
 			</td>
