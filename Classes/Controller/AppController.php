@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Controller;
+namespace Gerh\Evecorp\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -37,7 +37,7 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 	/**
 	 * Holds instance for market data
 	 * 
-	 * @var \gerh\Evecorp\Domain\Model\MarketData
+	 * @var \Gerh\Evecorp\Domain\Model\MarketData
 	 * @inject
 	 */
 	protected $marketData;

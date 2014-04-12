@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Domain\Repository;
+namespace Gerh\Evecorp\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice

@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Service;
+namespace Gerh\Evecorp\Service;
 
 /***************************************************************
  *  Copyright notice

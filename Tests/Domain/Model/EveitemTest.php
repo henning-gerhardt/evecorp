@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Test\Domain\Model;
+namespace Gerh\Evecorp\Test\Domain\Model;
 
 /***************************************************************
  *	Copyright notice
@@ -36,7 +36,7 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function nameOfEveitemCouldBeSet() {
 		$eveName = 'Tritanium';
-		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item = new \Gerh\Evecorp\Domain\Model\Eveitem();
 		$item->setEveName($eveName);
 		$this->assertEquals($eveName, $item->getEveName());
 	}
@@ -46,7 +46,7 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function idOfEveitemCouldBeSet() {
 		$eveId = 34;
-		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item = new \Gerh\Evecorp\Domain\Model\Eveitem();
 		$item->setEveId($eveId);
 		$this->assertEquals($eveId, $item->getEveId());
 	}
@@ -56,7 +56,7 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function buyPriceOfEveitemCouldBeSet() {
 		$price = 4.45;
-		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item = new \Gerh\Evecorp\Domain\Model\Eveitem();
 		$item->setBuyPrice($price);
 		$this->assertEquals($price, $item->getBuyPrice());
 	}
@@ -66,7 +66,7 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function sellPriceOfEveitemCouldBeSet() {
 		$price = 4.05;
-		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item = new \Gerh\Evecorp\Domain\Model\Eveitem();
 		$item->setSellPrice($price);
 		$this->assertEquals($price, $item->getSellPrice());
 	}
@@ -76,7 +76,7 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function cacheTimeOfEveitemCouldBeSet() {
 		$cacheTime = \time();
-		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item = new \Gerh\Evecorp\Domain\Model\Eveitem();
 		$item->setCacheTime($cacheTime);
 		$this->assertEquals($cacheTime, $item->getCacheTime());
 	}
@@ -85,11 +85,11 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function solarSystemOfEveitemCouldBeSet() {
-		$solarSystem = new \gerh\Evecorp\Domain\Model\EveMapSolarSystem();
+		$solarSystem = new \Gerh\Evecorp\Domain\Model\EveMapSolarSystem();
 		$solarSystem->setSolarSystemId(30000142);
 		$solarSystem->setSolarSystemName('Jita');
 
-		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item = new \Gerh\Evecorp\Domain\Model\Eveitem();
 		$item->setSolarSystem($solarSystem);
 
 		$this->assertEquals($solarSystem, $item->getSolarSystem());
@@ -100,7 +100,7 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function timeToCacheOfEveitemCouldBeSet() {
 		$timeToCache = 5;
-		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item = new \Gerh\Evecorp\Domain\Model\Eveitem();
 		$item->setTimeToCache($timeToCache);
 		$this->assertEquals($timeToCache, $item->getTimeToCache());
 	}
@@ -111,7 +111,7 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function timeToCacheCouldNotBeSetBelowOne() {
 		$timeToCache = 0;
 		$expected = 1;
-		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item = new \Gerh\Evecorp\Domain\Model\Eveitem();
 		$item->setTimeToCache($timeToCache);
 		$this->assertEquals($expected, $item->getTimeToCache());
 	}
@@ -120,11 +120,11 @@ class EveitemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function regionCouldBeSet() {
-		$region = new \gerh\Evecorp\Domain\Model\EveMapRegion();
+		$region = new \Gerh\Evecorp\Domain\Model\EveMapRegion();
 		$region->setRegionId(10000002);
 		$region->setRegionName('The Forge');
 
-		$item = new \gerh\Evecorp\Domain\Model\Eveitem();
+		$item = new \Gerh\Evecorp\Domain\Model\Eveitem();
 		$item->setRegion($region);
 
 		$this->assertEquals($region, $item->getRegion());

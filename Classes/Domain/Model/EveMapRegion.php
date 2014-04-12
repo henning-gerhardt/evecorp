@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Domain\Model;
+namespace Gerh\Evecorp\Domain\Model;
 
 /***************************************************************
  *  Copyright notice

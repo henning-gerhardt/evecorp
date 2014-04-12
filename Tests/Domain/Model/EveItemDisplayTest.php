@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Test\Domain\Model;
+namespace Gerh\Evecorp\Test\Domain\Model;
 
 /***************************************************************
  *	Copyright notice
@@ -37,7 +37,7 @@ class EveItemDisplayTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function displayNameCouldBeSet() {
 		$eveName = 'Tritanium';
 
-		$item = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$item = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
 		$item->setDisplayName($eveName);
 
 		$this->assertEquals($eveName, $item->getDisplayName());
@@ -49,7 +49,7 @@ class EveItemDisplayTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function buyPriceCouldBeSet() {
 		$price = 4.45;
 
-		$item = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$item = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
 		$item->setBuyPrice($price);
 
 		$this->assertEquals($price, $item->getBuyPrice());
@@ -61,7 +61,7 @@ class EveItemDisplayTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function sellPriceCouldBeSet() {
 		$price = 4.05;
 
-		$item = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$item = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
 		$item->setSellPrice($price);
 
 		$this->assertEquals($price, $item->getSellPrice());
@@ -73,7 +73,7 @@ class EveItemDisplayTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function corpTaxCouldBeSet() {
 		$corpTax = 15.0;
 
-		$eveItemDisplay = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$eveItemDisplay = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
 		$eveItemDisplay->setCorpTax($corpTax);
 
 		$this->assertEquals($corpTax, $eveItemDisplay->getCorpTax());
@@ -85,7 +85,7 @@ class EveItemDisplayTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function corpTaxCouldNotBeSetLowerThanZero() {
 		$corpTax = -0.1;
 
-		$eveItemDisplay = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$eveItemDisplay = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
 		$eveItemDisplay->setCorpTax($corpTax);
 
 		$this->assertEquals(0, $eveItemDisplay->getCorpTax());
@@ -97,7 +97,7 @@ class EveItemDisplayTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function corpTaxCouldNotBeSetHigherThanOneHundred() {
 		$corpTax = 100.1;
 
-		$eveItemDisplay = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$eveItemDisplay = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
 		$eveItemDisplay->setCorpTax($corpTax);
 
 		$this->assertEquals(0.0, $eveItemDisplay->getCorpTax());
@@ -109,7 +109,7 @@ class EveItemDisplayTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getCorpTaxModifierWorksAsExpected() {
 		$corpTax = 15.5;
 
-		$eveItemDisplay = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$eveItemDisplay = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
 		$eveItemDisplay->setCorpTax($corpTax);
 
 		$expected = 0.845;
@@ -124,7 +124,7 @@ class EveItemDisplayTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function regionNameCouldBeSet() {
 		$regionName = 'The Forge';
 
-		$eveItemDisplay = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$eveItemDisplay = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
 		$eveItemDisplay->setRegionName($regionName);
 
 		$this->assertEquals($regionName, $eveItemDisplay->getRegionName());
@@ -136,10 +136,10 @@ class EveItemDisplayTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function regionNameCouldBeSetByRegionObject() {
 		$regionName = 'The Forge';
 
-		$region = new \gerh\Evecorp\Domain\Model\EveMapRegion();
+		$region = new \Gerh\Evecorp\Domain\Model\EveMapRegion();
 		$region->setRegionName($regionName);
 
-		$eveItemDisplay = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$eveItemDisplay = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
 		$eveItemDisplay->setRegionNameByRegion($region);
 
 		$this->assertEquals($regionName, $eveItemDisplay->getRegionName());
@@ -149,7 +149,7 @@ class EveItemDisplayTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function regionNameIsNullOnNullRegionObject() {
-		$eveItemDisplay = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$eveItemDisplay = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
 		$eveItemDisplay->setRegionNameByRegion(null);
 
 		$this->assertEquals(null, $eveItemDisplay->getRegionName());
@@ -161,7 +161,7 @@ class EveItemDisplayTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function solarSystemNameCouldBeSet() {
 		$solarSystemName = 'Jita';
 
-		$eveItemDisplay = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$eveItemDisplay = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
 		$eveItemDisplay->setSolarSystemName($solarSystemName);
 
 		$this->assertEquals($solarSystemName, $eveItemDisplay->getSolarSystemName());
@@ -173,10 +173,10 @@ class EveItemDisplayTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function solarSystemNameCouldBeSetBySolarSystemObject() {
 		$solarSystemName = 'Jita';
 
-		$solarSystem = new \gerh\Evecorp\Domain\Model\EveMapSolarSystem();
+		$solarSystem = new \Gerh\Evecorp\Domain\Model\EveMapSolarSystem();
 		$solarSystem->setSolarSystemName($solarSystemName);
 
-		$eveItemDisplay = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$eveItemDisplay = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
 		$eveItemDisplay->setSolarSystemNameBySolarSystem($solarSystem);
 
 		$this->assertEquals($solarSystemName, $eveItemDisplay->getSolarSystemName());
@@ -186,7 +186,7 @@ class EveItemDisplayTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function solarSystemNameIsNullOnNullSolarSystemObject() {
-		$eveItemDisplay = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$eveItemDisplay = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
 		$eveItemDisplay->setSolarSystemName(null);
 
 		$this->assertEquals(null, $eveItemDisplay->getSolarSystemName());

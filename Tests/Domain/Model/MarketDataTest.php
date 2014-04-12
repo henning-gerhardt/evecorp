@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Test\Domain\Model;
+namespace Gerh\Evecorp\Test\Domain\Model;
 
 /***************************************************************
  *	Copyright notice
@@ -48,7 +48,7 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function corpTaxCouldBeSet() {
 		$corpTax = 10;
-		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
+		$marketData = new \Gerh\Evecorp\Domain\Model\MarketData();
 		$marketData->setCorpTax($corpTax);
 		$this->assertEquals($corpTax, $marketData->getCorpTax());
 	}
@@ -58,7 +58,7 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function corpTaxCouldNotBeSetLowerThanZero() {
 		$corpTax = -0.1;
-		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
+		$marketData = new \Gerh\Evecorp\Domain\Model\MarketData();
 		$marketData->setCorpTax($corpTax);
 		$this->assertEquals(0, $marketData->getCorpTax());
 	}
@@ -68,7 +68,7 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function corpTaxCouldNotBeSetHigherThanOneHundred() {
 		$corpTax = 100.1;
-		$marketData = new \gerh\Evecorp\Domain\Model\MarketData();
+		$marketData = new \Gerh\Evecorp\Domain\Model\MarketData();
 		$marketData->setCorpTax($corpTax);
 		$this->assertEquals(0, $marketData->getCorpTax());
 	}
@@ -77,10 +77,10 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getMarketDataReturnsEmptyArrayOnEmptyRepository(){
-		$marketData = $this->getMock('\gerh\Evecorp\Domain\Model\MarketData', array('updateEveItems'));
+		$marketData = $this->getMock('\Gerh\Evecorp\Domain\Model\MarketData', array('updateEveItems'));
 
 		$mockedQueryInterface = $this->getMock('TYPO3\CMS\Extbase\Persistence\QueryInterface');
-		$mockedRepository = $this->getMock('gerh\Evecorp\Domain\Repository\EveitemRepository', array('findAll'), array($this->mockObjectManager));
+		$mockedRepository = $this->getMock('Gerh\Evecorp\Domain\Repository\EveitemRepository', array('findAll'), array($this->mockObjectManager));
 		$mockedRepository
 			->expects($this->once())
 			->method('findAll')

@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Domain\Model;
+namespace Gerh\Evecorp\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -217,7 +217,7 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Get current region
 	 *
-	 * @return \gerh\Evecorp\Domain\Model\EveMapRegion
+	 * @return \Gerh\Evecorp\Domain\Model\EveMapRegion
 	 */
 	public function getRegion() {
 		return $this->region;
@@ -226,16 +226,16 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Set region
 	 *
-	 * @param \gerh\Evecorp\Domain\Model\EveMapRegion $region
+	 * @param \Gerh\Evecorp\Domain\Model\EveMapRegion $region
 	 */
-	public function setRegion(\gerh\Evecorp\Domain\Model\EveMapRegion $region) {
+	public function setRegion(\Gerh\Evecorp\Domain\Model\EveMapRegion $region) {
 		$this->region = $region;
 	}
 
 	/**
 	 * Return used solar system
 	 *
-	 * @return \gerh\Evecorp\Domain\Model\EveMapSolarSystem
+	 * @return \Gerh\Evecorp\Domain\Model\EveMapSolarSystem
 	 */
 	public function getSolarSystem() {
 		return $this->solarSystem;
@@ -244,10 +244,10 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Set solar system
 	 *
-	 * @param \gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem
+	 * @param \Gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem
 	 * @return void
 	 */
-	public function setSolarSystem(\gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem) {
+	public function setSolarSystem(\Gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem) {
 		$this->solarSystem = $solarSystem;
 	}
 }
