@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Test\Domain\Model;
+namespace Gerh\Evecorp\Test\Domain\Model;
 
 /***************************************************************
  *	Copyright notice
@@ -36,7 +36,7 @@ class EveMapRegionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function regionIdCouldBeSet() {
 		$regionId = 10000002;
-		$region = new \gerh\Evecorp\Domain\Model\EveMapRegion();
+		$region = new \Gerh\Evecorp\Domain\Model\EveMapRegion();
 		$region->setRegionId($regionId);
 
 		$this->assertEquals($regionId, $region->getRegionId());
@@ -47,7 +47,7 @@ class EveMapRegionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function regionNameCouldBeSet() {
 		$regionName = 'The Forge';
-		$region = new \gerh\Evecorp\Domain\Model\EveMapRegion();
+		$region = new \Gerh\Evecorp\Domain\Model\EveMapRegion();
 		$region->setRegionName($regionName);
 
 		$this->assertEquals($regionName, $region->getRegionName());

@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Domain\Model;
+namespace Gerh\Evecorp\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -42,7 +42,7 @@ class MarketData {
 	/**
 	 * eveitemRepository
 	 *
-	 * @var \gerh\Evecorp\Domain\Repository\EveitemRepository
+	 * @var \Gerh\Evecorp\Domain\Repository\EveitemRepository
 	 * @inject
 	 */
 	protected $eveitemRepository;
@@ -50,12 +50,12 @@ class MarketData {
 	/**
 	 * Extract database data to an array structure
 	 *
-	 * @param \gerh\Evecorp\Domain\Model\EveItem $entry
+	 * @param \Gerh\Evecorp\Domain\Model\EveItem $entry
 	 * @return \array
 	 */
-	protected function extractDisplayData(\gerh\Evecorp\Domain\Model\EveItem $entry) {
+	protected function extractDisplayData(\Gerh\Evecorp\Domain\Model\EveItem $entry) {
 
-		$result = new \gerh\Evecorp\Domain\Model\EveItemDisplay();
+		$result = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
 		$result->setDisplayName($entry->getEveName());
 		$result->setBuyPrice($entry->getBuyPrice());
 		$result->setSellPrice($entry->getSellPrice());

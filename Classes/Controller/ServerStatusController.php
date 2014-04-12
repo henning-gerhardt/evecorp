@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Controller;
+namespace Gerh\Evecorp\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -35,7 +35,7 @@ namespace gerh\Evecorp\Controller;
 class ServerStatusController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
-	 * @var \gerh\Evecorp\Service\PhealService
+	 * @var \Gerh\Evecorp\Service\PhealService
 	 * @inject
 	 */
 	protected $phealService;
@@ -50,7 +50,7 @@ class ServerStatusController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
 	 *
 	 */
 	public function initializeAction() {
-		$this->phealService =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('gerh\Evecorp\Service\PhealService');
+		$this->phealService =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Gerh\Evecorp\Service\PhealService');
 		$this->pheal = $this->phealService->getPhealInstance();
 	}
 	/**

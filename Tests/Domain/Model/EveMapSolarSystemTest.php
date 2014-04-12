@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Test\Domain\Model;
+namespace Gerh\Evecorp\Test\Domain\Model;
 
 /***************************************************************
  *	Copyright notice
@@ -36,7 +36,7 @@ class EveMapSolarSystemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function solarSystemIdCouldBeSet() {
 		$systemId = 30000142;
-		$solarSystem = new \gerh\Evecorp\Domain\Model\EveMapSolarSystem();
+		$solarSystem = new \Gerh\Evecorp\Domain\Model\EveMapSolarSystem();
 		$solarSystem->setSolarSystemId($systemId);
 
 		$this->assertEquals($systemId, $solarSystem->getSolarSystemId());
@@ -47,7 +47,7 @@ class EveMapSolarSystemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function solarSystemNameCouldBeSet() {
 		$systemName = 'Jita';
-		$solarSystem = new \gerh\Evecorp\Domain\Model\EveMapSolarSystem();
+		$solarSystem = new \Gerh\Evecorp\Domain\Model\EveMapSolarSystem();
 		$solarSystem->setSolarSystemName($systemName);
 
 		$this->assertEquals($systemName, $solarSystem->getSolarSystemName());

@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Test\Domain\Model;
+namespace Gerh\Evecorp\Test\Domain\Model;
 
 /***************************************************************
  *	Copyright notice
@@ -36,7 +36,7 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function baseUriCouldBeSet() {
 		$baseUri = 'http://api.eve-central.com/api/marketstat';
-		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher = new \Gerh\Evecorp\Domain\Model\EveCentralFetcher();
 		$fetcher->setBaseUri($baseUri);
 		$this->assertEquals($baseUri, $fetcher->getBaseUri());
 	}
@@ -46,7 +46,7 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function regionIdCouldBeSet() {
 		$regionId = 10000002;
-		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher = new \Gerh\Evecorp\Domain\Model\EveCentralFetcher();
 		$fetcher->setRegionId($regionId);
 		$this->assertEquals($regionId, $fetcher->getRegionId());
 	}
@@ -57,7 +57,7 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function regionIdCouldNotBeSetBelowZero() {
 		$regionId = -1;
 		$expected = 0;
-		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher = new \Gerh\Evecorp\Domain\Model\EveCentralFetcher();
 		$fetcher->setRegionId($regionId);
 		$this->assertEquals($expected, $fetcher->getRegionId());
 	}
@@ -67,7 +67,7 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function systemIdCouldBeSet() {
 		$systemId = 30000142;
-		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher = new \Gerh\Evecorp\Domain\Model\EveCentralFetcher();
 		$fetcher->setSystemId($systemId);
 		$this->assertEquals($systemId, $fetcher->getSystemId());
 	}
@@ -78,7 +78,7 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function systemIdCouldNotBeSetBelowZero() {
 		$systemId = -1;
 		$expected = 0;
-		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher = new \Gerh\Evecorp\Domain\Model\EveCentralFetcher();
 		$fetcher->setSystemId($systemId);
 		$this->assertEquals($expected, $fetcher->getSystemId());
 	}
@@ -88,7 +88,7 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function typeIdsCouldBeSet() {
 		$typeIds = array(34, 35);
-		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher = new \Gerh\Evecorp\Domain\Model\EveCentralFetcher();
 		$fetcher->setTypeIds($typeIds);
 		$this->assertEquals($typeIds, $fetcher->getTypeIds());
 	}
@@ -98,7 +98,7 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function queryReturnsEmptyArrayOnNonConfiguredFetcher() {
 		$expected = array();
-		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher = new \Gerh\Evecorp\Domain\Model\EveCentralFetcher();
 		$this->assertEquals($expected, $fetcher->query());
 	}
 
@@ -106,7 +106,7 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function regionAndSystemIdCouldNotBeSetAtSameTime() {
-		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher = new \Gerh\Evecorp\Domain\Model\EveCentralFetcher();
 		$fetcher->setRegionId(1);
 		$fetcher->setSystemId(2);
 		
@@ -118,7 +118,7 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function systemAndRegionIdCouldNotBeSetAtSameTime() {
-		$fetcher = new \gerh\Evecorp\Domain\Model\EveCentralFetcher();
+		$fetcher = new \Gerh\Evecorp\Domain\Model\EveCentralFetcher();
 		$fetcher->setSystemId(1);
 		$fetcher->setRegionId(2);
 		

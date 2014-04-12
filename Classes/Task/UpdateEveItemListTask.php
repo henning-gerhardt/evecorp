@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Task;
+namespace Gerh\Evecorp\Task;
 
 /***************************************************************
  *  Copyright notice
@@ -35,12 +35,12 @@ namespace gerh\Evecorp\Task;
 class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 	/**
-	 * @var $eveItemRepository \gerh\Evecorp\Domain\Repository\EveitemRepository
+	 * @var $eveItemRepository \Gerh\Evecorp\Domain\Repository\EveitemRepository
 	 */
 	protected $eveItemRepository;
 
 	/**
-	 * @var $eveCentralFetcher \gerh\Evecorp\Domain\Model\EveCentralFetcher
+	 * @var $eveCentralFetcher \Gerh\Evecorp\Domain\Model\EveCentralFetcher
 	 */
 	protected $eveCentralFetcher;
 
@@ -53,8 +53,8 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 		/** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
 		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-		$this->eveItemRepository = $objectManager->get('gerh\\Evecorp\\Domain\\Repository\\EveitemRepository');
-		$this->eveCentralFetcher = $objectManager->get('gerh\\Evecorp\\Domain\\Model\\EveCentralFetcher');
+		$this->eveItemRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EveitemRepository');
+		$this->eveCentralFetcher = $objectManager->get('Gerh\\Evecorp\\Domain\\Model\\EveCentralFetcher');
 
 		$extconf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
 		$this->eveCentralFetcher->setBaseUri($extconf['evecentralUri']);

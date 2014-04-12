@@ -1,5 +1,5 @@
 <?php
-namespace gerh\Evecorp\Domain\Model;
+namespace Gerh\Evecorp\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -175,7 +175,7 @@ class EveItemDisplay {
 	/**
 	 * Get current region name
 	 *
-	 * @return \gerh\Evecorp\Domain\Model\EveMapRegion
+	 * @return \Gerh\Evecorp\Domain\Model\EveMapRegion
 	 */
 	public function getRegionName() {
 		return $this->regionName;
@@ -193,10 +193,10 @@ class EveItemDisplay {
 	/**
 	 * Set region name by a given region object
 	 *
-	 * @param \gerh\Evecorp\Domain\Model\EveMapRegion $region
+	 * @param \Gerh\Evecorp\Domain\Model\EveMapRegion $region
 	 */
-	public function setRegionNameByRegion(\gerh\Evecorp\Domain\Model\EveMapRegion $region = null) {
-		if (($region instanceof \gerh\Evecorp\Domain\Model\EveMapRegion) && ($region != null)) {
+	public function setRegionNameByRegion(\Gerh\Evecorp\Domain\Model\EveMapRegion $region = null) {
+		if (($region instanceof \Gerh\Evecorp\Domain\Model\EveMapRegion) && ($region != null)) {
 			$this->setRegionName($region->getRegionName());
 		}
 	}
@@ -204,7 +204,7 @@ class EveItemDisplay {
 	/**
 	 * Return used solar system name
 	 *
-	 * @return \gerh\Evecorp\Domain\Model\EveMapSolarSystem
+	 * @return \Gerh\Evecorp\Domain\Model\EveMapSolarSystem
 	 */
 	public function getSolarSystemName() {
 		return $this->solarSystemName;
@@ -223,11 +223,11 @@ class EveItemDisplay {
 	/**
 	 * Set solar system name by solar system object
 	 *
-	 * @param \gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem
+	 * @param \Gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem
 	 * @return void
 	 */
-	public function setSolarSystemNameBySolarSystem(\gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem = null) {
-		if (($solarSystem instanceof \gerh\Evecorp\Domain\Model\EveMapSolarSystem) && ($solarSystem != null)) {
+	public function setSolarSystemNameBySolarSystem(\Gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem = null) {
+		if (($solarSystem instanceof \Gerh\Evecorp\Domain\Model\EveMapSolarSystem) && ($solarSystem != null)) {
 			$this->setSolarSystemName($solarSystem->getSolarSystemName());
 		}
 	}
