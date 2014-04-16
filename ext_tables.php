@@ -64,6 +64,9 @@ $TCA['tx_evecorp_domain_model_evemapregion'] = array (
 		'enablecolumns' => array(
 			'disabled' => 'hidden'
 		),
+		'rootLevel' => 1,
+		'hideTable' => 1,
+		'readOnly' => 1,
 		'searchFields' => 'region_id, region_name,',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/EveMapRegion.php',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
@@ -81,6 +84,9 @@ $TCA['tx_evecorp_domain_model_evemapsolarsystem'] = array (
 		'enablecolumns' => array(
 			'disabled' => 'hidden'
 		),
+		'rootLevel' => 1,
+		'hideTable' => 1,
+		'readOnly' => 1,
 		'searchFields' => 'solar_system_id, solar_system_name,',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/EveMapSolarSystem.php',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
