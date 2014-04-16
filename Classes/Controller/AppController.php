@@ -59,6 +59,7 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 		$this->view->assign('preTableText', $this->settings['pretabletext']);
 		$this->view->assign('postTableText', $this->settings['posttabletext']);
 		$this->view->assign('showBuyCorpColumn', $this->settings['showbuycorpcolumn']);
+		$this->view->assign('showFetchColumn', $this->settings['showfetchcolumn']);
 	}
 
 }

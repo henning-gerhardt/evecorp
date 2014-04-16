@@ -39,6 +39,15 @@
                 </config>
             </TCEforms>
           </settings.showbuycorpcolumn>
+          <settings.showfetchcolumn>
+            <TCEforms>
+              <label>show fetch column (region or solar system)</label>
+                <config>
+                   <type>check</type>
+                   <default>1</default>
+                </config>
+            </TCEforms>
+          </settings.showfetchcolumn>
           <settings.pretabletext>
             <TCEforms>
               <label>text before table</label>
