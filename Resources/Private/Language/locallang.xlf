@@ -4,24 +4,6 @@
 		<header/>
 		<body>
 
-			<trans-unit id="tx_evecorp_domain_model_eveitem">
-				<source>Eveitem</source>
-			</trans-unit>
-			<trans-unit id="tx_evecorp_domain_model_eveitem.eve_name">
-				<source>eveName</source>
-			</trans-unit>
-			<trans-unit id="tx_evecorp_domain_model_eveitem.eve_id">
-				<source>eveId</source>
-			</trans-unit>
-			<trans-unit id="tx_evecorp_domain_model_evemapregion">
-				<source>EVE Region map</source>
-			</trans-unit>
-			<trans-unit id="tx_evecorp_domain_model_evemapregion.region_id">
-				<source>EVE region id</source>
-			</trans-unit>
-			<trans-unit id="tx_evecorp_domain_model_eveitem.region_name">
-				<source>EVE region name</source>
-			</trans-unit>
 			<trans-unit id="task.updateEveItemListTask.name" xml:space="preserve">
 				<source>Update EVE item list</source>
 			</trans-unit>
