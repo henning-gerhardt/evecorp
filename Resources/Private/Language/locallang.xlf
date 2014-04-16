@@ -4,6 +4,30 @@
 		<header/>
 		<body>
 
+			<trans-unit id="app.buy" xml:space="preserve">
+					<source>buy</source>
+			</trans-unit>
+			<trans-unit id="app.corpbuy" xml:space="preserve">
+					<source>corp buy</source>
+			</trans-unit>
+			<trans-unit id="app.sell" xml:space="preserve">
+					<source>sell</source>
+			</trans-unit>
+			<trans-unit id="app.region" xml:space="preserve">
+					<source>Region: </source>
+			</trans-unit>
+			<trans-unit id="app.solarsystem" xml:space="preserve">
+					<source>System: </source>
+			</trans-unit>
+			<trans-unit id="serverstate.serverstate" xml:space="preserve">
+					<source>Server state</source>
+			</trans-unit>
+			<trans-unit id="serverstate.open" xml:space="preserve">
+					<source>open</source>
+			</trans-unit>
+			<trans-unit id="serverstate.closed" xml:space="preserve">
+					<source>closed</source>
+			</trans-unit>
 			<trans-unit id="task.updateEveItemListTask.name" xml:space="preserve">
 				<source>Update EVE item list</source>
 			</trans-unit>

@@ -1,11 +1,6 @@
 <dl>
-    <dt>Server state</dt>
-    <dd>
-        <f:if condition="{server_status}">
-            <f:then>open</f:then>
-            <f:else>closed</f:else>
-        </f:if>
-    </dd>
-    <dt>Online players</dt>
-    <dd>{online_players -> f:format.number(decimals: 0, thousandsSeparator: '.')}</dd>
+	<dt><f:translate key="serverstate.serverstate">Server state</f:translate></dt>
+	<dd><f:if condition="{server_status}"><f:then><f:translate key="serverstate.open">open</f:translate></f:then><f:else><f:translate key="serverstate.closed">closed</f:translate></f:else></f:if></dd>
+	<dt>Online players</dt>
+	<dd>{online_players -> f:format.number(decimals: 0, thousandsSeparator: '.')}</dd>
 </dl>
