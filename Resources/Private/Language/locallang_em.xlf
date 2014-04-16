@@ -15,6 +15,12 @@
 			<trans-unit id="evecorp.backendconfig.evecentraluri" xml:space="preserve">
 				<source>Static URI part to eve-central: Default to http://api.eve-central.com/api/marketstat </source>
 			</trans-unit>
+			<trans-unit id="evecorp.backendconfig.fileCreateMask" xml:space="preserve">
+				<source>Configure create mask for a file: No value means using default pheal value (0666). Hint: use same setting as [BE][fileCreateMask]</source>
+			</trans-unit>
+			<trans-unit id="evecorp.backendconfig.folderCreateMask" xml:space="preserve">
+				<source>Configure create mask for a folder: No value means using default pheal value (0777). Hint: use same setting as [BE][folderCreateMask]</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

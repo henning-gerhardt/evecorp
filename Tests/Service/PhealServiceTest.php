@@ -176,4 +176,84 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->assertFalse($service->isHttpsConnectionVerified());
 	}
 
+	/**
+	 * @backupGlobals enabled
+	 * @test
+	 */
+	public function fileCreateMaskCouldBeSet() {
+		$expected = 0777;
+		$modifier = array('phealFileCreateMask' => $expected);
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
+
+		$service = new \Gerh\Evecorp\Service\PhealService();
+
+		$this->assertEquals($expected,  $service->getFileMask());
+	}
+
+	/**
+	 * @backupGlobals enabled
+	 * @test
+	 */
+	public function fileCreateHasDefaultValueIfNotDefined() {
+		$expected = 0666;
+
+		$service = new \Gerh\Evecorp\Service\PhealService();
+
+		$this->assertEquals($expected,  $service->getFileMask());
+	}
+
+	/**
+	 * @backupGlobals enabled
+	 * @test
+	 */
+	public function folderCreateMaskCouldBeSet() {
+		$expected = 2777;
+		$modifier = array('phealFolderCreateMask' => $expected);
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
+
+		$service = new \Gerh\Evecorp\Service\PhealService();
+
+		$this->assertEquals($expected,  $service->getFolderMask());
+	}
+
+	/**
+	 * @backupGlobals enabled
+	 * @test
+	 */
+	public function folderCreateHasDefaultValueIfNotDefined() {
+		$expected = 0777;
+
+		$service = new \Gerh\Evecorp\Service\PhealService();
+
+		$this->assertEquals($expected,  $service->getFolderMask());
+	}
+
+	/**
+	 * @backupGlobals enabled
+	 * @test
+	 */
+	public function getUmaskOptionsReturnsCorrectArrayConstructOnNotDefined() {
+		$expected = array('umask' => 0666, 'umask_directory' => 0777);
+
+		$service = new \Gerh\Evecorp\Service\PhealService();
+
+		$this->assertEquals($expected,  $service->getUmaskOptions());
+	}
+
+	/**
+	 * @backupGlobals enabled
+	 * @test
+	 */
+	public function getUmaskOptionsReturnsCorrectArrayConstructOnDefinedValues() {
+		$fileMask = 0655;
+		$folderMask = 2750;
+		$expected = array('umask' => $fileMask, 'umask_directory' => $folderMask);
+		$modifier = array('phealFolderCreateMask' => $folderMask, 'phealFileCreateMask' => $fileMask);
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
+
+		$service = new \Gerh\Evecorp\Service\PhealService();
+
+		$this->assertEquals($expected,  $service->getUmaskOptions());
+	}
+
 }

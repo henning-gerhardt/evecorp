@@ -58,6 +58,16 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 	protected $pheal;
 
 	/**
+	 * @var \string
+	 */
+	protected $phealFileMask;
+
+	/**
+	 * @var \string
+	 */
+	protected $phealFolderMask;
+
+	/**
 	 * class constructor
 	 * @return void
 	 */
@@ -66,16 +76,19 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 		$this->setPhealCacheDirectory($extconf['phealCacheDirectory']);
 		$this->setHttpsConnectionVerified($extconf['phealVerifyingHttpsConnection']);
 		$this->setConnectionTimeout($extconf['phealConnectionTimeout']);
+		$this->setFileMask($extconf['phealFileCreateMask']);
+		$this->setFolderMask($extconf['phealFolderCreateMask']);
 
 		Config::getInstance()->http_ssl_verifypeer = $this->isHttpsConnectionVerified();
 		Config::getInstance()->http_timeout = $this->getConnectionTimeout();
-		Config::getInstance()->cache = new \Pheal\Cache\FileStorage($this->getPhealCacheDirectory() . DIRECTORY_SEPARATOR);
+		Config::getInstance()->cache = new \Pheal\Cache\FileStorage($this->getPhealCacheDirectory() . DIRECTORY_SEPARATOR, $this->getUmaskOptions());
 		Config::getInstance()->access = new \Pheal\Access\StaticCheck();
 		$this->pheal = new Pheal();
 	}
 
 	/**
 	 * Return fully configured Pheal object.
+	 *
 	 * @return Pheal\Pheal
 	 */
 	public function getPhealInstance() {
@@ -92,6 +105,7 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 	}
 
 	/**
+	 * Set pheal cache directory
 	 *
 	 * @param \string $phealCacheDirectory
 	 */
@@ -145,5 +159,61 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 		} else {
 			$this->phealVerifyHttpsConnecton = false;
 		}
+	}
+
+	/**
+	 * Get current used file mask
+	 *
+	 * @return \string
+	 */
+	public function getFileMask() {
+		return $this->phealFileMask;
+	}
+
+	/**
+	 * Set file mask
+	 *
+	 * @param \string $fileMask
+	 */
+	protected function setFileMask($fileMask) {
+		if (! empty($fileMask)) {
+			$this->phealFileMask = $fileMask;
+		} else {
+			$this->phealFileMask = 0666;
+		}
+	}
+
+	/**
+	 * Get current used folder mask
+	 *
+	 * @return \string
+	 */
+	public function getFolderMask() {
+		return $this->phealFolderMask;
+	}
+
+	/**
+	 * Set folder mask
+	 *
+	 * @param \string $folderMask
+	 */
+	protected function setFolderMask($folderMask) {
+		if (! empty($folderMask)) {
+			$this->phealFolderMask = $folderMask;
+		} else {
+			$this->phealFolderMask = 0777;
+		}
+	}
+
+	/**
+	 * Return file and folder mask as Pheal Filestorage its expects
+	 *
+	 * @return array
+	 */
+	public function getUmaskOptions() {
+		return array(
+			'umask' => $this->getFileMask(),
+			'umask_directory' => $this->getFolderMask(),
+		);
 	}
 }
