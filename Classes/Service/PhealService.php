@@ -177,7 +177,7 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 	 */
 	protected function setFileMask($fileMask) {
 		if (! empty($fileMask)) {
-			$this->phealFileMask = $fileMask;
+			$this->phealFileMask = \octdec($fileMask);
 		} else {
 			$this->phealFileMask = 0666;
 		}
@@ -199,7 +199,7 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 	 */
 	protected function setFolderMask($folderMask) {
 		if (! empty($folderMask)) {
-			$this->phealFolderMask = $folderMask;
+			$this->phealFolderMask = \octdec($folderMask);
 		} else {
 			$this->phealFolderMask = 0777;
 		}

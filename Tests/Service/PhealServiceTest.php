@@ -181,8 +181,9 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function fileCreateMaskCouldBeSet() {
-		$expected = 0777;
-		$modifier = array('phealFileCreateMask' => $expected);
+		$octValue = '0777';
+		$expected = 511;
+		$modifier = array('phealFileCreateMask' => $octValue);
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
 		$service = new \Gerh\Evecorp\Service\PhealService();
@@ -195,7 +196,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function fileCreateHasDefaultValueIfNotDefined() {
-		$expected = 0666;
+		$expected = 0666; // value is octal!
 
 		$service = new \Gerh\Evecorp\Service\PhealService();
 
@@ -207,8 +208,9 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function folderCreateMaskCouldBeSet() {
-		$expected = 2777;
-		$modifier = array('phealFolderCreateMask' => $expected);
+		$octValue = '2777';
+		$expected = 1535;
+		$modifier = array('phealFolderCreateMask' => $octValue);
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
 		$service = new \Gerh\Evecorp\Service\PhealService();
@@ -221,7 +223,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function folderCreateHasDefaultValueIfNotDefined() {
-		$expected = 0777;
+		$expected = 0777; // value is octal!
 
 		$service = new \Gerh\Evecorp\Service\PhealService();
 
@@ -233,7 +235,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getUmaskOptionsReturnsCorrectArrayConstructOnNotDefined() {
-		$expected = array('umask' => 0666, 'umask_directory' => 0777);
+		$expected = array('umask' => 0666, 'umask_directory' => 0777); // values are octal!
 
 		$service = new \Gerh\Evecorp\Service\PhealService();
 
@@ -245,10 +247,8 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getUmaskOptionsReturnsCorrectArrayConstructOnDefinedValues() {
-		$fileMask = 0655;
-		$folderMask = 2750;
-		$expected = array('umask' => $fileMask, 'umask_directory' => $folderMask);
-		$modifier = array('phealFolderCreateMask' => $folderMask, 'phealFileCreateMask' => $fileMask);
+		$expected = array('umask' => 416, 'umask_directory' => 488);
+		$modifier = array('phealFileCreateMask' => '0640', 'phealFolderCreateMask' => '0750');
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
 		$service = new \Gerh\Evecorp\Service\PhealService();
