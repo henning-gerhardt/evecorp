@@ -28,9 +28,6 @@
 			<trans-unit id="serverstate.closed" xml:space="preserve">
 					<source>closed</source>
 			</trans-unit>
-			<trans-unit id="serverstate.onlinepilots" xml:space="preserve">
-					<source>Online pilots</source>
-			</trans-unit>
 			<trans-unit id="task.updateEveItemListTask.name" xml:space="preserve">
 				<source>Update EVE item list</source>
 			</trans-unit>
