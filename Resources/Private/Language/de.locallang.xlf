@@ -1,38 +1,52 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-10-03T16:48:55Z" product-name="evecorp">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-10-03T16:48:55Z" product-name="evecorp" target-language="de">
 		<header/>
 		<body>
 
 			<trans-unit id="app.buy" xml:space="preserve">
 					<source>buy</source>
+					<target>Kaufen</target>
 			</trans-unit>
 			<trans-unit id="app.corpbuy" xml:space="preserve">
 					<source>corp buy</source>
+					<target>Corp Kauf</target>
 			</trans-unit>
 			<trans-unit id="app.sell" xml:space="preserve">
 					<source>sell</source>
+					<target>Verkaufen</target>
 			</trans-unit>
 			<trans-unit id="app.region" xml:space="preserve">
 					<source>Region: </source>
+					<target>Region: </target>
 			</trans-unit>
 			<trans-unit id="app.solarsystem" xml:space="preserve">
 					<source>System: </source>
+					<target>System: </target>
 			</trans-unit>
 			<trans-unit id="serverstate.serverstate" xml:space="preserve">
 					<source>Server state</source>
+					<target>Server Status</target>
 			</trans-unit>
 			<trans-unit id="serverstate.open" xml:space="preserve">
 					<source>open</source>
+					<target>offen</target>
 			</trans-unit>
 			<trans-unit id="serverstate.closed" xml:space="preserve">
 					<source>closed</source>
+					<target>geschlossen</target>
+			</trans-unit>
+			<trans-unit id="serverstate.onlinepilots" xml:space="preserve">
+					<source>Online pilots</source>
+					<target>Aktive Spieler</target>
 			</trans-unit>
 			<trans-unit id="task.updateEveItemListTask.name" xml:space="preserve">
 				<source>Update EVE item list</source>
+				<target>Aktualisiere Liste der EVE Gegenstände</target>
 			</trans-unit>
 			<trans-unit id="task.updateEveItemListTask.description" xml:space="preserve">
 				<source>Updating of EVE items is ...</source>
+				<target>Aktualisierung der EVE Gegenstände</target>
 			</trans-unit>
 		</body>
 	</file>

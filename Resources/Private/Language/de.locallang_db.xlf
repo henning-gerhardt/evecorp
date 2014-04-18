@@ -1,50 +1,64 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-10-03T16:48:55Z" product-name="evecorp">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-10-03T16:48:55Z" product-name="evecorp"  target-language="de">
 		<header/>
 		<body>
 
 			<trans-unit id="tx_evecorp_domain_model_eveitem">
 				<source>EVE Market (based on data from Eve-Central)</source>
+				<target>EVE Markt (basierend auf Daten von Eve-Central)</target>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_eveitem.eve_name">
 				<source>EVE name</source>
+				<target>EVE Name</target>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_eveitem.eve_id">
 				<source>EVE id</source>
+				<target>EVE ID</target>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_eveitem.time_to_cache">
 				<source>time to cache (in minutes)</source>
+				<target>Cache Zeit (in Minuten)</target>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_eveitem.region">
 				<source>Region</source>
+				<target>Region</target>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_eveitem.region.noRegionSelected">
 				<source>No EVE region selected</source>
+				<target>Keine EVE Region ausgewählt</target>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_eveitem.solarsystem">
 				<source>Solar system</source>
+				<target>Sonnensystem</target>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_eveitem.solarsystem.noSolarSystemSelected">
 				<source>No EVE solar system selected</source>
+				<target>Kein EVE Sonnensystem ausgewählt</target>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_evemapregion">
 				<source>EVE region map (based on static dump)</source>
+				<target>EVE Regionen Karte (basierend auf dem statischen Dump)</target>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_evemapregion.region_id">
 				<source>Region id</source>
+				<target>Region ID</target>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_evemapregion.region_name">
 				<source>Region name</source>
+				<target>Region Name</target>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_evemapsolarsystem">
 				<source>EVE solar system map (based on static dump)</source>
+				<target>EVE Sonnensystem Karte (basierend auf dem statischen Dump)</target>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_evemapsolarsystem.solar_system_id">
 				<source>Solar system id</source>
+				<target>Sonnensystem ID</target>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_evemapsolarsystem.solar_system_name">
 				<source>Solar system name</source>
+				<target>Sonnensystem  Name</target>
 			</trans-unit>
 
 		</body>
