@@ -88,3 +88,20 @@ CREATE TABLE tx_evecorp_domain_model_evemapsolarsystem (
 	KEY solar_system_name (solar_system_name)
 
 );
+
+#
+# Table structure for table 'tx_evecorp_domain_model_apikey'
+#
+CREATE TABLE tx_evecorp_domain_model_apikey (
+	uid int(11) NOT NULL auto_increment,
+	pid int(11) DEFAULT '0' NOT NULL,
+
+	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
+	crdate int(11) unsigned DEFAULT '0' NOT NULL,
+	deleted tinyint(3) unsigned DEFAULT '0' NOT NULL,
+	hidden tinyint(3) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY parent (pid),
+
+);
