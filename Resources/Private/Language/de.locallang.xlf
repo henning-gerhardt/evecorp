@@ -48,6 +48,10 @@
 				<source>Updating of EVE items is ...</source>
 				<target>Aktualisierung der EVE Gegenstände</target>
 			</trans-unit>
+			<trans-unit id="apikeymanagement.index.welcome" xml:space="preserve">
+				<source>EVE API Key Management</source>
+				<target>EVE API Schlüssel Verwaltung</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

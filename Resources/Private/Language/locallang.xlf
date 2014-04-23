@@ -37,6 +37,9 @@
 			<trans-unit id="task.updateEveItemListTask.description" xml:space="preserve">
 				<source>Updating of EVE items is ...</source>
 			</trans-unit>
+			<trans-unit id="apikeymanagement.index.welcome" xml:space="preserve">
+				<source>EVE API Key Management</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

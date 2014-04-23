@@ -15,6 +15,12 @@ if (!defined ('TYPO3_MODE')) {
     'EvE Server Status'
 );
 
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+    $_EXTKEY,
+    'Pi3',
+    'EVE API Key Management'
+);
+
 $extensionName = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY));
 $pluginName = strtolower('Pi1');
 $pluginSignature = $extensionName.'_'.$pluginName;
