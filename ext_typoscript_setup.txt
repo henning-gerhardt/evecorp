@@ -1,0 +1,19 @@
+config.tx_extbase {
+	persistence {
+		storagePid = {$plugin.tx_evecorp.persistence.storagePid}
+		classes {
+			Gerh\Evecorp\Domain\Model\CorpMember {
+				mapping {
+					tableName = fe_users
+					recordType = Gerh\Evecorp\Domain\Model\CorpMember
+				}
+			},
+			TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
+				mapping {
+					tableName = fe_groups
+					recordType = TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+				}
+			}
+		}
+	}
+}
