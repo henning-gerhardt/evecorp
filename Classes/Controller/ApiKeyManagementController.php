@@ -35,11 +35,20 @@ namespace Gerh\Evecorp\Controller;
 class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController{
 
 	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\ApiKeyRepository
+	 * @inject
+	 */
+	protected $apiKeyRepository;
+
+	/**
 	 * index action
-	 * 
+	 *
 	 * @return void
 	 */
 	public function indexAction() {
+		$userId = $GLOBALS['TSFE']->fe_user->user['uid'];
+		$apiKeyList = $this->apiKeyRepository->findAllByUserId($userId);
 		
+		$this->view->assign('apiKeyList', $apiKeyList);
 	}
 }

@@ -7,7 +7,7 @@ config.tx_extbase {
 					tableName = fe_users
 					recordType = Gerh\Evecorp\Domain\Model\CorpMember
 				}
-			},
+			}
 			TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
 				mapping {
 					tableName = fe_groups

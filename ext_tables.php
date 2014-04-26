@@ -103,14 +103,14 @@ $TCA['tx_evecorp_domain_model_evemapsolarsystem'] = array (
 $TCA['tx_evecorp_domain_model_apikey'] = array (
 	'ctrl' => array (
 		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey',
-		'label' => 'region_name',
+		'label' => 'API Key Management',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'delete' => 'deleted',
 		'enablecolumns' => array(
 			'disabled' => 'hidden'
 		),
-		'searchFields' => '',
+		'searchFields' => 'key_id, v_code',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/ApiKey.php',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
 	)

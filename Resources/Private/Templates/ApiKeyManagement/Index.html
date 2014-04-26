@@ -1,1 +1,15 @@
 <h1><f:translate key="apikeymanagement.index.welcome">EVE API Key Management</f:translate></h1>
+
+<f:if condition="{apiKeyList}">
+	<h2>List of stored API keys for {apiKeyList.first.corpMember.username}</h2>
+	<table>
+		<thead>
+			<tr><th>key id</th><th>vCode</th></tr>
+		</thead>
+		<tbody>
+		<f:for each="{apiKeyList}" as="apiKey">
+			<tr><td>{apiKey.keyId}</td><td>{apiKey.vCode}</td></tr>
+		</f:for>
+		</tbody>
+	</table>
+</f:if>

@@ -34,4 +34,74 @@ namespace Gerh\Evecorp\Domain\Model;
  */
 class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
+	/**
+	 * @todo using of \Gerh\Evecorp\Domain\Model\CorpMember
+	 * @lazy
+	 * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+	 */
+	protected $corpMember;
+
+	/**
+	 * @var \integer
+	 * @NotNull
+	 */
+	protected $keyId;
+
+	/**
+	 * @var \string
+	 * @NotNull
+	 */
+	protected $vCode;
+
+	/**
+	 *
+	 * @return \Gerh\Evecorp\Domain\Model\CorpMember
+	 */
+	public function getCorpMember() {
+		if ($this->corpMember instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->corpMember->_loadRealInstance();
+		}
+		
+		return $this->corpMember;
+	}
+
+	/**
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\CorpMember $corpMember
+	 */
+	public function setCorpMember(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember) {
+		$this->corpMember = $corpMember;
+	}
+
+	/**
+	 *
+	 * @return \integer
+	 */
+	public function getKeyId() {
+		return $this->keyId;
+	}
+
+	/**
+	 *
+	 * @param \integer $keyId
+	 */
+	public function setKeyId($keyId) {
+		$this->keyId = $keyId;
+	}
+
+	/**
+	 *
+	 * @return \string
+	 */
+	public function getVCode() {
+		return $this->vCode;
+	}
+
+	/**
+	 *
+	 * @param \string $vCode
+	 */
+	public function setVCode($vCode) {
+		$this->vCode = $vCode;
+	}
 }

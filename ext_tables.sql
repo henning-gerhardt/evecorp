@@ -96,6 +96,10 @@ CREATE TABLE tx_evecorp_domain_model_apikey (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
+	key_id int(11) DEFAULT '0' NOT NULL,
+	v_code varchar(255) DEFAULT '' NOT NULL,
+	corp_member int(11) DEFAULT '0',
+
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	deleted tinyint(3) unsigned DEFAULT '0' NOT NULL,

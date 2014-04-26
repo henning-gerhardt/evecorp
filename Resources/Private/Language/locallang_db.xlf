@@ -46,7 +46,18 @@
 			<trans-unit id="tx_evecorp_domain_model_evemapsolarsystem.solar_system_name">
 				<source>Solar system name</source>
 			</trans-unit>
-
+			<trans-unit id="tx_evecorp_domain_model_apikey">
+				<source>API Key</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.keyid">
+				<source>Key ID</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.vcode">
+				<source>VCode</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.corpmember">
+				<source>Corp Member</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
