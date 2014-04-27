@@ -42,13 +42,16 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * @var \integer
-	 * @NotNull
+	 * @validate NotEmpty
+	 * @validate Number
+	 * @validate NumberRange(minimum=1, maximum=2147483647)
 	 */
 	protected $keyId;
 
 	/**
 	 * @var \string
-	 * @NotNull
+	 * @validate NotEmpty
+	 * @validate StringLength(minimum=64, maximum=64)
 	 */
 	protected $vCode;
 

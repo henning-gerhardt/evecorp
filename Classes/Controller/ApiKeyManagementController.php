@@ -41,6 +41,12 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	protected $apiKeyRepository;
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
+	 * @inject
+	 */
+	protected $frontendUserRepository;
+
+	/**
 	 * index action
 	 *
 	 * @return void
@@ -48,7 +54,27 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	public function indexAction() {
 		$userId = $GLOBALS['TSFE']->fe_user->user['uid'];
 		$apiKeyList = $this->apiKeyRepository->findAllByUserId($userId);
-		
+
 		$this->view->assign('apiKeyList', $apiKeyList);
+	}
+
+	/**
+	 * show form for new api key
+	 */
+	public function newAction(\Gerh\Evecorp\Domain\Model\ApiKey $newApiKey = NULL) {
+		$this->view->assign('newApiKey', $newApiKey);
+	}
+
+	/**
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKey $newApiKey
+	 * @validate $newApiKey \Gerh\Evecorp\Domain\Validator\ApiKeyValidator
+	 */
+	public function createAction(\Gerh\Evecorp\Domain\Model\ApiKey $newApiKey) {
+		$userId = $GLOBALS['TSFE']->fe_user->user['uid'];
+		$corpMember = $this->frontendUserRepository->findByUid($userId);
+		$newApiKey->setCorpMember($corpMember);
+		$this->apiKeyRepository->add($newApiKey);
+		$this->redirect('index');
 	}
 }

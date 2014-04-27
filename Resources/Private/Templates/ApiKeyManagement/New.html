@@ -1,0 +1,16 @@
+<h1>Add new API Key</h1>
+
+<f:render partial="FormErrors" arguments="{formName: 'newApiKey'}" />
+<f:form method="post" action="create" controller="ApiKeyManagement" name="newApiKey" object="{newApiKey}">
+	<div class="form-group">
+		<label for="keyid">Key ID</label>
+		<f:form.textfield name="keyid" property="keyId" size="10" class="form-control"/>
+	</div>
+
+	<div class="form-group">
+		<label for="vcode">Verification Code</label>
+		<f:form.textfield name="vcode" property="vCode" size="64" class="form-control"/>
+	</div>
+
+	<f:form.submit value="Submit" class="btn btn-default"/>
+</f:form>
