@@ -28,7 +28,7 @@ $TCA['tx_evecorp_domain_model_apikey'] = array(
 			'config' => array(
 				'type' => 'input',
 				'size' => 10,
-				'eval' => 'trim,int,required'
+				'eval' => 'trim,int,required,unique'
 			)
 		),
 		'v_code' => array(
