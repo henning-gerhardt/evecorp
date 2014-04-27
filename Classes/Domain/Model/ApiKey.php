@@ -35,9 +35,8 @@ namespace Gerh\Evecorp\Domain\Model;
 class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
-	 * @todo using of \Gerh\Evecorp\Domain\Model\CorpMember
-	 * @lazy
 	 * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+	 * @lazy
 	 */
 	protected $corpMember;
 
@@ -55,7 +54,7 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 *
-	 * @return \Gerh\Evecorp\Domain\Model\CorpMember
+	 * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 */
 	public function getCorpMember() {
 		if ($this->corpMember instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
@@ -67,9 +66,9 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 *
-	 * @param \Gerh\Evecorp\Domain\Model\CorpMember $corpMember
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 */
-	public function setCorpMember(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember) {
+	public function setCorpMember(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $corpMember) {
 		$this->corpMember = $corpMember;
 	}
 
