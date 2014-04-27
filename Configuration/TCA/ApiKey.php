@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_evecorp_domain_model_apikey'] = array(
 	'ctrl' => $TCA['tx_evecorp_domain_model_apikey']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'hidden, key_id, v_code, corp_member',
+		'showRecordFieldList' => 'key_id, v_code, corp_member, hidden',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'hidden, key_id, v_code, corp_member'),
+		'1' => array('showitem' => 'key_id, v_code, corp_member, hidden'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
