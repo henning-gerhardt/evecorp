@@ -60,6 +60,10 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 
 	/**
 	 * show form for new api key
+	 * 
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKey $newApiKey
+	 * @ignorevalidation $newApiKey
+	 * @return void
 	 */
 	public function newAction(\Gerh\Evecorp\Domain\Model\ApiKey $newApiKey = NULL) {
 		$this->view->assign('newApiKey', $newApiKey);
