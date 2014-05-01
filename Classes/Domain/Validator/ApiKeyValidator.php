@@ -35,6 +35,7 @@ namespace Gerh\Evecorp\Domain\Validator;
 class ApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 	/**
+	 * Check given credentials against CCP API server for an account type.
 	 *
 	 * @param type $keyId
 	 * @param type $vCode
@@ -47,7 +48,12 @@ class ApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractVa
 			$phealService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Gerh\Evecorp\Service\PhealService', $keyId, $vCode, $scope);
 			$pheal = $phealService->getPhealInstance();
 			$response = $pheal->accountScope->APIKeyInfo();
-			return ($response->key->type === 'Account');
+			if ($response->key->type !== 'Account') {
+				$this->addError('Given key is not an account key', 123456890);
+				return FALSE;
+			} else {
+				return TRUE;
+			}
 		} catch (\Pheal\Exceptions\PhealException $ex) {
 			$this->addError($ex->getMessage(), 123456890);
 			return FALSE;
@@ -57,6 +63,7 @@ class ApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractVa
 	}
 
 	/**
+	 * Check if given key already be used by somebody else
 	 *
 	 * @param \integer $keyId
 	 * @return boolean
@@ -74,6 +81,7 @@ class ApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractVa
 	}
 
 	/**
+	 * Made some checks for given model to be valid
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\ApiKey $value
 	 * @return boolean
