@@ -99,6 +99,9 @@ CREATE TABLE tx_evecorp_domain_model_apikey (
 	key_id int(11) DEFAULT '0' NOT NULL,
 	v_code varchar(255) DEFAULT '' NOT NULL,
 	corp_member int(11) DEFAULT '0',
+	access_mask int(11) DEFAULT '0' NOT NULL,
+	expires int(11) DEFAULT '0',
+	type varchar(255) DEFAULT 'Account' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,

@@ -52,15 +52,20 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 * @return void
 	 */
 	public function indexAction() {
-		$frontendUser = $this->accessControlService->getFrontendUserId();		
-		$apiKeyList = $this->apiKeyRepository->findByCorpMember($frontendUser);
+		$frontendUser = $this->accessControlService->getFrontendUserId();
+		$this->apiKeyRepository
+				->setDefaultOrderings(array(
+					'key_id' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+				));
+		$apiKeyList = $this->apiKeyRepository
+				->findByCorpMember($frontendUser);
 
 		$this->view->assign('apiKeyList', $apiKeyList);
 	}
 
 	/**
 	 * show form for new api key
-	 * 
+	 *
 	 * @param \Gerh\Evecorp\Domain\Model\ApiKey $newApiKey
 	 * @ignorevalidation $newApiKey
 	 * @return void
@@ -77,20 +82,28 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	public function createAction(\Gerh\Evecorp\Domain\Model\ApiKey $newApiKey) {
 		$frontendUser = $this->accessControlService->getFrontendUser();
 		$newApiKey->setCorpMember($frontendUser);
+
+		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyMapper();
+		$result = $mapper->fillUpModel($newApiKey);
+
+		if (! $result) {
+			$this->addFlashMessage($mapper->getErrorMessage(), 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+		}
+
 		$this->apiKeyRepository->add($newApiKey);
-		
+
 		$this->redirect('index');
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param \Gerh\Evecorp\Domain\Model\ApiKey $apiKey
 	 * @ignorevalidation $apiKey
 	 * @return void
 	 */
 	public function deleteAction(\Gerh\Evecorp\Domain\Model\ApiKey $apiKey) {
 		$this->apiKeyRepository->remove($apiKey);
-		
+
 		$this->redirect('index');
 	}
 }

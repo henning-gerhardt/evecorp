@@ -58,6 +58,15 @@
 			<trans-unit id="tx_evecorp_domain_model_apikey.corpmember">
 				<source>Corp Member</source>
 			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.type">
+				<source>Type of API key</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.accessmask">
+				<source>Access mask</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.expires">
+				<source>Expire date</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

@@ -35,10 +35,21 @@ namespace Gerh\Evecorp\Domain\Model;
 class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
+	 * @var \integer
+	 * @validate Number
+	 */
+	protected $accessMask;
+
+	/**
 	 * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 * @lazy
 	 */
 	protected $corpMember;
+
+	/**
+	 * @var \Gerh\Evecorp\Domain\Model\DateTime
+	 */
+	protected $expires;
 
 	/**
 	 * @var \integer
@@ -50,12 +61,36 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * @var \string
+	 */
+	protected $type = 'Account';
+
+	/**
+	 * @var \string
 	 * @validate NotEmpty
 	 * @validate StringLength(minimum=64, maximum=64)
 	 */
 	protected $vCode;
 
 	/**
+	 * Returns access mask of API key
+	 *
+	 * @return \integer
+	 */
+	public function getAccessMask() {
+		return $this->accessMask;
+	}
+
+	/**
+	 * Set acces mask for API key
+	 *
+	 * @param \integer $accessMask
+	 */
+	public function setAccessMask($accessMask) {
+		$this->accessMask = \intval($accessMask);
+	}
+
+	/**
+	 * Returns frontend user for API key
 	 *
 	 * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 */
@@ -63,11 +98,12 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		if ($this->corpMember instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->corpMember->_loadRealInstance();
 		}
-		
+
 		return $this->corpMember;
 	}
 
 	/**
+	 * Set frontend user for this API key
 	 *
 	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 */
@@ -76,6 +112,25 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Returns date of API key expire
+	 *
+	 * @return \Gerh\Evecorp\Domain\Model\DateTime | NULL if no expire date
+	 */
+	public function getExpires() {
+		return $this->expires;
+	}
+
+	/**
+	 * Set date when an API key get expired
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\DateTime $expires
+	 */
+	public function setExpires(\Gerh\Evecorp\Domain\Model\DateTime $expires = NULL) {
+		$this->expires = $expires;
+	}
+
+	/**
+	 * Returns key id of this API key
 	 *
 	 * @return \integer
 	 */
@@ -84,14 +139,35 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Set key id for this API key
 	 *
 	 * @param \integer $keyId
 	 */
 	public function setKeyId($keyId) {
-		$this->keyId = $keyId;
+		$this->keyId = \intval($keyId);
 	}
 
 	/**
+	 * Returns type of API key
+	 *
+	 * @return \string
+	 */
+	public function getType() {
+		return $this->type;
+	}
+
+	/**
+	 * Set type for this API key. Could be f.e. Account, Character or Corporation.
+	 * Default value is Account
+	 *
+	 * @param \string $type
+	 */
+	public function setType($type = 'Account') {
+		$this->type = $type;
+	}
+
+	/**
+	 * Returns verification code (vCode) of API key
 	 *
 	 * @return \string
 	 */
@@ -100,10 +176,12 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Set verification code (vCode) for this API key
 	 *
 	 * @param \string $vCode
 	 */
 	public function setVCode($vCode) {
 		$this->vCode = $vCode;
 	}
+
 }
