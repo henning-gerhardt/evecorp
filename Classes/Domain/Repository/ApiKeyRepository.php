@@ -34,19 +34,4 @@ namespace Gerh\Evecorp\Domain\Repository;
  */
 class ApiKeyRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
-	/**
-	 *
-	 * @param \integer $userId
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
-	 */
-	public function findAllByUserId($userId) {
-		$query = $this->createQuery();
-
-		$query->matching(
-			$query->equals('corp_member', $userId)
-			);
-
-		return $query->execute();
-	}
-
 }

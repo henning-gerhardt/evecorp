@@ -52,8 +52,8 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 * @return void
 	 */
 	public function indexAction() {
-		$userId = $this->accessControlService->getFrontendUserId();		
-		$apiKeyList = $this->apiKeyRepository->findAllByUserId($userId);
+		$frontendUser = $this->accessControlService->getFrontendUserId();		
+		$apiKeyList = $this->apiKeyRepository->findByCorpMember($frontendUser);
 
 		$this->view->assign('apiKeyList', $apiKeyList);
 	}
