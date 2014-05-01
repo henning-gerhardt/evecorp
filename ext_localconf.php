@@ -31,11 +31,11 @@ if (!defined ('TYPO3_MODE')) {
     'Gerh.' . $_EXTKEY,
     'Pi3',
     array(
-        'ApiKeyManagement' => 'index,new,create',
+        'ApiKeyManagement' => 'index,new,create,delete',
     ),
     // non-cacheable actions
     array(
-        'ApiKeyManagement' => 'index,new,create',
+        'ApiKeyManagement' => 'index,new,create,delete',
     )
 );
 

@@ -77,4 +77,15 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 		$this->apiKeyRepository->add($newApiKey);
 		$this->redirect('index');
 	}
+	
+	/**
+	 * 
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKey $apiKey
+	 * @ignorevalidation $apiKey
+	 * @return void
+	 */
+	public function deleteAction(\Gerh\Evecorp\Domain\Model\ApiKey $apiKey) {
+		$this->apiKeyRepository->remove($apiKey);
+		$this->redirect('index');
+	}
 }
