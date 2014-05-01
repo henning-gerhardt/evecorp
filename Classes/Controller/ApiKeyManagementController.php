@@ -41,10 +41,10 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	protected $apiKeyRepository;
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
+	 * @var \Gerh\Evecorp\Service\AccessControlService
 	 * @inject
 	 */
-	protected $frontendUserRepository;
+	protected $accessControlService;
 
 	/**
 	 * index action
@@ -52,7 +52,7 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 * @return void
 	 */
 	public function indexAction() {
-		$userId = $GLOBALS['TSFE']->fe_user->user['uid'];
+		$userId = $this->accessControlService->getFrontendUserId();		
 		$apiKeyList = $this->apiKeyRepository->findAllByUserId($userId);
 
 		$this->view->assign('apiKeyList', $apiKeyList);
@@ -75,10 +75,10 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 * @validate $newApiKey \Gerh\Evecorp\Domain\Validator\ApiKeyValidator
 	 */
 	public function createAction(\Gerh\Evecorp\Domain\Model\ApiKey $newApiKey) {
-		$userId = $GLOBALS['TSFE']->fe_user->user['uid'];
-		$corpMember = $this->frontendUserRepository->findByUid($userId);
-		$newApiKey->setCorpMember($corpMember);
+		$frontendUser = $this->accessControlService->getFrontendUser();
+		$newApiKey->setCorpMember($frontendUser);
 		$this->apiKeyRepository->add($newApiKey);
+		
 		$this->redirect('index');
 	}
 	
@@ -90,6 +90,7 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 */
 	public function deleteAction(\Gerh\Evecorp\Domain\Model\ApiKey $apiKey) {
 		$this->apiKeyRepository->remove($apiKey);
+		
 		$this->redirect('index');
 	}
 }
