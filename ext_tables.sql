@@ -142,6 +142,7 @@ CREATE TABLE tx_evecorp_domain_model_corporation (
 
 	corporation_id int(11) DEFAULT '0' NOT NULL,
 	corporation_name varchar(255) DEFAULT '' NOT NULL,
+	current_alliance int(11) DEFAULT '0',
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,

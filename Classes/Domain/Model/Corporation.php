@@ -48,6 +48,12 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $corporationName;
 
 	/**
+	 * @var \Gerh\Evecorp\Domain\Model\Alliance
+	 * @lazy
+	 */
+	protected $currentAlliance;
+
+	/**
 	 * class constructor
 	 *
 	 * @param type $corporationId   (Optional) Corporation id
@@ -94,4 +100,41 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->corporationName = $corporationName;
 	}
 
+	/**
+	 * Get current alliance as object
+	 *
+	 * @return \Gerh\Evecorp\Domain\Model\Alliance | NULL
+	 */
+	public function getCurrentAlliance() {
+		if ($this->currentAlliance instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->currentAlliance->_loadRealInstance();
+		}
+		
+		return $this->currentAlliance;
+	}
+
+	/**
+	 * Set current alliance
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\Alliance $alliance
+	 */
+	public function setCurrentAlliance(\Gerh\Evecorp\Domain\Model\Alliance $alliance) {
+		$this->currentAlliance = $alliance;
+	}
+
+	/**
+	 * Returns current name of alliance if corporation is in alliance
+	 *
+	 * @return string
+	 */
+	public function getAllianceName() {
+		$alliance = $this->getCurrentAlliance();
+		if ($alliance != null) {
+			$result = $alliance->getAllianceName();
+		} else {
+			$result = '';
+		}
+
+		return $result;
+	}
 }

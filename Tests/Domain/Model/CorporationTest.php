@@ -80,4 +80,29 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->assertEquals($corporationName, $corporation->getCorporationName());
 	}
 
+	/**
+	 * @test
+	 */
+	public function currentAllianceCouldBeSetToCorporation() {
+		$expected = new \Gerh\Evecorp\Domain\Model\Alliance(12, 'FooBar');
+
+		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+		$corporation->setCurrentAlliance($expected);
+
+		$this->assertEquals($expected, $corporation->getCurrentAlliance());
+	}
+
+	/**
+	 * @test
+	 */
+	public function currentAllianceNameCouldBeGet() {
+		$expected = 'BarFoo';
+		$alliance = new \Gerh\Evecorp\Domain\Model\Alliance(12, $expected);
+
+		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+		$corporation->setCurrentAlliance($alliance);
+
+		$this->assertEquals($expected, $corporation->getAllianceName());
+	}
+
 }

@@ -40,5 +40,17 @@ $TCA['tx_evecorp_domain_model_corporation'] = array(
 				'eval' => 'trim,required',
 			)
 		),
+		'current_alliance' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_alliance',
+			'config' => array(
+				'type' => 'select',
+				'foreign_table' => 'tx_evecorp_domain_model_alliance',
+				'items' => array(
+					array('--none--', 0),
+				),
+			),
+		),
+
 	),
 );
