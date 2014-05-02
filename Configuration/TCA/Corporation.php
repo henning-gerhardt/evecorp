@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_evecorp_domain_model_corporation'] = array(
 	'ctrl' => $TCA['tx_evecorp_domain_model_corporation']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'hidden, corporation_name, corporation_id',
+		'showRecordFieldList' => 'hidden, corporation_name, corporation_id, current_alliance',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'hidden, corporation_name, corporaion_id'),
+		'1' => array('showitem' => 'hidden, corporation_name, corporation_id, current_alliance'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
