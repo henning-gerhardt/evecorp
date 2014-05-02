@@ -37,7 +37,7 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function classCouldBeInitiatedWithoutUsernameAndPassword() {
+	public function classCouldBeInitiated() {
 		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
 
 		$this->assertInstanceOf('Gerh\Evecorp\Domain\Model\Corporation', $corporation);

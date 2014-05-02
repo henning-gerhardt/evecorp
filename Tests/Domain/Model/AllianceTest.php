@@ -37,7 +37,7 @@ class AllianceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function classCouldBeInitiatedWithoutUsernameAndPassword() {
+	public function classCouldBeInitiated() {
 		$alliance = new \Gerh\Evecorp\Domain\Model\Alliance();
 
 		$this->assertInstanceOf('Gerh\Evecorp\Domain\Model\Alliance', $alliance);
