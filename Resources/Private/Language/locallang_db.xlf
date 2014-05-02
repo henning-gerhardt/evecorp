@@ -47,7 +47,7 @@
 				<source>Solar system name</source>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_apikey">
-				<source>EVE API Key Management</source>
+				<source>EVE API Key</source>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_apikey.keyid">
 				<source>Key ID</source>
@@ -66,6 +66,15 @@
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_apikey.expires">
 				<source>Expire date</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_alliance">
+				<source>EVE Alliance</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_alliance.alliance_id">
+				<source>Alliance ID</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_alliance.alliance_name">
+				<source>Alliance name</source>
 			</trans-unit>
 		</body>
 	</file>
