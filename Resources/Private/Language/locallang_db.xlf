@@ -47,7 +47,7 @@
 				<source>Solar system name</source>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_apikey">
-				<source>API Key</source>
+				<source>EVE API Key Management</source>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_apikey.keyid">
 				<source>Key ID</source>
