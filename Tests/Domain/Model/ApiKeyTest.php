@@ -33,14 +33,120 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  *
  */
 class ApiKeyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
-	
+
 	/**
 	 * @test
 	 */
 	public function classCouldBeInitiatedWithoutUsernameAndPassword() {
 		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
-		
+
 		$this->assertInstanceOf('Gerh\Evecorp\Domain\Model\ApiKey', $apiKey);
 	}
-	
+
+	/**
+	 * @test
+	 */
+	public function accessMaskCouldBeSet() {
+		$expected = 1234567890;
+
+		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+		$apiKey->setAccessMask($expected);
+
+		$this->assertEquals($expected, $apiKey->getAccessMask());
+	}
+
+	/**
+	 * @test
+	 */
+	public function corpMemberCouldBeSet() {
+		$expected = $this->getAccessibleMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUser');
+
+		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+		$apiKey->setCorpMember($expected);
+
+		$this->assertEquals($expected, $apiKey->getCorpMember());
+	}
+
+	/**
+	 * @test
+	 */
+	public function expiresCouldBeSet() {
+		$expected = new \Gerh\Evecorp\Domain\Model\DateTime();
+
+		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+		$apiKey->setExpires($expected);
+
+		$this->assertEquals($expected, $apiKey->getExpires());
+	}
+
+	/**
+	 * @test
+	 */
+	public function keyIdCouldBeSet() {
+		$expected = 1234567890;
+
+		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+		$apiKey->setKeyId($expected);
+
+		$this->assertEquals($expected, $apiKey->getKeyId());
+	}
+
+	/**
+	 * @test
+	 */
+	public function typeCouldBeSet() {
+		$expected = 'Corporation';
+
+		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+		$apiKey->setType($expected);
+
+		$this->assertEquals($expected,$apiKey->getType());
+	}
+
+	/**
+	 * @test
+	 */
+	public function unintializedTypeIsAccount() {
+		$expected = 'Account';
+
+		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+
+		$this->assertEquals($expected,$apiKey->getType());
+	}
+
+	/**
+	 * @test
+	 */
+	public function callingSetTypeWithoutValueReturnsAccount() {
+		$expected = 'Account';
+
+		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+		$apiKey->setType();
+
+		$this->assertEquals($expected,$apiKey->getType());
+	}
+
+	/**
+	 * @test
+	 */
+	public function callingSetTypeWithNullValueReturnsNull() {
+		$expected = null;
+
+		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+		$apiKey->setType(NULL);
+
+		$this->assertEquals($expected,$apiKey->getType());
+	}
+
+	/**
+	 * @test
+	 */
+	public function vCodeCouldBeSet() {
+		$expected = 'FooBar';
+
+		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+		$apiKey->setVCode($expected);
+
+		$this->assertEquals($expected, $apiKey->getVCode());
+	}
 }
