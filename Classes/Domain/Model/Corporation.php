@@ -32,67 +32,66 @@ namespace Gerh\Evecorp\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Alliance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * @var \integer
 	 * @validate NotEmpty
-	 * @validate Number
+	 * @validate Integer
 	 */
-	protected $allianceId;
+	protected $corporationId;
 
 	/**
-	 *
 	 * @var \string
 	 * @validate NotEmpty
 	 */
-	protected $allianceName;
+	protected $corporationName;
 
 	/**
 	 * class constructor
 	 *
-	 * @param \integer $allianceID  (Optional) Alliance id
-	 * @param \string $allianceName (Optional) Alliance name
+	 * @param type $corporationId   (Optional) Corporation id
+	 * @param type $corporationName (Optional) Corporation name
 	 */
-	public function __construct($allianceId = NULL, $allianceName = NULL) {
-		$this->setAllianceId($allianceId);
-		$this->setAllianceName($allianceName);
+	public function __construct($corporationId = NULL, $corporationName = NULL) {
+		$this->setCorporationId($corporationId);
+		$this->setCorporationName($corporationName);
 	}
 
 	/**
-	 * Returns alliance id
+	 * Returns corporation id
 	 *
 	 * @return \integer
 	 */
-	public function getAllianceId() {
-		return $this->allianceId;
+	public function getCorporationId() {
+		return $this->corporationId;
 	}
 
 	/**
-	 * Set alliance id
+	 * Set corporation id
 	 *
-	 * @param \integer $allianceId
+	 * @param type $corporationId
 	 */
-	public function setAllianceId($allianceId) {
-		$this->allianceId = $allianceId;
+	public function setCorporationId($corporationId) {
+		$this->corporationId = $corporationId;
 	}
 
 	/**
-	 * Returns alliance name
+	 * Returns corporation name
 	 *
-	 * @return \string
+	 * @return string
 	 */
-	public function getAllianceName() {
-		return $this->allianceName;
+	public function getCorporationName() {
+		return $this->corporationName;
 	}
 
 	/**
-	 * Set alliance name
+	 * Set corporation name
 	 *
-	 * @param \string $allianceName
+	 * @param \string $corporationName
 	 */
-	public function setAllianceName($allianceName) {
-		$this->allianceName = $allianceName;
+	public function setCorporationName($corporationName) {
+		$this->corporationName = $corporationName;
 	}
 
 }
