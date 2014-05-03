@@ -153,3 +153,29 @@ CREATE TABLE tx_evecorp_domain_model_corporation (
 	KEY parent (pid),
 
 );
+
+#
+# Table structure for table 'tx_evecorp_domain_model_character'
+#
+CREATE TABLE tx_evecorp_domain_model_character (
+	uid int(11) NOT NULL auto_increment,
+	pid int(11) DEFAULT '0' NOT NULL,
+
+	api_key int(11) DEFAULT '0' NOT NULL,
+	character_id int(11) DEFAULT '0' NOT NULL,
+	character_name varchar(255) DEFAULT '' NOT NULL,
+	corp_member int(11) DEFAULT '0' NOT NULL,
+	current_alliance int(11) DEFAULT '0' NOT NULL,
+	current_corporation int(11) DEFAULT '0' NOT NULL,
+	race varchar(255) DEFAULT '' NOT NULL,
+	security_status DECIMAL(16,14) DEFAULT '0.00000000000000' NOT NULL,
+
+	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
+	crdate int(11) unsigned DEFAULT '0' NOT NULL,
+	deleted tinyint(3) unsigned DEFAULT '0' NOT NULL,
+	hidden tinyint(3) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY parent (pid),
+
+);

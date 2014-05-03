@@ -85,6 +85,21 @@
 			<trans-unit id="tx_evecorp_domain_model_corporation.corporation_name">
 				<source>Corporation name</source>
 			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_character">
+				<source>EVE Character</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_character.character_id">
+				<source>Character ID</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_character.character_name">
+				<source>Character Name</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_character.race">
+				<source>Race</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_character.security_status">
+				<source>Security status</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
