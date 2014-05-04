@@ -10,6 +10,7 @@
 				<th>key id</th>
 				<th>expires</th>
 				<th>access mask</th>
+				<th>characters</th>
 				<th>action</th>
 			</tr>
 		</thead>
@@ -19,6 +20,13 @@
 				<td>{apiKey.keyId}</td>
 				<td><f:if condition="{apiKey.expires}"><f:then><f:format.date format="Y-m-d">{apiKey.expires}</f:format.date></f:then><f:else>never</f:else></f:if></td>
 				<td>{apiKey.accessMask}</td>
+				<td>
+				<f:if condition="{apiKey.characters}">
+					<f:for each="{apiKey.characters}" as="character">
+						{character.characterName} <br />
+					</f:for>
+				</f:if>
+				</td>
 				<td><f:link.action action="delete" class="text-danger" arguments="{apiKey : apiKey}">Delete</f:link.action></td>
 			</tr>
 		</f:for>
