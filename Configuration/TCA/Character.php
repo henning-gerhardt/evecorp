@@ -9,7 +9,7 @@ $TCA['tx_evecorp_domain_model_character'] = array(
 		'showRecordFieldList' => 'character_name, character_id, hidden',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'character_name, character_id, current_alliance, current_corporation, race, security_status, api_key, hidden'),
+		'1' => array('showitem' => 'character_name, character_id, current_alliance, current_corporation, race, security_status, api_key, corp_member, hidden'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
