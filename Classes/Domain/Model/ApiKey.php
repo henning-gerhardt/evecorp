@@ -41,6 +41,13 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $accessMask;
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
+	 * @lazy
+	 * @cascade remove
+	 */
+	protected $characters;
+
+	/**
 	 * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 * @lazy
 	 */
@@ -72,6 +79,13 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $vCode;
 
 	/**
+	 * class constructor
+	 */
+	public function __construct() {
+		$this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+	}
+
+	/**
 	 * Returns access mask of API key
 	 *
 	 * @return \integer
@@ -87,6 +101,49 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setAccessMask($accessMask) {
 		$this->accessMask = \intval($accessMask);
+	}
+
+	/**
+	 * Add character to API key
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\Character $character
+	 */
+	public function addCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
+		$this->characters->attach($character);
+	}
+
+	/**
+	 * Returns all characters of API key
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
+	 */
+	public function getCharacters() {
+		return $this->characters;
+	}
+
+	/**
+	 * Remove character from API key
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\Character $character
+	 */
+	public function removeCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
+		$this->characters->detach($character);
+	}
+
+	/**
+	 * Remove all characters from API key
+	 */
+	public function removeAllCharacters() {
+		$this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Set characters of API key
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $characters
+	 */
+	public function setCharacters(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $characters) {
+		$this->characters = $characters;
 	}
 
 	/**
