@@ -171,7 +171,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\Alliance $alliance
 	 */
-	public function setCurrentAlliance(\Gerh\Evecorp\Domain\Model\Alliance $alliance) {
+	public function setCurrentAlliance(\Gerh\Evecorp\Domain\Model\Alliance $alliance = NULL) {
 		$this->currentAlliance = $alliance;
 	}
 

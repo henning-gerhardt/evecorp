@@ -138,4 +138,14 @@ class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$this->assertEquals($expected, $character->getSecurityStatus());
 	}
+
+	/**
+	 * @test
+	 */
+	public function allianceCouldBeNull() {
+		$character = new \Gerh\Evecorp\Domain\Model\Character();
+		$character->setCurrentAlliance(NULL);
+
+		$this->assertNull($character->getCurrentAlliance());
+	}
 }
