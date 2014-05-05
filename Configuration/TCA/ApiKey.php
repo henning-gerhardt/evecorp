@@ -86,6 +86,7 @@ $TCA['tx_evecorp_domain_model_apikey'] = array(
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'tx_evecorp_domain_model_character',
+				'foreign_table_where' => ' AND tx_evecorp_domain_model_character.api_key = ###THIS_UID###',
 				'size' => 3,
 				'readOnly' => 1,
 			)
