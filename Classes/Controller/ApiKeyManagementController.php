@@ -86,11 +86,11 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyMapper();
 		$result = $mapper->fillUpModel($newApiKey);
 
-		if (! $result) {
+		if ($result ===  TRUE) {
+			$this->apiKeyRepository->add($newApiKey);
+		} else {
 			$this->addFlashMessage($mapper->getErrorMessage(), 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 		}
-
-		$this->apiKeyRepository->add($newApiKey);
 
 		$this->redirect('index');
 	}

@@ -40,19 +40,6 @@ class ApiKeyMapper {
 	protected $errorMessage;
 
 	/**
-	 * @var $logger \TYPO3\CMS\Core\Log\Logger
-	 */
-	protected $logger;
-
-	/**
-	 * class constructor
-	 */
-	public function __construct() {
-		$this->errorMessage = '';
-		$this->logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
-	}
-
-	/**
 	 * Returns error message
 	 *
 	 * @return \string
@@ -71,9 +58,7 @@ class ApiKeyMapper {
 		$vCode = $apiKeyModel->getVCode();
 		$scope = 'Account';
 
-		/** @var \Gerh\Evecorp\Service\PhealSerice */
-		$phealService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Gerh\Evecorp\Service\PhealService', $keyId, $vCode, $scope);
-		/** @var \Pheal\Pheal */
+		$phealService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Gerh\\Evecorp\\Service\\PhealService', $keyId, $vCode, $scope);
 		$pheal = $phealService->getPhealInstance();
 
 		try {
@@ -88,11 +73,26 @@ class ApiKeyMapper {
 
 			$apiKeyModel->setType($response->key->type);
 
-			return true;
+			foreach($response->key->characters as $character) {
+				$characterMapper = new \Gerh\Evecorp\Domain\Mapper\CharacterMapper($apiKeyModel);
+				$characterModel = $characterMapper->createModel($character->characterID);
+
+				if ($characterModel === NULL) {
+					throw new \Exception($characterMapper->getErrorMessage());
+				}
+
+				$characterModel->setApiKey($apiKeyModel);
+				$characterModel->setCorpMember($apiKeyModel->getCorpMember());
+				$apiKeyModel->addCharacter($characterModel);
+			}
+			
+			return TRUE;
 		} catch (\Pheal\Exceptions\PhealException $ex) {
-			$this->errorMessage = 'Fetched PhealException with message: \"' . $ex->getMessage() . '\" Model was not be updated!';
-			$this->logger->error($this->errorMessage);
-			return false;
+			$this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage() . '" Model was not be updated!';
+			return FALSE;
+		} catch(\Exception $e) {
+			$this->errorMessage = 'Fetched general exception with message: "' . $e->getMessage() . '" Model was not be updated!';
+			return FALSE;
 		}
 	}
 }
