@@ -118,7 +118,7 @@ class Alliance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Corporation>
 	 */
 	public function getCorporations() {
-		return clone $this->corporations;
+		return $this->corporations;
 	}
 
 	/**
