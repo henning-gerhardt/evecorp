@@ -82,7 +82,7 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * class constructor
 	 */
 	public function __construct() {
-		$this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+		$this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 	/**
