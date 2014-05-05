@@ -9,7 +9,7 @@ $TCA['tx_evecorp_domain_model_apikey'] = array(
 		'showRecordFieldList' => 'key_id, v_code, corp_member, hidden',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'key_id, v_code, corp_member, type, access_mask, expires, hidden'),
+		'1' => array('showitem' => 'key_id, v_code, corp_member, type, access_mask, expires, characters, hidden'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -80,5 +80,15 @@ $TCA['tx_evecorp_domain_model_apikey'] = array(
 				),
 			),
 		),
+		'characters' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
+			'config' => array(
+				'type' => 'select',
+				'foreign_table' => 'tx_evecorp_domain_model_character',
+				'size' => 3,
+				'readOnly' => 1,
+			)
+		)
 	),
 );
