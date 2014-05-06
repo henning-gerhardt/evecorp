@@ -46,7 +46,7 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @return \boolean
 	 */
 	public function isLoggedIn() {
-		return $GLOBALS['TSFE']->loginUser === TRUE ? TRUE : FALSE;
+		return $GLOBALS['TSFE']->loginUser == TRUE ? TRUE : FALSE;
 	}
 
 	/**
