@@ -1,12 +1,12 @@
-# cat=basic/enable; type=string; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.cacheDirectory
-phealCacheDirectory =
-# cat=basic/enable; type=integer; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.connectionTimeout
-phealConnectionTimeout = 120
-# cat=basic/enable; type=boolean; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.verifyingHttpsConnection
-phealVerifyingHttpsConnection = 0
-# cat=basic/enable; type=string; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.fileCreateMask
-phealFileCreateMask =
-# cat=basic/enable; type=string; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.folderCreateMask
-phealFolderCreateMask =
-# cat=basic/enable; type=string; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.evecentraluri
+# cat=general/enable; type=string; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.evecentraluri
 evecentralUri = http://api.eve-central.com/api/marketstat
+# cat=pheal/enable; type=string; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.cacheDirectory
+phealCacheDirectory =
+# cat=pheal/enable; type=integer; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.connectionTimeout
+phealConnectionTimeout = 120
+# cat=pheal/enable; type=boolean; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.verifyingHttpsConnection
+phealVerifyingHttpsConnection = 0
+# cat=pheal/enable; type=string; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.fileCreateMask
+phealFileCreateMask =
+# cat=pheal/enable; type=string; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.folderCreateMask
+phealFolderCreateMask =
