@@ -21,6 +21,9 @@
 			<trans-unit id="evecorp.backendconfig.folderCreateMask" xml:space="preserve">
 				<source>Configure create mask for a folder: No value means using default pheal value (0777). Hint: use same setting as [BE][folderCreateMask]</source>
 			</trans-unit>
+			<trans-unit id="evecorp.backendconfig.accessMask" xml:space="preserve">
+				<source>Configure API key access mask</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

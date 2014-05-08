@@ -1,5 +1,8 @@
 # cat=general/enable; type=string; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.evecentraluri
 evecentralUri = http://api.eve-central.com/api/marketstat
+# cat=general/enable; type=string; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.accessMask
+accessMask = 
+
 # cat=pheal/enable; type=string; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.cacheDirectory
 phealCacheDirectory =
 # cat=pheal/enable; type=integer; label=LLL:EXT:evecorp/Resources/Private/Language/locallang_em.xlf:evecorp.backendconfig.connectionTimeout

@@ -186,4 +186,34 @@ class ApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validation\Valid
 		$this->assertEquals($expected, $actual);
 	}
 
+	/**
+	 * Data provider for different access mask
+	 *
+	 * @return \array
+	 */
+	public function accessMaskList() {
+		return array(
+			array(8388608,  8388608,  true),
+			array(8388608,        2, false),
+			array(8388608, 25165896,  true),
+		);
+	}
+
+	/**
+	 * @backupGlobals enabled
+	 * @dataProvider accessMaskList
+	 * @test
+	 * @param \integer $configuredAccessMask
+	 * @param \integer $actualAccessMask
+	 * @param \boolean $expected
+	 */
+	public function checkAccessMask($configuredAccessMask, $actualAccessMask, $expected) {
+		$modifier = array('accessMask' => $configuredAccessMask);
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
+
+		$actual = $this->callInaccessibleMethod($this->validator, 'hasCorrectAccessMask', $actualAccessMask);
+
+		$this->assertEquals($expected, $actual);
+	}
+
 }

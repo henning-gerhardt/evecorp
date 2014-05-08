@@ -73,6 +73,25 @@ class ApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractVa
 	}
 
 	/**
+	 * Returns configured API key access mask
+	 *
+	 * @return \integer
+	 */
+	protected function getAccessMask() {
+		return \Gerh\Evecorp\Domain\Utility\AccessMaskUtility::getAccessMask();
+	}
+
+	/**
+	 * Check if given API key access mask fits configured access mask
+	 *
+	 * @param \integer $accessMask
+	 * @return boolean
+	 */
+	protected function hasCorrectAccessMask($accessMask) {
+		return (($this->getAccessMask() & $accessMask) > 0);
+	}
+
+	/**
 	 * Check for :
 	 *  - Given API key against CCP API server for correct API key type
 	 *  - API key based characters are not already stored in database
@@ -94,8 +113,13 @@ class ApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractVa
 				return FALSE;
 			}
 
+			if (! $this->hasCorrectAccessMask(\intval($response->key->accessMask))) {
+				$this->addError('Given API key has not correct access mask: ' . $this->getAccessMask(), 1234567890);
+				return FALSE;
+			}
+
 			foreach($response->key->characters as $characterInfo) {
-				if ($this->isCharacterIdAlreadyInDatabase($characterInfo->characterID)) {;
+				if ($this->isCharacterIdAlreadyInDatabase($characterInfo->characterID)) {
 					$this->addError('Character "' . $characterInfo->characterName . '" is already in database.', 1234567890);
 					return FALSE;
 				}

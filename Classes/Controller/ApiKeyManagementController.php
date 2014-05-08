@@ -72,6 +72,9 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 */
 	public function newAction(\Gerh\Evecorp\Domain\Model\ApiKey $newApiKey = NULL) {
 		$this->view->assign('newApiKey', $newApiKey);
+
+		$accessMask = \Gerh\Evecorp\Domain\Utility\AccessMaskUtility::getAccessMask();
+		$this->view->assign('accessMask', $accessMask);
 	}
 
 	/**
