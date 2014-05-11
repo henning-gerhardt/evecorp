@@ -172,3 +172,23 @@ CREATE TABLE `tx_evecorp_domain_model_character` (
 	PRIMARY KEY (`uid`),
 	KEY parent (`pid`)
 );
+
+#
+# Table structure for table 'tx_evecorp_domain_model_employmenthistory'
+#
+CREATE TABLE `tx_evecorp_domain_model_employmenthistory` (
+	`uid` int(11) NOT NULL auto_increment,
+	`pid` int(11) DEFAULT '0' NOT NULL,
+
+	`character_uid` int(11) DEFAULT '0' NOT NULL,
+	`corporation_uid` int(11) DEFAULT '0' NOT NULL,
+	`start_date` int(11) DEFAULT '0' NOT NULL,
+
+	`tstamp` int(11) unsigned DEFAULT '0' NOT NULL,
+	`crdate` int(11) unsigned DEFAULT '0' NOT NULL,
+	`deleted` tinyint(3) unsigned DEFAULT '0' NOT NULL,
+	`hidden` tinyint(3) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (`uid`),
+	KEY parent (`pid`)
+);

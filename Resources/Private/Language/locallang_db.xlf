@@ -100,6 +100,12 @@
 			<trans-unit id="tx_evecorp_domain_model_character.security_status">
 				<source>Security status</source>
 			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_employmenthistory">
+				<source>EVE Character Employment History</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_employmenthistory.start_date">
+				<source>Start date in corporation</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
