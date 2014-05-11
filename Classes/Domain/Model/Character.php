@@ -82,6 +82,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $securityStatus;
 
 	/**
+	 * Returns characters dependend API key
 	 *
 	 * @return \Gerh\Evecorp\Domain\Model\ApiKey
 	 */
@@ -94,6 +95,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Set characters dependend API key
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\ApiKey $apiKey
 	 */
@@ -102,6 +104,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Returns character id
 	 *
 	 * @return \integer
 	 */
@@ -110,6 +113,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Set character id
 	 *
 	 * @param \integer $characterId
 	 */
@@ -118,6 +122,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Returns name of character
 	 *
 	 * @return \string
 	 */
@@ -126,6 +131,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Set name of character
 	 *
 	 * @param \string $characterName
 	 */
@@ -156,6 +162,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Returns characters current alliance
 	 *
 	 * @return \Gerh\Evecorp\Domain\Model\Alliance
 	 */
@@ -168,6 +175,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Set characters current alliance
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\Alliance $alliance
 	 */
@@ -176,6 +184,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Returns characters current corporation
 	 *
 	 * @return \Gerh\Evecorp\Domain\Model\Corporation
 	 */
@@ -188,6 +197,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Set characters current corporation
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
 	 */
@@ -196,6 +206,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Returns characters race
 	 *
 	 * @return \string
 	 */
@@ -204,6 +215,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Set characters race
 	 *
 	 * @param \string $race
 	 */
@@ -212,6 +224,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Returns characters security status
 	 *
 	 * @return \float
 	 */
@@ -220,6 +233,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * Set characters security status
 	 *
 	 * @param \float $securityStatus
 	 */
