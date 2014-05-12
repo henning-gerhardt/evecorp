@@ -181,6 +181,7 @@ CREATE TABLE `tx_evecorp_domain_model_employmenthistory` (
 	`pid` int(11) DEFAULT '0' NOT NULL,
 
 	`character_uid` int(11) DEFAULT '0' NOT NULL,
+	`record_id` int(11) DEFAULT '0' NOT NULL,
 	`corporation_uid` int(11) DEFAULT '0' NOT NULL,
 	`start_date` int(11) DEFAULT '0' NOT NULL,
 

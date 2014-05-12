@@ -74,6 +74,18 @@ class EmploymentHistoryTest  extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
+	public function recordIdCouldBeSet() {
+		$expected = 987654;
+
+		$history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
+		$history->setRecordId($expected);
+
+		$this->assertEquals($expected, $history->getRecordId());
+	}
+
+	/**
+	 * @test
+	 */
 	public function startDateCouldBeSet() {
 		$expected = new \Gerh\Evecorp\Domain\Model\DateTime();
 

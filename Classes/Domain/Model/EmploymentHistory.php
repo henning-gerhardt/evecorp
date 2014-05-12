@@ -47,7 +47,15 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $corporation;
 
 	/**
+	 * @var \integer
+	 * @validate NotEmpty
+	 * @validate Integer
+	 */
+	protected $recordId;
+
+	/**
 	 * @var \Gerh\Evecorp\Domain\Model\DateTime
+	 * @validate NotEmpty
 	 */
 	protected $startDate;
 
@@ -93,6 +101,24 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
 		$this->corporation = $corporation;
+	}
+
+	/**
+	 * Returns record id of character employment history
+	 *
+	 * @return \integer
+	 */
+	public function getRecordId() {
+		return $this->recordId;
+	}
+
+	/**
+	 * Set record id of character employment history
+	 *
+	 * @param \integer $recordId
+	 */
+	public function setRecordId($recordId) {
+		$this->recordId = intval($recordId);
 	}
 
 	/**
