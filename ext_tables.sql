@@ -98,7 +98,7 @@ CREATE TABLE `tx_evecorp_domain_model_apikey` (
 	`access_mask` int(11) DEFAULT '0' NOT NULL,
 	`expires` int(11) DEFAULT '0' NOT NULL,
 	`type` varchar(255) DEFAULT 'Account' NOT NULL,
-	`characters` TEXT,
+	`characters` int(11) DEFAULT '0' NOT NULL,
 
 	`tstamp` int(11) unsigned DEFAULT '0' NOT NULL,
 	`crdate` int(11) unsigned DEFAULT '0' NOT NULL,

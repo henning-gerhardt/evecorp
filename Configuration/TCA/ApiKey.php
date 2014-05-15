@@ -84,10 +84,10 @@ $TCA['tx_evecorp_domain_model_apikey'] = array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
 			'config' => array(
-				'type' => 'select',
+				'type' => 'inline',
 				'foreign_table' => 'tx_evecorp_domain_model_character',
-				'foreign_table_where' => ' AND tx_evecorp_domain_model_character.api_key = ###THIS_UID###',
-				'size' => 3,
+				'foreign_field' => 'api_key',
+				'maxitems' => 3,
 				'readOnly' => 1,
 			)
 		)
