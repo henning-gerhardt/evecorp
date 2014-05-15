@@ -38,13 +38,13 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @var \Gerh\Evecorp\Domain\Model\Character
 	 * @lazy
 	 */
-	protected $character;
+	protected $characterUid;
 
 	/**
 	 * @var \Gerh\Evecorp\Domain\Model\Corporation
 	 * @lazy
 	 */
-	protected $corporation;
+	protected $corporationUid;
 
 	/**
 	 * @var \integer
@@ -64,12 +64,12 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @return \Gerh\Evecorp\Domain\Model\Character
 	 */
-	public function getCharacter() {
-		if ($this->character instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
-			$this->character->_loadRealInstance();
+	public function getCharacterUid() {
+		if ($this->characterUid instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->characterUid->_loadRealInstance();
 		}
 
-		return $this->character;
+		return $this->characterUid;
 	}
 
 	/**
@@ -77,8 +77,8 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\Character $character
 	 */
-	public function setCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
-		$this->character = $character;
+	public function setCharacterUid(\Gerh\Evecorp\Domain\Model\Character $character) {
+		$this->characterUid = $character;
 	}
 
 	/**
@@ -86,12 +86,12 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @return \Gerh\Evecorp\Domain\Model\Corporation
 	 */
-	public function getCorporation() {
-		if ($this->corporation instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
-			$this->corporation->_loadRealInstance();
+	public function getCorporationUid() {
+		if ($this->corporationUid instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->corporationUid->_loadRealInstance();
 		}
 
-		return $this->corporation;
+		return $this->corporationUid;
 	}
 
 	/**
@@ -99,8 +99,8 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
 	 */
-	public function setCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
-		$this->corporation = $corporation;
+	public function setCorporationUid(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
+		$this->corporationUid = $corporation;
 	}
 
 	/**
