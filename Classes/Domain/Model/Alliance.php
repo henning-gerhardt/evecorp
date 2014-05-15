@@ -64,7 +64,7 @@ class Alliance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->setAllianceId($allianceId);
 		$this->setAllianceName($allianceName);
 
-		$this->corporations = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+		$this->corporations = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 	/**
@@ -135,6 +135,15 @@ class Alliance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function removeCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
 		$this->corporations->detach($corporation);
+	}
+
+	/**
+	 * Set alliance corporations,
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $corporations
+	 */
+	public function setCorporations(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $corporations) {
+		$this->corporations = $corporations;
 	}
 
 }

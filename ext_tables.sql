@@ -118,6 +118,7 @@ CREATE TABLE `tx_evecorp_domain_model_alliance` (
 
 	`alliance_id` int(11) DEFAULT '0' NOT NULL,
 	`alliance_name` varchar(255) DEFAULT '' NOT NULL,
+	`corporations` int(11) DEFAULT '0' NOT NULL,
 
 	`tstamp` int(11) unsigned DEFAULT '0' NOT NULL,
 	`crdate` int(11) unsigned DEFAULT '0' NOT NULL,
