@@ -72,6 +72,13 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $currentCorporation;
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\EmploymentHistory>
+	 * @lazy
+	 * @cascade remove
+	 */
+	protected $employments;
+
+	/**
 	 * @var \string
 	 */
 	protected $race;
@@ -80,6 +87,13 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @var \float
 	 */
 	protected $securityStatus;
+
+	/**
+	 * class constructor
+	 */
+	public function __construct() {
+		$this->employments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
 
 	/**
 	 * Returns characters dependend API key
@@ -203,6 +217,49 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setCurrentCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
 		$this->currentCorporation = $corporation;
+	}
+
+	/**
+	 * Add a employment
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\EmploymentHistory $employment
+	 */
+	public function addEmployment(\Gerh\Evecorp\Domain\Model\EmploymentHistory $employment) {
+		$this->employments->attach($employment);
+	}
+
+	/**
+	 * Return characters employments
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\EmploymentHistory>
+	 */
+	public function getEmployments() {
+		return $this->employments;
+	}
+
+	/**
+	 * Remove a single employment
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\EmploymentHistory $employment
+	 */
+	public function removeEmployment(\Gerh\Evecorp\Domain\Model\EmploymentHistory $employment) {
+		$this->employments->detach($employment);
+	}
+
+	/**
+	 * Remove all employments of character
+	 */
+	public function removeAllEmployments() {
+		$this->employments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Set employments of character
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $employments
+	 */
+	public function setEmployments(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $employments) {
+		$this->employments = $employments;
 	}
 
 	/**

@@ -161,6 +161,7 @@ CREATE TABLE `tx_evecorp_domain_model_character` (
 	`corp_member` int(11) DEFAULT '0' NOT NULL,
 	`current_alliance` int(11) DEFAULT '0' NOT NULL,
 	`current_corporation` int(11) DEFAULT '0' NOT NULL,
+	`employments` int(11) DEFAULT '0' NOT NULL,
 	`race` varchar(255) DEFAULT '' NOT NULL,
 	`security_status` DECIMAL(16,14) DEFAULT '0.00000000000000' NOT NULL,
 

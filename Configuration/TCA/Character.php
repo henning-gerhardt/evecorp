@@ -9,7 +9,7 @@ $TCA['tx_evecorp_domain_model_character'] = array(
 		'showRecordFieldList' => 'character_name, character_id, hidden',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'character_name, character_id, current_alliance, current_corporation, race, security_status, api_key, corp_member, hidden'),
+		'1' => array('showitem' => 'character_name, character_id, current_alliance, current_corporation, employments, race, security_status, api_key, corp_member, hidden'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -82,6 +82,15 @@ $TCA['tx_evecorp_domain_model_character'] = array(
 				'items' => array(
 					array('--none--', 0),
 				),
+			),
+		),
+		'employments' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_employmenthistory',
+			'config' => array(
+				'type' => 'inline',
+				'foreign_table' => 'tx_evecorp_domain_model_employmenthistory',
+				'foreign_field' => 'character_uid',
 			),
 		),
 		'race' => array(
