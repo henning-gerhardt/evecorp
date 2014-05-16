@@ -1,3 +1,5 @@
+{namespace evecorp=Gerh\Evecorp\Viewhelpers}
+
 <h1><f:translate key="apikeymanagement.account.index.welcome">EVE API Key Account Management</f:translate></h1>
 
 <f:flashMessages renderMode="div" />
@@ -23,7 +25,7 @@
 				<td>
 				<f:if condition="{apiKeyAccount.characters}">
 					<f:for each="{apiKeyAccount.characters}" as="character">
-						{character.characterName} <br />
+						<evecorp:format.eveImage characterId="{character.characterId}" characterName="{character.characterName}" size="64"/>
 					</f:for>
 				</f:if>
 				</td>
