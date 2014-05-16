@@ -32,13 +32,13 @@ namespace Gerh\Evecorp\Domain\Validator;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
+class ApiKeyAccountValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 	/**
-	 * @var \Gerh\Evecorp\Domain\Repository\ApiKeyRepository
+	 * @var \Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
 	 * @inject
 	 */
-	protected $apiKeyRepository;
+	protected $apiKeyAccountRepository;
 
 	/**
 	 * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
@@ -140,7 +140,7 @@ class ApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractVa
 	 */
 	protected function isKeyIdAlreadyInDatabase($keyId) {
 
-		$result = $this->apiKeyRepository->countByKeyId($keyId);
+		$result = $this->apiKeyAccountRepository->countByKeyId($keyId);
 		if ($result > 0) {
 			return TRUE;
 		}

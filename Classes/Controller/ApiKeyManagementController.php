@@ -35,10 +35,10 @@ namespace Gerh\Evecorp\Controller;
 class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController{
 
 	/**
-	 * @var \Gerh\Evecorp\Domain\Repository\ApiKeyRepository
+	 * @var \Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
 	 * @inject
 	 */
-	protected $apiKeyRepository;
+	protected $apiKeyAccountRepository;
 
 	/**
 	 * @var \Gerh\Evecorp\Service\AccessControlService
@@ -53,14 +53,14 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 */
 	public function indexAction() {
 		$frontendUser = $this->accessControlService->getFrontendUserId();
-		$this->apiKeyRepository
+		$this->apiKeyAccountRepository
 				->setDefaultOrderings(array(
 					'key_id' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
 				));
-		$apiKeyList = $this->apiKeyRepository
+		$apiKeyAccountList = $this->apiKeyAccountRepository
 				->findByCorpMember($frontendUser);
 
-		$this->view->assign('apiKeyList', $apiKeyList);
+		$this->view->assign('apiKeyAccountList', $apiKeyAccountList);
 	}
 
 	/**
@@ -79,18 +79,18 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 
 	/**
 	 *
-	 * @param \Gerh\Evecorp\Domain\Model\ApiKey $newApiKey
-	 * @validate $newApiKey \Gerh\Evecorp\Domain\Validator\ApiKeyValidator
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKey $newApiKeyAccount
+	 * @validate $newApiKeyAccount \Gerh\Evecorp\Domain\Validator\ApiKeyAccountValidator
 	 */
-	public function createAction(\Gerh\Evecorp\Domain\Model\ApiKey $newApiKey) {
+	public function createAction(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $newApiKeyAccount) {
 		$frontendUser = $this->accessControlService->getFrontendUser();
-		$newApiKey->setCorpMember($frontendUser);
+		$newApiKeyAccount->setCorpMember($frontendUser);
 
 		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyMapper();
-		$result = $mapper->fillUpModel($newApiKey);
+		$result = $mapper->fillUpModel($newApiKeyAccount);
 
 		if ($result ===  TRUE) {
-			$this->apiKeyRepository->add($newApiKey);
+			$this->apiKeyAccountRepository->add($newApiKeyAccount);
 		} else {
 			$this->addFlashMessage($mapper->getErrorMessage(), 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 		}
@@ -100,12 +100,12 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 
 	/**
 	 *
-	 * @param \Gerh\Evecorp\Domain\Model\ApiKey $apiKey
-	 * @ignorevalidation $apiKey
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+	 * @ignorevalidation $apiKeyAccount
 	 * @return void
 	 */
-	public function deleteAction(\Gerh\Evecorp\Domain\Model\ApiKey $apiKey) {
-		$this->apiKeyRepository->remove($apiKey);
+	public function deleteAction(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+		$this->apiKeyAccountRepository->remove($apiKeyAccount);
 
 		$this->redirect('index');
 	}

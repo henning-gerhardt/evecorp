@@ -32,62 +32,27 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class ApiKeyAccountTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
 	 */
 	public function classCouldBeInitiated() {
-		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+		$apiKeyAccount = new \Gerh\Evecorp\Domain\Model\ApiKeyAccount();
 
-		$this->assertInstanceOf('Gerh\Evecorp\Domain\Model\ApiKey', $apiKey);
+		$this->assertInstanceOf('Gerh\Evecorp\Domain\Model\ApiKeyAccount', $apiKeyAccount);
 	}
 
 	/**
 	 * @test
 	 */
-	public function accessMaskCouldBeSet() {
-		$expected = 1234567890;
+	public function corpMemberCouldBeSet() {
+		$expected = $this->getAccessibleMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUser');
 
-		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
-		$apiKey->setAccessMask($expected);
+		$apiKeyAccount = new \Gerh\Evecorp\Domain\Model\ApiKeyAccount();
+		$apiKeyAccount->setCorpMember($expected);
 
-		$this->assertEquals($expected, $apiKey->getAccessMask());
+		$this->assertEquals($expected, $apiKeyAccount->getCorpMember());
 	}
 
-	/**
-	 * @test
-	 */
-	public function expiresCouldBeSet() {
-		$expected = new \Gerh\Evecorp\Domain\Model\DateTime();
-
-		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
-		$apiKey->setExpires($expected);
-
-		$this->assertEquals($expected, $apiKey->getExpires());
-	}
-
-	/**
-	 * @test
-	 */
-	public function keyIdCouldBeSet() {
-		$expected = 1234567890;
-
-		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
-		$apiKey->setKeyId($expected);
-
-		$this->assertEquals($expected, $apiKey->getKeyId());
-	}
-
-	/**
-	 * @test
-	 */
-	public function vCodeCouldBeSet() {
-		$expected = 'FooBar';
-
-		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
-		$apiKey->setVCode($expected);
-
-		$this->assertEquals($expected, $apiKey->getVCode());
-	}
 }

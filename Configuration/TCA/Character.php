@@ -24,10 +24,10 @@ $TCA['tx_evecorp_domain_model_character'] = array(
 		),
 		'api_key' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey',
+			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account',
 			'config' => array(
 				'type' => 'select',
-				'foreign_table' => 'tx_evecorp_domain_model_apikey',
+				'foreign_table' => 'tx_evecorp_domain_model_apikeyaccount',
 				'items' => array(
 					array('--none--', 0),
 				),

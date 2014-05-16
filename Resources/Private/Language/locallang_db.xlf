@@ -53,19 +53,19 @@
 				<source>Key ID</source>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_apikey.vcode">
-				<source>VCode</source>
-			</trans-unit>
-			<trans-unit id="tx_evecorp_domain_model_apikey.corpmember">
-				<source>Corp Member</source>
-			</trans-unit>
-			<trans-unit id="tx_evecorp_domain_model_apikey.type">
-				<source>Type of API key</source>
+				<source>Verification code</source>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_apikey.accessmask">
 				<source>Access mask</source>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_apikey.expires">
 				<source>Expire date</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.account">
+				<source>EVE Account API Key</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.account.corpmember">
+				<source>Corp Member</source>
 			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_alliance">
 				<source>EVE Alliance</source>

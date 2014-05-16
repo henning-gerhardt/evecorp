@@ -99,10 +99,10 @@ $TCA['tx_evecorp_domain_model_evemapsolarsystem'] = array (
 	)
 );
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_apikey');
-$TCA['tx_evecorp_domain_model_apikey'] = array (
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_apikeyaccount');
+$TCA['tx_evecorp_domain_model_apikeyaccount'] = array (
 	'ctrl' => array (
-		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey',
+		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account',
 		'label' => 'key_id',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -111,7 +111,7 @@ $TCA['tx_evecorp_domain_model_apikey'] = array (
 			'disabled' => 'hidden'
 		),
 		'searchFields' => 'key_id, v_code',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/ApiKey.php',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/ApiKeyAccount.php',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
 	)
 );

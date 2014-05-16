@@ -32,12 +32,12 @@ namespace Gerh\Evecorp\Test\Domain\Validator;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validation\Validator\AbstractValidatorTestcase {
+class ApiKeyAccountValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validation\Validator\AbstractValidatorTestcase {
 
 	/**
 	 * @var \string
 	 */
-	protected $validatorClassName = 'Gerh\\Evecorp\\Domain\\Validator\\ApiKeyValidator';
+	protected $validatorClassName = 'Gerh\\Evecorp\\Domain\\Validator\\ApiKeyAccountValidator';
 
 	/**
 	 * Testsuite setup
@@ -86,12 +86,12 @@ class ApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validation\Valid
 	 * @param mixed $keyId
 	 * @param mixed $vCode
 	 */
-	public function apiKeyValidatorReturnFalseForInvalidKeyIdOrVCode($keyId, $vCode) {
-		$apiKeyModel = new \Gerh\Evecorp\Domain\Model\ApiKey();
-		$apiKeyModel->setKeyId($keyId);
-		$apiKeyModel->setVCode($vCode);
+	public function apiKeyAccountValidatorReturnFalseForInvalidKeyIdOrVCode($keyId, $vCode) {
+		$apiKeyAccountModel = new \Gerh\Evecorp\Domain\Model\ApiKeyAccount();
+		$apiKeyAccountModel->setKeyId($keyId);
+		$apiKeyAccountModel->setVCode($vCode);
 
-		$this->assertTrue($this->validator->validate($apiKeyModel)->hasErrors());
+		$this->assertTrue($this->validator->validate($apiKeyAccountModel)->hasErrors());
 	}
 
 	/**
@@ -114,13 +114,13 @@ class ApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validation\Valid
 	 */
 	public function checkIsKeyAlreadyInDatabase($returnValue, $expected) {
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface');
-		$mockedRepository = $this->getMock('Gerh\\Evecorp\\Domain\\Repository\\ApiKeyRepository', array('countByKeyId'), array($mockObjectManager));
+		$mockedRepository = $this->getMock('Gerh\\Evecorp\\Domain\\Repository\\ApiKeyAccountRepository', array('countByKeyId'), array($mockObjectManager));
 		$mockedRepository
 			->expects($this->once())
 			->method('countByKeyId')
 			->will($this->returnValue($returnValue));
 
-		$this->inject($this->validator, 'apiKeyRepository', $mockedRepository);
+		$this->inject($this->validator, 'apiKeyAccountRepository', $mockedRepository);
 
 		$actual = $this->callInaccessibleMethod($this->validator, 'isKeyIdAlreadyInDatabase', 1234567890);
 

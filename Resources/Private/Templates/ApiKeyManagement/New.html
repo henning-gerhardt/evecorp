@@ -1,7 +1,7 @@
 <h1>Add new API Key</h1>
 
-<f:render partial="FormErrors" arguments="{formName: 'newApiKey'}" />
-<f:form method="post" action="create" controller="ApiKeyManagement" name="newApiKey" object="{newApiKey}">
+<f:render partial="FormErrors" arguments="{formName: 'newApiKeyAccount'}" />
+<f:form method="post" action="create" controller="ApiKeyManagement" name="newApiKeyAccount" object="{newApiKeyAccount}">
 	<div class="form-group">
 		<label for="keyid">Key ID</label>
 		<f:form.textfield name="keyid" property="keyId" size="10" class="form-control"/>
@@ -16,4 +16,4 @@
 </f:form>
 
 <br />
-<f:link.external target="_blank" uri="http://community.eveonline.com/support/api-key/CreatePredefined?accessMask={accessMask}">Create new API key</f:link.external>
+<f:link.external target="_blank" uri="http://community.eveonline.com/support/api-key/CreatePredefined?accessMask={accessMask}">Create new account API key</f:link.external>

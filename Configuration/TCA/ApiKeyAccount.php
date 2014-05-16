@@ -3,8 +3,8 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_apikey'] = array(
-	'ctrl' => $TCA['tx_evecorp_domain_model_apikey']['ctrl'],
+$TCA['tx_evecorp_domain_model_apikeyaccount'] = array(
+	'ctrl' => $TCA['tx_evecorp_domain_model_apikeyaccount']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'key_id, v_code, corp_member, hidden',
 	),
@@ -42,22 +42,12 @@ $TCA['tx_evecorp_domain_model_apikey'] = array(
 		),
 		'corp_member' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.corpmember',
+			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account.corpmember',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
 				'items' => array(
 					array('--none--', 0),
-				),
-			),
-		),
-		'type' => array(
-			'exclude' => 0,
-			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.type',
-			'config' => array(
-				'type' => 'select',
-				'items' => array(
-					array('Account', 'Account'),
 				),
 			),
 		),

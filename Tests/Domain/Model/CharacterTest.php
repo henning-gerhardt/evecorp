@@ -33,7 +33,7 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  *
  */
 class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
-	
+
 	/**
 	 * @test
 	 */
@@ -47,12 +47,12 @@ class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function apiKeyCouldBeSet() {
-		$expected = new \Gerh\Evecorp\Domain\Model\ApiKey();
+		$expected = new \Gerh\Evecorp\Domain\Model\ApiKeyAccount();
 
 		$character = new \Gerh\Evecorp\Domain\Model\Character();
-		$character->setApiKey($expected);
+		$character->setApiKeyAccount($expected);
 
-		$this->assertEquals($expected, $character->getApiKey());
+		$this->assertEquals($expected, $character->getApiKeyAccount());
 	}
 
 	/**
@@ -126,7 +126,7 @@ class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$this->assertEquals($expected, $character->getRace());
 	}
-	
+
 	/**
 	 * @test
 	 */

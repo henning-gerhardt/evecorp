@@ -1,9 +1,9 @@
-<h1><f:translate key="apikeymanagement.index.welcome">EVE API Key Management</f:translate></h1>
+<h1><f:translate key="apikeymanagement.account.index.welcome">EVE API Key Account Management</f:translate></h1>
 
 <f:flashMessages renderMode="div" />
 
-<f:if condition="{apiKeyList}">
-	<h2>List of stored API keys for {apiKeyList.first.corpMember.username}</h2>
+<f:if condition="{apiKeyAccountList}">
+	<h2>List of stored account API keys for {apiKeyAccountList.first.corpMember.username}</h2>
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
 			<tr>
@@ -15,23 +15,23 @@
 			</tr>
 		</thead>
 		<tbody>
-		<f:for each="{apiKeyList}" as="apiKey">
+		<f:for each="{apiKeyAccountList}" as="apiKeyAccount">
 			<tr>
-				<td>{apiKey.keyId}</td>
-				<td><f:if condition="{apiKey.expires}"><f:then><f:format.date format="Y-m-d">{apiKey.expires}</f:format.date></f:then><f:else>never</f:else></f:if></td>
-				<td>{apiKey.accessMask}</td>
+				<td>{apiKeyAccount.keyId}</td>
+				<td><f:if condition="{apiKeyAccount.expires}"><f:then><f:format.date format="Y-m-d">{apiKeyAccount.expires}</f:format.date></f:then><f:else>never</f:else></f:if></td>
+				<td>{apiKeyAccount.accessMask}</td>
 				<td>
-				<f:if condition="{apiKey.characters}">
-					<f:for each="{apiKey.characters}" as="character">
+				<f:if condition="{apiKeyAccount.characters}">
+					<f:for each="{apiKeyAccount.characters}" as="character">
 						{character.characterName} <br />
 					</f:for>
 				</f:if>
 				</td>
-				<td><f:link.action action="delete" class="text-danger" arguments="{apiKey : apiKey}">Delete</f:link.action></td>
+				<td><f:link.action action="delete" class="text-danger" arguments="{apiKeyAccount : apiKeyAccount}">Delete</f:link.action></td>
 			</tr>
 		</f:for>
 		</tbody>
 	</table>
 </f:if>
 
-<f:link.action action="new" controller="ApiKeyManagement">Add new API key</f:link.action>
+<f:link.action action="new" controller="ApiKeyManagement">Add new account API key</f:link.action>

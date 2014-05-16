@@ -86,9 +86,9 @@ CREATE TABLE `tx_evecorp_domain_model_evemapsolarsystem` (
 );
 
 #
-# Table structure for table 'tx_evecorp_domain_model_apikey'
+# Table structure for table 'tx_evecorp_domain_model_apikeyaccount'
 #
-CREATE TABLE `tx_evecorp_domain_model_apikey` (
+CREATE TABLE `tx_evecorp_domain_model_apikeyaccount` (
 	`uid` int(11) NOT NULL auto_increment,
 	`pid` int(11) DEFAULT '0' NOT NULL,
 
@@ -97,7 +97,6 @@ CREATE TABLE `tx_evecorp_domain_model_apikey` (
 	`corp_member` int(11) DEFAULT '0' NOT NULL,
 	`access_mask` int(11) DEFAULT '0' NOT NULL,
 	`expires` int(11) DEFAULT '0' NOT NULL,
-	`type` varchar(255) DEFAULT 'Account' NOT NULL,
 	`characters` int(11) DEFAULT '0' NOT NULL,
 
 	`tstamp` int(11) unsigned DEFAULT '0' NOT NULL,

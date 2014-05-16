@@ -50,12 +50,12 @@ class ApiKeyMapper {
 
 	/**
 	 *
-	 * @param \Gerh\Evecorp\Domain\Model\ApiKey $apiKeyModel
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccountModel
 	 * @return $boolean
 	 */
-	public function fillUpModel(\Gerh\Evecorp\Domain\Model\ApiKey $apiKeyModel) {
-		$keyId = $apiKeyModel->getKeyId();
-		$vCode = $apiKeyModel->getVCode();
+	public function fillUpModel(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccountModel) {
+		$keyId = $apiKeyAccountModel->getKeyId();
+		$vCode = $apiKeyAccountModel->getVCode();
 		$scope = 'Account';
 
 		$phealService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Gerh\\Evecorp\\Service\\PhealService', $keyId, $vCode, $scope);
@@ -63,27 +63,25 @@ class ApiKeyMapper {
 
 		try {
 			$response = $pheal->accountScope->APIKeyInfo();
-			$apiKeyModel->setAccessMask($response->key->accessMask);
+			$apiKeyAccountModel->setAccessMask($response->key->accessMask);
 
 			$keyExpires = $response->key->expires;
 			if ($keyExpires != '') {
 				$expires = new \Gerh\Evecorp\Domain\Model\DateTime($keyExpires, new \DateTimeZone('UTC'));
-				$apiKeyModel->setExpires($expires);
+				$apiKeyAccountModel->setExpires($expires);
 			}
 
-			$apiKeyModel->setType($response->key->type);
-
 			foreach($response->key->characters as $character) {
-				$characterMapper = new \Gerh\Evecorp\Domain\Mapper\CharacterMapper($apiKeyModel);
+				$characterMapper = new \Gerh\Evecorp\Domain\Mapper\CharacterMapper($apiKeyAccountModel);
 				$characterModel = $characterMapper->createModel($character->characterID);
 
 				if ($characterModel === NULL) {
 					throw new \Exception($characterMapper->getErrorMessage());
 				}
 
-				$characterModel->setApiKey($apiKeyModel);
-				$characterModel->setCorpMember($apiKeyModel->getCorpMember());
-				$apiKeyModel->addCharacter($characterModel);
+				$characterModel->setApiKeyAccount($apiKeyAccountModel);
+				$characterModel->setCorpMember($apiKeyAccountModel->getCorpMember());
+				$apiKeyAccountModel->addCharacter($characterModel);
 			}
 			
 			return TRUE;

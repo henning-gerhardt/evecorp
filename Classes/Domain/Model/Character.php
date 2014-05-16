@@ -34,10 +34,10 @@ namespace Gerh\Evecorp\Domain\Model;
 class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
-	 * @var \Gerh\Evecorp\Domain\Model\ApiKey
+	 * @var \Gerh\Evecorp\Domain\Model\ApiKeyAccount
 	 * @lazy
 	 */
-	protected $apiKey;
+	protected $apiKeyAccount;
 
 	/**
 	 * @var \integer
@@ -100,21 +100,21 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @return \Gerh\Evecorp\Domain\Model\ApiKey
 	 */
-	public function getApiKey() {
-		if ($this->apiKey instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
-			$this->apiKey->_loadRealInstance();
+	public function getApiKeyAccount() {
+		if ($this->apiKeyAccount instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->apiKeyAccount->_loadRealInstance();
 		}
 
-		return $this->apiKey;
+		return $this->apiKeyAccount;
 	}
 
 	/**
 	 * Set characters dependend API key
 	 *
-	 * @param \Gerh\Evecorp\Domain\Model\ApiKey $apiKey
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
 	 */
-	public function setApiKey(\Gerh\Evecorp\Domain\Model\ApiKey $apiKey) {
-		$this->apiKey = $apiKey;
+	public function setApiKeyAccount(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+		$this->apiKeyAccount = $apiKeyAccount;
 	}
 
 	/**
