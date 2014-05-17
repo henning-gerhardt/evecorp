@@ -32,10 +32,12 @@ if (!defined ('TYPO3_MODE')) {
     'Pi3',
     array(
         'ApiKeyManagement' => 'index,new,create,delete',
+        'CharacterManagement' => 'show',
     ),
     // non-cacheable actions
     array(
         'ApiKeyManagement' => 'index,new,create,delete',
+        'CharacterManagement' => 'show',
     )
 );
 

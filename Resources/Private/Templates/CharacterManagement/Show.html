@@ -1,0 +1,36 @@
+{namespace evecorp=Gerh\Evecorp\ViewHelpers}
+<h1>Character information screen </h1>
+<div class="row">
+	<div class="col-md-4">
+		<evecorp:format.eveImage characterId="{character.characterId}" characterName="{character.characterName}" size="256"/>
+	</div>
+	<div class="col-md-8">
+		<dl>
+			<dt>Name:</dt>
+			<dd>{character.characterName}</dd>
+			<dt>Corporation:</dt>
+			<dd>{character.currentCorporation.corporationName}</dd>
+			<dt>Race:</dt>
+			<dd>{character.race}</dd>
+			<dt>Security status:</dt>
+			<dd><f:format.number decimals="2">{character.securityStatus}</f:format.number></dd>
+			<dt>Employment history:</dt>
+			<dd>
+				<table class="table table-striped table-bordered table-hover table-condensed">
+					<thead>
+						<tr><th>Corporation</th><th>joined</th></tr>
+					</thead>
+					<tbody>
+					<f:for each="{character.employments}" as="employment">
+						<f:if condition="{employment.corporationUid.corporationId} == {character.currentCorporation.corporationId}"><f:then><tr class="success"></f:then><f:else><tr></f:else></f:if>
+							<td>{employment.corporationUid.corporationName}</td><td><f:format.date format="d.m.Y">{employment.startDate}</f:format.date></td>
+						</tr>
+					</f:for>
+					</tbody>
+				</table>
+			</dd>
+		</dl>
+	</div>
+</div>
+
+<f:link.action action="index" controller="ApiKeyManagement">back</f:link.action>
