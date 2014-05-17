@@ -10,6 +10,10 @@
 			<dd>{character.characterName}</dd>
 			<dt>Corporation:</dt>
 			<dd>{character.currentCorporation.corporationName}</dd>
+			<f:if condition="{character.currentCorporation.currentAlliance}">
+			<dt>Alliance:</dt>
+			<dd>{character.currentCorporation.currentAlliance.allianceName}</dd>
+			</f:if>
 			<dt>Race:</dt>
 			<dd>{character.race}</dd>
 			<dt>Security status:</dt>
