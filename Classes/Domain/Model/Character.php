@@ -176,28 +176,6 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Returns characters current alliance
-	 *
-	 * @return \Gerh\Evecorp\Domain\Model\Alliance
-	 */
-	public function getCurrentAlliance() {
-		if ($this->currentAlliance instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
-			$this->currentAlliance->_loadRealInstance();
-		}
-
-		return $this->currentAlliance;
-	}
-
-	/**
-	 * Set characters current alliance
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\Alliance $alliance
-	 */
-	public function setCurrentAlliance(\Gerh\Evecorp\Domain\Model\Alliance $alliance = NULL) {
-		$this->currentAlliance = $alliance;
-	}
-
-	/**
 	 * Returns characters current corporation
 	 *
 	 * @return \Gerh\Evecorp\Domain\Model\Corporation

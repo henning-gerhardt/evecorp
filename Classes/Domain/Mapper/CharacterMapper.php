@@ -72,29 +72,6 @@ class CharacterMapper {
 	}
 
 	/**
-	 * Get alliance model by alliance id
-	 *
-	 * @param \integer $allianceId
-	 * @param \string $allianceName
-	 * @return \Gerh\Evecorp\Domain\Model\Alliance | NULL
-	 */
-	protected function getAllianceModel($allianceId, $allianceName) {
-		if ($allianceId > 0) {
-			$allianceRepository = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\AllianceRepository');
-			$searchResult = $allianceRepository->findOneByAllianceId($allianceId);
-			if ($searchResult) {
-				$alliance = $searchResult;
-			} else {
-				$alliance = new \Gerh\Evecorp\Domain\Model\Alliance($allianceId, $allianceName);
-			}
-		} else {
-			$alliance = NULL;
-		}
-
-		return $alliance;
-	}
-
-	/**
 	 * Get corporation model by corporation id
 	 *
 	 * @param \integer $corporationId
@@ -167,7 +144,6 @@ class CharacterMapper {
 			$character->setRace($response->race);
 			$character->setSecurityStatus($response->securityStatus);
 			$character->setCurrentCorporation($this->getCorporationModel(\intval($response->corporationID), $response->corporationUid));
-			$character->setCurrentAlliance($this->getAllianceModel(\intval($response->allianceID), $response->alliance));
 
 			$this->addEmploymentHistoryOfCharachter($character, $response->employmentHistory);
 

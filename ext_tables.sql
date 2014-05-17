@@ -159,7 +159,6 @@ CREATE TABLE `tx_evecorp_domain_model_character` (
 	`character_id` int(11) DEFAULT '0' NOT NULL,
 	`character_name` varchar(255) DEFAULT '' NOT NULL,
 	`corp_member` int(11) DEFAULT '0' NOT NULL,
-	`current_alliance` int(11) DEFAULT '0' NOT NULL,
 	`current_corporation` int(11) DEFAULT '0' NOT NULL,
 	`employments` int(11) DEFAULT '0' NOT NULL,
 	`race` varchar(255) DEFAULT '' NOT NULL,

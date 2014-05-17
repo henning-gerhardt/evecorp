@@ -94,18 +94,6 @@ class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function currentAllianceCouldBeSet() {
-		$expected = new \Gerh\Evecorp\Domain\Model\Alliance();
-
-		$character = new \Gerh\Evecorp\Domain\Model\Character();
-		$character->setCurrentAlliance($expected);
-
-		$this->assertEquals($expected, $character->getCurrentAlliance());
-	}
-
-	/**
-	 * @test
-	 */
 	public function currentCorporationCouldBeSet() {
 		$expected = new \Gerh\Evecorp\Domain\Model\Corporation();
 
@@ -139,13 +127,4 @@ class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->assertEquals($expected, $character->getSecurityStatus());
 	}
 
-	/**
-	 * @test
-	 */
-	public function allianceCouldBeNull() {
-		$character = new \Gerh\Evecorp\Domain\Model\Character();
-		$character->setCurrentAlliance(NULL);
-
-		$this->assertNull($character->getCurrentAlliance());
-	}
 }
