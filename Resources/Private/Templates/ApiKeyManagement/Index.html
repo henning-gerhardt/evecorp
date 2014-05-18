@@ -1,4 +1,6 @@
 {namespace evecorp=Gerh\Evecorp\ViewHelpers}
+<f:layout name="default" />
+<f:section name="content">
 
 <h1><f:translate key="apikeymanagement.account.index.welcome">EVE API Key Account Management</f:translate></h1>
 
@@ -37,3 +39,5 @@
 </f:if>
 
 <f:link.action action="new" controller="ApiKeyManagement">Add new account API key</f:link.action>
+
+</f:section>
