@@ -8,34 +8,36 @@
 
 <f:if condition="{apiKeyAccountList}">
 	<h2>List of stored account API keys for {apiKeyAccountList.first.corpMember.username}</h2>
-	<table class="table table-striped table-bordered table-hover">
-		<thead>
-			<tr>
-				<th>key id</th>
-				<th>expires</th>
-				<th>access mask</th>
-				<th>characters</th>
-				<th>action</th>
-			</tr>
-		</thead>
-		<tbody>
-		<f:for each="{apiKeyAccountList}" as="apiKeyAccount">
-			<tr>
-				<td>{apiKeyAccount.keyId}</td>
-				<td><f:if condition="{apiKeyAccount.expires}"><f:then><f:format.date format="Y-m-d">{apiKeyAccount.expires}</f:format.date></f:then><f:else>never</f:else></f:if></td>
-				<td>{apiKeyAccount.accessMask}</td>
-				<td>
-				<f:if condition="{apiKeyAccount.characters}">
-					<f:for each="{apiKeyAccount.characters}" as="character">
-						<f:link.action controller="CharacterManagement" action="show" arguments="{character: character}"><evecorp:format.eveImage characterId="{character.characterId}" characterName="{character.characterName}" size="64"/></f:link.action>
-					</f:for>
-				</f:if>
-				</td>
-				<td><f:link.action action="delete" class="text-danger" arguments="{apiKeyAccount : apiKeyAccount}">Delete</f:link.action></td>
-			</tr>
-		</f:for>
-		</tbody>
-	</table>
+	<div class="table-responsive">
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>key id</th>
+					<th>expires</th>
+					<th>access mask</th>
+					<th>characters</th>
+					<th>action</th>
+				</tr>
+			</thead>
+			<tbody>
+			<f:for each="{apiKeyAccountList}" as="apiKeyAccount">
+				<tr>
+					<td>{apiKeyAccount.keyId}</td>
+					<td><f:if condition="{apiKeyAccount.expires}"><f:then><f:format.date format="Y-m-d">{apiKeyAccount.expires}</f:format.date></f:then><f:else>never</f:else></f:if></td>
+					<td>{apiKeyAccount.accessMask}</td>
+					<td>
+					<f:if condition="{apiKeyAccount.characters}">
+						<f:for each="{apiKeyAccount.characters}" as="character">
+							<f:link.action controller="CharacterManagement" action="show" arguments="{character: character}"><evecorp:format.eveImage characterId="{character.characterId}" characterName="{character.characterName}" size="64"/></f:link.action>
+						</f:for>
+					</f:if>
+					</td>
+					<td><f:link.action action="delete" class="text-danger" arguments="{apiKeyAccount : apiKeyAccount}">Delete</f:link.action></td>
+				</tr>
+			</f:for>
+			</tbody>
+		</table>
+	</div>
 </f:if>
 
 <f:link.action action="new" controller="ApiKeyManagement">Add new account API key</f:link.action>

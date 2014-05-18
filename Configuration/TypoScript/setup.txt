@@ -23,17 +23,4 @@ plugin.tx_evecorp._CSS_DEFAULT_STYLE (
 		background-color:#FF9F9F;
 		border: 1px #FF0000 solid;
 	}
-
-	.tx-evecorp table {
-		border-collapse:separate;
-		border-spacing:10px;
-	}
-
-	.tx-evecorp table th {
-		font-weight:bold;
-	}
-
-	.tx-evecorp table td {
-		vertical-align:top;
-	}
 )
