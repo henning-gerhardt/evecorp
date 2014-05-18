@@ -64,7 +64,7 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @return \Gerh\Evecorp\Domain\Model\Character
 	 */
-	public function getCharacterUid() {
+	public function getCharacter() {
 		if ($this->characterUid instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->characterUid->_loadRealInstance();
 		}
@@ -77,7 +77,7 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\Character $character
 	 */
-	public function setCharacterUid(\Gerh\Evecorp\Domain\Model\Character $character) {
+	public function setCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
 		$this->characterUid = $character;
 	}
 

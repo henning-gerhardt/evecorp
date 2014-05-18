@@ -112,7 +112,7 @@ class CharacterMapper {
 			$startDate = new \Gerh\Evecorp\Domain\Model\DateTime($record->startDate, new \DateTimeZone('UTC'));
 
 			$employment = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
-			$employment->setCharacterUid($character);
+			$employment->setCharacter($character);
 			$employment->setCorporation($corporation);
 			$employment->setRecordId($record->recordID);
 			$employment->setStartDate($startDate);

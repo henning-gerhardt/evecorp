@@ -52,9 +52,9 @@ class EmploymentHistoryTest  extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$expected->setCharacterName('Foo Bar');
 
 		$history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
-		$history->setCharacterUid($expected);
+		$history->setCharacter($expected);
 
-		$this->assertEquals($expected, $history->getCharacterUid());
+		$this->assertEquals($expected, $history->getCharacter());
 	}
 
 	/**
