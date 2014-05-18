@@ -66,9 +66,9 @@ class EmploymentHistoryTest  extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$expected->setCorporationName('Bar Corporation');
 
 		$history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
-		$history->setCorporationUid($expected);
+		$history->setCorporation($expected);
 
-		$this->assertEquals($expected, $history->getCorporationUid());
+		$this->assertEquals($expected, $history->getCorporation());
 	}
 
 	/**

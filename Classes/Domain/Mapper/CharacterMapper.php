@@ -113,7 +113,7 @@ class CharacterMapper {
 
 			$employment = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
 			$employment->setCharacterUid($character);
-			$employment->setCorporationUid($corporation);
+			$employment->setCorporation($corporation);
 			$employment->setRecordId($record->recordID);
 			$employment->setStartDate($startDate);
 

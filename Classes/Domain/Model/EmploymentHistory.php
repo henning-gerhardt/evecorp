@@ -86,7 +86,7 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @return \Gerh\Evecorp\Domain\Model\Corporation
 	 */
-	public function getCorporationUid() {
+	public function getCorporation() {
 		if ($this->corporationUid instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->corporationUid->_loadRealInstance();
 		}
@@ -99,7 +99,7 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
 	 */
-	public function setCorporationUid(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
+	public function setCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
 		$this->corporationUid = $corporation;
 	}
 
