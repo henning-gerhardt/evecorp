@@ -40,6 +40,12 @@
 			<trans-unit id="apikeymanagement.index.welcome" xml:space="preserve">
 				<source>EVE API Key Management</source>
 			</trans-unit>
+			<trans-unit id="task.updateApiKeyAccountTask.name" xml:space="preserve">
+				<source>Update Account API key list</source>
+			</trans-unit>
+			<trans-unit id="task.updateApiKeyAccountTask.description" xml:space="preserve">
+				<source>Updating list of account based API keys</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
