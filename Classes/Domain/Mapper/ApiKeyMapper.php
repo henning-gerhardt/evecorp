@@ -35,9 +35,75 @@ namespace Gerh\Evecorp\Domain\Mapper;
 class ApiKeyMapper {
 
 	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
+	 */
+	protected $characterRepository;
+
+	/**
 	 * @var \string
 	 */
 	protected $errorMessage;
+
+	/**
+	 * Create new character and add him to current api key
+	 *
+	 * @param \integer $characterId
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+	 * @throws \Exception
+	 * @return void
+	 */
+	protected function createAndAddNewCharacter($characterId, \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+		$characterMapper = new \Gerh\Evecorp\Domain\Mapper\CharacterMapper($apiKeyAccount);
+		$characterModel = $characterMapper->createModel($characterId);
+
+		if ($characterModel === NULL) {
+			throw new \Exception($characterMapper->getErrorMessage());
+		}
+
+		$characterModel->setApiKeyAccount($apiKeyAccount);
+		$characterModel->setCorpMember($apiKeyAccount->getCorpMember());
+		$apiKeyAccount->addCharacter($characterModel);
+	}
+
+	/**
+	 * Remove removed characters from api key
+	 *
+	 * @param array $removedCharacterIds
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+	 */
+	protected function removeCharacters(array $removedCharacterIds, \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+		foreach($removedCharacterIds as $characterId) {
+			$characterModel = $this->characterRepository->findOneByCharacterId($characterId);
+			$characterModel->setCorpMember(NULL);
+			$this->characterRepository->update($characterModel);
+			$apiKeyAccount->removeCharacter($characterModel);
+		}
+	}
+
+	/**
+	 * Update character information
+	 *
+	 * @param \integer $characterId
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+	 * @throws \Exception
+	 */
+	protected function updateCharacter($characterId, $apiKeyAccount) {
+		$characterModel = $this->characterRepository->findOneByCharacterId($characterId);
+		$characterMapper = new \Gerh\Evecorp\Domain\Mapper\CharacterMapper($apiKeyAccount);
+		$result = $characterMapper->updateModel($characterModel);
+		if ($result === FALSE) {
+			throw new \Exception($characterMapper->getErrorMessage());
+		}
+		$this->characterRepository->update($characterModel);
+	}
+
+	/**
+	 * class constructor
+	 */
+	public function __construct() {
+		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$this->characterRepository = $objectManager->get('\\Gerh\\Evecorp\\Domain\\Repository\\CharacterRepository');
+	}
 
 	/**
 	 * Returns error message
@@ -58,7 +124,7 @@ class ApiKeyMapper {
 		$vCode = $apiKeyAccountModel->getVCode();
 		$scope = 'Account';
 
-		$phealService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Gerh\\Evecorp\\Service\\PhealService', $keyId, $vCode, $scope);
+		$phealService = new \Gerh\Evecorp\Service\PhealService($keyId, $vCode, $scope);
 		$pheal = $phealService->getPhealInstance();
 
 		try {
@@ -72,18 +138,10 @@ class ApiKeyMapper {
 			}
 
 			foreach($response->key->characters as $character) {
-				$characterMapper = new \Gerh\Evecorp\Domain\Mapper\CharacterMapper($apiKeyAccountModel);
-				$characterModel = $characterMapper->createModel($character->characterID);
-
-				if ($characterModel === NULL) {
-					throw new \Exception($characterMapper->getErrorMessage());
-				}
-
-				$characterModel->setApiKeyAccount($apiKeyAccountModel);
-				$characterModel->setCorpMember($apiKeyAccountModel->getCorpMember());
-				$apiKeyAccountModel->addCharacter($characterModel);
+				$characterId = intval($character->characterID);
+				$this->createAndAddNewCharacter($characterId, $apiKeyAccountModel);
 			}
-			
+
 			return TRUE;
 		} catch (\Pheal\Exceptions\PhealException $ex) {
 			$this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage() . '" Model was not be updated!';
@@ -93,4 +151,62 @@ class ApiKeyMapper {
 			return FALSE;
 		}
 	}
+
+	/**
+	 * Update account based API key
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+	 * @return boolean
+	 */
+	public function updateApiKeyAccount(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+		$keyId = $apiKeyAccount->getKeyId();
+		$vCode = $apiKeyAccount->getVCode();
+		$scope = 'Account';
+
+		$currentCharacters = $apiKeyAccount->getCharacters();
+		$currentCharacterIds = array();
+		$wellKnownCharacterIds = array();
+
+		foreach($currentCharacters as $character) {
+			$currentCharacterIds[] = intval($character->getCharacterId());
+		}
+
+		$phealService = new \Gerh\Evecorp\Service\PhealService($keyId, $vCode, $scope);
+		$pheal = $phealService->getPhealInstance();
+
+		try {
+			$response = $pheal->accountScope->APIKeyInfo();
+
+			$apiKeyAccount->setAccessMask($response->key->accessMask);
+
+			$keyExpires = $response->key->expires;
+			if ($keyExpires != '') {
+				$expires = new \Gerh\Evecorp\Domain\Model\DateTime($keyExpires, new \DateTimeZone('UTC'));
+				$apiKeyAccount->setExpires($expires);
+			} else {
+				$apiKeyAccount->setExpires(NULL);
+			}
+
+			foreach($response->key->characters as $character) {
+				$characterId = intval($character->characterID);
+
+				if (in_array($characterId, $currentCharacterIds)) {
+					$this->updateCharacter($characterId, $apiKeyAccount);
+					$wellKnownCharacterIds[] = $characterId;
+				} else {
+					$this->createAndAddNewCharacter($characterId, $apiKeyAccount);
+				}
+			}
+
+			$removedCharacterIds = array_diff($currentCharacterIds, $wellKnownCharacterIds);
+			$this->removeCharacters($removedCharacterIds, $apiKeyAccount);
+
+		} catch (Exception $ex) {
+			$this->errorMessage = 'Fetched general exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
+			return FALSE;
+		}
+
+		return TRUE;
+	}
+
 }

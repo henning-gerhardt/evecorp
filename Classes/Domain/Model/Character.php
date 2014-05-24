@@ -171,7 +171,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 */
-	public function setCorpMember(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $corpMember) {
+	public function setCorpMember(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $corpMember = NULL) {
 		$this->corpMember = $corpMember;
 	}
 

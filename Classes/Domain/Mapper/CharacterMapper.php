@@ -155,4 +155,38 @@ class CharacterMapper {
 		}
 
 	}
+
+	/**
+	 * Update character model with API data
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\Character $characterModel
+	 * @return boolean
+	 */
+	public function updateModel(\Gerh\Evecorp\Domain\Model\Character $characterModel) {
+
+		$pheal = $this->phealService->getPhealInstance();
+		$characterId = $characterModel->getCharacterId();
+
+		try {
+			$response = $pheal->eveScope->CharacterInfo(array('CharacterID' => $characterId));
+		} catch (\Pheal\Exceptions\PhealException $ex) {
+			$this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage();
+			return FALSE;
+		}
+
+		try {
+			$characterModel->setCharacterName($response->characterName);
+			$characterModel->setRace($response->race);
+			$characterModel->setSecurityStatus($response->securityStatus);
+			$characterModel->setCurrentCorporation($this->getCorporationModel(\intval($response->corporationID), $response->corporationUid));
+
+			//$this->addEmploymentHistoryOfCharachter($characterModel, $response->employmentHistory);
+
+		} catch (\Exception $ex) {
+			$this->errorMessage = 'Fetched general Exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
+			return FALSE;
+		}
+
+		return TRUE;
+	}
 }

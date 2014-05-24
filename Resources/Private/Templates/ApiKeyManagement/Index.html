@@ -32,7 +32,7 @@
 						</f:for>
 					</f:if>
 					</td>
-					<td><f:link.action action="delete" class="text-danger" arguments="{apiKeyAccount : apiKeyAccount}">Delete</f:link.action></td>
+					<td><f:link.action action="delete" controller="ApiKeyManagement" class="text-danger" arguments="{apiKeyAccount : apiKeyAccount}">Delete</f:link.action> <f:link.action action="update" controller="ApiKeyManagement" class="text-danger" arguments="{apiKeyAccount : apiKeyAccount}">Update</f:link.action></td>
 				</tr>
 			</f:for>
 			</tbody>

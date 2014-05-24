@@ -78,6 +78,7 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	}
 
 	/**
+	 * Add new api key account
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\ApiKey $newApiKeyAccount
 	 * @validate $newApiKeyAccount \Gerh\Evecorp\Domain\Validator\ApiKeyAccountValidator
@@ -99,6 +100,7 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	}
 
 	/**
+	 * Deleting api key account
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
 	 * @ignorevalidation $apiKeyAccount
@@ -106,6 +108,26 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 */
 	public function deleteAction(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
 		$this->apiKeyAccountRepository->remove($apiKeyAccount);
+
+		$this->redirect('index');
+	}
+
+	/**
+	 * Updating api key account
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+	 * @ignorevalidation $apiKeyAccount
+	 * @return void
+	 */
+	public function updateAction(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyMapper();
+
+		$result = $mapper->updateApiKeyAccount($apiKeyAccount);
+		if ($result === TRUE) {
+			$this->apiKeyAccountRepository->update($apiKeyAccount);
+		} else {
+			$this->addFlashMessage($mapper->getErrorMessage(), 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+		}
 
 		$this->redirect('index');
 	}
