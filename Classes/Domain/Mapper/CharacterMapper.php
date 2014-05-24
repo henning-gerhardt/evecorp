@@ -51,24 +51,39 @@ class CharacterMapper {
 	protected $phealService;
 
 	/**
-	 * class constructor
+	 * Add employment history of character
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\Character $character
+	 * @param \Pheal\Core\RowSet $employmentHistory
 	 */
-	public function __construct(\Gerh\Evecorp\Domain\Model\ApiKey $apiKeyModel) {
+	protected function addEmploymentHistoryOfCharacter(\Gerh\Evecorp\Domain\Model\Character $character, \Pheal\Core\RowSet $employmentHistory) {
+		$employmentHistoryRepository = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EmploymentHistoryRepository');
 
-		$keyId = $apiKeyModel->getKeyId();
-		$vCode = $apiKeyModel->getVCode();
-		$scope = 'eve';
-		$this->phealService = new \Gerh\Evecorp\Service\PhealService($keyId, $vCode, $scope);
-		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		foreach($employmentHistory as $record) {
+			$corporation = $this->getCorporationModel(\intval($record->corporationID), '');
+			$startDate = new \Gerh\Evecorp\Domain\Model\DateTime($record->startDate, new \DateTimeZone('UTC'));
+
+			$employment = $this->createEmploymentHistoryModel($character, $corporation, intval($record->recordID), $startDate);
+			$employmentHistoryRepository->add($employment);
+		}
 	}
 
 	/**
-	 * Returns error message
+	 * Create an employment history model
 	 *
-	 * @return \string
+	 * @param \Gerh\Evecorp\Domain\Model\Character $character
+	 * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
+	 * @param \integer $recordId
+	 * @param \Gerh\Evecorp\Domain\Model\DateTime $startDate
+	 * @return \Gerh\Evecorp\Domain\Model\EmploymentHistory
 	 */
-	public function getErrorMessage() {
-		return $this->errorMessage;
+	protected function createEmploymentHistoryModel($character, $corporation, $recordId, $startDate) {
+		$employment = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
+		$employment->setCharacter($character);
+		$employment->setCorporation($corporation);
+		$employment->setRecordId($recordId);
+		$employment->setStartDate($startDate);
+		return $employment;
 	}
 
 	/**
@@ -99,29 +114,62 @@ class CharacterMapper {
 	}
 
 	/**
-	 * Add employment history of character
+	 * Updating employment history of character
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\Character $character
 	 * @param \Pheal\Core\RowSet $employmentHistory
+	 * @return void
 	 */
-	protected function addEmploymentHistoryOfCharachter(\Gerh\Evecorp\Domain\Model\Character $character, \Pheal\Core\RowSet $employmentHistory) {
+	protected function updateEmploymentHistoryOfCharacter(\Gerh\Evecorp\Domain\Model\Character $character, \Pheal\Core\RowSet $employmentHistory) {
 		$employmentHistoryRepository = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EmploymentHistoryRepository');
+
+		$currentEmployments = $employmentHistoryRepository->findByCharacterUid($character);
+		$wellknownEmployments = array();
 
 		foreach($employmentHistory as $record) {
 			$corporation = $this->getCorporationModel(\intval($record->corporationID), '');
 			$startDate = new \Gerh\Evecorp\Domain\Model\DateTime($record->startDate, new \DateTimeZone('UTC'));
 
-			$employment = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
-			$employment->setCharacter($character);
-			$employment->setCorporation($corporation);
-			$employment->setRecordId($record->recordID);
-			$employment->setStartDate($startDate);
+			$result = $employmentHistoryRepository->searchForEmployment($character, $corporation, $startDate);
 
-			$employmentHistoryRepository->add($employment);
+			if ($result === NULL) {
+				$employment = $this->createEmploymentHistoryModel($character, $corporation, intval($record->recordID), $startDate);
+				$employmentHistoryRepository->add($employment);
+			} else {
+				$wellknownEmployments[$result->getUid()] = $result;
+			}
+		}
+
+		foreach($currentEmployments as $employment) {
+			if (array_key_exists($employment->getUid(), $wellknownEmployments) === false) {
+				$character->removeEmployment($employment);
+			}
 		}
 	}
 
 	/**
+	 * class constructor
+	 */
+	public function __construct(\Gerh\Evecorp\Domain\Model\ApiKey $apiKeyModel) {
+
+		$keyId = $apiKeyModel->getKeyId();
+		$vCode = $apiKeyModel->getVCode();
+		$scope = 'eve';
+		$this->phealService = new \Gerh\Evecorp\Service\PhealService($keyId, $vCode, $scope);
+		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+	}
+
+	/**
+	 * Returns error message
+	 *
+	 * @return \string
+	 */
+	public function getErrorMessage() {
+		return $this->errorMessage;
+	}
+
+	/**
+	 * Create character model for given character id from API data
 	 *
 	 * @param \integer $characterId
 	 * @return \Gerh\Evecorp\Domain\Model\Character | NULL
@@ -145,7 +193,7 @@ class CharacterMapper {
 			$character->setSecurityStatus($response->securityStatus);
 			$character->setCurrentCorporation($this->getCorporationModel(\intval($response->corporationID), $response->corporationUid));
 
-			$this->addEmploymentHistoryOfCharachter($character, $response->employmentHistory);
+			$this->addEmploymentHistoryOfCharacter($character, $response->employmentHistory);
 
 			return $character;
 
@@ -180,7 +228,7 @@ class CharacterMapper {
 			$characterModel->setSecurityStatus($response->securityStatus);
 			$characterModel->setCurrentCorporation($this->getCorporationModel(\intval($response->corporationID), $response->corporationUid));
 
-			//$this->addEmploymentHistoryOfCharachter($characterModel, $response->employmentHistory);
+			$this->updateEmploymentHistoryOfCharacter($characterModel, $response->employmentHistory);
 
 		} catch (\Exception $ex) {
 			$this->errorMessage = 'Fetched general Exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
