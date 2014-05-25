@@ -9,7 +9,7 @@ $TCA['tx_evecorp_domain_model_corporation'] = array(
 		'showRecordFieldList' => 'hidden, corporation_name, corporation_id, current_alliance',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'hidden, corporation_name, corporation_id, current_alliance'),
+		'1' => array('showitem' => 'hidden, corporation_name, corporation_id, current_alliance, usergroup'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -51,6 +51,16 @@ $TCA['tx_evecorp_domain_model_corporation'] = array(
 				),
 			),
 		),
-
+		'usergroup' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.usergroup',
+			'config' => array(
+				'type' => 'select',
+				'foreign_table' => 'fe_groups',
+				'items' => array(
+					array('--none--', 0),
+				)
+			),
+		)
 	),
 );

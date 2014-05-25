@@ -6,6 +6,14 @@ plugin.tx_evecorp {
 	}
 	persistence {
 		storagePid = {$plugin.tx_evecorp.persistence.storagePid}
+		classes {
+			TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
+				mapping {
+					tableName = fe_groups
+					recordType = Tx_Extbase_Domain_Model_FrontendUserGroup
+				}
+			}
+		}
 	}
 	features {
 		# uncomment the following line to enable the new Property Mapper.

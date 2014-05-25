@@ -85,6 +85,9 @@
 			<trans-unit id="tx_evecorp_domain_model_corporation.corporation_name">
 				<source>Corporation name</source>
 			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_corporation.usergroup">
+				<source>Corporation default frontend user group</source>
+			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_character">
 				<source>EVE Character</source>
 			</trans-unit>

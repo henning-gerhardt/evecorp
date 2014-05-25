@@ -54,6 +54,12 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $currentAlliance;
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+	 * @lazy
+	 */
+	protected $usergroup;
+
+	/**
 	 * class constructor
 	 *
 	 * @param type $corporationId   (Optional) Corporation id
@@ -136,5 +142,24 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Get default frontend user group
+	 *
+	 * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+	 */
+	public function getUsergroup() {
+		return $this->usergroup;
+	}
+
+	/**
+	 * Set default frontend user group
+	 *
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup
+	 * @return void
+	 */
+	public function setUsergroup(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup = NULL) {
+		$this->usergroup = $usergroup;
 	}
 }
