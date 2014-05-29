@@ -52,15 +52,8 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 * @return void
 	 */
 	public function indexAction() {
-		$frontendUser = $this->accessControlService->getFrontendUserId();
-		$this->apiKeyAccountRepository
-				->setDefaultOrderings(array(
-					'key_id' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
-				));
-		$apiKeyAccountList = $this->apiKeyAccountRepository
-				->findByCorpMember($frontendUser);
-
-		$this->view->assign('apiKeyAccountList', $apiKeyAccountList);
+		$corpMember = $this->accessControlService->getCorpMember();
+		$this->view->assign('corpMember', $corpMember);
 	}
 
 	/**
@@ -84,8 +77,8 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 * @validate $newApiKeyAccount \Gerh\Evecorp\Domain\Validator\ApiKeyAccountValidator
 	 */
 	public function createAction(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $newApiKeyAccount) {
-		$frontendUser = $this->accessControlService->getFrontendUser();
-		$newApiKeyAccount->setCorpMember($frontendUser);
+		$corpMember = $this->accessControlService->getCorpMember();
+		$newApiKeyAccount->setCorpMember($corpMember);
 
 		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyMapper();
 		$result = $mapper->fillUpModel($newApiKeyAccount);

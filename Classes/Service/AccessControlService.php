@@ -35,6 +35,12 @@ namespace Gerh\Evecorp\Service;
 class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\CorpMemberRepository
+	 * @inject
+	 */
+	protected $corpMemberRepository;
+
+	/**
 	 * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
 	 * @inject
 	 */
@@ -70,6 +76,19 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
 	public function getFrontendUser() {
 		if ($this->isLoggedIn()) {
 			return $this->frontendUserRepository->findByUid($this->getFrontendUserId());
+		}
+
+		return NULL;
+	}
+
+	/**
+	 * Return corp member object for logged in frontend user
+	 *
+	 * @return \Gerh\Evecorp\Domain\Model\CorpMember | NULL
+	 */
+	public function getCorpMember() {
+		if ($this->isLoggedIn()) {
+			return $this->corpMemberRepository->findByUid($this->getFrontendUserId());
 		}
 
 		return NULL;

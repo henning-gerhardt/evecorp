@@ -53,7 +53,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $characterName;
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+	 * @var \Gerh\Evecorp\Domain\Model\CorpMember
 	 * @lazy
 	 */
 	protected $corpMember;
@@ -156,7 +156,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns frontend user for API key
 	 *
-	 * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+	 * @return \Gerh\Evecorp\Domain\Model\CorpMember
 	 */
 	public function getCorpMember() {
 		if ($this->corpMember instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
@@ -169,9 +169,9 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Set frontend user for this API key
 	 *
-	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+	 * @param \Gerh\Evecorp\Domain\Model\CorpMember
 	 */
-	public function setCorpMember(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $corpMember = NULL) {
+	public function setCorpMember(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember = NULL) {
 		$this->corpMember = $corpMember;
 	}
 

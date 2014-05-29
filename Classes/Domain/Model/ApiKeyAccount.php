@@ -42,7 +42,7 @@ class ApiKeyAccount extends \Gerh\Evecorp\Domain\Model\ApiKey {
 	protected $characters;
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+	 * @var \Gerh\Evecorp\Domain\Model\CorpMember
 	 * @lazy
 	 */
 	protected $corpMember;
@@ -113,9 +113,9 @@ class ApiKeyAccount extends \Gerh\Evecorp\Domain\Model\ApiKey {
 	/**
 	 * Set frontend user for this API key
 	 *
-	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+	 * @param \Gerh\Evecorp\Domain\Model\CorpMember
 	 */
-	public function setCorpMember(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $corpMember) {
+	public function setCorpMember(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember) {
 		$this->corpMember = $corpMember;
 	}
 

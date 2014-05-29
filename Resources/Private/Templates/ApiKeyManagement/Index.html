@@ -6,8 +6,8 @@
 
 <f:flashMessages renderMode="div" />
 
-<f:if condition="{apiKeyAccountList}">
-	<h2>List of stored account API keys for {apiKeyAccountList.first.corpMember.username}</h2>
+<f:if condition="{corpMember.ApiKeys}">
+	<h2>List of stored account API keys for {corpMember.Name}</h2>
 	<div class="table-responsive">
 		<table class="table table-striped table-bordered table-hover">
 			<thead>
@@ -20,7 +20,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			<f:for each="{apiKeyAccountList}" as="apiKeyAccount">
+			<f:for each="{corpMember.ApiKeys}" as="apiKeyAccount">
 				<tr>
 					<td>{apiKeyAccount.keyId}</td>
 					<td><f:if condition="{apiKeyAccount.expires}"><f:then><f:format.date format="Y-m-d">{apiKeyAccount.expires}</f:format.date></f:then><f:else>never</f:else></f:if></td>

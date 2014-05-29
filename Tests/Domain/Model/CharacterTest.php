@@ -83,7 +83,7 @@ class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function corpMemberCouldBeSet() {
-		$expected = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser();
+		$expected = new \Gerh\Evecorp\Domain\Model\CorpMember();
 
 		$character = new \Gerh\Evecorp\Domain\Model\Character();
 		$character->setCorpMember($expected);

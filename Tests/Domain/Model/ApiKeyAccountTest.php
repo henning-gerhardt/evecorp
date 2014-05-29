@@ -47,7 +47,7 @@ class ApiKeyAccountTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function corpMemberCouldBeSet() {
-		$expected = $this->getAccessibleMock('\TYPO3\CMS\Extbase\Domain\Model\FrontendUser');
+		$expected = new \Gerh\Evecorp\Domain\Model\CorpMember();
 
 		$apiKeyAccount = new \Gerh\Evecorp\Domain\Model\ApiKeyAccount();
 		$apiKeyAccount->setCorpMember($expected);
