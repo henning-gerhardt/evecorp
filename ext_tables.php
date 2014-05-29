@@ -211,7 +211,19 @@ $feUsersExtendedColumns = array(
 			),
 		),
 	),
+	'eve_corp_groups' => array(
+		'exclude' => '0',
+		'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corpmember.evecorpgroups',
+		'config' => array(
+			'type' => 'select',
+			'foreign_table' => 'fe_groups',
+			'foreign_table_where' => 'ORDER BY fe_groups.title',
+			'size' => 5,
+			'minitems' => 0,
+			'maxitems' => 50,
+		),
+	),
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $feUsersExtendedColumns);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', '--div--;EveCorp, characters, api_keys');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', '--div--;EveCorp, characters, api_keys, eve_corp_groups');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_users', 'tx_extbase_type', array('LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:Gerh_Evecorp_Domain_Model_CorpMember', 'Gerh_Evecorp_Domain_Model_CorpMember'));

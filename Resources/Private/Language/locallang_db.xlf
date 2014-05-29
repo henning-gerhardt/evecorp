@@ -76,6 +76,9 @@
 			<trans-unit id="tx_evecorp_domain_model_alliance.alliance_name">
 				<source>Alliance name</source>
 			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_corpmember.evecorpgroups">
+				<source>EVE Corp groups</source>
+			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_corporation">
 				<source>EVE Corporation</source>
 			</trans-unit>

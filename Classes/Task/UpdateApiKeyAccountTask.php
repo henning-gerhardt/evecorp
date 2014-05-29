@@ -46,7 +46,29 @@ class UpdateApiKeyAccountTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 			$result = $mapper->updateApiKeyAccount($apiKeyAccount);
 			if ($result === TRUE) {
 				$apiKeyAccountRepository->update($apiKeyAccount);
-			}
+			}			
+		}
+
+		$persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+		$persistenceManager->persistAll();
+	}
+
+	/**
+	 * Adjust corp member frontend user groups after updating api keys
+	 */
+	protected function adjustCorpMemberFrontendUserGroups() {
+		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$corpMemberRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CorpMemberRepository');
+
+		// ignoring storage page ids
+		$typoSettings = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+		$typoSettings->setRespectStoragePage(false);
+		$corpMemberRepository->setDefaultQuerySettings($typoSettings);
+
+		$corpMemberUtility = $objectManager->get('Gerh\\Evecorp\\Domain\\Utility\\CorpMemberUtility');;
+		foreach($corpMemberRepository->findAll() as $corpMember) {
+			$corpMemberUtility->adjustFrontendUserGroups($corpMember);
+			$corpMemberRepository->update($corpMember);
 		}
 
 		$persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
@@ -60,6 +82,7 @@ class UpdateApiKeyAccountTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	 */
 	public function execute() {
 		$this->updateAccountApiKeys();
+		$this->adjustCorpMemberFrontendUserGroups();
 
 		return true;
 	}

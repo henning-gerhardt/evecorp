@@ -49,6 +49,12 @@ class CorpMember extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
 	protected $characters;
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup>
+	 * @lazy
+	 */
+	protected $eveCorpGroups;
+
+	/**
 	 * default class constructor
 	 *
 	 * @param \string $username
@@ -58,6 +64,7 @@ class CorpMember extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
 		parent::__construct($username, $password);
 		$this->apiKeys = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->eveCorpGroups = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 	/**
@@ -76,6 +83,36 @@ class CorpMember extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
 	 */
 	public function getCharacters() {
 		return $this->characters;
+	}
+
+	/**
+	 * Add a new frontend user group to eve corp and standard user group
+	 *
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $group
+	 */
+	public function addEveCorpGroup(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $group) {
+		$this->eveCorpGroups->attach($group);
+		$this->usergroup->attach($group);
+
+	}
+
+	/**
+	 * Returns all used frontend user groups
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup>
+	 */
+	public function getEveCorpGroups() {
+		return $this->eveCorpGroups;
+	}
+
+	/**
+	 * Remove a frontend user group from eve corp and standard user group
+	 *
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $group
+	 */
+	public function removeEveCorpGroup(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $group) {
+		$this->eveCorpGroups->detach($group);
+		$this->usergroup->detach($group);
 	}
 
 }

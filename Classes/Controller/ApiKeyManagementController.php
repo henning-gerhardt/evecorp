@@ -89,6 +89,9 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 			$this->addFlashMessage($mapper->getErrorMessage(), 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 		}
 
+		$utility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
+		$utility->adjustFrontendUserGroups($corpMember);
+
 		$this->redirect('index');
 	}
 
@@ -101,6 +104,10 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 */
 	public function deleteAction(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
 		$this->apiKeyAccountRepository->remove($apiKeyAccount);
+
+		$corpMember = $this->accessControlService->getCorpMember();
+		$utility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
+		$utility->adjustFrontendUserGroups($corpMember);
 
 		$this->redirect('index');
 	}
@@ -121,6 +128,10 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 		} else {
 			$this->addFlashMessage($mapper->getErrorMessage(), 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 		}
+
+		$corpMember = $this->accessControlService->getCorpMember();
+		$utility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
+		$utility->adjustFrontendUserGroups($corpMember);
 
 		$this->redirect('index');
 	}
