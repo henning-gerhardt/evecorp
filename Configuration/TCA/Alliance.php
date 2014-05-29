@@ -47,7 +47,9 @@ $TCA['tx_evecorp_domain_model_alliance'] = array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_evecorp_domain_model_corporation',
 				'foreign_field' => 'current_alliance',
-				'readOnly' => 1,
+				'appearance' => array(
+					'levelLinksPosition' => 'none',
+				),
 			)
 		),
 	),

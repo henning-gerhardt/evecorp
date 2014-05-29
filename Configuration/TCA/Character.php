@@ -80,6 +80,9 @@ $TCA['tx_evecorp_domain_model_character'] = array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_evecorp_domain_model_employmenthistory',
 				'foreign_field' => 'character_uid',
+				'appearance' => array(
+					'levelLinksPosition' => 'none',
+				),
 			),
 		),
 		'race' => array(

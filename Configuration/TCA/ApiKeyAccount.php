@@ -78,7 +78,10 @@ $TCA['tx_evecorp_domain_model_apikeyaccount'] = array(
 				'foreign_table' => 'tx_evecorp_domain_model_character',
 				'foreign_field' => 'api_key',
 				'maxitems' => 3,
-				'readOnly' => 1,
+				'appearance' => array(
+					'levelLinksPosition' => 'none',
+				),
+
 			)
 		)
 	),
