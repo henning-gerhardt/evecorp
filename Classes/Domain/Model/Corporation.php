@@ -115,7 +115,7 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		if ($this->currentAlliance instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->currentAlliance->_loadRealInstance();
 		}
-		
+
 		return $this->currentAlliance;
 	}
 
@@ -150,6 +150,10 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
 	 */
 	public function getUsergroup() {
+		if ($this->usergroup instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->usergroup->_loadRealInstance();
+		}
+
 		return $this->usergroup;
 	}
 
