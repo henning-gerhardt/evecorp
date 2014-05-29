@@ -10,7 +10,7 @@ plugin.tx_evecorp {
 			Gerh\Evecorp\Domain\Model\CorpMember {
 				mapping {
 					tableName = fe_users
-					recordType = Gerh_Evecorp_Domain_Model_Corpmember
+					recordType = Gerh_Evecorp_Domain_Model_CorpMember
 				}
 			}
 			TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
