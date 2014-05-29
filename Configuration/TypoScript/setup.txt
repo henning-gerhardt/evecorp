@@ -7,6 +7,12 @@ plugin.tx_evecorp {
 	persistence {
 		storagePid = {$plugin.tx_evecorp.persistence.storagePid}
 		classes {
+			Gerh\Evecorp\Domain\Model\CorpMember {
+				mapping {
+					tableName = fe_users
+					recordType = Gerh_Evecorp_Domain_Model_Corpmember
+				}
+			}
 			TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
 				mapping {
 					tableName = fe_groups

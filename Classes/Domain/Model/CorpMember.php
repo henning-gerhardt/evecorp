@@ -33,15 +33,49 @@ namespace Gerh\Evecorp\Domain\Model;
  *
  */
 class CorpMember extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
-	
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyAccount>
+	 * @lazy
+	 * @cascade remove
+	 */
+	protected $apiKeys;
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
+	 * @lazy
+	 * @cascade remove
+	 */
+	protected $characters;
+
 	/**
 	 * default class constructor
-	 * 
+	 *
 	 * @param \string $username
 	 * @param \string $password
 	 */
 	public function __construct($username = '', $password = '') {
 		parent::__construct($username, $password);
+		$this->apiKeys = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Return all corp members api keys
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyAccount>
+	 */
+	public function getApiKeys() {
+		return $this->apiKeys;
+	}
+
+	/**
+	 * Return all corp member characters
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
+	 */
+	public function getCharacters() {
+		return $this->characters;
 	}
 
 }

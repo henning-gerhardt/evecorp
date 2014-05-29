@@ -194,3 +194,13 @@ CREATE TABLE `tx_evecorp_domain_model_employmenthistory` (
 	PRIMARY KEY (`uid`),
 	KEY parent (`pid`)
 );
+
+#
+# Extending table 'fe_users'
+#
+CREATE TABLE fe_users {
+
+	`api_keys` int(11) DEFAULT '0' NOT NULL,
+	`characters` int(11) DEFAULT '0' NOT NULL,
+
+};

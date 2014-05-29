@@ -112,6 +112,9 @@
 			<trans-unit id="tx_evecorp_domain_model_employmenthistory.start_date">
 				<source>Start date in corporation</source>
 			</trans-unit>
+			<trans-unit id="Gerh_Evecorp_Domain_Model_CorpMember">
+				<source>Gerh_Evecorp_Domain_Model_CorpMember</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

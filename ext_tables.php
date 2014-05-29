@@ -183,3 +183,35 @@ $TCA['tx_evecorp_domain_model_employmenthistory'] = array (
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
 	)
 );
+
+$feUsersExtendedColumns = array(
+	'characters' => array(
+		'exclude' => 0,
+		'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
+		'config' => array(
+			'type' => 'inline',
+			'foreign_table' => 'tx_evecorp_domain_model_character',
+			'foreign_field' => 'corp_member',
+			'size' => 3,
+			'appearance' => array(
+				'levelLinksPosition' => 'none',
+			),
+		),
+	),
+	'api_keys' => array(
+		'exclude' => 0,
+		'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey',
+		'config' => array(
+			'type' => 'inline',
+			'foreign_table' => 'tx_evecorp_domain_model_apikeyaccount',
+			'foreign_field' => 'corp_member',
+			'size' => 3,
+			'appearance' => array(
+				'levelLinksPosition' => 'none',
+			),
+		),
+	),
+);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $feUsersExtendedColumns);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', '--div--;EveCorp, characters, api_keys');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_users', 'tx_extbase_type', array('LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:Gerh_Evecorp_Domain_Model_CorpMember', 'Gerh_Evecorp_Domain_Model_CorpMember'));

@@ -8,6 +8,11 @@ config.tx_extbase {
 					recordType = Gerh\Evecorp\Domain\Model\CorpMember
 				}
 			}
+			TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
+				subclasses {
+					Gerh\Evecorp\Domain\Model\CorpMember = Gerh\Evecorp\Domain\Model\CorpMember
+				}
+			}
 			TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
 				mapping {
 					tableName = fe_groups
