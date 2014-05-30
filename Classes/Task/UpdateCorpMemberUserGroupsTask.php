@@ -32,26 +32,29 @@ namespace Gerh\Evecorp\Task;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class UpdateApiKeyAccountTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class UpdateCorpMemberUserGroupsTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 	/**
-	 * Updating all api keys of type account
+	 * Adjust corp member frontend user groups after updating api keys
 	 */
-	protected function updateAccountApiKeys() {
+	protected function adjustCorpMemberFrontendUserGroups() {
 		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-		$apiKeyAccountRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\ApiKeyAccountRepository');
+		$corpMemberRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CorpMemberRepository');
 
-		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyMapper();
-		foreach($apiKeyAccountRepository->findAll() as $apiKeyAccount) {
-			$result = $mapper->updateApiKeyAccount($apiKeyAccount);
-			if ($result === TRUE) {
-				$apiKeyAccountRepository->update($apiKeyAccount);
-			}			
+		// ignoring storage page ids
+		$typoSettings = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+		$typoSettings->setRespectStoragePage(false);
+		$corpMemberRepository->setDefaultQuerySettings($typoSettings);
+
+		$corpMemberUtility = $objectManager->get('Gerh\\Evecorp\\Domain\\Utility\\CorpMemberUtility');;
+		foreach($corpMemberRepository->findAll() as $corpMember) {
+			$corpMemberUtility->adjustFrontendUserGroups($corpMember);
+			$corpMemberRepository->update($corpMember);
 		}
 
 		$persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
 		$persistenceManager->persistAll();
-	}	
+	}
 
 	/**
 	 * Public method, called by scheduler.
@@ -59,8 +62,9 @@ class UpdateApiKeyAccountTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	 * @return boolean TRUE on success
 	 */
 	public function execute() {
-		$this->updateAccountApiKeys();
+		$this->adjustCorpMemberFrontendUserGroups();
 
 		return true;
 	}
+
 }
