@@ -60,6 +60,10 @@ class CorpMemberUtility {
 		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 		$corpMemberRepository = $objectManager->get('\\Gerh\\Evecorp\\Domain\\Repository\\CorpMemberRepository');
 		$corpMemberRepository->update($corpMember);
+
+		// real persistence to database
+		$persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+		$persistenceManager->persistAll();
 	}
 
 	/**
@@ -68,6 +72,10 @@ class CorpMemberUtility {
 	 * @param \Gerh\Evecorp\Domain\Model\CorpMember $corpMember
 	 */
 	public function adjustFrontendUserGroups(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember) {
+
+		// persistence maybe pending changes
+		$this->persistenceCorpMember($corpMember);
+
 		$currentEveGroups = clone $corpMember->getEveCorpGroups();
 		$collectedCorpUserGroups = $this->collectCorpGroups($corpMember);
 
@@ -85,6 +93,7 @@ class CorpMemberUtility {
 			}
 		}
 
+		// persistence changed corp member information
 		$this->persistenceCorpMember($corpMember);
 	}
 }
