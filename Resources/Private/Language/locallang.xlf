@@ -85,6 +85,39 @@
 			<trans-unit id="apikeymanagement.new.weblink" xml:space="preserve">
 				<source>Create new account API key</source>
 			</trans-unit>
+			<trans-unit id="charactermangement.show.welcome" xml:space="preserve">
+				<source>Character information screen</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.name" xml:space="preserve">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.corporation" xml:space="preserve">
+				<source>Corporation</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.alliance" xml:space="preserve">
+				<source>Alliance</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.race" xml:space="preserve">
+				<source>Race</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.securitystatus" xml:space="preserve">
+				<source>Security status</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.employmenthistory" xml:space="preserve">
+				<source>Employment history</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.joined" xml:space="preserve">
+				<source>joined</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.to" xml:space="preserve">
+				<source>to</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.timeperiod" xml:space="preserve">
+				<source>time period</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.weblink.back" xml:space="preserve">
+				<source>back</source>
+			</trans-unit>
 			<trans-unit id="task.updateApiKeyAccountTask.name" xml:space="preserve">
 				<source>Update Account API key list</source>
 			</trans-unit>

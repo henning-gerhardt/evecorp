@@ -32,7 +32,7 @@ namespace Gerh\Evecorp\Task;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class UpdateCorpMemberUserGroupsTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class UpdateCorpMemberGroups extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 	/**
 	 * Adjust corp member frontend user groups after updating api keys
