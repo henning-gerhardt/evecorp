@@ -102,6 +102,10 @@ class CorpMember extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup>
 	 */
 	public function getEveCorpGroups() {
+		if ($this->eveCorpGroups === NULL) {
+			$this->eveCorpGroups = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		}
+
 		return $this->eveCorpGroups;
 	}
 
