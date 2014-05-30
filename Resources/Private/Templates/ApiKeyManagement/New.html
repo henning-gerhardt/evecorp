@@ -1,24 +1,24 @@
 <f:layout name="default" />
 <f:section name="content">
 
-<h1>Add new API Key</h1>
+	<h1><f:translate key="apikeymanagement.new.welcome">Add new account based API key</f:translate></h1>
 
 <f:render partial="FormErrors" arguments="{formName: 'newApiKeyAccount'}" />
 <f:form method="post" action="create" controller="ApiKeyManagement" name="newApiKeyAccount" object="{newApiKeyAccount}">
 	<div class="form-group">
-		<label for="keyid">Key ID</label>
+		<label for="keyid"><f:translate key="apikeymanagement.new.keyid">Key ID</f:translate></label>
 		<f:form.textfield name="keyid" property="keyId" size="10" class="form-control"/>
 	</div>
 
 	<div class="form-group">
-		<label for="vcode">Verification Code</label>
+		<label for="vcode"><f:translate key="apikeymanagement.new.vcode">Verification Code</f:translate></label>
 		<f:form.textfield name="vcode" property="vCode" size="64" class="form-control"/>
 	</div>
 
-	<f:form.submit value="Submit" class="btn btn-default"/>
+	<f:form.submit value="{f:translate(key: 'apikeymanagement.new.submit', default: 'Submit')}" class="btn btn-default"/>
 </f:form>
 
 <br />
-<f:link.external target="_blank" uri="http://community.eveonline.com/support/api-key/CreatePredefined?accessMask={accessMask}">Create new account API key</f:link.external>
+<f:link.external target="_blank" uri="http://community.eveonline.com/support/api-key/CreatePredefined?accessMask={accessMask}"><f:translate key="apikeymanagement.new.weblink">Create new account API key</f:translate></f:link.external>
 
 </f:section>

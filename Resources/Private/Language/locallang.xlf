@@ -38,7 +38,52 @@
 				<source>Updating of EVE items is ...</source>
 			</trans-unit>
 			<trans-unit id="apikeymanagement.index.welcome" xml:space="preserve">
-				<source>EVE API Key Management</source>
+				<source>EVE API Key Account Management</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.overview" xml:space="preserve">
+				<source>List of stored account API keys for %1$s</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.keyid" xml:space="preserve">
+				<source>Key ID</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.expires" xml:space="preserve">
+				<source>expires</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.accessmask" xml:space="preserve">
+				<source>access mask</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.characters" xml:space="preserve">
+				<source>characters</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.action" xml:space="preserve">
+				<source>action</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.expires.never" xml:space="preserve">
+				<source>never</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.action.delete" xml:space="preserve">
+				<source>Delete</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.action.update" xml:space="preserve">
+				<source>Update</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.action.new" xml:space="preserve">
+				<source>Add new account API key</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.new.welcome" xml:space="preserve">
+				<source>Add new account based API key</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.new.keyid" xml:space="preserve">
+				<source>Key ID</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.new.vcode" xml:space="preserve">
+				<source>Verification Code</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.new.submit" xml:space="preserve">
+				<source>Submit</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.new.weblink" xml:space="preserve">
+				<source>Create new account API key</source>
 			</trans-unit>
 			<trans-unit id="task.updateApiKeyAccountTask.name" xml:space="preserve">
 				<source>Update Account API key list</source>
