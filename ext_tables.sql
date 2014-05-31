@@ -198,10 +198,10 @@ CREATE TABLE `tx_evecorp_domain_model_employmenthistory` (
 #
 # Extending table 'fe_users'
 #
-CREATE TABLE fe_users {
+CREATE TABLE fe_users (
 
 	`api_keys` int(11) DEFAULT '0' NOT NULL,
 	`characters` int(11) DEFAULT '0' NOT NULL,
-	`eve_corp_groups` tinytext,
+	`eve_corp_groups` tinytext
 
-};
+);
