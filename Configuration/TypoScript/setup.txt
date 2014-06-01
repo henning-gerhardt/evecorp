@@ -43,3 +43,5 @@ plugin.tx_evecorp._CSS_DEFAULT_STYLE (
 		border: 1px #FF0000 solid;
 	}
 )
+
+module.tx_evecorp.persistence < plugin.tx_evecorp.persistence
