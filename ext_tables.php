@@ -226,4 +226,4 @@ $feUsersExtendedColumns = array(
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $feUsersExtendedColumns);
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', '--div--;EveCorp, characters, api_keys, eve_corp_groups');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_users', 'tx_extbase_type', array('LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:Gerh_Evecorp_Domain_Model_CorpMember', 'Gerh_Evecorp_Domain_Model_CorpMember'));
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_users', 'tx_extbase_type', array('LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:Gerh_Evecorp_Domain_Model_CorpMember', 'Gerh\Evecorp\Domain\Model\CorpMember'));
