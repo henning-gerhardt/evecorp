@@ -49,12 +49,8 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Gerh\\Evecorp\\
 	'additionalFields' => '',
 );
 
-// Register Account API Key update task
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Gerh\\Evecorp\\Task\\UpdateApiKeyAccountTask'] = array(
-	'extension' => $_EXTKEY,
-	'title' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang.xlf:task.updateApiKeyAccountTask.name',
-	'description' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang.xlf:task.updateApiKeyAccountTask.description',
-	'additionalFields' => '',
-);
+// Register update corp member data based on account API key
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'Gerh\\Evecorp\\Task\\ApiKeyAccountCommandController';
 
+// Register update of user group membership for corp member
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'Gerh\\Evecorp\\Task\\CorpMemberUserGroupCommandController';

@@ -4,7 +4,7 @@ namespace Gerh\Evecorp\Task;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013 - 2014 Henning Gerhardt
+ *  (c) 2014 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -32,35 +32,42 @@ namespace Gerh\Evecorp\Task;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class UpdateApiKeyAccountTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class ApiKeyAccountCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
 
 	/**
-	 * Updating all api keys of type account
+	 * @var Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
+	 * @inject
 	 */
-	protected function updateAccountApiKeys() {
-		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-		$apiKeyAccountRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\ApiKeyAccountRepository');
+	protected $apiKeyAccountRepository;
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+	 * @inject
+	 */
+	protected $persistenceManager;
+
+	/**
+	 * Update stored account api keys
+	 *
+	 * @param \integer $storagePid PID where API data could be found
+	 * @return boolean
+	 */
+	public function apiKeyAccountCommand($storagePid = 0) {
+
+		$querySettings = $this->apiKeyAccountRepository->createQuery()->getQuerySettings();
+		$querySettings->setStoragePageIds(array($storagePid));
+		$this->apiKeyAccountRepository->setDefaultQuerySettings($querySettings);
 
 		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyMapper();
-		foreach($apiKeyAccountRepository->findAll() as $apiKeyAccount) {
+		foreach($this->apiKeyAccountRepository->findAll() as $apiKeyAccount) {
 			$result = $mapper->updateApiKeyAccount($apiKeyAccount);
 			if ($result === TRUE) {
-				$apiKeyAccountRepository->update($apiKeyAccount);
-			}			
+				$this->apiKeyAccountRepository->update($apiKeyAccount);
+			}
 		}
-
-		$persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-		$persistenceManager->persistAll();
-	}	
-
-	/**
-	 * Public method, called by scheduler.
-	 *
-	 * @return boolean TRUE on success
-	 */
-	public function execute() {
-		$this->updateAccountApiKeys();
-
-		return true;
+		$this->persistenceManager->persistAll();
+		
+		return TRUE;
 	}
+
 }
