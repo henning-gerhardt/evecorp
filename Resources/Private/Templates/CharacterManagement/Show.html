@@ -1,0 +1,50 @@
+{namespace evecorp=Gerh\Evecorp\ViewHelpers}
+<f:layout name="default" />
+<f:section name="content">
+
+<h1><f:translate key="charactermanagment.show.welcome">Character information screen</f:translate></h1>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-4">
+			<evecorp:format.eveImage characterId="{character.characterId}" characterName="{character.characterName}" size="256" class="img-responsive" />
+		</div>
+		<div class="col-md-8">
+			<dl class="dl-horizontal">
+				<dt><f:translate key="charactermanagment.show.name">Name</f:translate>:</dt>
+				<dd>{character.characterName}</dd>
+				<dt><f:translate key="charactermanagment.show.corporation">Corporation</f:translate>:</dt>
+				<dd>{character.currentCorporation.corporationName}</dd>
+				<f:if condition="{character.currentCorporation.currentAlliance}">
+				<dt><f:translate key="charactermanagment.show.alliance">Alliance</f:translate>:</dt>
+				<dd>{character.currentCorporation.currentAlliance.allianceName}</dd>
+				</f:if>
+				<dt><f:translate key="charactermanagment.show.race">Race</f:translate>:</dt>
+				<dd>{character.race}</dd>
+				<dt><f:translate key="charactermanagment.show.securitystatus">Security status</f:translate>:</dt>
+				<dd><f:format.number decimals="2">{character.securityStatus}</f:format.number></dd>
+				<dt><f:translate key="charactermanagment.show.employmenthistory">Employment history</f:translate>:</dt>
+				<dd>
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered table-hover table-condensed">
+							<thead>
+								<tr>
+									<th><f:translate key="charactermanagment.show.corporation">Corporation</f:translate></th>
+									<th><f:translate key="charactermanagment.show.joined">joined</f:translate></th>
+									<th><f:translate key="charactermanagment.show.to">to</f:translate></th>
+									<th><f:translate key="charactermanagment.show.timeperiod">time period</f:translate></th>
+								</tr>
+							</thead>
+							<tbody>
+								<evecorp:format.employmentHistory character="{character}" />
+							</tbody>
+						</table>
+					</div>
+				</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+
+<f:link.action action="index" controller="ApiKeyManagement"><f:translate key="charactermanagment.show.weblink.back">back</f:translate></f:link.action>
+
+</f:section>

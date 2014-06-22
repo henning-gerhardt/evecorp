@@ -46,7 +46,78 @@
 			<trans-unit id="tx_evecorp_domain_model_evemapsolarsystem.solar_system_name">
 				<source>Solar system name</source>
 			</trans-unit>
-
+			<trans-unit id="tx_evecorp_domain_model_apikey">
+				<source>EVE API Key</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.keyid">
+				<source>Key ID</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.vcode">
+				<source>Verification code</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.accessmask">
+				<source>Access mask</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.expires">
+				<source>Expire date</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.account">
+				<source>EVE Account API Key</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.account.corpmember">
+				<source>Corp Member</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_alliance">
+				<source>EVE Alliance</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_alliance.alliance_id">
+				<source>Alliance ID</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_alliance.alliance_name">
+				<source>Alliance name</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_corpmember.evecorpgroups">
+				<source>EVE Corp groups</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_corporation">
+				<source>EVE Corporation</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_corporation.corporation_id">
+				<source>Corporation ID</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_corporation.corporation_name">
+				<source>Corporation name</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_corporation.usergroup">
+				<source>Corporation default frontend user group</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_character">
+				<source>EVE Character</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_character.character_id">
+				<source>Character ID</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_character.character_name">
+				<source>Character Name</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_character.race">
+				<source>Race</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_character.security_status">
+				<source>Security status</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_employmenthistory">
+				<source>EVE Character Employment History</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_employmenthistory.record_id">
+				<source>Record id of character employment history</source>
+			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_employmenthistory.start_date">
+				<source>Start date in corporation</source>
+			</trans-unit>
+			<trans-unit id="Gerh_Evecorp_Domain_Model_CorpMember">
+				<source>Gerh_Evecorp_Domain_Model_CorpMember</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

@@ -31,11 +31,92 @@
 			<trans-unit id="serverstate.onlinepilots" xml:space="preserve">
 					<source>Online pilots</source>
 			</trans-unit>
-			<trans-unit id="task.updateEveItemListTask.name" xml:space="preserve">
+			<trans-unit id="scheduler.updateEveItemListTask.name" xml:space="preserve">
 				<source>Update EVE item list</source>
 			</trans-unit>
-			<trans-unit id="task.updateEveItemListTask.description" xml:space="preserve">
+			<trans-unit id="scheduler.updateEveItemListTask.description" xml:space="preserve">
 				<source>Updating of EVE items is ...</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.welcome" xml:space="preserve">
+				<source>EVE API Key Account Management</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.overview" xml:space="preserve">
+				<source>List of stored account API keys for %1$s</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.keyid" xml:space="preserve">
+				<source>Key ID</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.expires" xml:space="preserve">
+				<source>expires</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.accessmask" xml:space="preserve">
+				<source>access mask</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.characters" xml:space="preserve">
+				<source>characters</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.action" xml:space="preserve">
+				<source>action</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.expires.never" xml:space="preserve">
+				<source>never</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.action.delete" xml:space="preserve">
+				<source>Delete</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.action.update" xml:space="preserve">
+				<source>Update</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.index.action.new" xml:space="preserve">
+				<source>Add new account API key</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.new.welcome" xml:space="preserve">
+				<source>Add new account based API key</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.new.keyid" xml:space="preserve">
+				<source>Key ID</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.new.vcode" xml:space="preserve">
+				<source>Verification Code</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.new.submit" xml:space="preserve">
+				<source>Submit</source>
+			</trans-unit>
+			<trans-unit id="apikeymanagement.new.weblink" xml:space="preserve">
+				<source>Create new account API key</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.welcome" xml:space="preserve">
+				<source>Character information screen</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.name" xml:space="preserve">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.corporation" xml:space="preserve">
+				<source>Corporation</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.alliance" xml:space="preserve">
+				<source>Alliance</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.race" xml:space="preserve">
+				<source>Race</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.securitystatus" xml:space="preserve">
+				<source>Security status</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.employmenthistory" xml:space="preserve">
+				<source>Employment history</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.joined" xml:space="preserve">
+				<source>joined</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.to" xml:space="preserve">
+				<source>to</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.timeperiod" xml:space="preserve">
+				<source>time period</source>
+			</trans-unit>
+			<trans-unit id="charactermangement.show.weblink.back" xml:space="preserve">
+				<source>back</source>
 			</trans-unit>
 		</body>
 	</file>

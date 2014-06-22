@@ -6,6 +6,25 @@ plugin.tx_evecorp {
 	}
 	persistence {
 		storagePid = {$plugin.tx_evecorp.persistence.storagePid}
+		classes {
+			Gerh\Evecorp\Domain\Model\CorpMember {
+				mapping {
+					tableName = fe_users
+					recordType = Gerh\Evecorp\Domain\Model\CorpMember
+				}
+			}
+			TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
+				subclasses {
+					Gerh\Evecorp\Domain\Model\CorpMember = Gerh\Evecorp\Domain\Model\CorpMember
+				}
+			}
+			TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
+				mapping {
+					tableName = fe_groups
+					recordType = Tx_Extbase_Domain_Model_FrontendUserGroup
+				}
+			}
+		}
 	}
 	features {
 		# uncomment the following line to enable the new Property Mapper.
@@ -23,17 +42,6 @@ plugin.tx_evecorp._CSS_DEFAULT_STYLE (
 		background-color:#FF9F9F;
 		border: 1px #FF0000 solid;
 	}
-
-	.tx-evecorp table {
-		border-collapse:separate;
-		border-spacing:10px;
-	}
-
-	.tx-evecorp table th {
-		font-weight:bold;
-	}
-
-	.tx-evecorp table td {
-		vertical-align:top;
-	}
 )
+
+module.tx_evecorp.persistence < plugin.tx_evecorp.persistence

@@ -1,5 +1,5 @@
 <?php
-namespace Gerh\Evecorp\Task;
+namespace Gerh\Evecorp\Scheduler;
 
 /***************************************************************
  *  Copyright notice

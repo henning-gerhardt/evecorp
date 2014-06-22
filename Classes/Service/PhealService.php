@@ -69,9 +69,13 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * class constructor
+	 *
+	 * @param \integer $keyId	optional userID / keyID for Pheal instance
+	 * @param \string $vCode	optional apikey / vCode for Pheal instance
+	 * @param \string $scope	optional scope to use, default account, could be change while runtime
 	 * @return void
 	 */
-	public function __construct() {
+	public function __construct($keyId = null, $vCode = null, $scope = 'account') {
 		$extconf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
 		$this->setPhealCacheDirectory($extconf['phealCacheDirectory']);
 		$this->setHttpsConnectionVerified($extconf['phealVerifyingHttpsConnection']);
@@ -83,7 +87,7 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 		Config::getInstance()->http_timeout = $this->getConnectionTimeout();
 		Config::getInstance()->cache = new \Pheal\Cache\FileStorage($this->getPhealCacheDirectory() . DIRECTORY_SEPARATOR, $this->getUmaskOptions());
 		Config::getInstance()->access = new \Pheal\Access\StaticCheck();
-		$this->pheal = new Pheal();
+		$this->pheal = new Pheal($keyId, $vCode, $scope);
 	}
 
 	/**
