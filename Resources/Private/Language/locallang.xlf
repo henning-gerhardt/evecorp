@@ -31,10 +31,10 @@
 			<trans-unit id="serverstate.onlinepilots" xml:space="preserve">
 					<source>Online pilots</source>
 			</trans-unit>
-			<trans-unit id="task.updateEveItemListTask.name" xml:space="preserve">
+			<trans-unit id="scheduler.updateEveItemListTask.name" xml:space="preserve">
 				<source>Update EVE item list</source>
 			</trans-unit>
-			<trans-unit id="task.updateEveItemListTask.description" xml:space="preserve">
+			<trans-unit id="scheduler.updateEveItemListTask.description" xml:space="preserve">
 				<source>Updating of EVE items is ...</source>
 			</trans-unit>
 			<trans-unit id="apikeymanagement.index.welcome" xml:space="preserve">

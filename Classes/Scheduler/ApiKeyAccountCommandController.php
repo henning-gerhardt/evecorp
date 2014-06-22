@@ -1,5 +1,5 @@
 <?php
-namespace Gerh\Evecorp\Task;
+namespace Gerh\Evecorp\Scheduler;
 
 /***************************************************************
  *  Copyright notice
@@ -32,13 +32,13 @@ namespace Gerh\Evecorp\Task;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorpMemberUserGroupCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
+class ApiKeyAccountCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
 
 	/**
-	 * @var \Gerh\Evecorp\Domain\Repository\CorpMemberRepository
+	 * @var Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
 	 * @inject
 	 */
-	protected $corpMemberRepository;
+	protected $apiKeyAccountRepository;
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
@@ -47,21 +47,26 @@ class CorpMemberUserGroupCommandController extends \TYPO3\CMS\Extbase\Mvc\Contro
 	protected $persistenceManager;
 
 	/**
-	 * Update usergroup membership of corp member
+	 * Update stored account api keys
 	 *
-	 * @param \integer $storagePid PID of stored corp member (mostly fe user pid)
-	 * @return bool
+	 * @param \integer $storagePid PID where API data could be found
+	 * @return boolean
 	 */
-	public function corpMemberUserGroupCommand($storagePid = 0) {
+	public function apiKeyAccountCommand($storagePid = 0) {
 
-		$querySettings = $this->corpMemberRepository->createQuery()->getQuerySettings();
+		$querySettings = $this->apiKeyAccountRepository->createQuery()->getQuerySettings();
 		$querySettings->setStoragePageIds(array($storagePid));
-		$this->corpMemberRepository->setDefaultQuerySettings($querySettings);
-		$corpMemberUtility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
-		foreach($this->corpMemberRepository->findAll() as $corpMember) {
-			$corpMemberUtility->adjustFrontendUserGroups($corpMember);
+		$this->apiKeyAccountRepository->setDefaultQuerySettings($querySettings);
+
+		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyMapper();
+		foreach($this->apiKeyAccountRepository->findAll() as $apiKeyAccount) {
+			$result = $mapper->updateApiKeyAccount($apiKeyAccount);
+			if ($result === TRUE) {
+				$this->apiKeyAccountRepository->update($apiKeyAccount);
+			}
 		}
 		$this->persistenceManager->persistAll();
+		
 		return TRUE;
 	}
 

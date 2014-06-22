@@ -1,5 +1,5 @@
 <?php
-namespace Gerh\Evecorp\Task;
+namespace Gerh\Evecorp\Scheduler;
 
 /***************************************************************
  *  Copyright notice
@@ -32,13 +32,13 @@ namespace Gerh\Evecorp\Task;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyAccountCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
+class CorpMemberUserGroupCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
 
 	/**
-	 * @var Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
+	 * @var \Gerh\Evecorp\Domain\Repository\CorpMemberRepository
 	 * @inject
 	 */
-	protected $apiKeyAccountRepository;
+	protected $corpMemberRepository;
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
@@ -47,26 +47,21 @@ class ApiKeyAccountCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\C
 	protected $persistenceManager;
 
 	/**
-	 * Update stored account api keys
+	 * Update usergroup membership of corp member
 	 *
-	 * @param \integer $storagePid PID where API data could be found
-	 * @return boolean
+	 * @param \integer $storagePid PID of stored corp member (mostly fe user pid)
+	 * @return bool
 	 */
-	public function apiKeyAccountCommand($storagePid = 0) {
+	public function corpMemberUserGroupCommand($storagePid = 0) {
 
-		$querySettings = $this->apiKeyAccountRepository->createQuery()->getQuerySettings();
+		$querySettings = $this->corpMemberRepository->createQuery()->getQuerySettings();
 		$querySettings->setStoragePageIds(array($storagePid));
-		$this->apiKeyAccountRepository->setDefaultQuerySettings($querySettings);
-
-		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyMapper();
-		foreach($this->apiKeyAccountRepository->findAll() as $apiKeyAccount) {
-			$result = $mapper->updateApiKeyAccount($apiKeyAccount);
-			if ($result === TRUE) {
-				$this->apiKeyAccountRepository->update($apiKeyAccount);
-			}
+		$this->corpMemberRepository->setDefaultQuerySettings($querySettings);
+		$corpMemberUtility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
+		foreach($this->corpMemberRepository->findAll() as $corpMember) {
+			$corpMemberUtility->adjustFrontendUserGroups($corpMember);
 		}
 		$this->persistenceManager->persistAll();
-		
 		return TRUE;
 	}
 
