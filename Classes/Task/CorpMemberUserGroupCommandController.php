@@ -47,8 +47,9 @@ class CorpMemberUserGroupCommandController extends \TYPO3\CMS\Extbase\Mvc\Contro
 	protected $persistenceManager;
 
 	/**
+	 * Update usergroup membership of corp member
 	 *
-	 * @param \integer $storagePid
+	 * @param \integer $storagePid PID of stored corp member (mostly fe user pid)
 	 * @return bool
 	 */
 	public function corpMemberUserGroupCommand($storagePid = 0) {
