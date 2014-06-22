@@ -53,19 +53,14 @@ class CorpMemberUserGroupCommandController extends \TYPO3\CMS\Extbase\Mvc\Contro
 	 */
 	public function corpMemberUserGroupCommand($storagePid = 0) {
 
-		/** @var $logger \TYPO3\CMS\Core\Log\Logger */
-		$logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
-		$logger->info('start update');
 		$querySettings = $this->corpMemberRepository->createQuery()->getQuerySettings();
 		$querySettings->setStoragePageIds(array($storagePid));
 		$this->corpMemberRepository->setDefaultQuerySettings($querySettings);
 		$corpMemberUtility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
 		foreach($this->corpMemberRepository->findAll() as $corpMember) {
-			$logger->debug('fetched corp member: ' . $corpMember->getUsername());
 			$corpMemberUtility->adjustFrontendUserGroups($corpMember);
 		}
 		$this->persistenceManager->persistAll();
-		$logger->info('update ends');
 		return TRUE;
 	}
 
