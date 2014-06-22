@@ -44,7 +44,7 @@ class CorpMemberUserGroupCommandController extends \TYPO3\CMS\Extbase\Mvc\Contro
 	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
 	 * @inject
 	 */
-	protected $persistencManager;
+	protected $persistenceManager;
 
 	/**
 	 *
@@ -64,7 +64,7 @@ class CorpMemberUserGroupCommandController extends \TYPO3\CMS\Extbase\Mvc\Contro
 			$logger->debug('fetched corp member: ' . $corpMember->getUsername());
 			$corpMemberUtility->adjustFrontendUserGroups($corpMember);
 		}
-		$this->persistencManager->persistAll();
+		$this->persistenceManager->persistAll();
 		$logger->info('update ends');
 		return TRUE;
 	}
