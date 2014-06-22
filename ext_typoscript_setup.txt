@@ -16,7 +16,7 @@ config.tx_extbase {
 			TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
 				mapping {
 					tableName = fe_groups
-					recordType = TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+					recordType = Tx_Extbase_Domain_Model_FrontendUserGroup
 				}
 			}
 		}
