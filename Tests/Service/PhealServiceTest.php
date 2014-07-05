@@ -198,6 +198,10 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function fileCreateHasDefaultValueIfNotDefined() {
 		$expected = 0666; // value is octal!
 
+		// reset productive values
+		$modifier = array('phealFileCreateMask' => '');
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
+
 		$service = new \Gerh\Evecorp\Service\PhealService();
 
 		$this->assertEquals($expected,  $service->getFileMask());
@@ -225,6 +229,10 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function folderCreateHasDefaultValueIfNotDefined() {
 		$expected = 0777; // value is octal!
 
+		// reset productive values
+		$modifier = array('phealFolderCreateMask' => '');
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
+
 		$service = new \Gerh\Evecorp\Service\PhealService();
 
 		$this->assertEquals($expected,  $service->getFolderMask());
@@ -236,6 +244,10 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function getUmaskOptionsReturnsCorrectArrayConstructOnNotDefined() {
 		$expected = array('umask' => 0666, 'umask_directory' => 0777); // values are octal!
+
+		// reset productive values
+		$modifier = array('phealFileCreateMask' => '', 'phealFolderCreateMask' => '');
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
 		$service = new \Gerh\Evecorp\Service\PhealService();
 
