@@ -120,7 +120,7 @@ class CorporationMapper {
 	}
 
 	/**
-	 * Set alliance repository from outside
+	 * Set corporation repository from outside
 	 *
 	 * @param \Gerh\Evecorp\Domain\Repository\CorporationRepository $repository
 	 */

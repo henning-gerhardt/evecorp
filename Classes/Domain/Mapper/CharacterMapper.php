@@ -222,7 +222,7 @@ class CharacterMapper {
 	}
 
 	/**
-	 * Set corporation repository from outside
+	 * Set alliance repository from outside
 	 *
 	 * @param \Gerh\Evecorp\Domain\Repository\AllianceRepository $repository
 	 */

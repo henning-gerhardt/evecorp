@@ -71,7 +71,7 @@ class ApiKeyAccountCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\C
 	protected $persistenceManager;
 
 	/**
-	 * Set storage pid of corporation repository
+	 * Set storage pid of alliance repository
 	 *
 	 * @param \integer $storagePid
 	 */
