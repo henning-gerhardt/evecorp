@@ -35,18 +35,32 @@ namespace Gerh\Evecorp\Domain\Mapper;
 class CharacterMapper {
 
 	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\AllianceRepository
+	 */
+	protected $allianceRepository;
+
+	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
+	 */
+	protected $corporationRepository;
+
+	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository
+	 */
+	protected $employmentHistoryRepository;
+
+	/**
 	 * @var \string
 	 */
 	protected $errorMessage;
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
 	 */
-	protected $objectManager;
+	protected $persistenceManager;
 
 	/**
-	 *
-	 * @var type
+	 * @var \Gerh\Evecorp\Service\PhealService
 	 */
 	protected $phealService;
 
@@ -57,14 +71,12 @@ class CharacterMapper {
 	 * @param \Pheal\Core\RowSet $employmentHistory
 	 */
 	protected function addEmploymentHistoryOfCharacter(\Gerh\Evecorp\Domain\Model\Character $character, \Pheal\Core\RowSet $employmentHistory) {
-		$employmentHistoryRepository = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EmploymentHistoryRepository');
-
 		foreach($employmentHistory as $record) {
 			$corporation = $this->getCorporationModel(\intval($record->corporationID), '');
 			$startDate = new \Gerh\Evecorp\Domain\Model\DateTime($record->startDate, new \DateTimeZone('UTC'));
 
 			$employment = $this->createEmploymentHistoryModel($character, $corporation, intval($record->recordID), $startDate);
-			$employmentHistoryRepository->add($employment);
+			$this->employmentHistoryRepository->add($employment);
 		}
 	}
 
@@ -95,16 +107,16 @@ class CharacterMapper {
 	protected function getCorporationModel($corporationId) {
 
 		if ($corporationId > 0) {
-			$corporationRepository = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CorporationRepository');
-			$searchResult = $corporationRepository->findOneByCorporationId($corporationId);
+			$searchResult = $this->corporationRepository->findOneByCorporationId($corporationId);
 			if ($searchResult) {
 				$corporation = $searchResult;
 			} else {
 				$corporationMapper = new \Gerh\Evecorp\Domain\Mapper\CorporationMapper();
+				$corporationMapper->setAllianceRepository($this->allianceRepository);
+				$corporationMapper->setCorporationRepository($this->corporationRepository);
 				$corporation = $corporationMapper->getCorporationModelFromCorporationId($corporationId);
-				$corporationRepository->add($corporation);
-				$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-				$persistenceManager->persistAll();
+				$this->corporationRepository->add($corporation);
+				$this->persistenceManager->persistAll();
 			}
 
 			return $corporation;
@@ -121,20 +133,19 @@ class CharacterMapper {
 	 * @return void
 	 */
 	protected function updateEmploymentHistoryOfCharacter(\Gerh\Evecorp\Domain\Model\Character $character, \Pheal\Core\RowSet $employmentHistory) {
-		$employmentHistoryRepository = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EmploymentHistoryRepository');
 
-		$currentEmployments = $employmentHistoryRepository->findByCharacterUid($character);
+		$currentEmployments = $this->employmentHistoryRepository->findByCharacterUid($character);
 		$wellknownEmployments = array();
 
 		foreach($employmentHistory as $record) {
 			$corporation = $this->getCorporationModel(\intval($record->corporationID), '');
 			$startDate = new \Gerh\Evecorp\Domain\Model\DateTime($record->startDate, new \DateTimeZone('UTC'));
 
-			$result = $employmentHistoryRepository->searchForEmployment($character, $corporation, $startDate);
+			$result = $this->employmentHistoryRepository->searchForEmployment($character, $corporation, $startDate);
 
 			if ($result === NULL) {
 				$employment = $this->createEmploymentHistoryModel($character, $corporation, intval($record->recordID), $startDate);
-				$employmentHistoryRepository->add($employment);
+				$this->employmentHistoryRepository->add($employment);
 			} else {
 				$wellknownEmployments[$result->getUid()] = $result;
 			}
@@ -156,7 +167,13 @@ class CharacterMapper {
 		$vCode = $apiKeyModel->getVCode();
 		$scope = 'eve';
 		$this->phealService = new \Gerh\Evecorp\Service\PhealService($keyId, $vCode, $scope);
-		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+
+		$this->allianceRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\AllianceRepository');
+		$this->corporationRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CorporationRepository');
+		$this->employmentHistoryRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EmploymentHistoryRepository');
+		$this->persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+
 	}
 
 	/**
@@ -202,6 +219,33 @@ class CharacterMapper {
 			return NULL;
 		}
 
+	}
+
+	/**
+	 * Set corporation repository from outside
+	 *
+	 * @param \Gerh\Evecorp\Domain\Repository\AllianceRepository $repository
+	 */
+	public function setAllianceRepository(\Gerh\Evecorp\Domain\Repository\AllianceRepository $repository) {
+		$this->allianceRepository = $repository;
+	}
+
+	/**
+	 * Set corporation repository from outside
+	 *
+	 * @param \Gerh\Evecorp\Domain\Repository\CorporationRepository $repository
+	 */
+	public function setCorporationRepository(\Gerh\Evecorp\Domain\Repository\CorporationRepository $repository) {
+		$this->corporationRepository = $repository;
+	}
+
+	/**
+	 * Set employment history repository from outside
+	 *
+	 * @param \Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository $repository
+	 */
+	public function setEmploymentHistoryRepository(\Gerh\Evecorp\Domain\Repository\CharacterRepository $repository) {
+		$this->employmentHistoryRepository = $repository;
 	}
 
 	/**

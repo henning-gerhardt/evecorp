@@ -35,9 +35,24 @@ namespace Gerh\Evecorp\Domain\Mapper;
 class ApiKeyMapper {
 
 	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\AllianceRepository
+	 */
+	protected $allianceRepository;
+
+	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
+	 */
+	protected $corporationRepository;
+
+	/**
 	 * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
 	 */
 	protected $characterRepository;
+
+	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository
+	 */
+	protected $employmentHistoryRepository;
 
 	/**
 	 * @var \string
@@ -53,7 +68,7 @@ class ApiKeyMapper {
 	 * @return void
 	 */
 	protected function createAndAddNewCharacter($characterId, \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
-		$characterMapper = new \Gerh\Evecorp\Domain\Mapper\CharacterMapper($apiKeyAccount);
+		$characterMapper = $this->getNewCharacterMapper($apiKeyAccount);
 		$characterModel = $characterMapper->createModel($characterId);
 
 		if ($characterModel === NULL) {
@@ -63,6 +78,22 @@ class ApiKeyMapper {
 		$characterModel->setApiKeyAccount($apiKeyAccount);
 		$characterModel->setCorpMember($apiKeyAccount->getCorpMember());
 		$apiKeyAccount->addCharacter($characterModel);
+	}
+
+	/**
+	 * Return new character mapper model with initialized depend repositories.
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+	 * @return \Gerh\Evecorp\Domain\Mapper\CharacterMapper
+	 */
+	protected function getNewCharacterMapper(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+		$characterMapper = new \Gerh\Evecorp\Domain\Mapper\CharacterMapper($apiKeyAccount);
+
+		$characterMapper->setAllianceRepository($this->allianceRepository);
+		$characterMapper->setCorporationRepository($this->corporationRepository);
+		$characterMapper->setEmploymentHistoryRepository($this->employmentHistoryRepository);
+
+		return $characterMapper;
 	}
 
 	/**
@@ -89,7 +120,7 @@ class ApiKeyMapper {
 	 */
 	protected function updateCharacter($characterId, $apiKeyAccount) {
 		$characterModel = $this->characterRepository->findOneByCharacterId($characterId);
-		$characterMapper = new \Gerh\Evecorp\Domain\Mapper\CharacterMapper($apiKeyAccount);
+		$characterMapper = $this->getNewCharacterMapper($apiKeyAccount);
 		$result = $characterMapper->updateModel($characterModel);
 		if ($result === FALSE) {
 			throw new \Exception($characterMapper->getErrorMessage());
@@ -102,7 +133,11 @@ class ApiKeyMapper {
 	 */
 	public function __construct() {
 		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-		$this->characterRepository = $objectManager->get('\\Gerh\\Evecorp\\Domain\\Repository\\CharacterRepository');
+
+		$this->allianceRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\AllianceRepository');
+		$this->corporationRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CorporationRepository');
+		$this->characterRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CharacterRepository');
+		$this->employmentHistoryRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EmploymentHistoryRepository');
 	}
 
 	/**
@@ -150,6 +185,42 @@ class ApiKeyMapper {
 			$this->errorMessage = 'Fetched general exception with message: "' . $e->getMessage() . '" Model was not be updated!';
 			return FALSE;
 		}
+	}
+
+	/**
+	 * Set alliance repository from outside
+	 *
+	 * @param \Gerh\Evecorp\Domain\Repository\AllianceRepository $repository
+	 */
+	public function setAllianceRepository(\Gerh\Evecorp\Domain\Repository\AllianceRepository $repository) {
+		$this->allianceRepository = $repository;
+	}
+
+	/**
+	 * Set corporation repository from outside
+	 *
+	 * @param \Gerh\Evecorp\Domain\Repository\CorporationRepository $repository
+	 */
+	public function setCorporationRepository(\Gerh\Evecorp\Domain\Repository\CorporationRepository $repository) {
+		$this->corporationRepository = $repository;
+	}
+
+	/**
+	 * Set character repository from outside
+	 *
+	 * @param \Gerh\Evecorp\Domain\Repository\CharacterRepository $repository
+	 */
+	public function setCharacterRepository(\Gerh\Evecorp\Domain\Repository\CharacterRepository $repository) {
+		$this->characterRepository = $repository;
+	}
+
+	/**
+	 * Set employment history repository from outside
+	 *
+	 * @param \Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository $repository
+	 */
+	public function setEmploymentHistoryRepository(\Gerh\Evecorp\Domain\Repository\CharacterRepository $repository) {
+		$this->employmentHistoryRepository = $repository;
 	}
 
 	/**

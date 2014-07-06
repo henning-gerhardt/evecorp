@@ -35,16 +35,108 @@ namespace Gerh\Evecorp\Scheduler;
 class ApiKeyAccountCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
 
 	/**
-	 * @var Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
+	 * @var \Gerh\Evecorp\Domain\Repository\AllianceRepository
+	 * @inject
+	 */
+	protected $allianceRepository;
+
+	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
 	 * @inject
 	 */
 	protected $apiKeyAccountRepository;
+
+	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
+	 * @inject
+	 */
+	protected $corporationRepository;
+
+	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
+	 * @inject
+	 */
+	protected $characterRepository;
+
+	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository
+	 * @inject
+	 */
+	protected $employmentHistoryRepository;
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
 	 * @inject
 	 */
 	protected $persistenceManager;
+
+	/**
+	 * Set storage pid of corporation repository
+	 *
+	 * @param \integer $storagePid
+	 */
+	protected function setAllianceRepositoryStoragePid($storagePid = 0) {
+		$querySettings = $this->allianceRepository->createQuery()->getQuerySettings();
+		$querySettings->setStoragePageIds(array($storagePid));
+		$this->allianceRepository->setDefaultQuerySettings($querySettings);
+	}
+
+	/**
+	 * Set storage pid of api key repository
+	 *
+	 * @param \integer $storagePid
+	 */
+	protected function setApiKeyRepositoryStoragePid($storagePid = 0) {
+		$querySettings = $this->apiKeyAccountRepository->createQuery()->getQuerySettings();
+		$querySettings->setStoragePageIds(array($storagePid));
+		$this->apiKeyAccountRepository->setDefaultQuerySettings($querySettings);
+	}
+
+	/**
+	 * Set storage pid of corporation repository
+	 *
+	 * @param \integer $storagePid
+	 */
+	protected function setCorporationRepositoryStoragePid($storagePid = 0) {
+		$querySettings = $this->corporationRepository->createQuery()->getQuerySettings();
+		$querySettings->setStoragePageIds(array($storagePid));
+		$this->corporationRepository->setDefaultQuerySettings($querySettings);
+	}
+
+	/**
+	 * Set storage pid of character repository
+	 *
+	 * @param \integer $storagePid
+	 */
+	protected function setCharacterRepositoryStoragePid($storagePid = 0) {
+		$querySettings = $this->characterRepository->createQuery()->getQuerySettings();
+		$querySettings->setStoragePageIds(array($storagePid));
+		$this->characterRepository->setDefaultQuerySettings($querySettings);
+	}
+
+	/**
+	 * Set storage pid of employment history repository
+	 *
+	 * @param \integer $storagePid
+	 */
+	protected function setEmploymentHistoryRepositoryStoragePid($storagePid = 0) {
+		$querySettings = $this->employmentHistoryRepository->createQuery()->getQuerySettings();
+		$querySettings->setStoragePageIds(array($storagePid));
+		$this->employmentHistoryRepository->setDefaultQuerySettings($querySettings);
+	}
+
+	/**
+	 * Initialize all used repositories with correct storage pid
+	 *
+	 * @param \integer $storagePid
+	 */
+	protected function initializeRepositories($storagePid = 0) {
+		$this->setAllianceRepositoryStoragePid($storagePid);
+		$this->setApiKeyRepositoryStoragePid($storagePid);
+		$this->setCorporationRepositoryStoragePid($storagePid);
+		$this->setCharacterRepositoryStoragePid($storagePid);
+		$this->setEmploymentHistoryRepositoryStoragePid($storagePid);
+	}
 
 	/**
 	 * Update stored account api keys
@@ -54,19 +146,22 @@ class ApiKeyAccountCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\C
 	 */
 	public function apiKeyAccountCommand($storagePid = 0) {
 
-		$querySettings = $this->apiKeyAccountRepository->createQuery()->getQuerySettings();
-		$querySettings->setStoragePageIds(array($storagePid));
-		$this->apiKeyAccountRepository->setDefaultQuerySettings($querySettings);
+		$this->initializeRepositories($storagePid);
 
 		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyMapper();
-		foreach($this->apiKeyAccountRepository->findAll() as $apiKeyAccount) {
+		$mapper->setAllianceRepository($this->allianceRepository);
+		$mapper->setCorporationRepository($this->corporationRepository);
+		$mapper->setCharacterRepository($this->characterRepository);
+		$mapper->setEmploymentHistoryRepository($this->employmentHistoryRepository);
+
+		foreach ($this->apiKeyAccountRepository->findAll() as $apiKeyAccount) {
 			$result = $mapper->updateApiKeyAccount($apiKeyAccount);
 			if ($result === TRUE) {
 				$this->apiKeyAccountRepository->update($apiKeyAccount);
 			}
 		}
 		$this->persistenceManager->persistAll();
-		
+
 		return TRUE;
 	}
 

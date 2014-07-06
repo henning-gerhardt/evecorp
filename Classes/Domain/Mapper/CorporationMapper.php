@@ -35,9 +35,14 @@ namespace Gerh\Evecorp\Domain\Mapper;
 class CorporationMapper {
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+	 * @var \Gerh\Evecorp\Domain\Repository\AllianceRepository
 	 */
-	protected $objectManager;
+	protected $allianceRepository;
+
+	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
+	 */
+	protected $corporationRepository;
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
@@ -53,13 +58,12 @@ class CorporationMapper {
 	 */
 	protected function getAllianceModel($allianceId, $allianceName) {
 		if ($allianceId > 0) {
-			$allianceRepository = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\AllianceRepository');
-			$searchResult = $allianceRepository->findOneByAllianceId($allianceId);
+			$searchResult = $this->allianceRepository->findOneByAllianceId($allianceId);
 			if ($searchResult) {
 				$alliance = $searchResult;
 			} else {
 				$alliance = new \Gerh\Evecorp\Domain\Model\Alliance($allianceId, $allianceName);
-				$allianceRepository->add($alliance);
+				$this->allianceRepository->add($alliance);
 				$this->persistenceManager->persistAll();
 			}
 		} else {
@@ -73,8 +77,10 @@ class CorporationMapper {
 	 * class constructor
 	 */
 	public function __construct() {
-		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-		$this->persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$this->allianceRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\AllianceRepository');
+		$this->corporationRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CorporationRepository');
+		$this->persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
 	}
 
 	/**
@@ -98,11 +104,28 @@ class CorporationMapper {
 			$corporation->setCurrentAlliance($alliance);
 		}
 
-		$corporationRepository = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CorporationRepository');
-		$corporationRepository->add($corporation);
+		$this->corporationRepository->add($corporation);
 		$this->persistenceManager->persistAll();
 
 		return $corporation;
+	}
+
+	/**
+	 * Set alliance repository from outside
+	 *
+	 * @param \Gerh\Evecorp\Domain\Repository\AllianceRepository $repository
+	 */
+	public function setAllianceRepository(\Gerh\Evecorp\Domain\Repository\AllianceRepository $repository) {
+		$this->allianceRepository = $repository;
+	}
+
+	/**
+	 * Set alliance repository from outside
+	 *
+	 * @param \Gerh\Evecorp\Domain\Repository\CorporationRepository $repository
+	 */
+	public function setCorporationRepository(\Gerh\Evecorp\Domain\Repository\CorporationRepository $repository) {
+		$this->corporationRepository = $repository;
 	}
 
 }
