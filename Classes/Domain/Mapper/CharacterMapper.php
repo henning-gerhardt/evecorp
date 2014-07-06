@@ -244,7 +244,7 @@ class CharacterMapper {
 	 *
 	 * @param \Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository $repository
 	 */
-	public function setEmploymentHistoryRepository(\Gerh\Evecorp\Domain\Repository\CharacterRepository $repository) {
+	public function setEmploymentHistoryRepository(\Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository $repository) {
 		$this->employmentHistoryRepository = $repository;
 	}
 
