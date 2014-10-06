@@ -72,7 +72,7 @@ class CharacterMapper {
 	 */
 	protected function addEmploymentHistoryOfCharacter(\Gerh\Evecorp\Domain\Model\Character $character, \Pheal\Core\RowSet $employmentHistory) {
 		foreach($employmentHistory as $record) {
-			$corporation = $this->getCorporationModel(\intval($record->corporationID), '');
+			$corporation = $this->getOrCreateCorporationModel(\intval($record->corporationID), $record->corporationName);
 			$startDate = new \Gerh\Evecorp\Domain\Model\DateTime($record->startDate, new \DateTimeZone('UTC'));
 
 			$employment = $this->createEmploymentHistoryModel($character, $corporation, intval($record->recordID), $startDate);
@@ -99,22 +99,45 @@ class CharacterMapper {
 	}
 
 	/**
-	 * Get corporation model by corporation id
+	 * Returns an alliance model: Create a new or use a stored one.
+	 *
+	 * @param \integer $allianceId
+	 * @param \string $allianceName
+	 * @return \Gerh\Evecorp\Domain\Model\Alliance
+	 * @throws \Exception Throws exception if allianceId is less then one.
+	 */
+	protected function getOrCreateAllianceModel($allianceId, $allianceName) {
+		if ($allianceId > 0) {
+			$searchResult = $this->allianceRepository->findOneByAllianceId($allianceId);
+			if ($searchResult) {
+				$alliance = $searchResult;
+			} else {
+				$alliance = new \Gerh\Evecorp\Domain\Model\Alliance($allianceId, $allianceName);
+				$this->allianceRepository->add($alliance);
+				$this->persistenceManager->persistAll();
+			}
+
+			return $alliance;
+		}
+
+		throw new \Exception('Could not determinate characters alliance.');
+	}
+
+	/**
+	 * Returns a corporation model: Create a new or use stored one.
 	 *
 	 * @param \integer $corporationId
+	 * @param \string $corporationName
 	 * @return \Gerh\Evecorp\Domain\Model\Corporation
+	 * @throws \Exception Throws exception if corporationId is less then one.
 	 */
-	protected function getCorporationModel($corporationId) {
-
+	protected function getOrCreateCorporationModel($corporationId, $corporationName) {
 		if ($corporationId > 0) {
 			$searchResult = $this->corporationRepository->findOneByCorporationId($corporationId);
 			if ($searchResult) {
 				$corporation = $searchResult;
-			} else {
-				$corporationMapper = new \Gerh\Evecorp\Domain\Mapper\CorporationMapper();
-				$corporationMapper->setAllianceRepository($this->allianceRepository);
-				$corporationMapper->setCorporationRepository($this->corporationRepository);
-				$corporation = $corporationMapper->getCorporationModelFromCorporationId($corporationId);
+			}  else {
+				$corporation = new \Gerh\Evecorp\Domain\Model\Corporation($corporationId, $corporationName);
 				$this->corporationRepository->add($corporation);
 				$this->persistenceManager->persistAll();
 			}
@@ -123,6 +146,27 @@ class CharacterMapper {
 		}
 
 		throw new \Exception('Could not determinate characters corporation.');
+	}
+
+	/**
+	 * Set chracter information from character info response
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\Character $character
+	 * @param \Pheal\Core\Result $response
+	 */
+	protected function setCharacterInformationFromCharacterInfoResponse($character, $response) {
+		$character->setCharacterName($response->characterName);
+		$character->setRace($response->race);
+		$character->setSecurityStatus($response->securityStatus);
+
+		$corporationModel = $this->getOrCreateCorporationModel(\intval($response->corporationID), $response->corporation);
+		$allianceId = \intval($response->allianceID);
+		$allianceName = $response->alliance;
+		if ((! empty($allianceId)) && (! empty($allianceName))) {
+			$allianceModel = $this->getOrCreateAllianceModel($allianceId, $allianceName);
+			$corporationModel->setCurrentAlliance($allianceModel);
+		}
+		$character->setCurrentCorporation($corporationModel);
 	}
 
 	/**
@@ -138,7 +182,7 @@ class CharacterMapper {
 		$wellknownEmployments = array();
 
 		foreach($employmentHistory as $record) {
-			$corporation = $this->getCorporationModel(\intval($record->corporationID), '');
+			$corporation = $this->getOrCreateCorporationModel(\intval($record->corporationID), $record->corporationName);
 			$startDate = new \Gerh\Evecorp\Domain\Model\DateTime($record->startDate, new \DateTimeZone('UTC'));
 
 			$result = $this->employmentHistoryRepository->searchForEmployment($character, $corporation, $startDate);
@@ -205,10 +249,8 @@ class CharacterMapper {
 		try {
 			$character = new \Gerh\Evecorp\Domain\Model\Character();
 			$character->setCharacterId(\intval($response->characterID));
-			$character->setCharacterName($response->characterName);
-			$character->setRace($response->race);
-			$character->setSecurityStatus($response->securityStatus);
-			$character->setCurrentCorporation($this->getCorporationModel(\intval($response->corporationID), $response->corporationUid));
+
+			$this->setCharacterInformationFromCharacterInfoResponse($character, $response);
 
 			$this->addEmploymentHistoryOfCharacter($character, $response->employmentHistory);
 
@@ -267,10 +309,8 @@ class CharacterMapper {
 		}
 
 		try {
-			$characterModel->setCharacterName($response->characterName);
-			$characterModel->setRace($response->race);
-			$characterModel->setSecurityStatus($response->securityStatus);
-			$characterModel->setCurrentCorporation($this->getCorporationModel(\intval($response->corporationID), $response->corporationUid));
+
+			$this->setCharacterInformationFromCharacterInfoResponse($characterModel, $response);
 
 			$this->updateEmploymentHistoryOfCharacter($characterModel, $response->employmentHistory);
 
