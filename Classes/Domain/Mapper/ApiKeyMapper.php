@@ -152,7 +152,7 @@ class ApiKeyMapper {
 	/**
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccountModel
-	 * @return $boolean
+	 * @return boolean
 	 */
 	public function fillUpModel(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccountModel) {
 		$keyId = $apiKeyAccountModel->getKeyId();

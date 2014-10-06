@@ -122,7 +122,7 @@ class CharacterMapper {
 			return $corporation;
 		}
 
-		throw new \Exception('Could not determinate characters´corporation.');
+		throw new \Exception('Could not determinate characters corporation.');
 	}
 
 	/**
