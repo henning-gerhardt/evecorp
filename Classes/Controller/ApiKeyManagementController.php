@@ -53,7 +53,14 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 */
 	public function indexAction() {
 		$corpMember = $this->accessControlService->getCorpMember();
+
+		$displayName = $corpMember->getName();
+		if (empty($displayName)) {
+			$displayName = $corpMember->getUsername();
+		}
+
 		$this->view->assign('corpMember', $corpMember);
+		$this->view->assign('displayName', $displayName);
 	}
 
 	/**
