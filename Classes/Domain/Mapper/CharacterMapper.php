@@ -40,14 +40,14 @@ class CharacterMapper {
 	protected $allianceRepository;
 
 	/**
-	 * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
-	 */
-	protected $corporationRepository;
-
-	/**
 	 * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
 	 */
 	protected $characterRepository;
+
+	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
+	 */
+	protected $corporationRepository;
 
 	/**
 	 * @var \Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository
@@ -227,10 +227,10 @@ class CharacterMapper {
 		$this->phealService = new \Gerh\Evecorp\Service\PhealService($keyId, $vCode, $scope);
 		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 
-		$this->allianceRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\AllianceRepository');
-		$this->corporationRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CorporationRepository');
-		$this->characterRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CharacterRepository');
-		$this->employmentHistoryRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EmploymentHistoryRepository');
+		$this->setAllianceRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\AllianceRepository'));
+		$this->setCharacterRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CharacterRepository'));
+		$this->setCorporationRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CorporationRepository'));
+		$this->setEmploymentHistoryRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EmploymentHistoryRepository'));
 		$this->persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
 
 	}
@@ -288,21 +288,21 @@ class CharacterMapper {
 	}
 
 	/**
-	 * Set corporation repository from outside
-	 *
-	 * @param \Gerh\Evecorp\Domain\Repository\CorporationRepository $repository
-	 */
-	public function setCorporationRepository(\Gerh\Evecorp\Domain\Repository\CorporationRepository $repository) {
-		$this->corporationRepository = $repository;
-	}
-
-	/**
 	 * Set character repository from outside
 	 *
 	 * @param \Gerh\Evecorp\Domain\Repository\CharacterRepository $repository
 	 */
 	public function setCharacterRepository(\Gerh\Evecorp\Domain\Repository\CharacterRepository $repository) {
 		$this->characterRepository = $repository;
+	}
+
+	/**
+	 * Set corporation repository from outside
+	 *
+	 * @param \Gerh\Evecorp\Domain\Repository\CorporationRepository $repository
+	 */
+	public function setCorporationRepository(\Gerh\Evecorp\Domain\Repository\CorporationRepository $repository) {
+		$this->corporationRepository = $repository;
 	}
 
 	/**
