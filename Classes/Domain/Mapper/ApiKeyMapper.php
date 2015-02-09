@@ -91,6 +91,7 @@ class ApiKeyMapper {
 
 		$characterMapper->setAllianceRepository($this->allianceRepository);
 		$characterMapper->setCorporationRepository($this->corporationRepository);
+		$characterMapper->setCharacterRepository($this->characterRepository);
 		$characterMapper->setEmploymentHistoryRepository($this->employmentHistoryRepository);
 
 		return $characterMapper;
