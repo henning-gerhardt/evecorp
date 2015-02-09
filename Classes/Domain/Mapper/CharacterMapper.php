@@ -40,9 +40,23 @@ class CharacterMapper {
 	protected $allianceRepository;
 
 	/**
+	 * Holds storage pid information for alliance repository.
+	 *
+	 * @var array
+	 */
+	protected $allianceRepositoryStoragePids;
+
+	/**
 	 * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
 	 */
 	protected $characterRepository;
+
+	/**
+	 * Holds storage pid information for character repository.
+	 *
+	 * @var array
+	 */
+	protected $characterRepositoryStoragePids;
 
 	/**
 	 * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
@@ -50,9 +64,23 @@ class CharacterMapper {
 	protected $corporationRepository;
 
 	/**
+	 * Holds storage pid information for corporation repository.
+	 *
+	 * @var array
+	 */
+	protected $corporationRepositoryStoragePids;
+
+	/**
 	 * @var \Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository
 	 */
 	protected $employmentHistoryRepository;
+
+	/**
+	 * Holds storage pid information for employment history repository.
+	 *
+	 * @var array
+	 */
+	protected $employmentHistoryRepositoryStoragePids;
 
 	/**
 	 * @var \string
@@ -100,8 +128,7 @@ class CharacterMapper {
 		$employment->setCorporation($corporation);
 		$employment->setRecordId($recordId);
 		$employment->setStartDate($startDate);
-		$storagePids = $this->employmentHistoryRepository->createQuery()->getQuerySettings()->getStoragePageIds();
-		$employment->setPid($storagePids[0]);
+		$employment->setPid($this->employmentHistoryRepositoryStoragePids[0]);
 		return $employment;
 	}
 
@@ -120,8 +147,7 @@ class CharacterMapper {
 				$alliance = $searchResult;
 			} else {
 				$alliance = new \Gerh\Evecorp\Domain\Model\Alliance($allianceId, $allianceName);
-				$storagePids = $this->allianceRepository->createQuery()->getQuerySettings()->getStoragePageIds();
-				$alliance->setPid($storagePids[0]);
+				$alliance->setPid($this->allianceRepositoryStoragePids[0]);
 				$this->allianceRepository->add($alliance);
 				$this->persistenceManager->persistAll();
 			}
@@ -147,8 +173,7 @@ class CharacterMapper {
 				$corporation = $searchResult;
 			}  else {
 				$corporation = new \Gerh\Evecorp\Domain\Model\Corporation($corporationId, $corporationName);
-				$storagePids = $this->corporationRepository->createQuery()->getQuerySettings()->getStoragePageIds();
-				$corporation->setPid($storagePids[0]);
+				$corporation->setPid($this->corporationRepositoryStoragePids[0]);
 				$this->corporationRepository->add($corporation);
 				$this->persistenceManager->persistAll();
 			}
@@ -157,6 +182,16 @@ class CharacterMapper {
 		}
 
 		throw new \Exception('Could not determinate characters corporation.');
+	}
+
+	/**
+	 * Returns used storage pids for given repository.
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\Repository $repository
+	 * @return array
+	 */
+	protected function getStoragePids(\TYPO3\CMS\Extbase\Persistence\Repository $repository) {
+		return $repository->createQuery()->getQuerySettings()->getStoragePageIds();
 	}
 
 	/**
@@ -170,8 +205,7 @@ class CharacterMapper {
 		$character->setRace($response->race);
 		$character->setSecurityStatus($response->securityStatus);
 
-		$storagePids = $this->characterRepository->createQuery()->getQuerySettings()->getStoragePageIds();
-		$character->setPid($storagePids[0]);
+		$character->setPid($this->characterRepositoryStoragePids[0]);
 
 		$corporationModel = $this->getOrCreateCorporationModel(\intval($response->corporationID), $response->corporation);
 		$allianceId = \intval($response->allianceID);
@@ -285,6 +319,7 @@ class CharacterMapper {
 	 */
 	public function setAllianceRepository(\Gerh\Evecorp\Domain\Repository\AllianceRepository $repository) {
 		$this->allianceRepository = $repository;
+		$this->allianceRepositoryStoragePids = $this->getStoragePids($repository);
 	}
 
 	/**
@@ -294,6 +329,7 @@ class CharacterMapper {
 	 */
 	public function setCharacterRepository(\Gerh\Evecorp\Domain\Repository\CharacterRepository $repository) {
 		$this->characterRepository = $repository;
+		$this->characterRepositoryStoragePids = $this->getStoragePids($repository);
 	}
 
 	/**
@@ -303,6 +339,7 @@ class CharacterMapper {
 	 */
 	public function setCorporationRepository(\Gerh\Evecorp\Domain\Repository\CorporationRepository $repository) {
 		$this->corporationRepository = $repository;
+		$this->corporationRepositoryStoragePids = $this->getStoragePids($repository);
 	}
 
 	/**
@@ -312,6 +349,7 @@ class CharacterMapper {
 	 */
 	public function setEmploymentHistoryRepository(\Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository $repository) {
 		$this->employmentHistoryRepository = $repository;
+		$this->employmentHistoryRepositoryStoragePids = $this->getStoragePids($repository);
 	}
 
 	/**
