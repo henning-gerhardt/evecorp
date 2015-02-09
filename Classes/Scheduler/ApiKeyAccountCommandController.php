@@ -78,6 +78,7 @@ class ApiKeyAccountCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\C
 	protected function setAllianceRepositoryStoragePid($storagePid = 0) {
 		$querySettings = $this->allianceRepository->createQuery()->getQuerySettings();
 		$querySettings->setStoragePageIds(array($storagePid));
+		$querySettings->setRespectStoragePage(TRUE);
 		$this->allianceRepository->setDefaultQuerySettings($querySettings);
 	}
 
@@ -89,6 +90,7 @@ class ApiKeyAccountCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\C
 	protected function setApiKeyRepositoryStoragePid($storagePid = 0) {
 		$querySettings = $this->apiKeyAccountRepository->createQuery()->getQuerySettings();
 		$querySettings->setStoragePageIds(array($storagePid));
+		$querySettings->setRespectStoragePage(TRUE);
 		$this->apiKeyAccountRepository->setDefaultQuerySettings($querySettings);
 	}
 
@@ -100,6 +102,7 @@ class ApiKeyAccountCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\C
 	protected function setCorporationRepositoryStoragePid($storagePid = 0) {
 		$querySettings = $this->corporationRepository->createQuery()->getQuerySettings();
 		$querySettings->setStoragePageIds(array($storagePid));
+		$querySettings->setRespectStoragePage(TRUE);
 		$this->corporationRepository->setDefaultQuerySettings($querySettings);
 	}
 
@@ -111,6 +114,7 @@ class ApiKeyAccountCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\C
 	protected function setCharacterRepositoryStoragePid($storagePid = 0) {
 		$querySettings = $this->characterRepository->createQuery()->getQuerySettings();
 		$querySettings->setStoragePageIds(array($storagePid));
+		$querySettings->setRespectStoragePage(TRUE);
 		$this->characterRepository->setDefaultQuerySettings($querySettings);
 	}
 
@@ -122,6 +126,7 @@ class ApiKeyAccountCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\C
 	protected function setEmploymentHistoryRepositoryStoragePid($storagePid = 0) {
 		$querySettings = $this->employmentHistoryRepository->createQuery()->getQuerySettings();
 		$querySettings->setStoragePageIds(array($storagePid));
+		$querySettings->setRespectStoragePage(TRUE);
 		$this->employmentHistoryRepository->setDefaultQuerySettings($querySettings);
 	}
 
