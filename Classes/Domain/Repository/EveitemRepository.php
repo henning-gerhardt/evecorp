@@ -105,12 +105,14 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$query = $this->createQuery();
 
 		/** @todo replace if possible with matching query */
-		$statement = 'SELECT * FROM `tx_evecorp_domain_model_eveitem` ';
-		$statement .= ' WHERE `cache_time` < (UNIX_TIMESTAMP() - (`time_to_cache` * 60)) ';
-		$statement .= ' AND (`' . $searchColumn . '` = ?) ';
-		$statement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
+		$queryStatement = 'SELECT * FROM `tx_evecorp_domain_model_eveitem` ';
+		$queryStatement .= ' WHERE `cache_time` < (UNIX_TIMESTAMP() - (`time_to_cache` * 60)) ';
+		$queryStatement .= ' AND (`' . $searchColumn . '` = :searchId) ';
+		$queryStatement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
 
-		$query->statement($statement, array((int)$searchId));
+		$statement = new \TYPO3\CMS\Core\Database\PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
+		$statement->bindValues(array(':searchId' => (int)$searchId));
+		$query->statement($statement);
 
 		/** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
 		$result = $query->execute();
@@ -137,12 +139,15 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$query = $this->createQuery();
 
 		/** @todo replace if possible with matching query */
-		$statement = 'SELECT * FROM `tx_evecorp_domain_model_eveitem` ';
-		$statement .= ' WHERE (`eve_id` = ?) ';
-		$statement .= ' AND (`' . $searchColumn . '` = ?) ';
-		$statement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
+		$queryStatement = 'SELECT * FROM `tx_evecorp_domain_model_eveitem` ';
+		$queryStatement .= ' WHERE (`eve_id` = :eveId) ';
+		$queryStatement .= ' AND (`' . $searchColumn . '` = :searchId) ';
+		$queryStatement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
 
-		$query->statement($statement, array((int)$eveId, (int)$searchId));
+		$statement = new \TYPO3\CMS\Core\Database\PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
+		$statement->bindValues(array(':eveId' => (int)$eveId, ':searchId' => (int)$searchId));
+		$query->statement($statement);
+
 		/** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
 		$result = $query->execute();
 		return $result;
