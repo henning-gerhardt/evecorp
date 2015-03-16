@@ -59,6 +59,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 */
 	protected function getListOfUniqueColumn($searchColumn) {
 		$result = array();
+		$returnRawQueryResult = true;
 
 		if (! $this->isCorrectColumn($searchColumn)) {
 			return $result;
@@ -66,12 +67,12 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 		/** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setReturnRawQueryResult(true);
 
 		/** todo replace if possible with matching query */
 		$statement = 'SELECT DISTINCT `' . $searchColumn . '` FROM `tx_evecorp_domain_model_eveitem` ';
 		$statement .= ' WHERE (`' . $searchColumn . '` > 0) AND (`deleted` = 0) AND (`hidden` = 0) ';
-		$rowData = $query->statement($statement)->execute();
+
+		$rowData = $query->statement($statement)->execute($returnRawQueryResult);
 
 		// own data mapping
 		foreach($rowData as $rows) {
