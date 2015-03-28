@@ -21,6 +21,12 @@ if (!defined ('TYPO3_MODE')) {
     'EVE API Key Management'
 );
 
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+    $_EXTKEY,
+    'Pi4',
+    'EVE Corporation Member List'
+);
+
 $extensionName = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY));
 $pluginName = strtolower('Pi1');
 $pluginSignature = $extensionName.'_'.$pluginName;

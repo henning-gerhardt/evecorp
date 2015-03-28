@@ -118,6 +118,21 @@
 			<trans-unit id="charactermangement.show.weblink.back" xml:space="preserve">
 				<source>back</source>
 			</trans-unit>
+			<trans-unit id="corpmemberlist.showlight.welcome" xml:space="preserve">
+				<source>Corporation member list (light)</source>
+			</trans-unit>
+			<trans-unit id="corpmemberlist.showlight.character" xml:space="preserve">
+				<source>character name</source>
+			</trans-unit>
+			<trans-unit id="corpmemberlist.showlight.corporation" xml:space="preserve">
+				<source>current corporation</source>
+			</trans-unit>
+			<trans-unit id="corpmemberlist.showlight.apikeystate" xml:space="preserve">
+				<source>API key state</source>
+			</trans-unit>
+			<trans-unit id="corpmemberlist.showlight.expires.never" xml:space="preserve">
+				<source>key will never expire</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

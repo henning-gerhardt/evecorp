@@ -1,10 +1,10 @@
 <?php
-namespace Gerh\Evecorp\Domain\Repository;
+namespace Gerh\Evecorp\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2015 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -32,19 +32,22 @@ namespace Gerh\Evecorp\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CharacterRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
-	 * Find all characters sorted by character name
-	 *
-	 * @return QueryResultInterface|array
+	 * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
+	 * @inject
 	 */
-	public function findAllCharactersSortedByCharacterName() {
-		$orderings = array(
-			'characterName' =>\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
-		);
+	protected $characterRepository;
 
-		return $this->createQuery()->setOrderings($orderings)->execute();
+	/**
+	 * Show corporation member list (light)
+	 *
+	 * @return void
+	 */
+	public function showLightAction() {		
+		$corpMembers = $this->characterRepository->findAllCharactersSortedByCharacterName();
+		$this->view->assign('corpMembers', $corpMembers);
 	}
 
 }
