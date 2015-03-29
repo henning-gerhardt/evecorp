@@ -36,20 +36,21 @@ class CharacterRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * Find all characters sorted by character name.
-	 * Could be restricted to a specific corporation.
+	 * Could be restricted to choosed corporations.
 	 *
-	 * @param int $corporation (Optional) corporation
+	 * @param array $corporations (Optional) corporations
 	 * @return QueryResultInterface|array
 	 */
-	public function findAllCharactersSortedByCharacterName($corporation = NULL) {
+	public function findAllCharactersSortedByCharacterName(array $corporations) {
 		$orderings = array(
 			'characterName' =>\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
 		);
 
 		$query = $this->createQuery();
 		$query->setOrderings($orderings);
-		if (! empty($corporation)) {
-			$query->matching($query->equals('currentCorporation', $corporation));
+
+		if (! empty($corporations)) {
+			$query->matching($query->in('currentCorporation', $corporations));
 		}
 
 		return $query->execute();
