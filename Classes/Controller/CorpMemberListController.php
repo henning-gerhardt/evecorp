@@ -45,8 +45,8 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	 *
 	 * @return void
 	 */
-	public function showLightAction() {		
-		$corpMembers = $this->characterRepository->findAllCharactersSortedByCharacterName();
+	public function showLightAction() {
+		$corpMembers = $this->characterRepository->findAllCharactersSortedByCharacterName($this->settings['corporation']);
 		$this->view->assign('corpMembers', $corpMembers);
 	}
 

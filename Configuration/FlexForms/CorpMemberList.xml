@@ -1,0 +1,33 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<sheets>
+		<sDefault>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Options</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.corporation>
+						<TCEforms>
+							<label>Choose corporation restriction</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">no corporation restriction</numIndex>
+									</numIndex>
+								</items>
+								<foreign_table>tx_evecorp_domain_model_corporation</foreign_table>
+								<!-- TODO: add where restriction to current used record storage pids -->
+								<foreign_where>ORDER BY corporation_name</foreign_where>
+							</config>
+						</TCEforms>
+					</settings.corporation>
+				</el>
+			</ROOT>
+		</sDefault>
+	</sheets>
+</T3DataStructure>

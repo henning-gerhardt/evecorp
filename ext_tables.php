@@ -28,11 +28,16 @@ if (!defined ('TYPO3_MODE')) {
 );
 
 $extensionName = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY));
-$pluginName = strtolower('Pi1');
-$pluginSignature = $extensionName.'_'.$pluginName;
 
+// flex form for market plugin
+$pluginSignature = $extensionName . '_' . strtolower('Pi1');
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$_EXTKEY . '/Configuration/FlexForms/Index.xml');
+
+// flex form for corporation member list plugin
+$pluginSignature = $extensionName . '_' . strtolower('Pi4');
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$_EXTKEY . '/Configuration/FlexForms/CorpMemberList.xml');
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Evecorp');
 
