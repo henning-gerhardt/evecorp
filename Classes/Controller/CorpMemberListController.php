@@ -1,10 +1,10 @@
 <?php
-namespace Gerh\Evecorp\Domain\Repository;
+namespace Gerh\Evecorp\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2015 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -32,28 +32,24 @@ namespace Gerh\Evecorp\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CharacterRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
-	 * Find all characters sorted by character name.
-	 * Could be restricted to choosed corporations.
-	 *
-	 * @param array $corporations (Optional) corporations
-	 * @return QueryResultInterface|array
+	 * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
+	 * @inject
 	 */
-	public function findAllCharactersSortedByCharacterName(array $corporations) {
-		$orderings = array(
-			'characterName' =>\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
-		);
+	protected $characterRepository;
 
-		$query = $this->createQuery();
-		$query->setOrderings($orderings);
-
-		if (! empty($corporations)) {
-			$query->matching($query->in('currentCorporation', $corporations));
-		}
-
-		return $query->execute();
+	/**
+	 * Show corporation member list (light)
+	 *
+	 * @return void
+	 */
+	public function showLightAction() {
+		$choosedCorporations = (\strlen($this->settings['corporation']) > 0) ?
+				\TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : array();
+		$corpMembers = $this->characterRepository->findAllCharactersSortedByCharacterName($choosedCorporations);
+		$this->view->assign('corpMembers', $corpMembers);
 	}
 
 }

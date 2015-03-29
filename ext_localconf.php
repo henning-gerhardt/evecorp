@@ -41,6 +41,18 @@ if (!defined ('TYPO3_MODE')) {
     )
 );
 
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    'Gerh.' . $_EXTKEY,
+    'Pi4',
+    array(
+        'CorpMemberList' => 'showLight',
+		'CharacterManagement' => 'show',
+    ),
+    // non-cacheable actions
+    array(
+    )
+);
+
 // Register EVE item list update task
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Gerh\\Evecorp\\Scheduler\\UpdateEveItemListTask'] = array(
 	'extension' => $_EXTKEY,
