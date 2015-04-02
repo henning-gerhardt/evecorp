@@ -1,6 +1,6 @@
 <?php
 $extPath =  \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('evecorp');
-$srcPath = $extPath . 'Pheal/';
+$srcPath = $extPath . 'vendor/3rdpartyeve/phealng/lib/Pheal/';
 $prefix  = 'Pheal\\';
 $default = array();
 
