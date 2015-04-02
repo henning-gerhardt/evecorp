@@ -1,7 +1,7 @@
 <?php
 /*
  MIT License
- Copyright (c) 2010 - 2014 Daniel Hoffend, Peter Petermann
+ Copyright (c) 2014 Andy Hassall
 
  Permission is hereby granted, free of charge, to any person
  obtaining a copy of this software and associated documentation
@@ -24,36 +24,12 @@
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  OTHER DEALINGS IN THE SOFTWARE.
 */
+namespace Pheal\RateLimiter;
 
-namespace Pheal\Cache;
-
-/**
- * Interface that should be implemented by the cache handlers
- */
-interface CanCache
+interface CanRateLimit
 {
     /**
-     * Load XML from cache
-     *
-     * @param int $userid
-     * @param string $apikey
-     * @param string $scope
-     * @param string $name
-     * @param array $args
-     * @return string|false
-     */
-    public function load($userid, $apikey, $scope, $name, $args);
-
-    /**
-     * Save XML from cache
-     *
-     * @param int $userid
-     * @param string $apikey
-     * @param string $scope
-     * @param string $name
-     * @param array $args
-     * @param string $xml
      * @return boolean
      */
-    public function save($userid, $apikey, $scope, $name, $args, $xml);
+    public function rateLimit();
 }

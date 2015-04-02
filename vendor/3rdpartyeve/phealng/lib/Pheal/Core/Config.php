@@ -54,7 +54,7 @@ class Config
     public $access;
 
     /**
-     * Fetcher object to decide what technology is to be sued to fetch
+     * Fetcher object to decide what technology is to be used to fetch
      * defaults to \Pheal\Fetcher\Curl
      * @var \Pheal\Fetcher\CanFetch
      */
@@ -108,10 +108,26 @@ class Config
     public $http_timeout = 20;
 
     /**
-     * verify ssl peer (CURLOPT_SSL_VERIFYPEER)
+     * Verify the SSL peer?
+     * You may need to provide a bundle of trusted Certificate Agencyies
+     *
+     * @see self::$http_ssl_certificate_file
+     * @see CURLOPT_SSL_VERIFYPEER
+     *
      * @var bool
      */
     public $http_ssl_verifypeer = true;
+
+    /**
+     * If you want to verify the SSL connections to the EVE API, you may need to provide a bundle of
+     * trusted certification agencies
+     *
+     * @see CURLOPT_CAINFO
+     * @see http://curl.haxx.se/ca/cacert.pem
+     *
+     * @var string|false
+     */
+    public $http_ssl_certificate_file = false;
 
     /**
      * reuse a http connection (keep-alive for X seconds) to lower the connection handling overhead
@@ -122,10 +138,20 @@ class Config
     public $http_keepalive = false;
 
     /**
-     * Singleton Instance
-     * @var \Pheal\Core\Config
+     * Log object to log and measure the API calls that were made
+     * defaults to \Pheal\Log\NullStorage (== no logging)
+     *
+     * @var \Pheal\Log\CanLog
      */
-    private static $myInstance = null;
+    public $log;
+
+    /**
+     * Rate limiter object to avoid exceeding CCP-defined maximum requests per second.
+     * Defaults to \Pheal\RateLimiter\NullRateLimiter (== no rate limiting)
+     *
+     * @var \Pheal\RateLimiter\CanRateLimit
+     */
+    public $rateLimiter;
 
     /**
      * private constructor (use getInstance() to get an Instance)
@@ -137,19 +163,24 @@ class Config
         $this->log = new \Pheal\Log\NullStorage();
         $this->access = new \Pheal\Access\NullCheck();
         $this->fetcher = new \Pheal\Fetcher\Curl();
+        $this->rateLimiter = new \Pheal\RateLimiter\NullRateLimiter();
 
         $this->http_user_agent = "( Unknown PHP Application )";
     }
 
     /**
      * Return Instance of PhealConfig Object
-     * @return \Pheal\Core\Config
+     * @staticvar null|\static $instance Singleton Instance
+     * @return Config|null
      */
     public static function getInstance()
     {
-        if (is_null(self::$myInstance)) {
-            self::$myInstance = new Config();
+        static $instance = null;
+
+        if (null === $instance) {
+            $instance = new static();
         }
-        return self::$myInstance;
+
+        return $instance;
     }
 }

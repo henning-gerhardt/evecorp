@@ -1,7 +1,7 @@
 <?php
 /*
  MIT License
- Copyright (c) 2010 - 2014 Daniel Hoffend, Peter Petermann
+ Copyright (c) 2010 - 2015 Peter Petermann, Daniel Hoffend
 
  Permission is hereby granted, free of charge, to any person
  obtaining a copy of this software and associated documentation
@@ -25,41 +25,48 @@
  OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Pheal\Cache;
+namespace Pheal\Log;
+
+use Pheal\Core\Config;
 
 /**
- * null cache, as a placeholder if no cache is used
+ * ApiUrlFormatterTrait provide a simple formatter for logging api requests
+ *
+ * @package Pheal\Log
  */
-class NullStorage implements CanCache
+trait ApiUrlFormatterTrait
 {
     /**
-     * Load XML from cache
+     * returns formatted url for logging
      *
-     * @param int $userid
-     * @param string $apikey
      * @param string $scope
      * @param string $name
-     * @param array $args
-     * @return false
+     * @param array $opts
+     * @param bool $truncateKey
+     * @return string
      */
-    public function load($userid, $apikey, $scope, $name, $args)
+    protected function formatUrl($scope, $name, $opts, $truncateKey = true)
     {
-        return false;
-    }
+        // create url
+        $url = Config::getInstance()->api_base.$scope.'/'.$name.".xml.aspx";
 
-    /**
-     * Save XML from cache
-     *
-     * @param int $userid
-     * @param string $apikey
-     * @param string $scope
-     * @param string $name
-     * @param array $args
-     * @param string $xml
-     * @return bool
-     */
-    public function save($userid, $apikey, $scope, $name, $args, $xml)
-    {
-        return false;
+        // truncacte apikey for log safety
+        if ($truncateKey && count($opts)) {
+            if (isset($opts['apikey'])) {
+                $opts['apikey'] = substr($opts['apikey'], 0, 16)."...";
+            }
+            if (isset($opts['vCode'])) {
+                $opts['vCode'] = substr($opts['vCode'], 0, 16)."...";
+            }
+        }
+
+        // add post data
+        if (Config::getInstance()->http_post) {
+            $url .= " DATA: ".http_build_query($opts, '', '&');
+        } elseif (count($opts)) { // add data to url
+            $url .= '?'.http_build_query($opts, '', '&');
+        }
+
+        return $url;
     }
 }

@@ -54,19 +54,21 @@ class Result implements CanConvertToArray
 
     /**
      * time till the cache should hold this result
-     * @var string
+     * @var int
      */
     public $cached_until_unixtime;
 
     /**
      * root element of the result
-     * @var Element
+     * @var \Pheal\Core\Element|\Pheal\Core\RowSet
      */
-    private $_element = null;
+    private $rootElement = null;
 
     /**
      * initializes the PhealResult
+     *
      * @param \SimpleXMLElement $xml
+     * @throws \Pheal\Exceptions\APIException
      */
     public function __construct($xml)
     {
@@ -90,9 +92,9 @@ class Result implements CanConvertToArray
 
         // error detection
         if ($xml->error) {
-            throw new APIException($xml->error["code"], (String)$xml->error, $xml);
+            throw new APIException((int)$xml->error["code"], (String)$xml->error, $xml);
         }
-        $this->_element = Element::parseElement($xml->result);
+        $this->rootElement = Element::parseElement($xml->result);
     }
 
     /**
@@ -102,7 +104,7 @@ class Result implements CanConvertToArray
      */
     public function __get($name)
     {
-        return $this->_element->$name;
+        return $this->rootElement->$name;
     }
 
     /**
@@ -112,7 +114,7 @@ class Result implements CanConvertToArray
      */
     public function __isset($name)
     {
-        return isset($this->_element->$name);
+        return isset($this->rootElement->$name);
     }
 
     /**
@@ -121,11 +123,11 @@ class Result implements CanConvertToArray
      */
     public function toArray()
     {
-        if ($this->_element instanceof CanConvertToArray) {
+        if ($this->rootElement instanceof CanConvertToArray) {
             return array(
                 'currentTime' => $this->request_time,
                 'cachedUntil' => $this->cached_until,
-                'result' => $this->_element->toArray()
+                'result' => $this->rootElement->toArray()
             );
         } else {
             return array();

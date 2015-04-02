@@ -50,13 +50,16 @@ class File implements CanFetch
      */
     public function fetch($url, $opts)
     {
+        // initialize this php abomination
+        $php_errormsg = null;
+
         $options = array();
 
         $options['http'] = array();
         $options['http']['ignore_errors'] = true;
 
         // set custom user agent
-        $options['http']['user_agent'] = 'PhealNG/' . Pheal::$version . ' ' . Config::getInstance()->http_user_agent;
+        $options['http']['user_agent'] = 'PhealNG/' . Pheal::VERSION . ' ' . Config::getInstance()->http_user_agent;
 
 
         // set custom http timeout

@@ -1,7 +1,7 @@
 <?php
 /*
  MIT License
- Copyright (c) 2010 - 2014 Daniel Hoffend, Peter Petermann
+ Copyright (c) 2010 - 2015 Peter Petermann
 
  Permission is hereby granted, free of charge, to any person
  obtaining a copy of this software and associated documentation
@@ -25,35 +25,62 @@
  OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Pheal\Cache;
+namespace Pheal\Log;
 
 /**
- * Interface that should be implemented by the cache handlers
+ * ResponseTimerTrait
+ * a trait which provides an way to measure response times for loggers
+ *
+ * @package Pheal\Log
  */
-interface CanCache
+trait ResponseTimerTrait
 {
     /**
-     * Load XML from cache
+     * saved startTime to measure the response time
      *
-     * @param int $userid
-     * @param string $apikey
-     * @param string $scope
-     * @param string $name
-     * @param array $args
-     * @return string|false
+     * @var float
      */
-    public function load($userid, $apikey, $scope, $name, $args);
+    protected $startTime = 0.0;
 
     /**
-     * Save XML from cache
+     * save the response time after stop() or log()
      *
-     * @param int $userid
-     * @param string $apikey
-     * @param string $scope
-     * @param string $name
-     * @param array $args
-     * @param string $xml
-     * @return boolean
+     * @var float
      */
-    public function save($userid, $apikey, $scope, $name, $args, $xml);
+    protected $responseTime = 0.0;
+
+    /**
+     * Start of measure the response time
+     */
+    public function start()
+    {
+        $this->responseTime = 0.0;
+        $this->startTime = $this->getmicrotime();
+    }
+
+    /**
+     * returns current microtime
+     *
+     * @return float
+     */
+    protected function getmicrotime()
+    {
+        list($usec, $sec) = explode(" ", microtime());
+
+        return ((float)$usec + (float)$sec);
+    }
+
+    /**
+     * Stop of measure the response time
+     */
+    public function stop()
+    {
+        if (!$this->startTime) {
+            return false;
+        }
+
+        // calc responseTime
+        $this->responseTime = $this->getmicrotime() - $this->startTime;
+        $this->startTime = 0.0;
+    }
 }

@@ -37,11 +37,11 @@ the following json data:
 ```json
 {
     "require": {
-        "3rdpartyeve/phealng": "1.0.*"
+        "3rdpartyeve/phealng": "~2.0"
     }
 }
 ```
-_Note:_ replace 1.0.* by what ever version you want to use, you can use dev-master
+_Note:_ replace ~2.0 by what ever version you want to use, you can use dev-master
 but it will likely be unstable.
 
 _Hint:_ PhealNG follows semantic versioning http://semver.org
@@ -178,6 +178,72 @@ In the previous example there is already two configuration options introduced,
 however there are quite a few more. For more information it is worth reading the
 contents of the vendor/3rdpartyeve/phealng/lib/Pheal/Core/Config.php file.
 
+### Caching
+CCP wants you to respect their cache timers, meaning some of the API Pages will return
+the same data for a specific while, or worse an error. If you use one of the available
+caching implementations, pheal will do the caching transparently for you.
+Pheal offers this implementations out of the box:
+- NullStorage (no caching!)
+- FileStorage
+- ForcedFileStorage
+- HashedNameFileStorage
+- MemcacheStorage
+- MemcachedStorage
+- RedisStorage
+- PdoStorage (database caching)
+
+Please refer to the api docs of the classes for more information.
+
+
+#### PdoStorage (database caching)
+In order to cache the request in the database you have to create the table first.
+
+for a MySQL DB you can use this snippet as an example:
+
+```mysql
+    CREATE TABLE `phealng-cache` (
+        `userId` INT(10) UNSIGNED NOT NULL,
+        `scope` VARCHAR(50) NOT NULL,
+        `name` VARCHAR(100) NOT NULL,
+        `args` VARCHAR(250) NOT NULL,
+        `cachedUntil` TIMESTAMP NOT NULL,
+        `xml` LONGTEXT NOT NULL,
+        PRIMARY KEY (`userId`, `scope`, `name`, `args`)
+    )
+    COMMENT='Caching for PhealNG'
+    COLLATE='utf8_general_ci'
+    ENGINE=InnoDB;
+```
+
+## Logger
+Pheal comes with 3 Loggers that can be used, the default one being the Null Logger \Pheal\Log\NullStorage, which
+will not log anything. Then there is the Legacy Logger \Pheal\Log\FileStorage, which can log into files (see its code 
+for more information). Consider that one deprecated.
+And then there is the PsrLogger, which is basically a class that can wrap around any existing PSR-3 compatible logger,
+so Pheal can use your frameworks logger to spit out its logging information.
+
+Usage Example:
+
+```php
+    <?php
+    require_once 'vendor/autoload.php';
+    
+    // initialize a PSR-3 compatible logger. in this example, we assume that you have added monolog/monolog to your 
+    // composer dependencies, but really this part of the code depends on which PSR-3 compatible logger you use,
+    // and where you get it from usually depends on your framework.
+    $psr = new \Monolog\Logger('test');
+    $psr->pushHandler(new \Monolog\Handler\StreamHandler('test.log', Logger::DEBUG));
+    
+    // configure pheal to use the \Pheal\Log\PsrLogger, handing over the PSR-3 compatible logger instance to the new object
+    \Pheal\Core\Config::getInstance()->log = new \Pheal\Log\PsrLogger($psr);
+    
+    // any call to the CCP api will now be logged, for example:
+    $pheal = new \Pheal\Pheal();
+    $pheal->serverScope->ServerStatus();
+    
+    // should cause a log entry like: 
+    // [2014-12-29 13:30:04] test.INFO: GET to https://api.eveonline.com/server/ServerStatus.xml.aspx (0.0802s) [] []
+```
 
 ## Problems / Bugs
 if you find any problems with PhealNG, please use githubs issue tracker at https://github.com/3rdpartyeve/phealng/issues

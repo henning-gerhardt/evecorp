@@ -37,12 +37,18 @@ use Pheal\Exceptions\ConnectionException;
 use Pheal\Exceptions\HTTPException;
 use Pheal\Exceptions\PhealException;
 
+/**
+ * Class Pheal
+ * @method Result APIKeyInfo()
+ */
 class Pheal
 {
     /**
      * Version container
+     *
+     * @var string
      */
-    public static $version = "1.0.0";
+    const VERSION = "2.1.0";
 
     /**
      * @var int
@@ -228,6 +234,9 @@ class Pheal
             try {
                 // start measure the response time
                 Config::getInstance()->log->start();
+
+                // rate limit
+                Config::getInstance()->rateLimiter->rateLimit();
 
                 // request
                 $this->xml = Config::getInstance()->fetcher->fetch($url, $http_opts);

@@ -18,6 +18,6 @@
 		"php": ">=5.4.0"
 	},
 	"require-dev": {
-		"3rdpartyeve/phealng": "1.0.0"
+		"3rdpartyeve/phealng": "2.1.0"
 	}
 }

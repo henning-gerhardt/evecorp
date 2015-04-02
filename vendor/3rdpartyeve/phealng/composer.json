@@ -16,9 +16,15 @@
             "homepage": "http://evemaps.dotlan.net/"
         }
     ],
+    "require": {
+        "php": ">=5.4.0",
+        "psr/log": "1.0.0"
+    },
+
     "support": {
         "issues": "https://github.com/3rdpartyeve/phealng/issues"
     },
+
     "autoload": {
         "psr-4": { "Pheal\\": "lib/Pheal/" }
     }
