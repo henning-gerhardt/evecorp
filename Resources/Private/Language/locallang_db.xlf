@@ -67,6 +67,9 @@
 			<trans-unit id="tx_evecorp_domain_model_apikey.account.corpmember">
 				<source>Corp Member</source>
 			</trans-unit>
+			<trans-unit id="tx_evecorp_domain_model_apikey.corporation">
+				<source>EVE Corporation API Key</source>
+			</trans-unit>
 			<trans-unit id="tx_evecorp_domain_model_alliance">
 				<source>EVE Alliance</source>
 			</trans-unit>

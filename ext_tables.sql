@@ -109,6 +109,28 @@ CREATE TABLE `tx_evecorp_domain_model_apikeyaccount` (
 );
 
 #
+# Table structure for table 'tx_evecorp_domain_model_apikeycorporation'
+#
+CREATE TABLE `tx_evecorp_domain_model_apikeycorporation` (
+	`uid` int(11) NOT NULL auto_increment,
+	`pid` int(11) DEFAULT '0' NOT NULL,
+
+	`key_id` int(11) DEFAULT '0' NOT NULL,
+	`v_code` varchar(255) DEFAULT '' NOT NULL,
+	`access_mask` int(11) DEFAULT '0' NOT NULL,
+	`expires` int(11) DEFAULT '0' NOT NULL,
+	`corporation` int(11) DEFAULT '0' NOT NULL,
+
+	`tstamp` int(11) unsigned DEFAULT '0' NOT NULL,
+	`crdate` int(11) unsigned DEFAULT '0' NOT NULL,
+	`deleted` tinyint(3) unsigned DEFAULT '0' NOT NULL,
+	`hidden` tinyint(3) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (`uid`),
+	KEY parent (`pid`)
+);
+
+#
 # Table structure for table 'tx_evecorp_domain_model_alliance'
 #
 CREATE TABLE `tx_evecorp_domain_model_alliance` (
@@ -139,6 +161,7 @@ CREATE TABLE `tx_evecorp_domain_model_corporation` (
 	`corporation_name` varchar(255) DEFAULT '' NOT NULL,
 	`current_alliance` int(11) DEFAULT '0',
 	`usergroup` int(11) DEFAULT '0',
+	`apikeys` int(11) DEFAULT '0',
 
 	`tstamp` int(11) unsigned DEFAULT '0' NOT NULL,
 	`crdate` int(11) unsigned DEFAULT '0' NOT NULL,

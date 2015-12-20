@@ -3,13 +3,13 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_apikeyaccount'] = array(
-	'ctrl' => $TCA['tx_evecorp_domain_model_apikeyaccount']['ctrl'],
+$TCA['tx_evecorp_domain_model_apikeycorporation'] = array(
+	'ctrl' => $TCA['tx_evecorp_domain_model_apikeycorporation']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'key_id, v_code, corp_member, hidden',
+		'showRecordFieldList' => 'key_id, v_code, corporation, hidden',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'key_id, v_code, corp_member, type, access_mask, expires, characters, hidden'),
+		'1' => array('showitem' => 'corporation, key_id, v_code, type, access_mask, expires, hidden'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -40,17 +40,6 @@ $TCA['tx_evecorp_domain_model_apikeyaccount'] = array(
 				'eval' => 'trim,required'
 			)
 		),
-		'corp_member' => array(
-			'exclude' => 0,
-			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account.corpmember',
-			'config' => array(
-				'type' => 'select',
-				'foreign_table' => 'fe_users',
-				'items' => array(
-					array('--none--', 0),
-				),
-			),
-		),
 		'access_mask' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.accessmask',
@@ -70,18 +59,13 @@ $TCA['tx_evecorp_domain_model_apikeyaccount'] = array(
 				),
 			),
 		),
-		'characters' => array(
-			'exclude' => 1,
-			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
+		'corporation' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation',
 			'config' => array(
-				'type' => 'inline',
-				'foreign_table' => 'tx_evecorp_domain_model_character',
-				'foreign_field' => 'api_key',
-				'maxitems' => 3,
-				'appearance' => array(
-					'levelLinksPosition' => 'none',
-				),
-			)
-		)
+				'type' => 'select',
+				'foreign_table' => 'tx_evecorp_domain_model_corporation',
+			),
+		),
 	),
 );

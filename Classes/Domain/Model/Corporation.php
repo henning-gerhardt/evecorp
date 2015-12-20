@@ -35,6 +35,12 @@ namespace Gerh\Evecorp\Domain\Model;
 class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyCorporation>
+	 * @lazy
+	 */
+	protected $apikeys;
+
+	/**
 	 * @var \integer
 	 * @validate NotEmpty
 	 * @validate Integer
@@ -68,6 +74,7 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function __construct($corporationId = NULL, $corporationName = NULL) {
 		$this->setCorporationId($corporationId);
 		$this->setCorporationName($corporationName);
+		$this->apikeys = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 	/**
@@ -165,5 +172,48 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setUsergroup(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup = NULL) {
 		$this->usergroup = $usergroup;
+	}
+
+	/**
+	 * Add a api key to corporation
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyCorporation $apikey
+	 */
+	public function addCorporation(\Gerh\Evecorp\Domain\Model\ApiKeyCorporation $apikey) {
+		$this->apikeys->attach($apikey);
+	}
+
+	/**
+	 * Returns api keys of corporation
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyCorporation>
+	 */
+	public function getApiKeys() {
+		return $this->apikeys;
+	}
+
+	/**
+	 * Remove all api keys from corporation
+	 */
+	public function removeAllApiKeys() {
+		$this->apikeys = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Remove a api key from corporation
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyCorporation $apikey
+	 */
+	public function removeApiKey(\Gerh\Evecorp\Domain\Model\ApiKeyCorporation $apikey) {
+		$this->apikeys->detach($apikey);
+	}
+
+	/**
+	 * Set api keys of corporation
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $apikeys
+	 */
+	public function setApiKeys(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $apikeys) {
+		$this->apikeys = $apikeys;
 	}
 }
