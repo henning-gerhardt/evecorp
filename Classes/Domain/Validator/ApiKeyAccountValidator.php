@@ -47,17 +47,6 @@ class ApiKeyAccountValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
 	protected $characterRepository;
 
 	/**
-	 * Is given type equal expected type. Expected type default is 'Account'.
-	 *
-	 * @param \string $actualType   Current API key type
-	 * @param \string $expectedType To check against. Default: 'Account'
-	 * @return \boolean
-	 */
-	protected function isApiType($actualType, $expectedType = 'Account') {
-		return ($actualType === $expectedType);
-	}
-
-	/**
 	 * Check if given character id is already stored in database
 	 *
 	 * @param \integer $characterId
@@ -101,32 +90,27 @@ class ApiKeyAccountValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
 	 * @return \boolean
 	 */
 	protected function checkApiKey($keyId, $vCode) {
-		$scope = 'account';
 
-		try {
-			$phealService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Gerh\\Evecorp\\Service\\PhealService', $keyId, $vCode, $scope);
-			$pheal = $phealService->getPhealInstance();
-			$response = $pheal->accountScope->APIKeyInfo();
+		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyInfoMapper();
+		$mapper->setKeyId($keyId);
+		$mapper->setVcode($vCode);
+		$apiKeyInfo = $mapper->retrieveApiKeyInfo();
 
-			if (! $this->isApiType($response->key->type, 'Account')) {
-				$this->addError('Given API key is not an Account API key.', 123456890);
-				return FALSE;
-			}
-
-			if (! $this->hasCorrectAccessMask(\intval($response->key->accessMask))) {
-				$this->addError('Given API key has not correct access mask: ' . $this->getAccessMask(), 1234567890);
-				return FALSE;
-			}
-
-			foreach($response->key->characters as $characterInfo) {
-				if ($this->isCharacterIdAlreadyInDatabase($characterInfo->characterID)) {
-					$this->addError('Character "' . $characterInfo->characterName . '" is already in database.', 1234567890);
-					return FALSE;
-				}
-			}
-		} catch (\Pheal\Exceptions\PhealException $ex) {
-			$this->addError($ex->getMessage(), 123456890);
+		if ($apiKeyInfo->getType() !== 'Account') {
+			$this->addError('Given API key is not an Account API key.', 123456890);
 			return FALSE;
+		}
+
+		if (! $this->hasCorrectAccessMask(\intval($apiKeyInfo->getAccessMask()))) {
+			$this->addError('Given API key has not correct access mask: ' . $this->getAccessMask(), 1234567890);
+			return FALSE;
+		}
+
+		foreach($apiKeyInfo->getCharacters() as $characterInfo) {
+			if ($this->isCharacterIdAlreadyInDatabase($characterInfo->getCharacterId())) {
+				$this->addError('Character "' . $characterInfo->characterName . '" is already in database.', 1234567890);
+				return FALSE;
+			}
 		}
 
 		return TRUE;
