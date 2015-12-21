@@ -1,0 +1,45 @@
+{namespace evecorp=Gerh\Evecorp\ViewHelpers}
+<f:layout name="default" />
+<f:section name="content">
+
+<h1>EVE API Key Corporation Management</h1>
+
+<f:flashMessages renderMode="div" />
+
+<f:if condition="{amountOfChoosedCorporations} > 0">
+	<f:then>
+		<h2>List of stored corporation API keys</h2>
+
+		<div class="table-responsive">
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th><f:translate key="apikeymanagement.index.keyid">key id</f:translate></th>
+						<th><f:translate key="apikeymanagement.index.expires">expires</f:translate></th>
+						<th><f:translate key="apikeymanagement.index.accessmask">access mask</f:translate></th>
+						<th><f:translate key="apikeymanagement.index.action">action</f:translate></th>
+					</tr>
+				</thead>
+				<tbody>
+				<f:for each="{keys}" as="apiKeyCorporation">
+					<tr>
+						<td>{apiKeyCorporation.keyId}</td>
+						<td><f:if condition="{apiKeyCorporation.expires}"><f:then><f:format.date format="Y-m-d">{apiKeyCorporation.expires}</f:format.date></f:then><f:else><f:translate key="apikeymanagement.index.expires.never">never</f:translate></f:else></f:if></td>
+						<td>{apiKeyCorporation.accessMask}</td>
+						<td>
+							<f:link.action action="delete" controller="ApiKeyCorporationManagement" class="text-danger" arguments="{apiKeyCorporation : apiKeyCorporation}"><f:translate key="apikeymanagement.index.action.delete">Delete</f:translate></f:link.action>
+						</td>
+					</tr>
+				</f:for>
+				</tbody>
+			</table>
+		</div>
+
+		<f:link.action action="new" controller="ApiKeyCorporationManagement">Add new corporation API key</f:link.action>
+	</f:then>
+	<f:else>
+		<p class="text-warning">No corporation choosed in plugin options.</p>
+	</f:else>
+</f:if>
+
+</f:section>

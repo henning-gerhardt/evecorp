@@ -1,0 +1,21 @@
+<f:layout name="default" />
+<f:section name="content">
+
+	<h1>Add new corporation based API key</h1>
+
+<f:render partial="FormErrors" arguments="{formName: 'newApiKeyCorporation'}" />
+<f:form method="post" action="create" controller="ApiKeyCorporationManagement" name="newApiKeyCorporation" object="{newApiKeyCorporation}">
+	<div class="form-group">
+		<label for="keyid"><f:translate key="apikeymanagement.new.keyid">Key ID</f:translate></label>
+		<f:form.textfield name="keyid" property="keyId" size="10" class="form-control"/>
+	</div>
+
+	<div class="form-group">
+		<label for="vcode"><f:translate key="apikeymanagement.new.vcode">Verification Code</f:translate></label>
+		<f:form.textfield name="vcode" property="vCode" size="64" class="form-control"/>
+	</div>
+
+	<f:form.submit value="{f:translate(key: 'apikeymanagement.new.submit', default: 'Submit')}" class="btn btn-default"/>
+</f:form>
+
+</f:section>

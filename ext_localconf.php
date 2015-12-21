@@ -46,19 +46,31 @@ if (!defined ('TYPO3_MODE')) {
     'Pi4',
     array(
         'CorpMemberList' => 'showLight',
-		'CharacterManagement' => 'show',
+        'CharacterManagement' => 'show',
     ),
     // non-cacheable actions
     array(
     )
 );
 
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    'Gerh.' . $_EXTKEY,
+    'Pi5',
+    array(
+        'ApiKeyCorporationManagement' => 'index,new,create,delete',
+    ),
+    // non-cacheable actions
+    array(
+        'ApiKeyCorporationManagement' => 'index,new,create,delete',
+    )
+);
+
 // Register EVE item list update task
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Gerh\\Evecorp\\Scheduler\\UpdateEveItemListTask'] = array(
-	'extension' => $_EXTKEY,
-	'title' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang.xlf:scheduler.updateEveItemListTask.name',
-	'description' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang.xlf:scheduler.updateEveItemListTask.description',
-	'additionalFields' => '',
+    'extension' => $_EXTKEY,
+    'title' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang.xlf:scheduler.updateEveItemListTask.name',
+    'description' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang.xlf:scheduler.updateEveItemListTask.description',
+    'additionalFields' => '',
 );
 
 // Register update corp member data based on account API key

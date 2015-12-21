@@ -37,7 +37,6 @@ class ApiKeyCorporation extends \Gerh\Evecorp\Domain\Model\ApiKey {
 	/**
 	 * @var \Gerh\Evecorp\Domain\Model\Corporation
 	 * @lazy
-	 * @validate NotEmpty
 	 */
 	protected $corporation;
 
@@ -59,7 +58,7 @@ class ApiKeyCorporation extends \Gerh\Evecorp\Domain\Model\ApiKey {
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
 	 */
-	public function setCurrentCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
+	public function setCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
 		$this->corporation = $corporation;
 	}
 

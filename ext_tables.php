@@ -27,6 +27,13 @@ if (!defined ('TYPO3_MODE')) {
     'EVE Corporation Member List'
 );
 
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+    $_EXTKEY,
+    'Pi5',
+    'EVE Corporation API Key Management'
+);
+
+
 $extensionName = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY));
 
 // flex form for market plugin
@@ -38,6 +45,11 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_
 $pluginSignature = $extensionName . '_' . strtolower('Pi4');
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$_EXTKEY . '/Configuration/FlexForms/CorpMemberList.xml');
+
+// flex form for corporation api key management
+$pluginSignature = $extensionName . '_' . strtolower('Pi5');
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$_EXTKEY . '/Configuration/FlexForms/ApiKeyCorporationManagement.xml');
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Evecorp');
 
