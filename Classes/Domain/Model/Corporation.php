@@ -4,7 +4,7 @@ namespace Gerh\Evecorp\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2015 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -60,6 +60,12 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $currentAlliance;
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\CorporationTitles>
+	 * @lazy
+	 */
+	protected $titles;
+
+	/**
 	 * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
 	 * @lazy
 	 */
@@ -75,6 +81,7 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->setCorporationId($corporationId);
 		$this->setCorporationName($corporationName);
 		$this->apikeys = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->titles = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 	/**
@@ -179,7 +186,7 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyCorporation $apikey
 	 */
-	public function addCorporation(\Gerh\Evecorp\Domain\Model\ApiKeyCorporation $apikey) {
+	public function addApiKey(\Gerh\Evecorp\Domain\Model\ApiKeyCorporation $apikey) {
 		$this->apikeys->attach($apikey);
 	}
 
@@ -216,4 +223,48 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setApiKeys(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $apikeys) {
 		$this->apikeys = $apikeys;
 	}
+
+	/**
+	 * Add a title to corporation
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $title
+	 */
+	public function addCorporationTitle(\Gerh\Evecorp\Domain\Model\CorporationTitle $title) {
+		$this->titles->attach($title);
+	}
+
+	/**
+	 * Returns titles of corporation
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\CorporationTitle>
+	 */
+	public function getCorporationTitles() {
+		return $this->titles;
+	}
+
+	/**
+	 * Remove all titles from corporation
+	 */
+	public function removeAllCorporationTitles() {
+		$this->titles = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Remove a title from corporation
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $title
+	 */
+	public function removeCorporationTitle(\Gerh\Evecorp\Domain\Model\CorporationTitle $title) {
+		$this->titles->detach($title);
+	}
+
+	/**
+	 * Set titles of corporation
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $titles
+	 */
+	public function setCorporationTitles(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $titles) {
+		$this->titles = $titles;
+	}
+
 }

@@ -162,6 +162,28 @@ CREATE TABLE `tx_evecorp_domain_model_corporation` (
 	`current_alliance` int(11) DEFAULT '0',
 	`usergroup` int(11) DEFAULT '0',
 	`apikeys` int(11) DEFAULT '0',
+	`titles` int(11) DEFAULT '0',
+
+	`tstamp` int(11) unsigned DEFAULT '0' NOT NULL,
+	`crdate` int(11) unsigned DEFAULT '0' NOT NULL,
+	`deleted` tinyint(3) unsigned DEFAULT '0' NOT NULL,
+	`hidden` tinyint(3) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (`uid`),
+	KEY parent (`pid`)
+);
+
+#
+# Table structure for table 'tx_evecorp_domain_model_corporation_title'
+#
+CREATE TABLE `tx_evecorp_domain_model_corporation_title` (
+	`uid` int(11) NOT NULL auto_increment,
+	`pid` int(11) DEFAULT '0' NOT NULL,
+
+	`title_id` int(11) DEFAULT '0' NOT NULL,
+	`title_name` varchar(255) DEFAULT '' NOT NULL,
+	`corporation` int(11) DEFAULT '0',
+	`usergroup` int(11) DEFAULT '0',
 
 	`tstamp` int(11) unsigned DEFAULT '0' NOT NULL,
 	`crdate` int(11) unsigned DEFAULT '0' NOT NULL,
