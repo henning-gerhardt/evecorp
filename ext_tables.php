@@ -190,8 +190,8 @@ $TCA['tx_evecorp_domain_model_corporation'] = array (
 	)
 );
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_corporation_title');
-$TCA['tx_evecorp_domain_model_corporation_title'] = array (
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_corporationtitle');
+$TCA['tx_evecorp_domain_model_corporationtitle'] = array (
 	'ctrl' => array (
 		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation_title',
 		'label' => 'title_name',

@@ -174,9 +174,9 @@ CREATE TABLE `tx_evecorp_domain_model_corporation` (
 );
 
 #
-# Table structure for table 'tx_evecorp_domain_model_corporation_title'
+# Table structure for table 'tx_evecorp_domain_model_corporationtitle'
 #
-CREATE TABLE `tx_evecorp_domain_model_corporation_title` (
+CREATE TABLE `tx_evecorp_domain_model_corporationtitle` (
 	`uid` int(11) NOT NULL auto_increment,
 	`pid` int(11) DEFAULT '0' NOT NULL,
 

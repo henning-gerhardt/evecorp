@@ -76,7 +76,7 @@ $TCA['tx_evecorp_domain_model_corporation'] = array(
 			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.titles',
 			'config' => array(
 				'type' => 'inline',
-				'foreign_table' => 'tx_evecorp_domain_model_corporation_title',
+				'foreign_table' => 'tx_evecorp_domain_model_corporationtitle',
 				'foreign_field' => 'corporation',
 			),
 		),

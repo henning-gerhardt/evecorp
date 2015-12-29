@@ -3,8 +3,8 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_corporation_title'] = array(
-	'ctrl' => $TCA['tx_evecorp_domain_model_corporation_title']['ctrl'],
+$TCA['tx_evecorp_domain_model_corporationtitle'] = array(
+	'ctrl' => $TCA['tx_evecorp_domain_model_corporationtitle']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'title_id, title_name, corporation, hidden',
 	),
