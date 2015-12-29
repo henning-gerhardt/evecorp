@@ -148,6 +148,36 @@
 			<trans-unit id="corpmemberlist.showlight.expires.never" xml:space="preserve">
 				<source>key will never expire</source>
 			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.link" xml:space="preserve">
+				<source>Switch to corporation title management</source>
+			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.index.listof" xml:space="preserve">
+				<source>List of corporation titles</source>
+			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.index.nocorporationselected" xml:space="preserve">
+				<source>No corporation selected in plugin options.</source>
+			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.index.backto" xml:space="preserve">
+				<source>Back to corporation api key management.</source>
+			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.index.title.action" xml:space="preserve">
+				<source>action</source>
+			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.index.title.edit" xml:space="preserve">
+				<source>edit</source>
+			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.index.title.id" xml:space="preserve">
+				<source>id</source>
+			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.index.title.name" xml:space="preserve">
+				<source>name</source>
+			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.index.title.usergroup" xml:space="preserve">
+				<source>frontend user group</source>
+			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.index.welcome" xml:space="preserve">
+				<source>Corporation Title Management</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

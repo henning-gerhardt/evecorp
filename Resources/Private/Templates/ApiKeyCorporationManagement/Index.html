@@ -35,7 +35,9 @@
 			</table>
 		</div>
 
-		<f:link.action action="new" controller="ApiKeyCorporationManagement"><f:translate key="apikeycorporationmanagement.index. action.new">Add new corporation API key</f:translate></f:link.action>
+		<p><f:link.action action="new" controller="ApiKeyCorporationManagement"><f:translate key="apikeycorporationmanagement.index.action.new">Add new corporation API key</f:translate></f:link.action></p>
+
+		<p><f:link.action action="index" controller="CorporationTitleManagement"><f:translate key="corporationtitlemanagement.link">Switch to corporation title management</f:translate></f:link.action></p>
 	</f:then>
 	<f:else>
 		<p class="text-warning"><f:translate key="apikeycorporationmanagement.index.nocorporationselected">No corporation selected in plugin options.</f:translate></p>
