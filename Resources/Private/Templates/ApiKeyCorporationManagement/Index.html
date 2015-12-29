@@ -2,13 +2,13 @@
 <f:layout name="default" />
 <f:section name="content">
 
-<h1>EVE API Key Corporation Management</h1>
+	<h1><f:translate key="apikeycorporationmanagement.index.welcome">EVE API Key Corporation Management</f:translate></h1>
 
 <f:flashMessages renderMode="div" />
 
-<f:if condition="{amountOfChoosedCorporations} > 0">
+<f:if condition="{amountOfSelectedCorporations} == 1">
 	<f:then>
-		<h2>List of stored corporation API keys</h2>
+		<h2><f:translate key="apikeycorporationmanagement.index.listof">List of stored corporation API keys</f:translate></h2>
 
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered table-hover">
@@ -35,10 +35,10 @@
 			</table>
 		</div>
 
-		<f:link.action action="new" controller="ApiKeyCorporationManagement">Add new corporation API key</f:link.action>
+		<f:link.action action="new" controller="ApiKeyCorporationManagement"><f:tranlsate key="apikeycorporationmanagement.index. action.new">Add new corporation API key</f:tranlsate></f:link.action>
 	</f:then>
 	<f:else>
-		<p class="text-warning">No corporation choosed in plugin options.</p>
+		<p class="text-warning"><f:translate key="apikeycorporationmanagement.index.nocorporationselected">No corporation selected in plugin options.</f:tranlsate></p>
 	</f:else>
 </f:if>
 

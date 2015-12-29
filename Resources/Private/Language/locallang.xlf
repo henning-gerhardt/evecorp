@@ -85,6 +85,21 @@
 			<trans-unit id="apikeymanagement.new.weblink" xml:space="preserve">
 				<source>Create new account API key</source>
 			</trans-unit>
+			<trans-unit id="apikeycorporationmanagement.index.listof" xml:space="preserve">
+				<source>List of stored corporation API keys</source>
+			</trans-unit>
+			<trans-unit id="apikeycorporationmanagement.index. action.new" xml:space="preserve">
+				<source>Create new corporation API key</source>
+			</trans-unit>
+			<trans-unit id="apikeycorporationmanagement.index.nocorporationselected" xml:space="preserve">
+				<source>No corporation selected in plugin options.</source>
+			</trans-unit>
+			<trans-unit id="apikeycorporationmanagement.index.welcome" xml:space="preserve">
+				<source>EVE API Key Corporation Management</source>
+			</trans-unit>
+			<trans-unit id="apikeycorporationmanagement.new.addnewcorpkey" xml:space="preserve">
+				<source>Add new corporation based API key</source>
+			</trans-unit>
 			<trans-unit id="charactermangement.show.welcome" xml:space="preserve">
 				<source>Character information screen</source>
 			</trans-unit>
