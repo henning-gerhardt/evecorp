@@ -47,21 +47,40 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
 	protected $corporationRepository;
 
 	/**
+	 * Hold selected corporation uid
+	 *
+	 * @var \integer
+	 */
+	protected $selectedCorporation;
+
+	/**
+	 * @see \TYPO3\CMS\Extbase\Mvc\Controller\ActionController::initializeAction()
+	 */
+	public function initializeAction() {
+		$selectedCorporation = (\strlen($this->settings['corporation']) > 0) ?
+				\TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : array();
+
+		$amountOfSelectedCorporation = \count($selectedCorporation);
+		if ($amountOfSelectedCorporation == 1) {
+			$this->selectedCorporation = $selectedCorporation[0];
+		} else if ($amountOfSelectedCorporation == 0) {
+			$this->selectedCorporation = 0;
+		} else {
+			$this->selectedCorporation = -1;
+		}
+	}
+
+	/**
 	 * index action
 	 *
 	 * @return void
 	 */
 	public function indexAction() {
-		$apiKeys = array();
-		$choosedCorporation = (\strlen($this->settings['corporation']) > 0) ?
-				\TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : array();
-
-		if (\count($choosedCorporation) > 0) {
-			$apiKeys = $this->apiKeyCorporationRepository->findByCorporation($choosedCorporation);
-		}
+		
+		$apiKeys = $this->apiKeyCorporationRepository->findByCorporation($this->selectedCorporation);
 
 		$this->view->assign('keys', $apiKeys);
-		$this->view->assign('amountOfChoosedCorporations', count($choosedCorporation));
+		$this->view->assign('amountOfSelectedCorporations', ($this->selectedCorporation > 0) ? 1 : $this->selectedCorporation);
 		
 	}
 
@@ -84,9 +103,13 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
 	 * @return void
 	 */
 	public function createAction(\Gerh\Evecorp\Domain\Model\ApiKeyCorporation $newApiKeyCorporation) {
-		$corporationId = (\strlen($this->settings['corporation']) > 0) ?
-				\TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : 0;
-		$corporation = $this->corporationRepository->findByUid($corporationId);
+
+		if ($this->selectedCorporation <= 0) {
+			$this->addFlashMessage('No or to many corporations selected!');
+			$this->redirect('index');
+		}
+
+		$corporation = $this->corporationRepository->findByUid($this->selectedCorporation);
 		$newApiKeyCorporation->setCorporation($corporation);
 
 		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyInfoMapper();
