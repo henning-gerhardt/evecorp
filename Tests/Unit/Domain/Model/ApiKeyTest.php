@@ -90,4 +90,43 @@ class ApiKeyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$this->assertEquals($expected, $apiKey->getVCode());
 	}
+
+	/**
+	 *
+	 * @return array
+	 */
+	public function accessProvider() {
+		$characterMask = \Gerh\Evecorp\Domain\Constants\AccessMask\Character::BOOKMARKS +
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Character::KILLLOG +
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Character::CONTACTLIST;
+
+		$corporationMask = \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::FACWARSTATS;
+
+		return array(
+			array(\TRUE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::BOOKMARKS),
+			array(\TRUE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::KILLLOG),
+			array(\TRUE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::CONTACTLIST),
+			array(\FALSE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::CALENDAREVENTATTENDEES),
+			array(\TRUE, $corporationMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES),
+			array(\FALSE, $corporationMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::INDUSTRYJOBS),
+			array(\FALSE, $corporationMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ACCOUNTBALANCE),
+		);
+	}
+
+	/**
+	 * @test
+	 * @param \boolean $expected
+	 * @param \integer $accessMask
+	 * @param \integer $toProveAgainst
+	 * @dataProvider accessProvider
+	 */
+	public function hasAccessToChecks($expected, $accessMask, $toProveAgainst) {
+		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+		$apiKey->setAccessMask($accessMask);
+		$result = $apiKey->hasAccessTo($toProveAgainst);
+
+		$this->assertEquals($expected, $result);
+	}
+
 }

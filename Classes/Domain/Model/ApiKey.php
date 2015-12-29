@@ -132,4 +132,14 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->vCode = $vCode;
 	}
 
+	/**
+	 * Check if access mask provides right to restricted information group.
+	 *
+	 * @param \integer $toProveAgainst
+	 * @return \boolean
+	 */
+	public function hasAccessTo($toProveAgainst) {
+		return (($this->accessMask & $toProveAgainst) > 0) ? \TRUE : \FALSE;
+	}
+
 }
