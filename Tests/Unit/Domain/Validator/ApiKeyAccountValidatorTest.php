@@ -128,32 +128,6 @@ class ApiKeyAccountValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
 	}
 
 	/**
-	 * Data provider for different api keys
-	 *
-	 * @return array
-	 */
-	public function apiTypes() {
-		return array(
-			array('Account', 'Account', true),
-			array('Character', 'Account', false),
-			array('Corporation', 'Account', false),
-		);
-	}
-
-	/**
-	 * @test
-	 * @dataProvider apiTypes
-	 * @param \string $actualType
-	 * @param \string $expectedType
-	 * @param \boolean $expectedValue
-	 */
-	public function checkCorrectApiType($actualType, $expectedType, $expectedValue) {
-		$actualValue = $this->callInaccessibleMethod($this->validator, 'isApiType', $actualType, $expectedType);
-
-		$this->assertEquals($expectedValue, $actualValue);
-	}
-
-	/**
 	 * Data provider for different count of character ids
 	 *
 	 * @return array
