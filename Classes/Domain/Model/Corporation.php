@@ -37,6 +37,7 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyCorporation>
 	 * @lazy
+	 * @cascade remove
 	 */
 	protected $apikeys;
 
@@ -62,6 +63,7 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\CorporationTitle>
 	 * @lazy
+	 * @cascade remove
 	 */
 	protected $titles;
 
