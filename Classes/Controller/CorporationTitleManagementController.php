@@ -36,6 +36,12 @@ namespace Gerh\Evecorp\Controller;
 class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
+	 * @inject
+	 */
+	protected $corporationRepository;
+
+	/**
 	 * @var \Gerh\Evecorp\Domain\Repository\CorporationTitleRepository
 	 * @inject
 	 */
@@ -69,8 +75,15 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
 	 * index action
 	 */
 	public function indexAction() {
+
+		$hasTitleAccess = \FALSE;
+
 		if ($this->selectedCorporation > 0) {
 			$titles = $this->corporationTitleRepository->findByCorporation($this->selectedCorporation);
+			$corporation = $this->corporationRepository->findByUid($this->selectedCorporation);
+			if ($corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
+				$hasTitleAccess = $corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
+			}
 		} else {
 			$titles = array();
 		}
@@ -78,6 +91,44 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
 		$this->view->assign('amountOfSelectedCorporations', ($this->selectedCorporation > 0) ? 1 : $this->selectedCorporation);
 		$this->view->assign('titles', $titles);
 		$this->view->assign('amountOfTitles', \count($titles));
+		$this->view->assign('titleAccess', $hasTitleAccess);
+	}
+
+	/**
+	 * fetch action
+	 */
+	public function fetchAction() {
+		if ($this->selectedCorporation < 1) {
+			$this->addFlashMessage('No corporation selected!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+			$this->redirect('index');
+		}
+
+		// fetch corporation from database
+		$corporation = $this->corporationRepository->findByUid($this->selectedCorporation);
+		if (! $corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
+			$this->addFlashMessage('Corporation not found!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+			$this->redirect('index');
+		}
+
+		// determinate api key with corp title access
+		$corporationApiKey = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
+		if (! $corporationApiKey instanceof \Gerh\Evecorp\Domain\Model\ApiKeyCorporation) {
+			$this->addFlashMessage('No corporation api key found with title access!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+			$this->redirect('index');
+		}
+
+		$mapper = new \Gerh\Evecorp\Domain\Mapper\CorporationTitleMapper($corporationApiKey);
+		// fetch corp titles with this key
+		$newCorporationTitles = $mapper->fetchCorporationTitles();
+		// clear all existing corp titles
+		$corporation->removeAllCorporationTitles();
+		// add new corp titles (could be empty)
+		$corporation->setCorporationTitles($newCorporationTitles);
+		// update / persistence corporation object
+		$this->corporationRepository->update($corporation);
+
+		$this->addFlashMessage('Successful fetched corporation titles.' );
+		$this->redirect('index');
 	}
 
 }

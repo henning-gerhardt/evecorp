@@ -36,7 +36,9 @@
 				</table>
 			</div>
 		</f:if>
-		<p><f:link.action action="fetch" controller=""><f:translate key="corporationtitlemanagement.index.discardandfetch">Discard old and fetch new corporation titles</f:translate></f:link.action></p>
+		<f:if condition="{titleAccess}">
+			<p><f:link.action action="fetch" controller="CorporationTitleManagement"><f:translate key="corporationtitlemanagement.index.discardandfetch">Discard old and fetch new corporation titles</f:translate></f:link.action></p>
+		</f:if>
 	</f:then>
 	<f:else>
 		<p class="text-warning"><f:translate key="corporationtitlemanagement.index.nocorporationselected">No corporation selected in plugin options.</f:translate></p>

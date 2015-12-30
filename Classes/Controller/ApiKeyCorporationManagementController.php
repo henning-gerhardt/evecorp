@@ -76,12 +76,23 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
 	 * @return void
 	 */
 	public function indexAction() {
+
+		$hasTitleAccess = \FALSE;
+
+		if ($this->selectedCorporation > 0) {
+			$apiKeys = $this->apiKeyCorporationRepository->findByCorporation($this->selectedCorporation);
+			$corporation = $this->corporationRepository->findByUid($this->selectedCorporation);
+			if ($corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
+				$hasTitleAccess = $corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
+			}
+		} else {
+			$apiKeys = array();
+		}
 		
-		$apiKeys = $this->apiKeyCorporationRepository->findByCorporation($this->selectedCorporation);
 
 		$this->view->assign('keys', $apiKeys);
 		$this->view->assign('amountOfSelectedCorporations', ($this->selectedCorporation > 0) ? 1 : $this->selectedCorporation);
-		
+		$this->view->assign('titleAccess', $hasTitleAccess);
 	}
 
 	/**

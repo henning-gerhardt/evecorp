@@ -60,7 +60,7 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $currentAlliance;
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\CorporationTitles>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\CorporationTitle>
 	 * @lazy
 	 */
 	protected $titles;
@@ -196,6 +196,9 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyCorporation>
 	 */
 	public function getApiKeys() {
+		if ($this->apikeys instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->apikeys->_loadRealInstance();
+		}
 		return $this->apikeys;
 	}
 
@@ -265,6 +268,42 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setCorporationTitles(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $titles) {
 		$this->titles = $titles;
+	}
+
+	/**
+	 * Prove if any corporation api key with requested access mask
+	 *
+	 * @param \integer $accessMaskToProve
+	 * @return \boolean
+	 */
+	public function hasAccessTo($accessMaskToProve) {
+		$result = \FALSE;
+		foreach ($this->getApiKeys() as $apiKey) {
+			if ($apiKey->hasAccessTo($accessMaskToProve)) {
+				$result = \TRUE;
+				break;
+			}
+		}
+		return $result;
+	}
+
+	/**
+	 * Find / Search for first corporaton api key which match access mask
+	 * requirements. If none is found NULL is returned.
+	 *
+	 * @param \integer $accessMaskToSearchFor
+	 * @return \NULL|\Gerh\Evecorp\Domain\Model\ApiKeyCorporation
+	 */
+	public function findFirstApiKeyByAccessMask($accessMaskToSearchFor) {
+		$result = \NULL;
+		foreach ($this->getApiKeys() as $apiKey) {
+			if ($apiKey->hasAccessTo($accessMaskToSearchFor)) {
+				$result = $apiKey;
+				break;
+			}
+		}
+
+		return $result;
 	}
 
 }

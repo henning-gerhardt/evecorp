@@ -105,4 +105,129 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->assertEquals($expected, $corporation->getAllianceName());
 	}
 
+	/**
+	 * @test
+	 */
+	public function corporationApiKeyCouldBeSet() {
+		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+		$apiKey->setAccessMask(
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+			);
+		$apiKey->setKeyId(12345678);
+		$apiKey->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+		$corporation->addApiKey($apiKey);
+		$this->assertTrue($corporation->getApiKeys()->contains($apiKey));
+	}
+
+	/**
+	 * @test
+	 */
+	public function hasApiKeyWithProperAccessMask() {
+		$apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+		$apiKeyOne->setAccessMask(
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+			);
+		$apiKeyOne->setKeyId(12345678);
+		$apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+
+		$apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+		$apiKeyTwo->setAccessMask(
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
+			);
+		$apiKeyTwo->setKeyId(123456789);
+		$apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
+
+		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+		$corporation->addApiKey($apiKeyOne);
+		$corporation->addApiKey($apiKeyTwo);
+
+		$this->assertTrue($corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY));
+	}
+
+	/**
+	 * @test
+	 */
+	public function hasNoneApiKeyWithProperAccessMask() {
+		$apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+		$apiKeyOne->setAccessMask(
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+			);
+		$apiKeyOne->setKeyId(12345678);
+		$apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+
+		$apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+		$apiKeyTwo->setAccessMask(
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
+			);
+		$apiKeyTwo->setKeyId(123456789);
+		$apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
+
+		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+		$corporation->addApiKey($apiKeyOne);
+		$corporation->addApiKey($apiKeyTwo);
+
+		$this->assertFalse($corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::KILLLOG));
+	}
+
+	/**
+	 * @test
+	 */
+	public function findApiKeyByAccessMask() {
+		$apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+		$apiKeyOne->setAccessMask(
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+			);
+		$apiKeyOne->setKeyId(12345678);
+		$apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+
+		$apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+		$apiKeyTwo->setAccessMask(
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
+			);
+		$apiKeyTwo->setKeyId(123456789);
+		$apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
+
+		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+		$corporation->addApiKey($apiKeyOne);
+		$corporation->addApiKey($apiKeyTwo);
+
+		$result = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
+		$this->assertEquals($apiKeyTwo, $result);
+	}
+
+	/**
+	 * @test
+	 */
+	public function findNoneApiKeyByAccessMask() {
+		$apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+		$apiKeyOne->setAccessMask(
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+			);
+		$apiKeyOne->setKeyId(12345678);
+		$apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+
+		$apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+		$apiKeyTwo->setAccessMask(
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
+				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
+			);
+		$apiKeyTwo->setKeyId(123456789);
+		$apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
+
+		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+		$corporation->addApiKey($apiKeyOne);
+		$corporation->addApiKey($apiKeyTwo);
+
+		$result = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEDALS);
+		$this->assertNull($result);
+	}
 }
