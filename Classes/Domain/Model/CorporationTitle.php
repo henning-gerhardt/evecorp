@@ -136,7 +136,7 @@ class CorporationTitle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup
 	 * @return void
 	 */
-	public function setUsergroup(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup) {
+	public function setUsergroup(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup = \NULL) {
 		$this->usergroup = $usergroup;
 	}
 
