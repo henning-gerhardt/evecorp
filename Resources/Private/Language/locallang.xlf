@@ -157,6 +157,21 @@
 			<trans-unit id="corporationtitlemanagement.index.nocorporationselected" xml:space="preserve">
 				<source>No corporation selected in plugin options.</source>
 			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.edit.titleid" xml:space="preserve">
+				<source>Title id</source>
+			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.edit.titlename" xml:space="preserve">
+				<source>Title name</source>
+			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.edit.usergroup" xml:space="preserve">
+				<source>Frontend user group</source>
+			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.edit.submit" xml:space="preserve">
+				<source>Submit</source>
+			</trans-unit>
+			<trans-unit id="corporationtitlemanagement.edit.welcome" xml:space="preserve">
+				<source>Edit frontend user group for corporation title</source>
+			</trans-unit>
 			<trans-unit id="corporationtitlemanagement.index.backto" xml:space="preserve">
 				<source>Back to corporation api key management.</source>
 			</trans-unit>

@@ -58,12 +58,12 @@ if (!defined ('TYPO3_MODE')) {
     'Pi5',
     array(
         'ApiKeyCorporationManagement' => 'index,new,create,delete',
-        'CorporationTitleManagement' => 'index,fetch',
+        'CorporationTitleManagement' => 'index,fetch,edit,update',
     ),
     // non-cacheable actions
     array(
         'ApiKeyCorporationManagement' => 'index,new,create,delete',
-        'CorporationTitleManagement' => 'index,fetch',
+        'CorporationTitleManagement' => 'index,fetch,edit,update',
     )
 );
 

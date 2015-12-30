@@ -48,6 +48,13 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
 	protected $corporationTitleRepository;
 
 	/**
+	 *
+	 * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository
+	 * @inject
+	 */
+	protected $frontendUserGroupRepository;
+
+	/**
 	 * Hold selected corporation uid
 	 *
 	 * @var \integer
@@ -131,4 +138,32 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
 		$this->redirect('index');
 	}
 
+	/**
+	 * edit action
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle
+	 */
+	public function editAction(\Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle) {
+		$this->view->assign('corporationTitle', $corporationTitle);
+		$defaultQuerySettings = new \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings();
+		$defaultQuerySettings->setRespectStoragePage(\FALSE);
+		$this->frontendUserGroupRepository->setDefaultQuerySettings($defaultQuerySettings);
+		$usergroups = array(0 => 'none');
+		foreach($this->frontendUserGroupRepository->findAll() as $frontendUserGroup) {
+			$usergroups[$frontendUserGroup->getUid()] = $frontendUserGroup->getTitle();
+		}
+
+		$this->view->assign('usergroups', $usergroups);
+	}
+
+	/**
+	 * update action
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle
+	 */
+	public function updateAction(\Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle) {
+		$this->corporationTitleRepository->update($corporationTitle);
+		$this->addFlashMessage('Corporation title successful changed.');
+		$this->redirect('index');
+	}
 }
