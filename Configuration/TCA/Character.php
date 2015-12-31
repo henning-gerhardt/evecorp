@@ -9,7 +9,7 @@ $TCA['tx_evecorp_domain_model_character'] = array(
 		'showRecordFieldList' => 'character_name, character_id, hidden',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'character_name, character_id, current_corporation, employments, race, security_status, api_key, corp_member, hidden'),
+		'1' => array('showitem' => 'character_name, character_id, current_corporation, employments, race, security_status, api_key, corp_member, titles, hidden'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -35,7 +35,7 @@ $TCA['tx_evecorp_domain_model_character'] = array(
 		),
 		'corp_member' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.corpmember',
+			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account.corpmember',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
@@ -102,6 +102,23 @@ $TCA['tx_evecorp_domain_model_character'] = array(
 				'size' => 20,
 				'eval' => 'trim',
 				'default' => '0.00000000000000',
+			),
+		),
+		'titles' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation_title',
+			'config' => array(
+				'type' => 'select',
+				'size' => 10,
+				'minitems' => 0,
+				'multiple' => TRUE,
+				'maxitems' => 9999,
+				'autoSizeMax' => 5,
+				'foreign_table' => 'tx_evecorp_domain_model_corporationtitle',
+				'foreign_table_where' => ' AND tx_evecorp_domain_model_corporationtitle.corporation=###REC_FIELD_current_corporation###',
+				'MM' => 'tx_evecorp_domain_model_corporationtitle_character_mm',
+				'MM_hasUidField' => TRUE,
+				'MM_opposite_field' => 'characters', // only needed on one side of n:m relation
 			),
 		),
 	),

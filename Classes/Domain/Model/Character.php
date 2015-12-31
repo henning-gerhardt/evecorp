@@ -89,10 +89,18 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $securityStatus;
 
 	/**
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\CorporationTitle>
+	 * @lazy
+	 */
+	protected $titles;
+
+	/**
 	 * class constructor
 	 */
 	public function __construct() {
 		$this->employments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->titles = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 	/**
@@ -212,6 +220,10 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\EmploymentHistory>
 	 */
 	public function getEmployments() {
+		if ($this->employments instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->employments->_loadRealInstance();
+		}
+
 		return $this->employments;
 	}
 
@@ -276,4 +288,50 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->securityStatus = $securityStatus;
 	}
 
+	/**
+	 * Add corporation title
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $title
+	 */
+	public function addTitle(\Gerh\Evecorp\Domain\Model\CorporationTitle $title) {
+		$this->titles->attach($title);
+	}
+
+	/**
+	 * Return characters corporation titles
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\CorporationTitle>
+	 */
+	public function getTitles() {
+		if ($this->titles instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->titles->_loadRealInstance();
+		}
+
+		return $this->titles;
+	}
+
+	/**
+	 * Remove a single corporation title
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $title
+	 */
+	public function removeTitle(\Gerh\Evecorp\Domain\Model\CorporationTitle $title) {
+		$this->titles->detach($title);
+	}
+
+	/**
+	 * Remove all corporation titles from character
+	 */
+	public function removeAllTitles() {
+		$this->titles = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Set corporation titles of character
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $titles
+	 */
+	public function setTitles(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $titles) {
+		$this->titles = $titles;
+	}
 }

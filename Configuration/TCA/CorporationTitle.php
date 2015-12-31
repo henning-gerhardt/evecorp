@@ -9,7 +9,7 @@ $TCA['tx_evecorp_domain_model_corporationtitle'] = array(
 		'showRecordFieldList' => 'title_id, title_name, corporation, hidden',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'title_id, title_name, corporation, usergroup, hidden'),
+		'1' => array('showitem' => 'title_id, title_name, corporation, usergroup, characters, hidden'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -56,6 +56,22 @@ $TCA['tx_evecorp_domain_model_corporationtitle'] = array(
 				'items' => array(
 					array('--none--', 0),
 				)
+			),
+		),
+		'characters' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
+			'config' => array(
+				'type' => 'select',
+				'size' => 10,
+				'minitems' => 0,
+				'multiple' => TRUE,
+				'maxitems' => 9999,
+				'autoSizeMax' => 5,
+				'foreign_table' => 'tx_evecorp_domain_model_character',
+				'foreign_table_where' => ' AND tx_evecorp_domain_model_character.current_corporation=###REC_FIELD_corporation###',
+				'MM' => 'tx_evecorp_domain_model_corporationtitle_character_mm',
+				'MM_hasUidField' => TRUE,
 			),
 		),
 	),

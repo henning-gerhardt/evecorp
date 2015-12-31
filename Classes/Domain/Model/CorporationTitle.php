@@ -35,6 +35,12 @@ namespace Gerh\Evecorp\Domain\Model;
 class CorporationTitle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
+	 * @lazy
+	 */
+	protected $characters;
+
+	/**
 	 * @var \integer
 	 * @validate NotEmpty
 	 * @validate Integer
@@ -60,6 +66,13 @@ class CorporationTitle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $usergroup;
 
 	/**
+	 * class constructor
+	 */
+	public function __construct() {
+		$this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
 	 * Returns corporation
 	 *
 	 * @return \Gerh\Evecorp\Domain\Model\Corporation
@@ -72,7 +85,7 @@ class CorporationTitle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		return $this->corporation;
 	}
 
-		/**
+	/**
 	 * Return title id
 	 *
 	 * @return \integer
@@ -140,4 +153,50 @@ class CorporationTitle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->usergroup = $usergroup;
 	}
 
+	/**
+	 * Add character to this title
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\Character $character
+	 */
+	public function addCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
+		$this->characters->attach($character);
+	}
+
+	/**
+	 * Return characters of this title
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
+	 */
+	public function getCharacters() {
+		if ($this->characters instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->characters->_loadRealInstance();
+		}
+
+		return $this->characters;
+	}
+
+	/**
+	 * Remove a single character
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\Character $character
+	 */
+	public function removeCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
+		$this->characters->detach($character);
+	}
+
+	/**
+	 * Remove all characters from this title
+	 */
+	public function removeAllCharacters() {
+		$this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Set characters of this title
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $characters
+	 */
+	public function setCharacters(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $characters) {
+		$this->characters = $characters;
+	}
 }

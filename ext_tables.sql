@@ -184,6 +184,7 @@ CREATE TABLE `tx_evecorp_domain_model_corporationtitle` (
 	`title_name` varchar(255) DEFAULT '' NOT NULL,
 	`corporation` int(11) DEFAULT '0',
 	`usergroup` int(11) DEFAULT '0',
+	`characters` int(11) DEFAULT '0' NOT NULL,
 
 	`tstamp` int(11) unsigned DEFAULT '0' NOT NULL,
 	`crdate` int(11) unsigned DEFAULT '0' NOT NULL,
@@ -209,6 +210,7 @@ CREATE TABLE `tx_evecorp_domain_model_character` (
 	`employments` int(11) DEFAULT '0' NOT NULL,
 	`race` varchar(255) DEFAULT '' NOT NULL,
 	`security_status` DECIMAL(16,14) DEFAULT '0.00000000000000' NOT NULL,
+	`titles` int(11) DEFAULT '0' NOT NULL,
 
 	`tstamp` int(11) unsigned DEFAULT '0' NOT NULL,
 	`crdate` int(11) unsigned DEFAULT '0' NOT NULL,
@@ -238,6 +240,27 @@ CREATE TABLE `tx_evecorp_domain_model_employmenthistory` (
 
 	PRIMARY KEY (`uid`),
 	KEY parent (`pid`)
+);
+
+#
+# Table structure for table 'tx_evecorp_domain_model_corporationtitle_character_mm'
+#
+CREATE TABLE `tx_evecorp_domain_model_corporationtitle_character_mm` (
+	`uid` int(11) NOT NULL auto_increment,
+	`pid` int(11) DEFAULT '0' NOT NULL,
+
+	`uid_local` int(11) unsigned DEFAULT '0' NOT NULL,
+	`uid_foreign` int(11) unsigned DEFAULT '0' NOT NULL,
+	`sorting` int(11) unsigned DEFAULT '0' NOT NULL,
+	`sorting_foreign` int(11) unsigned DEFAULT '0' NOT NULL,
+
+	`tstamp` int(11) unsigned DEFAULT '0' NOT NULL,
+	`crdate` int(11) unsigned DEFAULT '0' NOT NULL,
+	`deleted` tinyint(3) unsigned DEFAULT '0' NOT NULL,
+	`hidden` tinyint(3) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (`uid`),
+	KEY parent (`pid`,`uid_local`,`uid_foreign`)
 );
 
 #
