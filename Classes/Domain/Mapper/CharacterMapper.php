@@ -47,6 +47,13 @@ class CharacterMapper {
 	protected $allianceRepositoryStoragePids;
 
 	/**
+	 * Holds api  key
+	 *
+	 * @var \Gerh\Evecorp\Domain\Model\ApiKey
+	 */
+	protected $apiKey;
+
+	/**
 	 * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
 	 */
 	protected $characterRepository;
@@ -251,14 +258,32 @@ class CharacterMapper {
 	}
 
 	/**
+	 * Set characters corporation titles
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\Character $characterModel
+	 * @param \Pheal\Core\RowSet $fetchedTitles
+	 */
+	protected function setCharacterCorporationTitles(\Gerh\Evecorp\Domain\Model\Character $characterModel, \Pheal\Core\RowSet $fetchedTitles) {
+		$existingCorpTitles = $characterModel->getCurrentCorporation()->getCorporationTitles();
+		$characterModel->removeAllTitles();
+		foreach ($fetchedTitles as $fetchedTitle) {
+			/* @var $existingCorpTitle \Gerh\Evecorp\Domain\Model\CorporationTitle */
+			foreach($existingCorpTitles as $existingCorpTitle) {
+				if ($existingCorpTitle->getTitleId() === intval($fetchedTitle->titleID)) {
+					$characterModel->addTitle($existingCorpTitle);
+				}
+			}
+		}
+	}
+
+	/**
 	 * class constructor
 	 */
 	public function __construct(\Gerh\Evecorp\Domain\Model\ApiKey $apiKeyModel) {
 
-		$keyId = $apiKeyModel->getKeyId();
-		$vCode = $apiKeyModel->getVCode();
+		$this->apiKey = $apiKeyModel;
 		$scope = 'eve';
-		$this->phealService = new \Gerh\Evecorp\Service\PhealService($keyId, $vCode, $scope);
+		$this->phealService = new \Gerh\Evecorp\Service\PhealService($this->apiKey->getKeyId(), $this->apiKey->getVCode(), $scope);
 		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 
 		$this->setAllianceRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\AllianceRepository'));
@@ -303,12 +328,28 @@ class CharacterMapper {
 
 			$this->addEmploymentHistoryOfCharacter($character, $response->employmentHistory);
 
-			return $character;
-
 		} catch (\Exception $ex) {
 			$this->errorMessage = 'Fetched general Exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
 			return NULL;
 		}
+
+		if ($this->apiKey->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Character::CHARACTERSHEET)) {
+			try {
+				$response = $pheal->charScope->CharacterSheet(array('CharacterID' => $characterId));
+			} catch (\Pheal\Exceptions\PhealException $ex) {
+				$this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage();
+				return \NULL;
+			}
+
+			try {
+				$this->setCharacterCorporationTitles($character, $response->corporationTitles);
+			} catch (\Exception $ex) {
+				$this->errorMessage = 'Fetched general Exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
+				return \NULL;
+			}
+		}
+
+		return $character;
 
 	}
 
@@ -379,6 +420,22 @@ class CharacterMapper {
 		} catch (\Exception $ex) {
 			$this->errorMessage = 'Fetched general Exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
 			return FALSE;
+		}
+
+		if ($this->apiKey->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Character::CHARACTERSHEET)) {
+			try {
+				$response = $pheal->charScope->CharacterSheet(array('CharacterID' => $characterId));
+			} catch (\Pheal\Exceptions\PhealException $ex) {
+				$this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage();
+				return \FALSE;
+			}
+
+			try {
+				$this->setCharacterCorporationTitles($characterModel, $response->corporationTitles);
+			} catch (\Exception $ex) {
+				$this->errorMessage = 'Fetched general Exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
+				return \FALSE;
+			}
 		}
 
 		return TRUE;
