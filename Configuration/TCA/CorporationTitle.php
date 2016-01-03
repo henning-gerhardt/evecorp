@@ -27,8 +27,7 @@ $TCA['tx_evecorp_domain_model_corporationtitle'] = array(
 			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation_title.titleid',
 			'config' => array(
 				'type' => 'input',
-				'size' => 10,
-				'eval' => 'trim,int,required,unique'
+				'eval' => 'trim,int,required'
 			)
 		),
 		'title_name' => array(
