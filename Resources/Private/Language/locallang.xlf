@@ -118,6 +118,9 @@
 			<trans-unit id="charactermangement.show.securitystatus" xml:space="preserve">
 				<source>Security status</source>
 			</trans-unit>
+			<trans-unit id="charactermangement.show.corporationtitle" xml:space="preserve">
+				<source>Corporation title(s)</source>
+			</trans-unit>
 			<trans-unit id="charactermangement.show.employmenthistory" xml:space="preserve">
 				<source>Employment history</source>
 			</trans-unit>

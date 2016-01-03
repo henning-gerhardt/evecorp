@@ -22,6 +22,16 @@
 				<dd>{character.race}</dd>
 				<dt><f:translate key="charactermanagment.show.securitystatus">Security status</f:translate>:</dt>
 				<dd><f:format.number decimals="2">{character.securityStatus}</f:format.number></dd>
+				<f:if condition="{character.titles}">
+					<dt><f:translate key="charactermangement.show.corporationtitle">Corporation titles</f:translate>:</dt>
+					<dd>
+						<ul>
+							<f:for each="{character.titles}" as="title">
+								<li>{title.titleName}</li>
+							</f:for>
+						</ul>
+					</dd>
+				</f:if>
 				<dt><f:translate key="charactermanagment.show.employmenthistory">Employment history</f:translate>:</dt>
 				<dd>
 					<div class="table-responsive">
