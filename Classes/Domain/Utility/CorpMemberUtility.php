@@ -47,6 +47,14 @@ class CorpMemberUtility {
 			if ((empty($corpUserGroup) === false) && (\array_key_exists($corpUserGroup->getUid(), $collected) === false)) {
 				$collected[$corpUserGroup->getUid()] = $corpUserGroup;
 			}
+
+			/* @var $corpTitle \Gerh\Evecorp\Domain\Model\CorporationTitle */
+			foreach($character->getTitles() as $corpTitle) {
+				$corpTitleGroup = $corpTitle->getUsergroup();
+				if ((empty($corpTitleGroup) === \FALSE) && (\array_key_exists($corpTitleGroup->getUid(), $collected) === \FALSE)) {
+					$collected[$corpTitleGroup->getUid()] = $corpTitleGroup;
+				}
+			}
 		}
 		return $collected;
 	}
