@@ -220,6 +220,8 @@ class CharacterMapper {
 		if ((! empty($allianceId)) && (! empty($allianceName))) {
 			$allianceModel = $this->getOrCreateAllianceModel($allianceId, $allianceName);
 			$corporationModel->setCurrentAlliance($allianceModel);
+		} else {
+			$corporationModel->setCurrentAlliance(\NULL);
 		}
 		$character->setCurrentCorporation($corporationModel);
 	}
