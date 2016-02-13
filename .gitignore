@@ -216,3 +216,6 @@ pip-log.txt
 
 ## Netbeans IDE
 nbproject/
+
+vendor/
+composer.lock
