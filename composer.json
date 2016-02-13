@@ -15,9 +15,15 @@
 		}
 	],
 	"require": {
-		"php": ">=5.4.0"
-	},
-	"require-dev": {
+		"php": ">=5.4.0",
 		"3rdpartyeve/phealng": "2.1.0"
+	},
+	"replace": {
+		"evecorp": "self.version"
+	},
+	"autoload": {
+		"psr-4": {
+			"Gerh\\Evecorp\\": "Classes"
+		}
 	}
 }
