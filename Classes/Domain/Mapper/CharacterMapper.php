@@ -212,6 +212,9 @@ class CharacterMapper {
 		$character->setRace($response->race);
 		$character->setSecurityStatus($response->securityStatus);
 
+		$corporationDate = new \Gerh\Evecorp\Domain\Model\DateTime($response->corporationDate, new \DateTimeZone('UTC'));
+		$character->setCorporationDate($corporationDate);
+
 		$character->setPid($this->characterRepositoryStoragePids[0]);
 
 		$corporationModel = $this->getOrCreateCorporationModel(\intval($response->corporationID), $response->corporation);

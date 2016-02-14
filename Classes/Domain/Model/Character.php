@@ -59,6 +59,12 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $corpMember;
 
 	/**
+	 * @var \Gerh\Evecorp\Domain\Model\DateTime
+	 * @validate NotEmpty
+	 */
+	protected $corporationDate;
+
+	/**
 	 * @var \Gerh\Evecorp\Domain\Model\Alliance
 	 * @lazy
 	 */
@@ -89,7 +95,6 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $securityStatus;
 
 	/**
-	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\CorporationTitle>
 	 * @lazy
 	 */
@@ -181,6 +186,25 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setCorpMember(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember = NULL) {
 		$this->corpMember = $corpMember;
+	}
+
+	/**
+	 * Get date when character joined his current corporation.
+	 * This information could be retrieved from employment history too.
+	 *
+	 * @return \Gerh\Evecorp\Domain\Model\DateTime
+	 */
+	public function getCorporationDate() {
+		return $this->corporationDate;
+	}
+
+	/**
+	 * Set date when character joins his current corporation.
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\DateTime $corporationDate
+	 */
+	public function setCorporationDate(\Gerh\Evecorp\Domain\Model\DateTime $corporationDate) {
+		$this->corporationDate = $corporationDate;
 	}
 
 	/**

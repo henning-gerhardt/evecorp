@@ -13,7 +13,9 @@
 				<dt><f:translate key="charactermanagment.show.name">Name</f:translate>:</dt>
 				<dd>{character.characterName}</dd>
 				<dt><f:translate key="charactermanagment.show.corporation">Corporation</f:translate>:</dt>
-				<dd>{character.currentCorporation.corporationName}</dd>
+				<dd>{character.currentCorporation.corporationName}
+					(<f.translate key="charactermanagment.show.joined">joined</f.translate> <f:format.date format="d.m.Y">{character.corporationDate}</f:format.date>)
+				</dd>
 				<f:if condition="{character.currentCorporation.currentAlliance}">
 				<dt><f:translate key="charactermanagment.show.alliance">Alliance</f:translate>:</dt>
 				<dd>{character.currentCorporation.currentAlliance.allianceName}</dd>
