@@ -29,6 +29,12 @@ Why not develop something in two things which makes fun? Typo3 extension develop
 
 Started as basic example of Typo3 extension development on version 6.0 (how its works in general and what changed since version 4.2) and searching of current market data from Jita 4-4, the idea was born to merge this two things together. After first presentation inside my corporation some suggestions (f.e. showing / hiding prices based on corporation tax) were made and later implemented. Other suggestions came through development and using earlier versions like caching of market data to reduce calling third party sites.
 
+## Code analysis
+
+Using automatic code analysis tools is a good practice and used in this project 
+
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/1221c637986c4e939f0a927aeafd46a6)](https://www.codacy.com/app/henning-gerhardt/evecorp)
+
 ## Copyright notice
 
 * EVE Online and any IP of EVE Online are copyrighted by CCP hf. ( ©CCP hf. All rights reserved. Used with permission. )
