@@ -41,6 +41,22 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	protected $characterRepository;
 
 	/**
+	 * Show corporation member list
+	 *
+	 * @return void
+	 */
+	public function indexAction() {
+		$choosedCorporation = (\strlen($this->settings['corporation']) > 0) ?
+				\TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : array();
+		if (\count($choosedCorporation) == 1) {
+			$corpMembers = $this->characterRepository->findAllCharactersSortedByCharacterName($choosedCorporation);
+		} else {
+			$corpMembers = array();
+		}
+		$this->view->assign('corpMembers', $corpMembers);
+	}
+
+	/**
 	 * Show corporation member list (light)
 	 *
 	 * @return void
