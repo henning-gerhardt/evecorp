@@ -284,7 +284,11 @@ class CharacterMapper {
 	/**
 	 * class constructor
 	 */
-	public function __construct(\Gerh\Evecorp\Domain\Model\ApiKey $apiKeyModel) {
+	public function __construct(\Gerh\Evecorp\Domain\Model\ApiKey $apiKeyModel = \NULL) {
+
+		if ($apiKeyModel === \NULL) {
+			$apiKeyModel = new \Gerh\Evecorp\Domain\Model\ApiKey();
+		}
 
 		$this->apiKey = $apiKeyModel;
 		$scope = 'eve';
