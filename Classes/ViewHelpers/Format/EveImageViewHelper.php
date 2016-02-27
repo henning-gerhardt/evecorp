@@ -60,7 +60,7 @@ class EveImageViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBas
 	 */
 	public function render() {
 		// use protocol less uri as of http://www.ietf.org/rfc/rfc3986.txt
-		$imageUri = '//image.eveonline.com/Character/' . $this->arguments['characterId'] . '_' . $this->arguments['size'] . '.jpg';
+		$imageUri = '//imageserver.eveonline.com/Character/' . $this->arguments['characterId'] . '_' . $this->arguments['size'] . '.jpg';
 		$this->tag->addAttribute('src', $imageUri);
 		$this->tag->addAttribute('alt', $this->arguments['characterName']);
 		$this->tag->addAttribute('title', $this->arguments['characterName']);
