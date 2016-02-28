@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Controller;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Controller;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Controller;
 
 /**
  *
@@ -32,7 +33,7 @@ namespace Gerh\Evecorp\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController{
+class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
 	 * @var \Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
@@ -70,7 +71,7 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 * @ignorevalidation $newApiKey
 	 * @return void
 	 */
-	public function newAction(\Gerh\Evecorp\Domain\Model\ApiKey $newApiKey = NULL) {
+	public function newAction(\Gerh\Evecorp\Domain\Model\ApiKey $newApiKey = \NULL) {
 		$this->view->assign('newApiKey', $newApiKey);
 
 		$accessMask = \Gerh\Evecorp\Domain\Utility\AccessMaskUtility::getAccessMask();
@@ -86,7 +87,7 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	public function createAction(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $newApiKeyAccount) {
 		$corpMember = $this->accessControlService->getCorpMember();
 
-		if (($corpMember === NULL) || (! $corpMember instanceof \Gerh\Evecorp\Domain\Model\CorpMember)) {
+		if (($corpMember === \NULL) || (!$corpMember instanceof \Gerh\Evecorp\Domain\Model\CorpMember)) {
 			$this->addFlashMessage('FE user not defined as Gerh_Evecorp_Domain_Model_CorpMember. Notice your local Typo3 administrator to change your account to correct record type!', 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 			$this->redirect('index');
 			return;
@@ -94,10 +95,10 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 
 		$newApiKeyAccount->setCorpMember($corpMember);
 
-		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyMapper();
+		$mapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\ApiKeyMapper');
 		$result = $mapper->fillUpModel($newApiKeyAccount);
 
-		if ($result ===  TRUE) {
+		if ($result === \TRUE) {
 			$this->apiKeyAccountRepository->add($newApiKeyAccount);
 		} else {
 			$this->addFlashMessage($mapper->getErrorMessage(), 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
@@ -134,10 +135,10 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 * @return void
 	 */
 	public function updateAction(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
-		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyMapper();
+		$mapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\ApiKeyMapper');
 
 		$result = $mapper->updateApiKeyAccount($apiKeyAccount);
-		if ($result === TRUE) {
+		if ($result === \TRUE) {
 			$this->apiKeyAccountRepository->update($apiKeyAccount);
 		} else {
 			$this->addFlashMessage($mapper->getErrorMessage(), 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
@@ -149,4 +150,5 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 
 		$this->redirect('index');
 	}
+
 }
