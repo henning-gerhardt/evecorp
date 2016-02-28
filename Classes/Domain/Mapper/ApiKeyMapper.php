@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Domain\Mapper;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Domain\Mapper;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Domain\Mapper;
 
 /**
  *
@@ -35,29 +36,32 @@ namespace Gerh\Evecorp\Domain\Mapper;
 class ApiKeyMapper {
 
 	/**
-	 * @var \Gerh\Evecorp\Domain\Repository\AllianceRepository
-	 */
-	protected $allianceRepository;
-
-	/**
 	 * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
+	 * @inject
 	 */
 	protected $characterRepository;
-
-	/**
-	 * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
-	 */
-	protected $corporationRepository;
-
-	/**
-	 * @var \Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository
-	 */
-	protected $employmentHistoryRepository;
 
 	/**
 	 * @var \string
 	 */
 	protected $errorMessage;
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
+	 */
+	protected $objectManager;
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+	 * @inject
+	 */
+	protected $persistenceManager;
+
+	/**
+	 * @var \int
+	 */
+	protected $storagePid;
 
 	/**
 	 * Create new character and add him to current api key
@@ -71,7 +75,7 @@ class ApiKeyMapper {
 		$characterMapper = $this->getNewCharacterMapper($apiKeyAccount);
 		$characterModel = $characterMapper->createModel($characterId);
 
-		if ($characterModel === NULL) {
+		if ($characterModel === \NULL) {
 			throw new \Exception($characterMapper->getErrorMessage());
 		}
 
@@ -87,12 +91,9 @@ class ApiKeyMapper {
 	 * @return \Gerh\Evecorp\Domain\Mapper\CharacterMapper
 	 */
 	protected function getNewCharacterMapper(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
-		$characterMapper = new \Gerh\Evecorp\Domain\Mapper\CharacterMapper($apiKeyAccount);
-
-		$characterMapper->setAllianceRepository($this->allianceRepository);
-		$characterMapper->setCharacterRepository($this->characterRepository);
-		$characterMapper->setCorporationRepository($this->corporationRepository);
-		$characterMapper->setEmploymentHistoryRepository($this->employmentHistoryRepository);
+		/* @var $characterMapper \Gerh\Evecorp\Domain\Mapper\CharacterMapper */
+		$characterMapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\CharacterMapper', $apiKeyAccount);
+		$characterMapper->setStoragePid($this->storagePid);
 
 		return $characterMapper;
 	}
@@ -104,9 +105,9 @@ class ApiKeyMapper {
 	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
 	 */
 	protected function removeCharacters(array $removedCharacterIds, \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
-		foreach($removedCharacterIds as $characterId) {
+		foreach ($removedCharacterIds as $characterId) {
 			$characterModel = $this->characterRepository->findOneByCharacterId($characterId);
-			$characterModel->setCorpMember(NULL);
+			$characterModel->setCorpMember(\NULL);
 			$this->characterRepository->update($characterModel);
 			$apiKeyAccount->removeCharacter($characterModel);
 		}
@@ -123,22 +124,10 @@ class ApiKeyMapper {
 		$characterModel = $this->characterRepository->findOneByCharacterId($characterId);
 		$characterMapper = $this->getNewCharacterMapper($apiKeyAccount);
 		$result = $characterMapper->updateModel($characterModel);
-		if ($result === FALSE) {
+		if ($result === \FALSE) {
 			throw new \Exception($characterMapper->getErrorMessage());
 		}
 		$this->characterRepository->update($characterModel);
-	}
-
-	/**
-	 * class constructor
-	 */
-	public function __construct() {
-		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-
-		$this->setAllianceRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\AllianceRepository'));
-		$this->setCorporationRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CorporationRepository'));
-		$this->setCharacterRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CharacterRepository'));
-		$this->setEmploymentHistoryRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EmploymentHistoryRepository'));
 	}
 
 	/**
@@ -173,55 +162,31 @@ class ApiKeyMapper {
 				$apiKeyAccountModel->setExpires($expires);
 			}
 
-			foreach($response->key->characters as $character) {
+			foreach ($response->key->characters as $character) {
 				$characterId = intval($character->characterID);
 				$this->createAndAddNewCharacter($characterId, $apiKeyAccountModel);
 			}
-
-			return TRUE;
 		} catch (\Pheal\Exceptions\PhealException $ex) {
 			$this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage() . '" Model was not be updated!';
-			return FALSE;
-		} catch(\Exception $e) {
+			return \FALSE;
+		} catch (\Exception $e) {
 			$this->errorMessage = 'Fetched general exception with message: "' . $e->getMessage() . '" Model was not be updated!';
-			return FALSE;
+			return \FALSE;
 		}
+
+		$this->persistenceManager->persistAll();
+
+		return \TRUE;
 	}
 
 	/**
-	 * Set alliance repository from outside
+	 * Store storage pid and initialise used repositories to use this storage pid.
 	 *
-	 * @param \Gerh\Evecorp\Domain\Repository\AllianceRepository $repository
+	 * @param \int $storagePid
 	 */
-	public function setAllianceRepository(\Gerh\Evecorp\Domain\Repository\AllianceRepository $repository) {
-		$this->allianceRepository = $repository;
-	}
-
-	/**
-	 * Set character repository from outside
-	 *
-	 * @param \Gerh\Evecorp\Domain\Repository\CharacterRepository $repository
-	 */
-	public function setCharacterRepository(\Gerh\Evecorp\Domain\Repository\CharacterRepository $repository) {
-		$this->characterRepository = $repository;
-	}
-
-	/**
-	 * Set corporation repository from outside
-	 *
-	 * @param \Gerh\Evecorp\Domain\Repository\CorporationRepository $repository
-	 */
-	public function setCorporationRepository(\Gerh\Evecorp\Domain\Repository\CorporationRepository $repository) {
-		$this->corporationRepository = $repository;
-	}
-
-	/**
-	 * Set employment history repository from outside
-	 *
-	 * @param \Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository $repository
-	 */
-	public function setEmploymentHistoryRepository(\Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository $repository) {
-		$this->employmentHistoryRepository = $repository;
+	public function setStoragePid($storagePid = 0) {
+		$this->storagePid = $storagePid;
+		$this->characterRepository->setRepositoryStoragePid($storagePid);
 	}
 
 	/**
@@ -239,7 +204,7 @@ class ApiKeyMapper {
 		$currentCharacterIds = array();
 		$wellKnownCharacterIds = array();
 
-		foreach($currentCharacters as $character) {
+		foreach ($currentCharacters as $character) {
 			$currentCharacterIds[] = intval($character->getCharacterId());
 		}
 
@@ -256,10 +221,10 @@ class ApiKeyMapper {
 				$expires = new \Gerh\Evecorp\Domain\Model\DateTime($keyExpires, new \DateTimeZone('UTC'));
 				$apiKeyAccount->setExpires($expires);
 			} else {
-				$apiKeyAccount->setExpires(NULL);
+				$apiKeyAccount->setExpires(\NULL);
 			}
 
-			foreach($response->key->characters as $character) {
+			foreach ($response->key->characters as $character) {
 				$characterId = intval($character->characterID);
 
 				if (in_array($characterId, $currentCharacterIds)) {
@@ -272,13 +237,14 @@ class ApiKeyMapper {
 
 			$removedCharacterIds = array_diff($currentCharacterIds, $wellKnownCharacterIds);
 			$this->removeCharacters($removedCharacterIds, $apiKeyAccount);
-
 		} catch (Exception $ex) {
 			$this->errorMessage = 'Fetched general exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
-			return FALSE;
+			return \FALSE;
 		}
 
-		return TRUE;
+		$this->persistenceManager->persistAll();
+
+		return \TRUE;
 	}
 
 }
