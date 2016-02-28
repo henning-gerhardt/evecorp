@@ -35,6 +35,7 @@ class CorporationMemberList {
 
 	/**
 	 * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
+	 * @inject
 	 */
 	protected $characterRepository;
 
@@ -54,14 +55,31 @@ class CorporationMemberList {
 	protected $errorMessage;
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
+	 */
+	protected $objectManager;
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+	 * @inject
+	 */
+	protected $persistenceManager;
+
+	/**
+	 * @var \int
+	 */
+	protected $storagePid;
+
+	/**
 	 * Create and store character by giben character id
 	 * @param \int $characterId
 	 * @return \boolean
 	 */
 	protected function createAndStoreNewCharacterByCharacterId($characterId) {
-		$characterMapper = new \Gerh\Evecorp\Domain\Mapper\CharacterMapper();
-
-		$characterMapper->setCharacterRepository($this->characterRepository);
+		/* @var $characterMapper \Gerh\Evecorp\Domain\Mapper\CharacterMapper */
+		$characterMapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\CharacterMapper');
+		$characterMapper->setStoragePid($this->storagePid);
 
 		$character = $characterMapper->createModel($characterId);
 		if ($character instanceof \Gerh\Evecorp\Domain\Model\Character) {
@@ -70,16 +88,6 @@ class CorporationMemberList {
 		}
 
 		return \FALSE;
-	}
-
-	/**
-	 * Returns used storage pids for given repository.
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\Repository $repository
-	 * @return array
-	 */
-	protected function getStoragePids(\TYPO3\CMS\Extbase\Persistence\Repository $repository) {
-		return $repository->createQuery()->getQuerySettings()->getStoragePageIds();
 	}
 
 	/**
@@ -108,18 +116,12 @@ class CorporationMemberList {
 	 * @param \Gerh\Evecorp\Domain\Model\Character $formerCorporationMember
 	 */
 	protected function updateFormerCorporationMember(\Gerh\Evecorp\Domain\Model\Character $formerCorporationMember) {
-		$characterMapper = new \Gerh\Evecorp\Domain\Mapper\CharacterMapper($formerCorporationMember->getApiKeyAccount());
+		/* @var $characterMapper \Gerh\Evecorp\Domain\Mapper\CharacterMapper */
+		$characterMapper = $this->objectManager->get('Gerh\Evecorp\Domain\Mapper\CharacterMapper', $formerCorporationMember->getApiKeyAccount());
+		$characterMapper->setStoragePid($this->storagePid);
+
 		$characterMapper->updateModel($formerCorporationMember);
 		$this->characterRepository->update($formerCorporationMember);
-	}
-
-	/**
-	 * class constuctor
-	 */
-	public function __construct() {
-		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-
-		$this->setCharacterRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CharacterRepository'));
 	}
 
 	/**
@@ -129,16 +131,6 @@ class CorporationMemberList {
 	 */
 	public function getErrorMessage() {
 		return $this->errorMessage;
-	}
-
-	/**
-	 * Set character repository from outside
-	 *
-	 * @param \Gerh\Evecorp\Domain\Repository\CharacterRepository $repository
-	 */
-	public function setCharacterRepository(\Gerh\Evecorp\Domain\Repository\CharacterRepository $repository) {
-		$this->characterRepository = $repository;
-		$this->characterRepositoryStoragePids = $this->getStoragePids($repository);
 	}
 
 	/**
@@ -157,6 +149,16 @@ class CorporationMemberList {
 	 */
 	public function setCorporationApiKey(\Gerh\Evecorp\Domain\Model\ApiKeyCorporation $corporationApiKey) {
 		$this->corporationApiKey = $corporationApiKey;
+	}
+
+	/**
+	 * Store storage pid and initialise used repositories to use this storage pid.
+	 *
+	 * @param \int $storagePid
+	 */
+	public function setStoragePid($storagePid = 0) {
+		$this->storagePid = $storagePid;
+		$this->characterRepository->setRepositoryStoragePid($storagePid);
 	}
 
 	/**
@@ -198,6 +200,8 @@ class CorporationMemberList {
 				$this->updateFormerCorporationMember($formerCorpMember);
 			}
 		}
+
+		$this->persistenceManager->persistAll();
 
 		return \TRUE;
 	}
