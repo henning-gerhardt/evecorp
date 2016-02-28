@@ -34,7 +34,16 @@ namespace Gerh\Evecorp\Domain\Repository;
 class BaseRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
-	 * Set storage pid of choosed repository
+	 * Returns used storage pids for this repository.
+	 *
+	 * @return array
+	 */
+	public function getRepositoryStoragePid() {
+		return $this->createQuery()->getQuerySettings()->getStoragePageIds();
+	}
+
+	/**
+	 * Set storage pid of this repository
 	 *
 	 * @param \int $storagePid
 	 */
