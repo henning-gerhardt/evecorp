@@ -1,7 +1,6 @@
 <?php
-namespace Gerh\Evecorp\Domain\Repository;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
  *  (c) 2015 Henning Gerhardt
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Domain\Repository;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Domain\Repository;
 
 /**
  *
@@ -32,6 +33,6 @@ namespace Gerh\Evecorp\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorporationTitleRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class CorporationTitleRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
 
 }
