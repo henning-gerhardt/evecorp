@@ -55,11 +55,6 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	/**
 	 * @var boolean
 	 */
-	protected $hasCorpMemberListAccess;
-
-	/**
-	 * @var boolean
-	 */
 	protected $showApiKeyState;
 
 	/**
@@ -104,7 +99,7 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	 *
 	 * @return boolean
 	 */
-	private function getCorpMemberListAcccess() {
+	private function hasCorpMemberListAccess() {
 		if (\count($this->choosedCorporation) == 1) {
 			$corporation = $this->corporationRepository->findByUid($this->choosedCorporation);
 			if ($corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
@@ -126,7 +121,6 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 
 		$this->choosedCorporation = (\strlen($this->settings['corporation']) > 0) ?
 				\TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : array();
-		$this->hasCorpMemberListAccess = $this->getCorpMemberListAcccess();
 	}
 
 	/**
@@ -137,7 +131,7 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	public function indexAction() {
 		$corpMembers = $this->characterRepository->findAllCharactersSortedByCharacterName($this->choosedCorporation);
 		$this->view->assign('corpMembers', $corpMembers);
-		$this->view->assign('hasCorpMemberListAccess', $this->hasCorpMemberListAccess);
+		$this->view->assign('hasCorpMemberListAccess', $this->hasCorpMemberListAccess());
 		$this->view->assign('showApiKeyState', $this->showApiKeyState);
 		$this->view->assign('showCorporationJoinDate', $this->showCorporationJoinDate);
 		$this->view->assign('showLoginUser', $this->showLoginUser);
@@ -166,7 +160,7 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			$this->redirect('index');
 		}
 
-		if (!$this->hasCorpMemberListAccess) {
+		if (!$this->hasCorpMemberListAccess()) {
 			$this->addFlashMessage('No access to corporation member list!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 			$this->redirect('index');
 		}
