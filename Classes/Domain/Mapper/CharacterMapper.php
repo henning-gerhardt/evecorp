@@ -337,7 +337,7 @@ class CharacterMapper {
 		}
 
 		$characterDb = $this->characterRepository->findOneByCharacterId(\intval($response->characterID));
-		if ($characterDb instanceOf \Gerh\Evecorp\Domain\Model\Character) {
+		if ($characterDb instanceof \Gerh\Evecorp\Domain\Model\Character) {
 			return $characterDb;
 		}
 
