@@ -88,7 +88,7 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	 * @param string $checkBoxName
 	 * @return boolean
 	 */
-	private function getBooleanValueFromCheckboxSetting($setting, $checkBoxName) {
+	private function hasCheckboxBooleanValue($setting, $checkBoxName) {
 		if ((\array_key_exists($checkBoxName, $setting)) && (\strlen($setting[$checkBoxName]) > 0)) {
 			return $this->convertCheckboxValueToBoolean($setting[$checkBoxName]);
 		}
@@ -114,10 +114,10 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	 */
 	public function initializeAction() {
 
-		$this->showApiKeyState = $this->getBooleanValueFromCheckboxSetting($this->settings, 'showApiKeyState');
-		$this->showCorporationJoinDate = $this->getBooleanValueFromCheckboxSetting($this->settings, 'showCorporationJoinDate');
-		$this->showCurrentCorporation = $this->getBooleanValueFromCheckboxSetting($this->settings, 'showCurrentCorporation');
-		$this->showLoginUser = $this->getBooleanValueFromCheckboxSetting($this->settings, 'showLoginUser');
+		$this->showApiKeyState = $this->hasCheckboxBooleanValue($this->settings, 'showApiKeyState');
+		$this->showCorporationJoinDate = $this->hasCheckboxBooleanValue($this->settings, 'showCorporationJoinDate');
+		$this->showCurrentCorporation = $this->hasCheckboxBooleanValue($this->settings, 'showCurrentCorporation');
+		$this->showLoginUser = $this->hasCheckboxBooleanValue($this->settings, 'showLoginUser');
 
 		$this->choosedCorporation = (\strlen($this->settings['corporation']) > 0) ?
 				\TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : array();
