@@ -185,8 +185,10 @@ class ApiKeyMapper {
 	 * @param \int $storagePid
 	 */
 	public function setStoragePid($storagePid = 0) {
-		$this->storagePid = $storagePid;
-		$this->characterRepository->setRepositoryStoragePid($storagePid);
+		if ($storagePid !== \NULL) {
+			$this->storagePid = $storagePid;
+			$this->characterRepository->setRepositoryStoragePid($storagePid);
+		}
 	}
 
 	/**

@@ -420,14 +420,16 @@ class CharacterMapper {
 	 * @param \int $storagePid
 	 */
 	public function setStoragePid($storagePid = 0) {
-		$this->allianceRepository->setRepositoryStoragePid($storagePid);
-		$this->allianceRepositoryStoragePids = array($storagePid);
-		$this->characterRepository->setRepositoryStoragePid($storagePid);
-		$this->characterRepositoryStoragePids = array($storagePid);
-		$this->corporationRepository->setRepositoryStoragePid($storagePid);
-		$this->corporationRepositoryStoragePids = array($storagePid);
-		$this->employmentHistoryRepository->setRepositoryStoragePid($storagePid);
-		$this->employmentHistoryRepositoryStoragePids = array($storagePid);
+		if ($storagePid !== \NULL) {
+			$this->allianceRepository->setRepositoryStoragePid($storagePid);
+			$this->allianceRepositoryStoragePids = array($storagePid);
+			$this->characterRepository->setRepositoryStoragePid($storagePid);
+			$this->characterRepositoryStoragePids = array($storagePid);
+			$this->corporationRepository->setRepositoryStoragePid($storagePid);
+			$this->corporationRepositoryStoragePids = array($storagePid);
+			$this->employmentHistoryRepository->setRepositoryStoragePid($storagePid);
+			$this->employmentHistoryRepositoryStoragePids = array($storagePid);
+		}
 	}
 
 	/**
