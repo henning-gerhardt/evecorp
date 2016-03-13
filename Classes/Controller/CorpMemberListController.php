@@ -55,22 +55,78 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	/**
 	 * @var boolean
 	 */
-	protected $hasCorpmemberListAccess;
+	protected $hasCorpMemberListAccess;
+
+	/**
+	 * @var boolean
+	 */
+	protected $showApiKeyState;
+
+	/**
+	 * @var boolean
+	 */
+	protected $showCorporationJoinDate;
+
+	/**
+	 * @var boolean
+	 */
+	protected $showCurrentCorporation;
+
+	/**
+	 * @var boolean
+	 */
+	protected $showLoginUser;
+
+	/**
+	 *
+	 * @param string $booleanString
+	 * @return boolean
+	 */
+	private function convertCheckboxValueToBoolean($booleanString) {
+		// an activated chechkbox returning string with value one
+		return ($booleanString == '1') ? \TRUE : \FALSE;
+	}
+
+	/**
+	 *
+	 * @param array $setting
+	 * @param string $checkBoxName
+	 * @return boolean
+	 */
+	private function getBooleanValueFromCheckboxSetting($setting, $checkBoxName) {
+		if ((\array_key_exists($checkBoxName, $setting)) && (\strlen($setting[$checkBoxName]) > 0)) {
+			return $this->convertCheckboxValueToBoolean($setting[$checkBoxName]);
+		}
+		return \FALSE;
+	}
+
+	/**
+	 *
+	 * @return boolean
+	 */
+	private function getCorpMemberListAcccess() {
+		if (\count($this->choosedCorporation) == 1) {
+			$corporation = $this->corporationRepository->findByUid($this->choosedCorporation);
+			if ($corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
+				return $corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERTRACKINGLIMITED);
+			}
+		}
+		return \FALSE;
+	}
 
 	/**
 	 * Called before every action method call.
 	 */
 	public function initializeAction() {
+
+		$this->showApiKeyState = $this->getBooleanValueFromCheckboxSetting($this->settings, 'showApiKeyState');
+		$this->showCorporationJoinDate = $this->getBooleanValueFromCheckboxSetting($this->settings, 'showCorporationJoinDate');
+		$this->showCurrentCorporation = $this->getBooleanValueFromCheckboxSetting($this->settings, 'showCurrentCorporation');
+		$this->showLoginUser = $this->getBooleanValueFromCheckboxSetting($this->settings, 'showLoginUser');
+
 		$this->choosedCorporation = (\strlen($this->settings['corporation']) > 0) ?
 				\TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : array();
-		$this->hasCorpMemberListAccess = \FALSE;
-
-		if (\count($this->choosedCorporation) == 1) {
-			$corporation = $this->corporationRepository->findByUid($this->choosedCorporation);
-			if ($corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
-				$this->hasCorpMemberListAccess = $corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERTRACKINGLIMITED);
-			}
-		}
+		$this->hasCorpMemberListAccess = $this->getCorpMemberListAcccess();
 	}
 
 	/**
@@ -81,7 +137,10 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	public function indexAction() {
 		$corpMembers = $this->characterRepository->findAllCharactersSortedByCharacterName($this->choosedCorporation);
 		$this->view->assign('corpMembers', $corpMembers);
-		$this->view->assign('hasCorpMemberListAccess', $this - hasCorpMemberListAccess);
+		$this->view->assign('hasCorpMemberListAccess', $this->hasCorpMemberListAccess);
+		$this->view->assign('showApiKeyState', $this->showApiKeyState);
+		$this->view->assign('showCorporationJoinDate', $this->showCorporationJoinDate);
+		$this->view->assign('showLoginUser', $this->showLoginUser);
 	}
 
 	/**
@@ -92,6 +151,10 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	public function showLightAction() {
 		$corpMembers = $this->characterRepository->findAllCharactersSortedByCharacterName($this->choosedCorporation);
 		$this->view->assign('corpMembers', $corpMembers);
+		$this->view->assign('showApiKeyState', $this->showApiKeyState);
+		$this->view->assign('showCorporationJoinDate', $this->showCorporationJoinDate);
+		$this->view->assign('showCurrentCorporation', $this->showCurrentCorporation);
+		$this->view->assign('showLoginUser', $this->showLoginUser);
 	}
 
 	/**
@@ -108,6 +171,7 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			$this->redirect('index');
 		}
 
+		$corporation = $this->corporationRepository->findByUid($this->choosedCorporation);
 		$corporationApiKey = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERTRACKINGLIMITED);
 		if (!$corporationApiKey instanceof \Gerh\Evecorp\Domain\Model\ApiKeyCorporation) {
 			$this->addFlashMessage('No corporation API key found for accessing corporation member list!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);

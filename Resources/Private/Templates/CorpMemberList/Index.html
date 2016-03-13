@@ -10,10 +10,16 @@
 			<thead>
 				<tr>
 					<td></td>
-					<td><f:translate key="corpmemberlist.showlight.character">Character</f:translate></td>
-					<td><f.translate key="charactermanagment.show.joined">joined</f.translate></td>
-					<td><f:translate key="corpmemberlist.showlight.apikeystate">API key state</f:translate></td>
-					<td>login user</td>
+					<td><f:translate key="corpmemberlist.index.character">Character</f:translate></td>
+					<f:if condition="{showCorporationJoinDate}">
+						<td><f:translate key="corpmemberlist.index.corporationjoined">joined</f:translate></td>
+					</f:if>
+					<f:if condition="{showApiKeyState}">
+						<td><f:translate key="corpmemberlist.index.apikeystate">API key state</f:translate></td>
+					</f:if>
+					<f:if condition="{showLoginUser}">
+						<td><f:translate key="corpmemberlist.index.loginuser">login user name</f:translate></td>
+					</f:if>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,26 +33,32 @@
 								{character.CharacterName}
 							</f:link.action>
 						</td>
-						<td><f:format.date format="d.m.Y">{character.corporationDate}</f:format.date></td>
-						<td>
-							<f:if condition="{character.ApiKeyAccount.expires}">
+						<f:if condition="{showCorporationJoinDate}">
+							<td><f:format.date format="d.m.Y">{character.corporationDate}</f:format.date></td>
+						</f:if>
+						<f:if condition="{showApiKeyState}">
+							<td>
+								<f:if condition="{character.ApiKeyAccount.expires}">
+									<f:then>
+										<f:format.date format="Y-m-d">{character.ApiKeyAccount.expires}</f:format.date>
+									</f:then>
+									<f:else>
+										<f:translate key="corpmemberlist.showlight.expires.never">never</f:translate>
+									</f:else>
+								</f:if>
+							</td>
+						</f:if>
+						<f:if condition="{showLoginUser}">
+							<td><f:if condition="{character.corpMember}">
 								<f:then>
-									<f:format.date format="Y-m-d">{character.ApiKeyAccount.expires}</f:format.date>
+									{character.corpMember.userName}
 								</f:then>
 								<f:else>
-									<f:translate key="corpmemberlist.showlight.expires.never">never</f:translate>
+									<f:translate key="corpmemberlist.index.loginuser.notregistered">not registered</f:translate>
 								</f:else>
 							</f:if>
-						</td>
-						<td><f:if condition="{character.corpMember}">
-							<f:then>
-								{character.corpMember.userName}
-							</f:then>
-							<f:else>
-								not registered
-							</f:else>
+							</td>
 						</f:if>
-						</td>
 					</tr>
 				</f:for>
 			</tbody>

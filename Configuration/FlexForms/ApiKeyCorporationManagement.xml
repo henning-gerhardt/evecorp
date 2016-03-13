@@ -19,15 +19,39 @@
 								<!-- TODO: add where restriction to current used record storage pids -->
 								<foreign_table_where>ORDER BY corporation_name</foreign_table_where>
 								<minitems>0</minitems>
-								<maxitems>1</maxitems>
+								<maxitems>9999</maxitems>
 								<items type="array">
 									<numIndex index="0" type="array">
-										<numIndex index="0"></numIndex>
+										<numIndex index="0">all available corporations</numIndex>
 									</numIndex>
 								</items>
 							</config>
 						</TCEforms>
 					</settings.corporation>
+					<settings.showCorporationJoinDate>
+						<TCEforms>
+							<label>Show characters corporation join date</label>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</settings.showCorporationJoinDate>
+					<settings.showApiKeyState>
+						<TCEforms>
+							<label>Show api key expire state</label>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</settings.showApiKeyState>
+					<settings.showLoginUser>
+						<TCEforms>
+							<label>Show login user name</label>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</settings.showLoginUser>
 				</el>
 			</ROOT>
 		</sDefault>

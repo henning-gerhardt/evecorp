@@ -139,17 +139,26 @@
 			<trans-unit id="corpmemberlist.showlight.welcome" xml:space="preserve">
 				<source>Corporation member list (light)</source>
 			</trans-unit>
-			<trans-unit id="corpmemberlist.showlight.character" xml:space="preserve">
-				<source>character name</source>
-			</trans-unit>
-			<trans-unit id="corpmemberlist.showlight.corporation" xml:space="preserve">
-				<source>current corporation</source>
-			</trans-unit>
-			<trans-unit id="corpmemberlist.showlight.apikeystate" xml:space="preserve">
+			<trans-unit id="corpmemberlist.index.apikeystate" xml:space="preserve">
 				<source>API key state</source>
 			</trans-unit>
-			<trans-unit id="corpmemberlist.showlight.expires.never" xml:space="preserve">
+			<trans-unit id="corpmemberlist.index.character" xml:space="preserve">
+				<source>character name</source>
+			</trans-unit>
+			<trans-unit id="corpmemberlist.index.corporation" xml:space="preserve">
+				<source>Current corporation</source>
+			</trans-unit>
+			<trans-unit id="corpmemberlist.index.expires.never" xml:space="preserve">
 				<source>key will never expire</source>
+			</trans-unit>
+			<trans-unit id="corpmemberlist.index.corporationjoined" xml:space="preserve">
+				<source>Corporation join date</source>
+			</trans-unit>
+			<trans-unit id="corpmemberlist.index.loginuser" xml:space="preserve">
+				<source>login user name</source>
+			</trans-unit>
+			<trans-unit id="corpmemberlist.index.loginuser.notregistered" xml:space="preserve">
+				<source>not registered to a login</source>
 			</trans-unit>
 			<trans-unit id="corporationtitlemanagement.link" xml:space="preserve">
 				<source>Switch to corporation title management</source>
