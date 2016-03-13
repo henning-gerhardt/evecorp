@@ -336,6 +336,11 @@ class CharacterMapper {
 			return \NULL;
 		}
 
+		$characterDb = $this->characterRepository->findOneByCharacterId(\intval($response->characterID));
+		if ($characterDb instanceOf \Gerh\Evecorp\Domain\Model\Character) {
+			return $characterDb;
+		}
+
 		try {
 			$character = new \Gerh\Evecorp\Domain\Model\Character();
 			$character->setCharacterId(\intval($response->characterID));
