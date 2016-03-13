@@ -48,27 +48,21 @@ class ApiKeyAccountValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
 	protected $characterRepository;
 
 	/**
-	 * Check if given character id is already stored in database
-	 *
-	 * @param \integer $characterId
-	 * @return \boolean
-	 */
-	protected function isCharacterIdAlreadyInDatabase($characterId) {
-		$result = $this->characterRepository->countByCharacterId($characterId);
-		if ($result > 0) {
-			return \TRUE;
-		}
-
-		return \FALSE;
-	}
-
-	/**
 	 * Returns configured API key access mask
 	 *
 	 * @return \integer
 	 */
 	protected function getAccessMask() {
 		return \Gerh\Evecorp\Domain\Utility\AccessMaskUtility::getAccessMask();
+	}
+
+	/**
+	 *
+	 * @param \int $characterId
+	 * @return mixed
+	 */
+	protected function getCharacterFromDatabase($characterId) {
+		return $this->characterRepository->findOneByCharacterId($characterId);
 	}
 
 	/**
@@ -79,6 +73,24 @@ class ApiKeyAccountValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
 	 */
 	protected function hasCorrectAccessMask($accessMask) {
 		return (($this->getAccessMask() & $accessMask) > 0);
+	}
+
+	/**
+	 * Check if a given character is not in database nor has a login assigned
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\Internal\Character $internalCharacterInfo
+	 * @return boolean
+	 */
+	protected function isCharacterIsNotInDatabaseNorHasALoginAssigned(\Gerh\Evecorp\Domain\Model\Internal\Character $internalCharacterInfo) {
+		$character = $this->getCharacterFromDatabase($internalCharacterInfo->getCharacterId());
+		if ($character instanceof \Gerh\Evecorp\Domain\Model\Character) {
+			if ($character->getCorpMember() instanceof \Gerh\Evecorp\Domain\Model\CorpMember) {
+				$this->addError('Character "' . $character->getCharacterName() . '" is already assigned to a login.', 1234567890);
+				return \FALSE;
+			}
+		}
+
+		return \TRUE;
 	}
 
 	/**
@@ -109,8 +121,7 @@ class ApiKeyAccountValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
 
 		/* @var $characterInfo \Gerh\Evecorp\Domain\Model\Character */
 		foreach ($apiKeyInfo->getCharacters() as $characterInfo) {
-			if ($this->isCharacterIdAlreadyInDatabase($characterInfo->getCharacterId())) {
-				$this->addError('Character "' . $characterInfo->getCharacterName() . '" is already in database.', 1234567890);
+			if (! $this->isCharacterIsNotInDatabaseNorHasALoginAssigned($characterInfo)) {
 				return \FALSE;
 			}
 		}
