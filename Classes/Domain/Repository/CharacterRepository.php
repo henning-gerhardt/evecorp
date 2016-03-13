@@ -1,10 +1,11 @@
 <?php
+
 namespace Gerh\Evecorp\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -32,7 +33,7 @@ namespace Gerh\Evecorp\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CharacterRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class CharacterRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
 
 	/**
 	 * Find all characters sorted by character name.
@@ -43,13 +44,13 @@ class CharacterRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 */
 	public function findAllCharactersSortedByCharacterName(array $corporations) {
 		$orderings = array(
-			'characterName' =>\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+			'characterName' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
 		);
 
 		$query = $this->createQuery();
 		$query->setOrderings($orderings);
 
-		if (! empty($corporations)) {
+		if (!empty($corporations)) {
 			$query->matching($query->in('currentCorporation', $corporations));
 		}
 

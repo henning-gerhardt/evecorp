@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Controller;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Controller;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Controller;
 
 /**
  *
@@ -41,15 +42,148 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	protected $characterRepository;
 
 	/**
+	 * @var mixed
+	 */
+	protected $choosedCorporation;
+
+	/**
+	 * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
+	 * @inject
+	 */
+	protected $corporationRepository;
+
+	/**
+	 * @var boolean
+	 */
+	protected $showApiKeyState;
+
+	/**
+	 * @var boolean
+	 */
+	protected $showCorporationJoinDate;
+
+	/**
+	 * @var boolean
+	 */
+	protected $showCurrentCorporation;
+
+	/**
+	 * @var boolean
+	 */
+	protected $showLoginUser;
+
+	/**
+	 *
+	 * @param string $booleanString
+	 * @return boolean
+	 */
+	private function convertCheckboxValueToBoolean($booleanString) {
+		// an activated chechkbox returning string with value one
+		return ($booleanString == '1') ? \TRUE : \FALSE;
+	}
+
+	/**
+	 *
+	 * @param array $setting
+	 * @param string $checkBoxName
+	 * @return boolean
+	 */
+	private function hasCheckboxBooleanValue($setting, $checkBoxName) {
+		if ((\array_key_exists($checkBoxName, $setting)) && (\strlen($setting[$checkBoxName]) > 0)) {
+			return $this->convertCheckboxValueToBoolean($setting[$checkBoxName]);
+		}
+		return \FALSE;
+	}
+
+	/**
+	 *
+	 * @return boolean
+	 */
+	private function hasCorpMemberListAccess() {
+		if (\count($this->choosedCorporation) == 1) {
+			$corporation = $this->corporationRepository->findByUid($this->choosedCorporation);
+			if ($corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
+				return $corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERTRACKINGLIMITED);
+			}
+		}
+		return \FALSE;
+	}
+
+	/**
+	 * Called before every action method call.
+	 */
+	public function initializeAction() {
+
+		$this->showApiKeyState = $this->hasCheckboxBooleanValue($this->settings, 'showApiKeyState');
+		$this->showCorporationJoinDate = $this->hasCheckboxBooleanValue($this->settings, 'showCorporationJoinDate');
+		$this->showCurrentCorporation = $this->hasCheckboxBooleanValue($this->settings, 'showCurrentCorporation');
+		$this->showLoginUser = $this->hasCheckboxBooleanValue($this->settings, 'showLoginUser');
+
+		$this->choosedCorporation = (\strlen($this->settings['corporation']) > 0) ?
+				\TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : array();
+	}
+
+	/**
+	 * Show corporation member list
+	 *
+	 * @return void
+	 */
+	public function indexAction() {
+		$corpMembers = $this->characterRepository->findAllCharactersSortedByCharacterName($this->choosedCorporation);
+		$this->view->assign('corpMembers', $corpMembers);
+		$this->view->assign('hasCorpMemberListAccess', $this->hasCorpMemberListAccess());
+		$this->view->assign('showApiKeyState', $this->showApiKeyState);
+		$this->view->assign('showCorporationJoinDate', $this->showCorporationJoinDate);
+		$this->view->assign('showLoginUser', $this->showLoginUser);
+	}
+
+	/**
 	 * Show corporation member list (light)
 	 *
 	 * @return void
 	 */
 	public function showLightAction() {
-		$choosedCorporations = (\strlen($this->settings['corporation']) > 0) ?
-				\TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : array();
-		$corpMembers = $this->characterRepository->findAllCharactersSortedByCharacterName($choosedCorporations);
+		$corpMembers = $this->characterRepository->findAllCharactersSortedByCharacterName($this->choosedCorporation);
 		$this->view->assign('corpMembers', $corpMembers);
+		$this->view->assign('showApiKeyState', $this->showApiKeyState);
+		$this->view->assign('showCorporationJoinDate', $this->showCorporationJoinDate);
+		$this->view->assign('showCurrentCorporation', $this->showCurrentCorporation);
+		$this->view->assign('showLoginUser', $this->showLoginUser);
+	}
+
+	/**
+	 * Update corporation member list
+	 */
+	public function updateAction() {
+		if (\count($this->choosedCorporation) != 1) {
+			$this->addFlashMessage('No or to many corporations selected!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+			$this->redirect('index');
+		}
+
+		if (!$this->hasCorpMemberListAccess()) {
+			$this->addFlashMessage('No access to corporation member list!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+			$this->redirect('index');
+		}
+
+		$corporation = $this->corporationRepository->findByUid($this->choosedCorporation);
+		$corporationApiKey = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERTRACKINGLIMITED);
+		if (!$corporationApiKey instanceof \Gerh\Evecorp\Domain\Model\ApiKeyCorporation) {
+			$this->addFlashMessage('No corporation API key found for accessing corporation member list!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+			$this->redirect('index');
+		}
+
+		$corpMemberListUpdater = new \Gerh\Evecorp\Domain\Mapper\CorporationMemberList();
+		$corpMemberListUpdater->setCorporationApiKey($corporationApiKey);
+		$corpMemberListUpdater->setCorporation($corporation);
+		$result = $corpMemberListUpdater->updateCorpMemberList();
+
+		if ($result) {
+			$this->addFlashMessage('Corporation member list updated successfully.');
+		} else {
+			$this->addFlashMessage('Error while updating corporation member list! Reason: ' . $corpMemberListUpdater->getErrorMessage(), '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+		}
+
+		$this->redirect('index');
 	}
 
 }

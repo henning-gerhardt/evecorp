@@ -64,7 +64,12 @@ class ApiKeyInfo {
 		return $this->accessMask;
 	}
 
-	public function addCharacter($character) {
+	/**
+	 * Add a character
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\Internal\Character $character
+	 */
+	public function addCharacter(\Gerh\Evecorp\Domain\Model\Internal\Character $character) {
 		$this->characters[] = $character;
 	}
 

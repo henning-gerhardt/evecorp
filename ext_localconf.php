@@ -59,11 +59,14 @@ if (!defined ('TYPO3_MODE')) {
     array(
         'ApiKeyCorporationManagement' => 'index,new,create,delete',
         'CorporationTitleManagement' => 'index,fetch,edit,update',
+		'CorpMemberList' => 'index,update',
+		'CharacterManagement' => 'show',
     ),
     // non-cacheable actions
     array(
         'ApiKeyCorporationManagement' => 'index,new,create,delete',
         'CorporationTitleManagement' => 'index,fetch,edit,update',
+		'CorpMemberList' => 'index,update',
     )
 );
 
@@ -80,3 +83,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = '
 
 // Register update of user group membership for corp member
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'Gerh\\Evecorp\\Scheduler\\CorpMemberUserGroupCommandController';
+
+// Register corporation member list updater
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'Gerh\\Evecorp\\Scheduler\\UpdateCorporationMemberListCommandController';

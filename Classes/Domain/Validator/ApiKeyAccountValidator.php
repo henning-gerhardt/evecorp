@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Domain\Validator;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Domain\Validator;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Domain\Validator;
 
 /**
  *
@@ -47,27 +48,21 @@ class ApiKeyAccountValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
 	protected $characterRepository;
 
 	/**
-	 * Check if given character id is already stored in database
-	 *
-	 * @param \integer $characterId
-	 * @return \boolean
-	 */
-	protected function isCharacterIdAlreadyInDatabase($characterId) {
-		$result = $this->characterRepository->countByCharacterId($characterId);
-		if ($result > 0) {
-			return TRUE;
-		}
-
-		return FALSE;
-	}
-
-	/**
 	 * Returns configured API key access mask
 	 *
 	 * @return \integer
 	 */
 	protected function getAccessMask() {
 		return \Gerh\Evecorp\Domain\Utility\AccessMaskUtility::getAccessMask();
+	}
+
+	/**
+	 *
+	 * @param \int $characterId
+	 * @return mixed
+	 */
+	protected function getCharacterFromDatabase($characterId) {
+		return $this->characterRepository->findOneByCharacterId($characterId);
 	}
 
 	/**
@@ -78,6 +73,24 @@ class ApiKeyAccountValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
 	 */
 	protected function hasCorrectAccessMask($accessMask) {
 		return (($this->getAccessMask() & $accessMask) > 0);
+	}
+
+	/**
+	 * Check if a given character is not in database nor has a login assigned
+	 *
+	 * @param \Gerh\Evecorp\Domain\Model\Internal\Character $internalCharacterInfo
+	 * @return boolean
+	 */
+	protected function isCharacterIsNotInDatabaseNorHasALoginAssigned(\Gerh\Evecorp\Domain\Model\Internal\Character $internalCharacterInfo) {
+		$character = $this->getCharacterFromDatabase($internalCharacterInfo->getCharacterId());
+		if ($character instanceof \Gerh\Evecorp\Domain\Model\Character) {
+			if ($character->getCorpMember() instanceof \Gerh\Evecorp\Domain\Model\CorpMember) {
+				$this->addError('Character "' . $character->getCharacterName() . '" is already assigned to a login.', 1234567890);
+				return \FALSE;
+			}
+		}
+
+		return \TRUE;
 	}
 
 	/**
@@ -98,22 +111,22 @@ class ApiKeyAccountValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
 
 		if ($apiKeyInfo->getType() !== 'Account') {
 			$this->addError('Given API key is not an Account API key.', 123456890);
-			return FALSE;
+			return \FALSE;
 		}
 
-		if (! $this->hasCorrectAccessMask(\intval($apiKeyInfo->getAccessMask()))) {
+		if (!$this->hasCorrectAccessMask(\intval($apiKeyInfo->getAccessMask()))) {
 			$this->addError('Given API key has not correct access mask: ' . $this->getAccessMask(), 1234567890);
-			return FALSE;
+			return \FALSE;
 		}
 
-		foreach($apiKeyInfo->getCharacters() as $characterInfo) {
-			if ($this->isCharacterIdAlreadyInDatabase($characterInfo->getCharacterId())) {
-				$this->addError('Character "' . $characterInfo->characterName . '" is already in database.', 1234567890);
-				return FALSE;
+		/* @var $characterInfo \Gerh\Evecorp\Domain\Model\Character */
+		foreach ($apiKeyInfo->getCharacters() as $characterInfo) {
+			if (! $this->isCharacterIsNotInDatabaseNorHasALoginAssigned($characterInfo)) {
+				return \FALSE;
 			}
 		}
 
-		return TRUE;
+		return \TRUE;
 	}
 
 	/**
@@ -126,10 +139,10 @@ class ApiKeyAccountValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
 
 		$result = $this->apiKeyAccountRepository->countByKeyId($keyId);
 		if ($result > 0) {
-			return TRUE;
+			return \TRUE;
 		}
 
-		return FALSE;
+		return \FALSE;
 	}
 
 	/**
@@ -140,35 +153,35 @@ class ApiKeyAccountValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
 	 */
 	protected function isValid($value) {
 
-		if (($value instanceof \Gerh\Evecorp\Domain\Model\ApiKey) === FALSE) {
+		if (($value instanceof \Gerh\Evecorp\Domain\Model\ApiKey) === \FALSE) {
 			$this->addError('Given object has wrong type!', 1234567890);
-			return FALSE;
+			return \FALSE;
 		}
 
 		$keyId = $value->getKeyId();
 		$vCode = $value->getVCode();
 
-		if (empty($keyId) === TRUE) {
+		if (empty($keyId) === \TRUE) {
 			$this->addError('Key ID is empty!', 1234567890);
-			return FALSE;
+			return \FALSE;
 		}
 
-		if (\is_int($keyId) === FALSE) {
+		if (\is_int($keyId) === \FALSE) {
 			$this->addError('Key ID is not a integer value!', 1234567890);
-			return FALSE;
+			return \FALSE;
 		}
 
-		if (empty($vCode) === TRUE) {
+		if (empty($vCode) === \TRUE) {
 			$this->addError('Verification code is empty!', 1234567890);
-			return FALSE;
+			return \FALSE;
 		}
 
 		if ($this->isKeyIdAlreadyInDatabase($keyId)) {
 			$this->addError('Key already stored in database', 1234567890);
-			return FALSE;
+			return \FALSE;
 		}
 
-		return  $this->checkApiKey($keyId, $vCode);
+		return $this->checkApiKey($keyId, $vCode);
 	}
 
 }

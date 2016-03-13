@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Domain\Repository;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 - 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Domain\Repository;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Domain\Repository;
 
 /**
  *
@@ -32,7 +33,7 @@ namespace Gerh\Evecorp\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
 
 	/**
 	 * Check is given column name 'region' or 'solar_system'
@@ -61,7 +62,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$result = array();
 		$returnRawQueryResult = true;
 
-		if (! $this->isCorrectColumn($searchColumn)) {
+		if (!$this->isCorrectColumn($searchColumn)) {
 			return $result;
 		}
 
@@ -75,8 +76,8 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$rowData = $query->statement($statement)->execute($returnRawQueryResult);
 
 		// own data mapping
-		foreach($rowData as $rows) {
-			foreach($rows as $columnValue) {
+		foreach ($rowData as $rows) {
+			foreach ($rows as $columnValue) {
 				$result[] = $columnValue;
 			}
 		}
@@ -97,7 +98,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			return new \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult();
 		}
 
-		if (! $this->isCorrectColumn($searchColumn)) {
+		if (!$this->isCorrectColumn($searchColumn)) {
 			return new \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult();
 		}
 
@@ -111,7 +112,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$queryStatement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
 
 		$statement = new \TYPO3\CMS\Core\Database\PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
-		$statement->bindValues(array(':searchId' => (int)$searchId));
+		$statement->bindValues(array(':searchId' => (int) $searchId));
 		$query->statement($statement);
 
 		/** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
@@ -131,7 +132,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 */
 	public function findByEveIdAndColumn($eveId, $searchId, $searchColumn, $respectStoragePage = false) {
 
-		if (! $this->isCorrectColumn($searchColumn)) {
+		if (!$this->isCorrectColumn($searchColumn)) {
 			return new \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult();
 		}
 
@@ -145,7 +146,7 @@ class EveitemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$queryStatement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
 
 		$statement = new \TYPO3\CMS\Core\Database\PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
-		$statement->bindValues(array(':eveId' => (int)$eveId, ':searchId' => (int)$searchId));
+		$statement->bindValues(array(':eveId' => (int) $eveId, ':searchId' => (int) $searchId));
 		$query->statement($statement);
 
 		/** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
