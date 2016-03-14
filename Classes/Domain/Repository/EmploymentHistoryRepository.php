@@ -52,11 +52,10 @@ class EmploymentHistoryRepository extends \Gerh\Evecorp\Domain\Repository\BaseRe
 		$query->matching($query->logicalAnd($constraints))->setLimit(1);
 		$searchResult = $query->execute();
 
-		if ($searchResult->count() <> 1) {
-			return NULL;
-		} else {
+		if ($searchResult->count() == 1) {
 			return $searchResult->getFirst();
 		}
+		return \NULL;
 	}
 
 }

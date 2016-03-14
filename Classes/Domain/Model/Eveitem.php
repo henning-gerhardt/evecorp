@@ -208,10 +208,9 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return void
 	 */
 	public function setTimeToCache($timeToCache) {
+		$this->timeToCache = 1;
 		if (is_int($timeToCache) && ($timeToCache > 0)) {
-			$this->timeToCache = (int) $timeToCache;
-		} else {
-			$this->timeToCache = 1;
+			$this->timeToCache = \intval($timeToCache);
 		}
 	}
 

@@ -248,10 +248,9 @@ class EveItemDisplay {
 	 * @param type $corpTax
 	 */
 	public function setCorpTax($corpTax) {
+		$this->corpTax = 0.0;
 		if (($corpTax >= 0.0) && ($corpTax <= 100.0)) {
 			$this->corpTax = $corpTax;
-		} else {
-			$this->corpTax = 0.0;
 		}
 	}
 
