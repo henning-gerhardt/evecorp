@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Service;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Service;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Service;
 
 use Pheal\Pheal;
 use Pheal\Core\Config;
@@ -114,7 +115,7 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @param \string $phealCacheDirectory
 	 */
 	protected function setPhealCacheDirectory($phealCacheDirectory) {
-		if ((! \file_exists($phealCacheDirectory)) || (!\is_dir($phealCacheDirectory)) || (! \is_writable($phealCacheDirectory))) {
+		if ((!\file_exists($phealCacheDirectory)) || (!\is_dir($phealCacheDirectory)) || (!\is_writable($phealCacheDirectory))) {
 			$this->phealCacheDirectory = \realpath(PATH_site . 'typo3temp');
 		} else {
 			$this->phealCacheDirectory = \realpath($phealCacheDirectory);
@@ -180,7 +181,7 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @param \string $fileMask
 	 */
 	protected function setFileMask($fileMask) {
-		if (! empty($fileMask)) {
+		if (!empty($fileMask)) {
 			$this->phealFileMask = \octdec($fileMask);
 		} else {
 			$this->phealFileMask = 0666;
@@ -202,7 +203,7 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @param \string $folderMask
 	 */
 	protected function setFolderMask($folderMask) {
-		if (! empty($folderMask)) {
+		if (!empty($folderMask)) {
 			$this->phealFolderMask = \octdec($folderMask);
 		} else {
 			$this->phealFolderMask = 0777;
@@ -220,4 +221,5 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 			'umask_directory' => $this->getFolderMask(),
 		);
 	}
+
 }

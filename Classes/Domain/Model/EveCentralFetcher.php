@@ -1,30 +1,31 @@
 <?php
-namespace Gerh\Evecorp\Domain\Model;
 
-/***************************************************************
- *	Copyright notice
+/* * *************************************************************
+ * 	Copyright notice
  *
- *	(c) 2014 Henning Gerhardt
+ * 	(c) 2016 Henning Gerhardt
  *
- *	All rights reserved
+ * 	All rights reserved
  *
- *	This script is part of the TYPO3 project. The TYPO3 project is
- *	free software; you can redistribute it and/or modify
- *	it under the terms of the GNU General Public License as published by
- *	the Free Software Foundation; either version 3 of the License, or
- *	(at your option) any later version.
+ * 	This script is part of the TYPO3 project. The TYPO3 project is
+ * 	free software; you can redistribute it and/or modify
+ * 	it under the terms of the GNU General Public License as published by
+ * 	the Free Software Foundation; either version 3 of the License, or
+ * 	(at your option) any later version.
  *
- *	The GNU General Public License can be found at
- *	http://www.gnu.org/copyleft/gpl.html.
+ * 	The GNU General Public License can be found at
+ * 	http://www.gnu.org/copyleft/gpl.html.
  *
- *	This script is distributed in the hope that it will be useful,
- *	but WITHOUT ANY WARRANTY; without even the implied warranty of
- *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *	GNU General Public License for more details.
+ * 	This script is distributed in the hope that it will be useful,
+ * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 	GNU General Public License for more details.
  *
- *	This copyright notice MUST APPEAR in all copies of the script!
+ * 	This copyright notice MUST APPEAR in all copies of the script!
  *
- */
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Domain\Model;
 
 /**
  *
@@ -148,9 +149,9 @@ class EveCentralFetcher {
 	public function query() {
 		$result = array();
 		$query = $this->buildQuery();
-		if (! empty($query)) {
+		if (!empty($query)) {
 			$content = file_get_contents($query);
-			if (! empty($content)) {
+			if (!empty($content)) {
 				$result = $this->parse($content);
 			}
 		}
@@ -174,7 +175,7 @@ class EveCentralFetcher {
 			return '';
 		}
 
-		foreach($this->typeIds as $typeId) {
+		foreach ($this->typeIds as $typeId) {
 			$result .= '&typeid=' . $typeId;
 		}
 
@@ -199,7 +200,7 @@ class EveCentralFetcher {
 		$xpath = new \DOMXPath($doc);
 
 		$resourceTypes = $xpath->evaluate('.//type');
-		for ($i = 0 ; $i < $resourceTypes->length; $i++) {
+		for ($i = 0; $i < $resourceTypes->length; $i++) {
 			$resource = $resourceTypes->item($i);
 			$resourceId = $resource->getAttribute('id');
 			$resourceBuyMax = $xpath->evaluate('.//buy/max', $resource)->item(0)->textContent;
@@ -212,4 +213,5 @@ class EveCentralFetcher {
 
 		return $result;
 	}
+
 }

@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\ViewHelpers\Format;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\ViewHelpers\Format;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\ViewHelpers\Format;
 
 /**
  *
@@ -46,7 +47,7 @@ class EveImageViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBas
 		parent::initializeArguments();
 		$this->registerUniversalTagAttributes();
 		$this->registerArgument('characterId', 'integer', 'character id for image', true);
-		$this->registerArgument('characterName',  'string', 'name of character', false, '');
+		$this->registerArgument('characterName', 'string', 'name of character', false, '');
 		$this->registerArgument('size', 'integer', 'size of image', false, 64);
 		$this->registerTagAttribute('alt', 'string', 'Alternative text for the image');
 		$this->registerTagAttribute('width', 'string', 'with of image');

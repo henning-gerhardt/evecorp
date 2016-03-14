@@ -3,7 +3,7 @@
 /* * *************************************************************
  * Copyright notice
  *
- * (c) 2015 Henning Gerhardt
+ * (c) 2016 Henning Gerhardt
  *
  * All rights reserved
  *
@@ -32,6 +32,7 @@ namespace Gerh\Evecorp\Domain\Model\Internal;
  * @author Henning Gerhardt
  */
 class Character {
+
 	protected $characterId;
 	protected $characterName;
 	protected $corporationId;
@@ -104,4 +105,5 @@ class Character {
 	public function setFactionName($factionName) {
 		$this->factionName = $factionName;
 	}
+
 }

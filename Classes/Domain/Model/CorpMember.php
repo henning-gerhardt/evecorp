@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Domain\Model;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Domain\Model;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Domain\Model;
 
 /**
  *
@@ -93,7 +94,6 @@ class CorpMember extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
 	public function addEveCorpGroup(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $group) {
 		$this->eveCorpGroups->attach($group);
 		$this->usergroup->attach($group);
-
 	}
 
 	/**

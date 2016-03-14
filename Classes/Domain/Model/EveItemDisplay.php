@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Domain\Model;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 - 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Domain\Model;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Domain\Model;
 
 /**
  *
@@ -247,10 +248,9 @@ class EveItemDisplay {
 	 * @param type $corpTax
 	 */
 	public function setCorpTax($corpTax) {
+		$this->corpTax = 0.0;
 		if (($corpTax >= 0.0) && ($corpTax <= 100.0)) {
 			$this->corpTax = $corpTax;
-		} else {
-			$this->corpTax = 0.0;
 		}
 	}
 

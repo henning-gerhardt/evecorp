@@ -451,7 +451,6 @@ class CharacterMapper {
 		}
 
 		try {
-
 			$this->setCharacterInformationFromCharacterInfoResponse($characterModel, $response);
 
 			$this->updateEmploymentHistoryOfCharacter($characterModel, $response->employmentHistory);

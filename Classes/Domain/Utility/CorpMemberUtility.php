@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Domain\Utility;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Domain\Utility;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Domain\Utility;
 
 /**
  *
@@ -42,14 +43,14 @@ class CorpMemberUtility {
 	 */
 	protected function collectCorpGroups(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember) {
 		$collected = array();
-		foreach($corpMember->getCharacters() as $character) {
+		foreach ($corpMember->getCharacters() as $character) {
 			$corpUserGroup = $character->getCurrentCorporation()->getUserGroup();
 			if ((empty($corpUserGroup) === false) && (\array_key_exists($corpUserGroup->getUid(), $collected) === false)) {
 				$collected[$corpUserGroup->getUid()] = $corpUserGroup;
 			}
 
 			/* @var $corpTitle \Gerh\Evecorp\Domain\Model\CorporationTitle */
-			foreach($character->getTitles() as $corpTitle) {
+			foreach ($character->getTitles() as $corpTitle) {
 				$corpTitleGroup = $corpTitle->getUsergroup();
 				if ((empty($corpTitleGroup) === \FALSE) && (\array_key_exists($corpTitleGroup->getUid(), $collected) === \FALSE)) {
 					$collected[$corpTitleGroup->getUid()] = $corpTitleGroup;
@@ -88,14 +89,14 @@ class CorpMemberUtility {
 		$collectedCorpUserGroups = $this->collectCorpGroups($corpMember);
 
 		// add groups
-		foreach($collectedCorpUserGroups as $frontendUserGroup) {
+		foreach ($collectedCorpUserGroups as $frontendUserGroup) {
 			if ($currentEveGroups->contains($frontendUserGroup) === false) {
 				$corpMember->addEveCorpGroup($frontendUserGroup);
 			}
 		}
 
 		// remove groups
-		foreach($currentEveGroups as $frontendUserGroup) {
+		foreach ($currentEveGroups as $frontendUserGroup) {
 			if (\array_key_exists($frontendUserGroup->getUid(), $collectedCorpUserGroups) === false) {
 				$corpMember->removeEveCorpGroup($frontendUserGroup);
 			}
@@ -104,4 +105,5 @@ class CorpMemberUtility {
 		// persistence changed corp member information
 		$this->persistenceCorpMember($corpMember);
 	}
+
 }

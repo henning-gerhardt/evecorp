@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Domain\Validator;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Domain\Validator;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Domain\Validator;
 
 /**
  *
@@ -115,7 +116,7 @@ class ApiKeyCorporationValidator extends \TYPO3\CMS\Extbase\Validation\Validator
 			return FALSE;
 		}
 
-		return  $this->checkApiKey($keyId, $vCode);
+		return $this->checkApiKey($keyId, $vCode);
 	}
 
 }

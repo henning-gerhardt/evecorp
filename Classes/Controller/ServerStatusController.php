@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -24,6 +23,8 @@ namespace Gerh\Evecorp\Controller;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+namespace Gerh\Evecorp\Controller;
 
 /**
  *

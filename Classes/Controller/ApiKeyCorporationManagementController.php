@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Controller;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Controller;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Controller;
 
 /**
  *
@@ -32,7 +33,7 @@ namespace Gerh\Evecorp\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController{
+class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
 	 * @var \Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository
@@ -88,7 +89,6 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
 		} else {
 			$apiKeys = array();
 		}
-		
 
 		$this->view->assign('keys', $apiKeys);
 		$this->view->assign('amountOfSelectedCorporations', ($this->selectedCorporation > 0) ? 1 : $this->selectedCorporation);
@@ -125,7 +125,7 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
 
 		$mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyInfoMapper();
 		$mapper->setKeyId($newApiKeyCorporation->getKeyId());
-		$mapper->setVcode($newApiKeyCorporation->getVCode());		
+		$mapper->setVcode($newApiKeyCorporation->getVCode());
 		$apiKeyInfo = $mapper->retrieveApiKeyInfo();
 		$newApiKeyCorporation->setAccessMask($apiKeyInfo->getAccessMask());
 

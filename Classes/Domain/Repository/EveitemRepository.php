@@ -43,10 +43,9 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
 	 */
 	protected function isCorrectColumn($columnName) {
 
+		$result = false;
 		if (($columnName === 'region') || ($columnName === 'solar_system')) {
 			$result = true;
-		} else {
-			$result = false;
 		}
 
 		return $result;

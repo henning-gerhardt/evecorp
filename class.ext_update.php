@@ -1,9 +1,10 @@
 <?php
-/***************************************************************
+
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt 
- *  
+ *  (c) 2016 Henning Gerhardt
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -21,7 +22,7 @@
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
 
 /**
  * Class for updating Evecorp data
@@ -49,8 +50,7 @@ class ext_update {
 		if (t3lib_div::_POST('nssubmit') != '') {
 			$this->updateOverridePaths();
 			$content = 'Update finished successfully.';
-		}
-		else {
+		} else {
 			$content = $this->prompt();
 		}
 		return $content;
@@ -63,15 +63,15 @@ class ext_update {
 	 */
 	protected function prompt() {
 		return
-			'<form action="' . t3lib_div::getIndpEnv('REQUEST_URI') . '" method="POST">' .
-			'<p>This update will do the following:</p>' .
-			'<ul>' .
-			'<li>Transfering data of column region_id to column region</li>' .
-			'<li>Transfering data of column system_id to column solar_system</li>' .
-			'<li>Removing column region_id and system_id</li>' .
-			'</ul>' .
-			'<br />' .
-			'<input type="submit" name="nssubmit" value="Update" /></form>';
+				'<form action="' . t3lib_div::getIndpEnv('REQUEST_URI') . '" method="POST">' .
+				'<p>This update will do the following:</p>' .
+				'<ul>' .
+				'<li>Transfering data of column region_id to column region</li>' .
+				'<li>Transfering data of column system_id to column solar_system</li>' .
+				'<li>Removing column region_id and system_id</li>' .
+				'</ul>' .
+				'<br />' .
+				'<input type="submit" name="nssubmit" value="Update" /></form>';
 	}
 
 	/**
@@ -85,6 +85,7 @@ class ext_update {
 		$GLOBALS['TYPO3_DB']->sql_query('UPDATE `tx_evecorp_domain_model_eveitem` SET `region_id` = 0, `system_id` = 0;');
 		$GLOBALS['TYPO3_DB']->sql_query('ALTER TABLE `tx_evecorp_domain_model_eveitem` DROP `region_id`,  DROP `system_id`;');
 	}
+
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/evecorp/class.ext_update.php']) {

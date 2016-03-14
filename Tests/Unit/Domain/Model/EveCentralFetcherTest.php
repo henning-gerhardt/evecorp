@@ -1,30 +1,31 @@
 <?php
-namespace Gerh\Evecorp\Test\Domain\Model;
 
-/***************************************************************
- *	Copyright notice
+/* * *************************************************************
+ * 	Copyright notice
  *
- *	(c) 2014 Henning Gerhardt
+ * 	(c) 2016 Henning Gerhardt
  *
- *	All rights reserved
+ * 	All rights reserved
  *
- *	This script is part of the TYPO3 project. The TYPO3 project is
- *	free software; you can redistribute it and/or modify
- *	it under the terms of the GNU General Public License as published by
- *	the Free Software Foundation; either version 3 of the License, or
- *	(at your option) any later version.
+ * 	This script is part of the TYPO3 project. The TYPO3 project is
+ * 	free software; you can redistribute it and/or modify
+ * 	it under the terms of the GNU General Public License as published by
+ * 	the Free Software Foundation; either version 3 of the License, or
+ * 	(at your option) any later version.
  *
- *	The GNU General Public License can be found at
- *	http://www.gnu.org/copyleft/gpl.html.
+ * 	The GNU General Public License can be found at
+ * 	http://www.gnu.org/copyleft/gpl.html.
  *
- *	This script is distributed in the hope that it will be useful,
- *	but WITHOUT ANY WARRANTY; without even the implied warranty of
- *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *	GNU General Public License for more details.
+ * 	This script is distributed in the hope that it will be useful,
+ * 	but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 	GNU General Public License for more details.
  *
- *	This copyright notice MUST APPEAR in all copies of the script!
+ * 	This copyright notice MUST APPEAR in all copies of the script!
  *
  */
+
+namespace Gerh\Evecorp\Test\Domain\Model;
 
 /**
  * Testcase for EveCentralFetcher
@@ -109,11 +110,11 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$fetcher = new \Gerh\Evecorp\Domain\Model\EveCentralFetcher();
 		$fetcher->setRegionId(1);
 		$fetcher->setSystemId(2);
-		
+
 		$this->assertEquals(0, $fetcher->getRegionId());
 		$this->assertEquals(2, $fetcher->getSystemId());
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -121,8 +122,9 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$fetcher = new \Gerh\Evecorp\Domain\Model\EveCentralFetcher();
 		$fetcher->setSystemId(1);
 		$fetcher->setRegionId(2);
-		
+
 		$this->assertEquals(2, $fetcher->getRegionId());
 		$this->assertEquals(0, $fetcher->getSystemId());
 	}
+
 }

@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Domain\Utility;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Domain\Utility;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Domain\Utility;
 
 /**
  *
@@ -42,8 +43,7 @@ class AccessMaskUtility {
 	public static function getAccessMask() {
 		$extconf = \unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
 		$result = (\strlen($extconf['accessMask']) > 0) ?
-				\trim($extconf['accessMask'])
-				: 0;
+				\trim($extconf['accessMask']) : 0;
 		return \intval($result);
 	}
 

@@ -1,7 +1,6 @@
 <?php
-namespace Gerh\Evecorp\Domain\Model;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
  *  (c) 2009 Jochen Rau <jochen.rau@typoplanet.de>
@@ -22,10 +21,12 @@ namespace Gerh\Evecorp\Domain\Model;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Domain\Model;
 
 /**
- * A Decorator for the PHP DateTime object 
+ * A Decorator for the PHP DateTime object
  */
 class DateTime extends \DateTime {
 
