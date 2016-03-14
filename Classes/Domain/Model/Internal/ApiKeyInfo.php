@@ -1,9 +1,9 @@
 <?php
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -22,7 +22,7 @@
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
 
 namespace Gerh\Evecorp\Domain\Model\Internal;
 
@@ -128,4 +128,5 @@ class ApiKeyInfo {
 	public function setType($type) {
 		$this->type = $type;
 	}
+
 }

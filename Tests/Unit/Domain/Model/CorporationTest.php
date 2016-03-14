@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Test\Domain\Model;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Test\Domain\Model;
 
 /**
  *
@@ -113,7 +114,7 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$apiKey->setAccessMask(
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
-			);
+		);
 		$apiKey->setKeyId(12345678);
 		$apiKey->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
@@ -129,7 +130,7 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$apiKeyOne->setAccessMask(
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
-			);
+		);
 		$apiKeyOne->setKeyId(12345678);
 		$apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
@@ -137,7 +138,7 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$apiKeyTwo->setAccessMask(
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
-			);
+		);
 		$apiKeyTwo->setKeyId(123456789);
 		$apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
 
@@ -156,7 +157,7 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$apiKeyOne->setAccessMask(
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
-			);
+		);
 		$apiKeyOne->setKeyId(12345678);
 		$apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
@@ -164,7 +165,7 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$apiKeyTwo->setAccessMask(
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
-			);
+		);
 		$apiKeyTwo->setKeyId(123456789);
 		$apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
 
@@ -183,7 +184,7 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$apiKeyOne->setAccessMask(
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
-			);
+		);
 		$apiKeyOne->setKeyId(12345678);
 		$apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
@@ -191,7 +192,7 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$apiKeyTwo->setAccessMask(
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
-			);
+		);
 		$apiKeyTwo->setKeyId(123456789);
 		$apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
 
@@ -211,7 +212,7 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$apiKeyOne->setAccessMask(
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
-			);
+		);
 		$apiKeyOne->setKeyId(12345678);
 		$apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
@@ -219,7 +220,7 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$apiKeyTwo->setAccessMask(
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
 				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
-			);
+		);
 		$apiKeyTwo->setKeyId(123456789);
 		$apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
 
@@ -230,4 +231,5 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$result = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEDALS);
 		$this->assertNull($result);
 	}
+
 }

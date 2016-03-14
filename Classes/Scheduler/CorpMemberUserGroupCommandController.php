@@ -1,7 +1,6 @@
 <?php
-namespace Gerh\Evecorp\Scheduler;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
  *  (c) 2014 Henning Gerhardt
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Scheduler;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Scheduler;
 
 /**
  *
@@ -58,7 +59,7 @@ class CorpMemberUserGroupCommandController extends \TYPO3\CMS\Extbase\Mvc\Contro
 		$querySettings->setStoragePageIds(array($storagePid));
 		$this->corpMemberRepository->setDefaultQuerySettings($querySettings);
 		$corpMemberUtility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
-		foreach($this->corpMemberRepository->findAll() as $corpMember) {
+		foreach ($this->corpMemberRepository->findAll() as $corpMember) {
 			$corpMemberUtility->adjustFrontendUserGroups($corpMember);
 		}
 		$this->persistenceManager->persistAll();

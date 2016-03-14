@@ -1,9 +1,9 @@
 <?php
 
-/***************************************************************
+/* * *************************************************************
  * Copyright notice
  *
- * (c) 2015 Henning Gerhardt
+ * (c) 2016 Henning Gerhardt
  *
  * All rights reserved
  *
@@ -22,7 +22,7 @@
  * GNU General Public License for more details.
  *
  * This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
 
 namespace Gerh\Evecorp\Controller;
 
@@ -112,14 +112,14 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
 
 		// fetch corporation from database
 		$corporation = $this->corporationRepository->findByUid($this->selectedCorporation);
-		if (! $corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
+		if (!$corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
 			$this->addFlashMessage('Corporation not found!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 			$this->redirect('index');
 		}
 
 		// determinate api key with corp title access
 		$corporationApiKey = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
-		if (! $corporationApiKey instanceof \Gerh\Evecorp\Domain\Model\ApiKeyCorporation) {
+		if (!$corporationApiKey instanceof \Gerh\Evecorp\Domain\Model\ApiKeyCorporation) {
 			$this->addFlashMessage('No corporation api key found with title access!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 			$this->redirect('index');
 		}
@@ -134,7 +134,7 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
 		// update / persistence corporation object
 		$this->corporationRepository->update($corporation);
 
-		$this->addFlashMessage('Successful fetched corporation titles.' );
+		$this->addFlashMessage('Successful fetched corporation titles.');
 		$this->redirect('index');
 	}
 
@@ -149,7 +149,7 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
 		$defaultQuerySettings->setRespectStoragePage(\FALSE);
 		$this->frontendUserGroupRepository->setDefaultQuerySettings($defaultQuerySettings);
 		$usergroups = array(0 => 'none');
-		foreach($this->frontendUserGroupRepository->findAll() as $frontendUserGroup) {
+		foreach ($this->frontendUserGroupRepository->findAll() as $frontendUserGroup) {
 			$usergroups[$frontendUserGroup->getUid()] = $frontendUserGroup->getTitle();
 		}
 
@@ -166,4 +166,5 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
 		$this->addFlashMessage('Corporation title successful changed.');
 		$this->redirect('index');
 	}
+
 }

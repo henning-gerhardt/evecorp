@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Domain\Model;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 - 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Domain\Model;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Domain\Model;
 
 /**
  *
@@ -250,4 +251,5 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setSolarSystem(\Gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem) {
 		$this->solarSystem = $solarSystem;
 	}
+
 }

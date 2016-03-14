@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\ViewHelpers\Format;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\ViewHelpers\Format;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\ViewHelpers\Format;
 
 /**
  *
@@ -45,7 +46,7 @@ class EmploymentHistoryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstr
 		$output = '';
 		$lastJoinDate = NULL;
 
-		foreach($character->getEmployments() as $employment) {
+		foreach ($character->getEmployments() as $employment) {
 
 			$output .= '<tr>';
 			$output .= '<td>' . $employment->getCorporation()->getCorporationName() . '</td>';

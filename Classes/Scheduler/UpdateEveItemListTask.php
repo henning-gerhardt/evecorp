@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Scheduler;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 - 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Scheduler;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Scheduler;
 
 /**
  *
@@ -72,7 +73,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	 * Update out of date EVE items on base of region id
 	 */
 	protected function updateItemsBasedOnRegionId() {
-		foreach($this->eveItemRepository->getListOfUniqueRegionId() as $regionId) {
+		foreach ($this->eveItemRepository->getListOfUniqueRegionId() as $regionId) {
 
 			// get out dated items
 			$listOfOutdatedItems = $this->getListOfOutdatedItemsForRegion($regionId);
@@ -89,7 +90,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	 * Update out date EVE items on base of system id
 	 */
 	protected function updateItemsBasedOnSystemId() {
-		foreach($this->eveItemRepository->getListOfUniqueSystemId() as $systemId) {
+		foreach ($this->eveItemRepository->getListOfUniqueSystemId() as $systemId) {
 
 			// get out dated items
 			$listOfOutdatedItems = $this->getListOfOutdatedItemsForSystem($systemId);
@@ -115,7 +116,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 			return $fetchList;
 		}
 
-		foreach($this->eveItemRepository->findAllUpdateableItemsForRegion($regionId) as $entry) {
+		foreach ($this->eveItemRepository->findAllUpdateableItemsForRegion($regionId) as $entry) {
 			$fetchList[] = $entry->getEveId();
 		}
 		return $fetchList;
@@ -134,7 +135,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 			return $fetchList;
 		}
 
-		foreach($this->eveItemRepository->findAllUpdateableItemsForSystem($systemId) as $entry) {
+		foreach ($this->eveItemRepository->findAllUpdateableItemsForSystem($systemId) as $entry) {
 			$fetchList[] = $entry->getEveId();
 		}
 		return $fetchList;
@@ -192,8 +193,8 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 			return;
 		}
 
-		foreach($eveItemUpdateList as $eveId => $values) {
-			foreach($this->eveItemRepository->findByEveIdAndRegionId($eveId, $regionId) as $dbEntry) {
+		foreach ($eveItemUpdateList as $eveId => $values) {
+			foreach ($this->eveItemRepository->findByEveIdAndRegionId($eveId, $regionId) as $dbEntry) {
 				$dbEntry->setBuyPrice($values['buy']);
 				$dbEntry->setSellPrice($values['sell']);
 				$dbEntry->setCacheTime(time());
@@ -214,8 +215,8 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 			return;
 		}
 
-		foreach($eveItemUpdateList as $eveId => $values) {
-			foreach($this->eveItemRepository->findByEveIdAndSystemId($eveId, $systemId) as $dbEntry) {
+		foreach ($eveItemUpdateList as $eveId => $values) {
+			foreach ($this->eveItemRepository->findByEveIdAndSystemId($eveId, $systemId) as $dbEntry) {
 				$dbEntry->setBuyPrice($values['buy']);
 				$dbEntry->setSellPrice($values['sell']);
 				$dbEntry->setCacheTime(time());

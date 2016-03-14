@@ -3,7 +3,7 @@
 /* * *************************************************************
  * Copyright notice
  *
- * (c) 2015 Henning Gerhardt
+ * (c) 2016 Henning Gerhardt
  *
  * All rights reserved
  *
@@ -54,7 +54,7 @@ class ApiKeyInfoMapper {
 		$result->setExpires($resultElement->expires);
 		$result->setType($resultElement->type);
 
-		foreach($resultElement->characters as $char) {
+		foreach ($resultElement->characters as $char) {
 			$character = new \Gerh\Evecorp\Domain\Model\Internal\Character();
 			$character->setCharacterId($char->characterID);
 			$character->setCharacterName($char->characterName);
@@ -102,7 +102,6 @@ class ApiKeyInfoMapper {
 		} catch (\Pheal\Exceptions\PhealException $ex) {
 			return new \Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo();
 		}
-
 	}
 
 }

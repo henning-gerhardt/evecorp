@@ -3,7 +3,7 @@
 /* * *************************************************************
  * Copyright notice
  *
- * (c) 2015 Henning Gerhardt
+ * (c) 2016 Henning Gerhardt
  *
  * All rights reserved
  *

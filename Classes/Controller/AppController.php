@@ -1,11 +1,10 @@
 <?php
-namespace Gerh\Evecorp\Controller;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2013 - 2014 Henning Gerhardt 
- *  
+ *  (c) 2016 Henning Gerhardt
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Controller;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Controller;
 
 /**
  *
@@ -36,16 +37,16 @@ class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
 	 * Holds instance for market data
-	 * 
+	 *
 	 * @var \Gerh\Evecorp\Domain\Model\MarketData
 	 * @inject
 	 */
 	protected $marketData;
 
-	public function initializeAction() {		
+	public function initializeAction() {
 		$this->marketData->setCorpTax($this->settings['corptax']);
 	}
-	
+
 	/**
 	 * action index
 	 *

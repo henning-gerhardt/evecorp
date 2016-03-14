@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Test\Domain\Validator;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Test\Domain\Validator;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Test\Domain\Validator;
 
 /**
  *
@@ -99,7 +100,7 @@ class ApiKeyAccountValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
 	 *
 	 * @return array
 	 */
-	public function countOfKeyIds () {
+	public function countOfKeyIds() {
 		return array(
 			array(0, false),
 			array(1, true)
@@ -116,9 +117,9 @@ class ApiKeyAccountValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface');
 		$mockedRepository = $this->getMock('Gerh\\Evecorp\\Domain\\Repository\\ApiKeyAccountRepository', array('countByKeyId'), array($mockObjectManager));
 		$mockedRepository
-			->expects($this->once())
-			->method('countByKeyId')
-			->will($this->returnValue($returnValue));
+				->expects($this->once())
+				->method('countByKeyId')
+				->will($this->returnValue($returnValue));
 
 		$this->inject($this->validator, 'apiKeyAccountRepository', $mockedRepository);
 
@@ -149,9 +150,9 @@ class ApiKeyAccountValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface');
 		$mockedRepository = $this->getMock('Gerh\\Evecorp\\Domain\\Repository\\CharacterRepository', array('countByCharacterId'), array($mockObjectManager));
 		$mockedRepository
-			->expects($this->once())
-			->method('countByCharacterId')
-			->will($this->returnValue($returnValue));
+				->expects($this->once())
+				->method('countByCharacterId')
+				->will($this->returnValue($returnValue));
 
 		$this->inject($this->validator, 'characterRepository', $mockedRepository);
 
@@ -167,9 +168,9 @@ class ApiKeyAccountValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
 	 */
 	public function accessMaskList() {
 		return array(
-			array(8388608,  8388608,  true),
-			array(8388608,        2, false),
-			array(8388608, 25165896,  true),
+			array(8388608, 8388608, true),
+			array(8388608, 2, false),
+			array(8388608, 25165896, true),
 		);
 	}
 

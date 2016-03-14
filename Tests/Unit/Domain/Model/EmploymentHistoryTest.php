@@ -1,10 +1,9 @@
 <?php
-namespace Gerh\Evecorp\Test\Domain\Model;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Henning Gerhardt
+ *  (c) 2016 Henning Gerhardt
  *
  *  All rights reserved
  *
@@ -23,7 +22,9 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
+
+namespace Gerh\Evecorp\Test\Domain\Model;
 
 /**
  *
@@ -32,7 +33,7 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EmploymentHistoryTest  extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class EmploymentHistoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
@@ -94,4 +95,5 @@ class EmploymentHistoryTest  extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$this->assertEquals($expected, $history->getStartDate());
 	}
+
 }
