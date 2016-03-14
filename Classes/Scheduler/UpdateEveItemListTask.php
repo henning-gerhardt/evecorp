@@ -74,7 +74,6 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	 */
 	protected function updateItemsBasedOnRegionId() {
 		foreach ($this->eveItemRepository->getListOfUniqueRegionId() as $regionId) {
-
 			// get out dated items
 			$listOfOutdatedItems = $this->getListOfOutdatedItemsForRegion($regionId);
 
@@ -91,7 +90,6 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	 */
 	protected function updateItemsBasedOnSystemId() {
 		foreach ($this->eveItemRepository->getListOfUniqueSystemId() as $systemId) {
-
 			// get out dated items
 			$listOfOutdatedItems = $this->getListOfOutdatedItemsForSystem($systemId);
 

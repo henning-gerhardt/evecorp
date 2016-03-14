@@ -47,7 +47,6 @@ class EmploymentHistoryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstr
 		$lastJoinDate = NULL;
 
 		foreach ($character->getEmployments() as $employment) {
-
 			$output .= '<tr>';
 			$output .= '<td>' . $employment->getCorporation()->getCorporationName() . '</td>';
 			$output .= '<td>' . $employment->getStartDate()->format('d.m.Y H:i') . '</td>';
