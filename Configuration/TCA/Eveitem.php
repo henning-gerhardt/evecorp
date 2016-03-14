@@ -219,4 +219,3 @@ $TCA['tx_evecorp_domain_model_eveitem'] = array(
 		),
 	),
 );
-?>
