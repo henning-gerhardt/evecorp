@@ -90,7 +90,6 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
 			$apiKeys = array();
 		}
 
-
 		$this->view->assign('keys', $apiKeys);
 		$this->view->assign('amountOfSelectedCorporations', ($this->selectedCorporation > 0) ? 1 : $this->selectedCorporation);
 		$this->view->assign('titleAccess', $hasTitleAccess);
