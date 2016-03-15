@@ -119,7 +119,7 @@ class ApiKeyAccountValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
 			return \FALSE;
 		}
 
-		/* @var $characterInfo \Gerh\Evecorp\Domain\Model\Character */
+		/* @var $characterInfo \Gerh\Evecorp\Domain\Model\Internal\Character */
 		foreach ($apiKeyInfo->getCharacters() as $characterInfo) {
 			if (!$this->isCharacterIsNotInDatabaseNorHasALoginAssigned($characterInfo)) {
 				return \FALSE;
