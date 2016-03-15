@@ -136,12 +136,14 @@ class ApiKeyAccountValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
 	public function characterInDatabase() {
 		$internalCharacter = new \Gerh\Evecorp\Domain\Model\Internal\Character();
 		$internalCharacter->setCharacterId(1);
-		$character = new \Gerh\Evecorp\Domain\Model\Character();
-		$corpMember = new \Gerh\Evecorp\Domain\Model\CorpMember();
+		$simpleCharacter = new \Gerh\Evecorp\Domain\Model\Character();
+		$complexCharacter = new \Gerh\Evecorp\Domain\Model\Character();
+		$complexCharacter->setCorpMember(new \Gerh\Evecorp\Domain\Model\CorpMember());
+
 		return array(
 			array($internalCharacter, \NULL, \TRUE),
-			array($internalCharacter, $character, \FALSE),
-			array($internalCharacter, $character->setCorpMember($corpMember), \TRUE)
+			array($internalCharacter, $simpleCharacter, \TRUE),
+			array($internalCharacter, $complexCharacter, \FALSE)
 		);
 	}
 
