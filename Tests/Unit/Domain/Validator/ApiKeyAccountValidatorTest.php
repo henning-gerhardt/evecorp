@@ -129,34 +129,40 @@ class ApiKeyAccountValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
 	}
 
 	/**
-	 * Data provider for different count of character ids
+	 * Data provider for testing character is in database
 	 *
 	 * @return array
 	 */
-	public function countOfCharacterIds() {
+	public function characterInDatabase() {
+		$internalCharacter = new \Gerh\Evecorp\Domain\Model\Internal\Character();
+		$internalCharacter->setCharacterId(1);
+		$character = new \Gerh\Evecorp\Domain\Model\Character();
+		$corpMember = new \Gerh\Evecorp\Domain\Model\CorpMember();
 		return array(
-			array(0, false),
-			array(1, true),
+			array($internalCharacter, \NULL, \TRUE),
+			array($internalCharacter, $character, \FALSE),
+			array($internalCharacter, $character->setCorpMember($corpMember), \TRUE)
 		);
 	}
 
 	/**
 	 * @test
-	 * @dataProvider countOfCharacterIds
-	 * @param \integer $returnValue
+	 * @dataProvider characterInDatabase
+	 * @param \Gerh\Evecorp\Domain\Model\Internal\Character $internalCharacter
+	 * @param mixed $databaseValue
 	 * @param \boolean $expected
 	 */
-	public function checkIsCharacterAlreadyInDatabase($returnValue, $expected) {
+	public function checkIsCharacterIsNotInDatabaseNorHasALoginAssigned($internalCharacter, $databaseValue, $expected) {
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface');
-		$mockedRepository = $this->getMock('Gerh\\Evecorp\\Domain\\Repository\\CharacterRepository', array('countByCharacterId'), array($mockObjectManager));
+		$mockedRepository = $this->getMock('Gerh\\Evecorp\\Domain\\Repository\\CharacterRepository', array('findOneByCharacterId'), array($mockObjectManager));
 		$mockedRepository
 				->expects($this->once())
-				->method('countByCharacterId')
-				->will($this->returnValue($returnValue));
+				->method('findOneByCharacterId')
+				->will($this->returnValue($databaseValue));
 
 		$this->inject($this->validator, 'characterRepository', $mockedRepository);
 
-		$actual = $this->callInaccessibleMethod($this->validator, 'isCharacterIdAlreadyInDatabase', 1234567890);
+		$actual = $this->callInaccessibleMethod($this->validator, 'isCharacterIsNotInDatabaseNorHasALoginAssigned', $internalCharacter);
 
 		$this->assertEquals($expected, $actual);
 	}
