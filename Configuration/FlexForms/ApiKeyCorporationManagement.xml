@@ -18,13 +18,8 @@
 								<foreign_table>tx_evecorp_domain_model_corporation</foreign_table>
 								<!-- TODO: add where restriction to current used record storage pids -->
 								<foreign_table_where>ORDER BY corporation_name</foreign_table_where>
-								<minitems>0</minitems>
-								<maxitems>9999</maxitems>
-								<items type="array">
-									<numIndex index="0" type="array">
-										<numIndex index="0">all available corporations</numIndex>
-									</numIndex>
-								</items>
+								<minitems>1</minitems>
+								<maxitems>1</maxitems>
 							</config>
 						</TCEforms>
 					</settings.corporation>
