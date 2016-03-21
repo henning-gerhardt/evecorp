@@ -6,13 +6,13 @@
 		<sDefault>
 			<ROOT>
 				<TCEforms>
-					<sheetTitle>Options</sheetTitle>
+					<sheetTitle>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.corpmemberlist.sheettitle</sheetTitle>
 				</TCEforms>
 				<type>array</type>
 				<el>
 					<settings.corporation>
 						<TCEforms>
-							<label>Choose corporation restriction</label>
+							<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.corpmemberlist.corporation</label>
 							<config>
 								<type>select</type>
 								<foreign_table>tx_evecorp_domain_model_corporation</foreign_table>
@@ -22,7 +22,7 @@
 								<maxitems>9999</maxitems>
 								<items type="array">
 									<numIndex index="0" type="array">
-										<numIndex index="0">all available corporations</numIndex>
+										<numIndex index="0">LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.corpmemberlist.corporation.allcorporations</numIndex>
 									</numIndex>
 								</items>
 							</config>
@@ -30,7 +30,7 @@
 					</settings.corporation>
 					<settings.showCorporationJoinDate>
 						<TCEforms>
-							<label>Show characters corporation join date</label>
+							<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.corpmemberlist.showcorporationjoindate</label>
 							<config>
 								<type>check</type>
 							</config>
@@ -38,7 +38,7 @@
 					</settings.showCorporationJoinDate>
 					<settings.showCurrentCorporation>
 						<TCEforms>
-							<label>Show characters current corporation</label>
+							<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.corpmemberlist.showcurrentcorporation</label>
 							<config>
 								<type>check</type>
 							</config>
@@ -46,7 +46,7 @@
 					</settings.showCurrentCorporation>
 					<settings.showApiKeyState>
 						<TCEforms>
-							<label>Show api key expire state</label>
+							<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.corpmemberlist.showapikeystate</label>
 							<config>
 								<type>check</type>
 							</config>
@@ -54,7 +54,7 @@
 					</settings.showApiKeyState>
 					<settings.showLoginUser>
 						<TCEforms>
-							<label>Show login user name</label>
+							<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.corpmemberlist.showloginuser</label>
 							<config>
 								<type>check</type>
 							</config>

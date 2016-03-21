@@ -6,13 +6,13 @@
 		<sDefault>
 			<ROOT>
 				<TCEforms>
-					<sheetTitle>Options</sheetTitle>
+					<sheetTitle>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.apikeycorporationmanagement.sheettitle</sheetTitle>
 				</TCEforms>
 				<type>array</type>
 				<el>
 					<settings.corporation>
 						<TCEforms>
-							<label>Choose corporation restriction</label>
+							<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.apikeycorporationmanagement.corporation</label>
 							<config>
 								<type>select</type>
 								<foreign_table>tx_evecorp_domain_model_corporation</foreign_table>
@@ -25,7 +25,7 @@
 					</settings.corporation>
 					<settings.showCorporationJoinDate>
 						<TCEforms>
-							<label>Show characters corporation join date</label>
+							<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.apikeycorporationmanagement.showcorporationjoindate</label>
 							<config>
 								<type>check</type>
 							</config>
@@ -33,7 +33,7 @@
 					</settings.showCorporationJoinDate>
 					<settings.showApiKeyState>
 						<TCEforms>
-							<label>Show api key expire state</label>
+							<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.apikeycorporationmanagement.showapikeystate</label>
 							<config>
 								<type>check</type>
 							</config>
@@ -41,7 +41,7 @@
 					</settings.showApiKeyState>
 					<settings.showLoginUser>
 						<TCEforms>
-							<label>Show login user name</label>
+							<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.apikeycorporationmanagement.showloginuser</label>
 							<config>
 								<type>check</type>
 							</config>
