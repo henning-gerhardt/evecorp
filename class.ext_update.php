@@ -37,6 +37,34 @@ class ext_update {
 	protected $messageArray = array();
 
 	/**
+	 * Execute a query inside database
+	 *
+	 * @param \string $query
+	 * @return mixed
+	 */
+	private function executeDatabaseQuery($query) {
+		return $GLOBALS['TYPO3_DB']->sql_query($query);
+	}
+
+	/**
+	 * Insert a line from static file into database
+	 *
+	 * @param \string $line
+	 * @return \array containing message and status of insert
+	 */
+	private function insertStaticDataLine($line) {
+		$message = 'OK!';
+		$status = \TYPO3\CMS\Core\Messaging\FlashMessage::OK;
+
+		if ($this->executeDatabaseQuery($line) === \FALSE) {
+			$message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
+			$status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
+		}
+
+		return array('message' => $message, 'status' => $status);
+	}
+
+	/**
 	 * Check if table tx_evecorp_domain_model_eveitem needs
 	 * a structure update.
 	 *
@@ -74,18 +102,18 @@ class ext_update {
 		$status = \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING;
 		$extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('evecorp');
 		$fileContent = explode(LF, \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($extPath . 'ext_tables_static+adt.sql'));
-		$GLOBALS['TYPO3_DB']->sql_query('TRUNCATE `tx_evecorp_domain_model_evemapregion`');
-		$GLOBALS['TYPO3_DB']->sql_query('TRUNCATE `tx_evecorp_domain_model_evemapsolarsystem`');
+
+		// clean up / truncate database tables
+		$this->executeDatabaseQuery('TRUNCATE `tx_evecorp_domain_model_evemapregion`');
+		$this->executeDatabaseQuery('TRUNCATE `tx_evecorp_domain_model_evemapsolarsystem`');
+
+		// insert new static data
 		foreach ($fileContent as $line) {
 			$line = trim($line);
 			if ($line && preg_match('#^INSERT#i', $line)) {
-				if ($GLOBALS['TYPO3_DB']->sql_query($line) === \FALSE) {
-					$message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
-					$status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
-				} else {
-					$message = 'OK!';
-					$status = \TYPO3\CMS\Core\Messaging\FlashMessage::OK;
-				}
+				$result = $this->insertStaticDataLine($line);
+				$message = $result['message'];
+				$status = $result['status'];
 			}
 		}
 		$this->messageArray[] = array($status, $title, $message);
@@ -124,22 +152,22 @@ class ext_update {
 		$message = 'Structure of table "tx_evecorp_domain_model_eveitem" successful updated.';
 		$status = \TYPO3\CMS\Core\Messaging\FlashMessage::OK;
 
-		if ($GLOBALS['TYPO3_DB']->sql_query('UPDATE `tx_evecorp_domain_model_eveitem` SET `region` = `region_id` WHERE `region_id` <> 0;') === \FALSE) {
+		if ($this->executeDatabaseQuery('UPDATE `tx_evecorp_domain_model_eveitem` SET `region` = `region_id` WHERE `region_id` <> 0;') === \FALSE) {
 			$message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
 			$status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
 		}
 
-		if ($GLOBALS['TYPO3_DB']->sql_query('UPDATE `tx_evecorp_domain_model_eveitem` SET `solar_system` = `system_id` WHERE `system_id` <> 0;') === \FALSE) {
+		if ($this->executeDatabaseQuery('UPDATE `tx_evecorp_domain_model_eveitem` SET `solar_system` = `system_id` WHERE `system_id` <> 0;') === \FALSE) {
 			$message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
 			$status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
 		}
 
-		if ($GLOBALS['TYPO3_DB']->sql_query('UPDATE `tx_evecorp_domain_model_eveitem` SET `region_id` = 0, `system_id` = 0;') === \FALSE) {
+		if ($this->executeDatabaseQuery('UPDATE `tx_evecorp_domain_model_eveitem` SET `region_id` = 0, `system_id` = 0;') === \FALSE) {
 			$message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
 			$status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
 		}
 
-		if ($GLOBALS['TYPO3_DB']->sql_query('ALTER TABLE `tx_evecorp_domain_model_eveitem` DROP `region_id`,  DROP `system_id`;') === \FALSE) {
+		if ($this->executeDatabaseQuery('ALTER TABLE `tx_evecorp_domain_model_eveitem` DROP `region_id`,  DROP `system_id`;') === \FALSE) {
 			$message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
 			$status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
 		}
