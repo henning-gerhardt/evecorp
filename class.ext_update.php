@@ -31,47 +31,34 @@
 class ext_update {
 
 	/**
-	 * Stub function for the extension manager
+	 * Check if table tx_evecorp_domain_model_eveitem needs
+	 * a structure update.
 	 *
-	 * @param	string	$what	What should be updated
-	 * @return	boolean	true to allow access
+	 * @return \boolean
 	 */
-	public function access($what = 'all') {
+	protected function eveItemTableNeedsUpdate() {
 		$fields = $GLOBALS['TYPO3_DB']->admin_get_fields('tx_evecorp_domain_model_eveitem');
 		return isset($fields['region_id']) && isset($fields['system_id']);
 	}
 
 	/**
-	 * Updates nested sets
+	 * Stub function for the extension manager
 	 *
-	 * @return	string		HTML output
+	 * @return	boolean	true to allow access
 	 */
-	public function main() {
-		if (t3lib_div::_POST('nssubmit') != '') {
-			$this->updateOverridePaths();
-			$content = 'Update finished successfully.';
-		} else {
-			$content = $this->prompt();
-		}
-		return $content;
+	public function access() {
+		return \TRUE;
 	}
 
 	/**
-	 * Shows a form to created nested sets data.
+	 * Update structure of table tx_evecorp_domain_model_eveitem if needed.
 	 *
-	 * @return	string
+	 * @return void
 	 */
-	protected function prompt() {
-		return
-				'<form action="' . t3lib_div::getIndpEnv('REQUEST_URI') . '" method="POST">' .
-				'<p>This update will do the following:</p>' .
-				'<ul>' .
-				'<li>Transfering data of column region_id to column region</li>' .
-				'<li>Transfering data of column system_id to column solar_system</li>' .
-				'<li>Removing column region_id and system_id</li>' .
-				'</ul>' .
-				'<br />' .
-				'<input type="submit" name="nssubmit" value="Update" /></form>';
+	public function main() {
+		if ($this->eveItemTableNeedsUpdate()) {
+			$this->updateOverridePaths();
+		}
 	}
 
 	/**
@@ -79,7 +66,7 @@ class ext_update {
 	 *
 	 * @return	string	Result
 	 */
-	protected function updateOverridePaths() {
+	protected function updateEveItemStructure() {
 		$GLOBALS['TYPO3_DB']->sql_query('UPDATE `tx_evecorp_domain_model_eveitem` SET `region` = `region_id` WHERE `region_id` <> 0;');
 		$GLOBALS['TYPO3_DB']->sql_query('UPDATE `tx_evecorp_domain_model_eveitem` SET `solar_system` = `system_id` WHERE `system_id` <> 0;');
 		$GLOBALS['TYPO3_DB']->sql_query('UPDATE `tx_evecorp_domain_model_eveitem` SET `region_id` = 0, `system_id` = 0;');
