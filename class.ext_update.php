@@ -64,6 +64,35 @@ class ext_update {
 	}
 
 	/**
+	 * Import static data from ext_tables_static+adt.sql file
+	 *
+	 * @return \int
+	 */
+	protected function importStaticData() {
+		$title = 'Import static data';
+		$message = 'Import needs to be executed!';
+		$status = \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING;
+		$extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('evecorp');
+		$fileContent = explode(LF, \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($extPath . 'ext_tables_static+adt.sql'));
+		$GLOBALS['TYPO3_DB']->sql_query('TRUNCATE `tx_evecorp_domain_model_evemapregion`');
+		$GLOBALS['TYPO3_DB']->sql_query('TRUNCATE `tx_evecorp_domain_model_evemapsolarsystem`');
+		foreach ($fileContent as $line) {
+			$line = trim($line);
+			if ($line && preg_match('#^INSERT#i', $line)) {
+				if ($GLOBALS['TYPO3_DB']->sql_query($line) === \FALSE) {
+					$message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
+					$status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
+				} else {
+					$message = 'OK!';
+					$status = \TYPO3\CMS\Core\Messaging\FlashMessage::OK;
+				}
+			}
+		}
+		$this->messageArray[] = array($status, $title, $message);
+		return $status;
+	}
+
+	/**
 	 * Stub function for the extension manager
 	 *
 	 * @return \boolean true to allow access
@@ -81,6 +110,7 @@ class ext_update {
 		if ($this->eveItemTableNeedsUpdate()) {
 			$this->updateOverridePaths();
 		}
+		$this->importStaticData();
 		return $this->generateOutput();
 	}
 
@@ -94,22 +124,22 @@ class ext_update {
 		$message = 'Structure of table "tx_evecorp_domain_model_eveitem" successful updated.';
 		$status = \TYPO3\CMS\Core\Messaging\FlashMessage::OK;
 
-		if ($GLOBALS['TYPO3_DB']->sql_query('UPDATE `tx_evecorp_domain_model_eveitem` SET `region` = `region_id` WHERE `region_id` <> 0;') === false) {
+		if ($GLOBALS['TYPO3_DB']->sql_query('UPDATE `tx_evecorp_domain_model_eveitem` SET `region` = `region_id` WHERE `region_id` <> 0;') === \FALSE) {
 			$message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
 			$status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
 		}
 
-		if ($GLOBALS['TYPO3_DB']->sql_query('UPDATE `tx_evecorp_domain_model_eveitem` SET `solar_system` = `system_id` WHERE `system_id` <> 0;') === false) {
+		if ($GLOBALS['TYPO3_DB']->sql_query('UPDATE `tx_evecorp_domain_model_eveitem` SET `solar_system` = `system_id` WHERE `system_id` <> 0;') === \FALSE) {
 			$message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
 			$status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
 		}
 
-		if ($GLOBALS['TYPO3_DB']->sql_query('UPDATE `tx_evecorp_domain_model_eveitem` SET `region_id` = 0, `system_id` = 0;') === false) {
+		if ($GLOBALS['TYPO3_DB']->sql_query('UPDATE `tx_evecorp_domain_model_eveitem` SET `region_id` = 0, `system_id` = 0;') === \FALSE) {
 			$message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
 			$status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
 		}
 
-		if ($GLOBALS['TYPO3_DB']->sql_query('ALTER TABLE `tx_evecorp_domain_model_eveitem` DROP `region_id`,  DROP `system_id`;') === false) {
+		if ($GLOBALS['TYPO3_DB']->sql_query('ALTER TABLE `tx_evecorp_domain_model_eveitem` DROP `region_id`,  DROP `system_id`;') === \FALSE) {
 			$message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
 			$status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
 		}
