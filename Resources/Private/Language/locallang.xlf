@@ -151,6 +151,9 @@
 			<trans-unit id="corpmemberlist.index.expires.never" xml:space="preserve">
 				<source>key will never expire</source>
 			</trans-unit>
+			<trans-unit id="corpmemberlist.index.expiredate.unknown" xml:space="preserve">
+				<source>unknown (no API key)</source>
+			</trans-unit>
 			<trans-unit id="corpmemberlist.index.corporationjoined" xml:space="preserve">
 				<source>Corporation join date</source>
 			</trans-unit>
