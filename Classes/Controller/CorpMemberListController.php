@@ -172,7 +172,7 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			$this->redirect('index');
 		}
 
-		$corpMemberListUpdater = new \Gerh\Evecorp\Domain\Mapper\CorporationMemberList();
+		$corpMemberListUpdater = $this->objectManager->get('\\Gerh\Evecorp\\Domain\\Mapper\\CorporationMemberList');
 		$corpMemberListUpdater->setCorporationApiKey($corporationApiKey);
 		$corpMemberListUpdater->setCorporation($corporation);
 		$result = $corpMemberListUpdater->updateCorpMemberList();
