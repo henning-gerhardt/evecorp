@@ -68,9 +68,10 @@ class ext_update {
 	 * Check if table tx_evecorp_domain_model_eveitem needs
 	 * a structure update.
 	 *
+	 * @deprecated after version 0.5.x
 	 * @return \boolean
 	 */
-	protected function eveItemTableNeedsUpdate() {
+	protected function checkIfEveItemTableNeedsUpdate() {
 		$fields = $GLOBALS['TYPO3_DB']->admin_get_fields('tx_evecorp_domain_model_eveitem');
 		return isset($fields['region_id']) && isset($fields['system_id']);
 	}
@@ -121,30 +122,9 @@ class ext_update {
 	}
 
 	/**
-	 * Stub function for the extension manager
-	 *
-	 * @return \boolean true to allow access
-	 */
-	public function access() {
-		return \TRUE;
-	}
-
-	/**
-	 * Update structure of table tx_evecorp_domain_model_eveitem if needed.
-	 *
-	 * @return \string
-	 */
-	public function main() {
-		if ($this->eveItemTableNeedsUpdate()) {
-			$this->updateOverridePaths();
-		}
-		$this->importStaticData();
-		return $this->generateOutput();
-	}
-
-	/**
 	 * Update structure of table tx_evecorp_domain_model_eveitem
 	 *
+	 * @deprecated after version 0.5.x
 	 * @return \int
 	 */
 	protected function updateEveItemStructure() {
@@ -174,6 +154,32 @@ class ext_update {
 
 		$this->messageArray[] = array($status, $title, $message);
 		return $status;
+	}
+
+	/**
+	 * Stub function for the extension manager
+	 *
+	 * @return \boolean true to allow access
+	 */
+	public function access() {
+		return \TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('6.0');
+	}
+
+	/**
+	 * Update table structure and import static data
+	 *
+	 * @return \string
+	 */
+	public function main() {
+
+		// structure update should be removed in version 0.6.0
+		if ($this->checkIfEveItemTableNeedsUpdate()) {
+			$this->updateEveItemStructure();
+		}
+
+		$this->importStaticData();
+
+		return $this->generateOutput();
 	}
 
 }
