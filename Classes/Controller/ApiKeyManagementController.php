@@ -82,7 +82,7 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 	 * Add new api key account
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\ApiKey $newApiKeyAccount
-	 * @validate $newApiKeyAccount \Gerh\Evecorp\Domain\Validator\ApiKeyAccountValidator
+	 * @validate $newApiKeyAccount \Gerh\Evecorp\Domain\Validator\AccountApiKeyValidator
 	 */
 	public function createAction(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $newApiKeyAccount) {
 		$corpMember = $this->accessControlService->getCorpMember();

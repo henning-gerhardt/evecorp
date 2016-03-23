@@ -33,12 +33,12 @@ namespace Gerh\Evecorp\Test\Domain\Validator;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyAccountValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validation\Validator\AbstractValidatorTestcase {
+class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validation\Validator\AbstractValidatorTestcase {
 
 	/**
 	 * @var \string
 	 */
-	protected $validatorClassName = 'Gerh\\Evecorp\\Domain\\Validator\\ApiKeyAccountValidator';
+	protected $validatorClassName = 'Gerh\\Evecorp\\Domain\\Validator\\AccountApiKeyValidator';
 
 	/**
 	 * Testsuite setup
