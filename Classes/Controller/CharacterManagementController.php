@@ -39,7 +39,6 @@ class CharacterManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Ac
 	 * Show character information
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\Character $character
-	 * @ignorevalidation $character
 	 * @return void
 	 */
 	public function showAction(\Gerh\Evecorp\Domain\Model\Character $character) {
