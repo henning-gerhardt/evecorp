@@ -110,7 +110,7 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
 	 * Add new api key corporation
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyCorporation $newApiKeyCorporation
-	 * @validate $newApiKeyCorporation \Gerh\Evecorp\Domain\Validator\ApiKeyCorporationValidator
+	 * @validate $newApiKeyCorporation \Gerh\Evecorp\Domain\Validator\CorporationApiKeyValidator
 	 * @return void
 	 */
 	public function createAction(\Gerh\Evecorp\Domain\Model\ApiKeyCorporation $newApiKeyCorporation) {
