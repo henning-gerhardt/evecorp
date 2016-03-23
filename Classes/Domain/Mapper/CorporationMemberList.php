@@ -117,7 +117,7 @@ class CorporationMemberList {
 	 */
 	protected function updateFormerCorporationMember(\Gerh\Evecorp\Domain\Model\Character $formerCorporationMember) {
 		/* @var $characterMapper \Gerh\Evecorp\Domain\Mapper\CharacterMapper */
-		$characterMapper = $this->objectManager->get('Gerh\Evecorp\Domain\Mapper\CharacterMapper', $formerCorporationMember->getApiKeyAccount());
+		$characterMapper = $this->objectManager->get('Gerh\Evecorp\Domain\Mapper\CharacterMapper', $formerCorporationMember->getApiKey());
 		$characterMapper->setStoragePid($this->storagePid);
 
 		$characterMapper->updateModel($formerCorporationMember);

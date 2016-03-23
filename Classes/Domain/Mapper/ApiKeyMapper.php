@@ -79,7 +79,7 @@ class ApiKeyMapper {
 			throw new \Exception($characterMapper->getErrorMessage());
 		}
 
-		$characterModel->setApiKeyAccount($apiKeyAccount);
+		$characterModel->setApiKey($apiKeyAccount);
 		$characterModel->setCorpMember($apiKeyAccount->getCorpMember());
 		$apiKeyAccount->addCharacter($characterModel);
 	}

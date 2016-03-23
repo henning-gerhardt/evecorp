@@ -39,7 +39,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @var \Gerh\Evecorp\Domain\Model\ApiKeyAccount
 	 * @lazy
 	 */
-	protected $apiKeyAccount;
+	protected $apiKey;
 
 	/**
 	 * @var \integer
@@ -115,12 +115,12 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @return \Gerh\Evecorp\Domain\Model\ApiKey
 	 */
-	public function getApiKeyAccount() {
-		if ($this->apiKeyAccount instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
-			$this->apiKeyAccount->_loadRealInstance();
+	public function getApiKey() {
+		if ($this->apiKey instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->apiKey->_loadRealInstance();
 		}
 
-		return $this->apiKeyAccount;
+		return $this->apiKey;
 	}
 
 	/**
@@ -128,8 +128,8 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
 	 */
-	public function setApiKeyAccount(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
-		$this->apiKeyAccount = $apiKeyAccount;
+	public function setApiKey(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+		$this->apiKey = $apiKeyAccount;
 	}
 
 	/**

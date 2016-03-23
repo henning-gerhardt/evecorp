@@ -43,9 +43,9 @@
 					<td>
 					<f:if condition="{character.corpMember}">
 						<f:then>
-							<f:if condition="{character.ApiKeyAccount.expires}">
+							<f:if condition="{character.apiKey.expires}">
 								<f:then>
-									<f:format.date format="Y-m-d">{character.ApiKeyAccount.expires}</f:format.date>
+									<f:format.date format="Y-m-d">{character.apiKey.expires}</f:format.date>
 								</f:then>
 								<f:else>
 									<f:translate key="corpmemberlist.index.expires.never">never</f:translate>

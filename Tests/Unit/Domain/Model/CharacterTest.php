@@ -51,9 +51,9 @@ class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$expected = new \Gerh\Evecorp\Domain\Model\ApiKeyAccount();
 
 		$character = new \Gerh\Evecorp\Domain\Model\Character();
-		$character->setApiKeyAccount($expected);
+		$character->setApiKey($expected);
 
-		$this->assertEquals($expected, $character->getApiKeyAccount());
+		$this->assertEquals($expected, $character->getApiKey());
 	}
 
 	/**
