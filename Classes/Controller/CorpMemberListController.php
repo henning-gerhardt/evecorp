@@ -177,12 +177,18 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		$corpMemberListUpdater->setCorporation($corporation);
 		$result = $corpMemberListUpdater->updateCorpMemberList();
 
-		if ($result) {
-			$this->addFlashMessage('Corporation member list updated successfully.');
-		} else {
-			$this->addFlashMessage('Error while updating corporation member list! Reason: ' . $corpMemberListUpdater->getErrorMessage(), '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+		$flashMessage = array(
+			'message' => 'Corporation member list updated successfully.',
+			'title' => '',
+			'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
+		);
+
+		if ($result === \FALSE) {
+			$flashMessage['message'] = 'Error while updating corporation member list!Reason: ' . $corpMemberListUpdater->getErrorMessage();
+			$flashMessage['severity'] = \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR;
 		}
 
+		$this->addFlashMessage($flashMessage['message'], $flashMessage['title'], $flashMessage['severity']);
 		$this->redirect('index');
 	}
 

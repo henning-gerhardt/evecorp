@@ -90,12 +90,11 @@ class EveCentralFetcher {
 	 * @param \integer $regionId
 	 */
 	public function setRegionId($regionId) {
+		$this->regionId = 0;
 		if ($regionId > 0) {
 			$this->regionId = $regionId;
 			// region and solar system id could not be set at the same time
 			$this->systemId = 0;
-		} else {
-			$this->regionId = 0;
 		}
 	}
 

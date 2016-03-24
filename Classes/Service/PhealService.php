@@ -115,9 +115,8 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @param \string $phealCacheDirectory
 	 */
 	protected function setPhealCacheDirectory($phealCacheDirectory) {
-		if ((!\file_exists($phealCacheDirectory)) || (!\is_dir($phealCacheDirectory)) || (!\is_writable($phealCacheDirectory))) {
-			$this->phealCacheDirectory = \realpath(PATH_site . 'typo3temp');
-		} else {
+		$this->phealCacheDirectory = \realpath(PATH_site . 'typo3temp');
+		if ((\file_exists($phealCacheDirectory)) && (\is_dir($phealCacheDirectory)) && (\is_writable($phealCacheDirectory))) {
 			$this->phealCacheDirectory = \realpath($phealCacheDirectory);
 		}
 	}
@@ -137,10 +136,9 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @param \integer $timeout
 	 */
 	protected function setConnectionTimeout($timeout) {
+		$this->phealConnectionTimeout = 120;
 		if (\is_int($timeout) && ($timeout > 0)) {
 			$this->phealConnectionTimeout = (int) $timeout;
-		} else {
-			$this->phealConnectionTimeout = 120;
 		}
 	}
 
@@ -159,10 +157,9 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @param \boolean $verified
 	 */
 	protected function setHttpsConnectionVerified($verified) {
+		$this->phealVerifyHttpsConnecton = \FALSE;
 		if (\is_bool($verified) && $verified) {
-			$this->phealVerifyHttpsConnecton = true;
-		} else {
-			$this->phealVerifyHttpsConnecton = false;
+			$this->phealVerifyHttpsConnecton = \TRUE;
 		}
 	}
 
@@ -181,10 +178,9 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @param \string $fileMask
 	 */
 	protected function setFileMask($fileMask) {
+		$this->phealFileMask = 0666;
 		if (!empty($fileMask)) {
 			$this->phealFileMask = \octdec($fileMask);
-		} else {
-			$this->phealFileMask = 0666;
 		}
 	}
 
@@ -203,10 +199,9 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @param \string $folderMask
 	 */
 	protected function setFolderMask($folderMask) {
+		$this->phealFolderMask = 0777;
 		if (!empty($folderMask)) {
 			$this->phealFolderMask = \octdec($folderMask);
-		} else {
-			$this->phealFolderMask = 0777;
 		}
 	}
 

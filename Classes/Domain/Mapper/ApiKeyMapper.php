@@ -219,12 +219,11 @@ class ApiKeyMapper {
 			$apiKeyAccount->setAccessMask($response->key->accessMask);
 
 			$keyExpires = $response->key->expires;
-			if ($keyExpires != '') {
-				$expires = new \Gerh\Evecorp\Domain\Model\DateTime($keyExpires, new \DateTimeZone('UTC'));
-				$apiKeyAccount->setExpires($expires);
-			} else {
-				$apiKeyAccount->setExpires(\NULL);
+			$expireDate = \NULL;
+			if (!empty($keyExpires)) {
+				$expireDate = new \Gerh\Evecorp\Domain\Model\DateTime($keyExpires, new \DateTimeZone('UTC'));
 			}
+			$apiKeyAccount->setExpires($expireDate);
 
 			foreach ($response->key->characters as $character) {
 				$characterId = intval($character->characterID);

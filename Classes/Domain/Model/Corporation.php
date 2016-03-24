@@ -151,11 +151,10 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return string
 	 */
 	public function getAllianceName() {
+		$result = '';
 		$alliance = $this->getCurrentAlliance();
-		if ($alliance != null) {
+		if ($alliance instanceof \Gerh\Evecorp\Domain\Model\Alliance) {
 			$result = $alliance->getAllianceName();
-		} else {
-			$result = '';
 		}
 
 		return $result;

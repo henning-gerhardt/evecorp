@@ -98,11 +98,13 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 		$mapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\ApiKeyMapper');
 		$result = $mapper->fillUpModel($newApiKeyAccount);
 
-		if ($result === \TRUE) {
-			$this->apiKeyAccountRepository->add($newApiKeyAccount);
-		} else {
+		if ($result === \FALSE) {
 			$this->addFlashMessage($mapper->getErrorMessage(), 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+			$this->redirect('index');
+			return;
 		}
+
+		$this->apiKeyAccountRepository->add($newApiKeyAccount);
 
 		$utility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
 		$utility->adjustFrontendUserGroups($corpMember);
@@ -138,11 +140,14 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 		$mapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\ApiKeyMapper');
 
 		$result = $mapper->updateApiKeyAccount($apiKeyAccount);
-		if ($result === \TRUE) {
-			$this->apiKeyAccountRepository->update($apiKeyAccount);
-		} else {
+
+		if ($result === \FALSE) {
 			$this->addFlashMessage($mapper->getErrorMessage(), 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+			$this->redirect('index');
+			return;
 		}
+
+		$this->apiKeyAccountRepository->update($apiKeyAccount);
 
 		$corpMember = $this->accessControlService->getCorpMember();
 		$utility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
