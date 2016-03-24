@@ -126,10 +126,9 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
 	 * @param \integer $eveId
 	 * @param \integer $searchId
 	 * @param \string  $searchColumn Must be 'region' or 'system'
-	 * @param \boolean $respectStoragePage
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
 	 */
-	public function findByEveIdAndColumn($eveId, $searchId, $searchColumn, $respectStoragePage = false) {
+	public function findByEveIdAndColumn($eveId, $searchId, $searchColumn) {
 
 		if (!$this->isCorrectColumn($searchColumn)) {
 			return new \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult();
@@ -208,12 +207,11 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
 	 *
 	 * @param \integer $eveId
 	 * @param \integer $regionId
-	 * @param \boolean $respectStoragePage
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
 	 */
-	public function findByEveIdAndRegionId($eveId, $regionId, $respectStoragePage = false) {
+	public function findByEveIdAndRegionId($eveId, $regionId) {
 
-		$result = $this->findByEveIdAndColumn($eveId, $regionId, 'region', $respectStoragePage);
+		$result = $this->findByEveIdAndColumn($eveId, $regionId, 'region');
 
 		return $result;
 	}
@@ -223,12 +221,11 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
 	 *
 	 * @param \integer $eveId
 	 * @param \integer $systemId
-	 * @param \boolean $respectStoragePage
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
 	 */
-	public function findByEveIdAndSystemId($eveId, $systemId, $respectStoragePage = false) {
+	public function findByEveIdAndSystemId($eveId, $systemId) {
 
-		$result = $this->findByEveIdAndColumn($eveId, $systemId, 'solar_system', $respectStoragePage);
+		$result = $this->findByEveIdAndColumn($eveId, $systemId, 'solar_system');
 
 		return $result;
 	}
