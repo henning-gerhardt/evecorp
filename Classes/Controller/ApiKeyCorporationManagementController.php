@@ -118,6 +118,7 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
 		if ($this->selectedCorporation <= 0) {
 			$this->addFlashMessage('No or to many corporations selected!');
 			$this->redirect('index');
+			return;
 		}
 
 		$corporation = $this->corporationRepository->findByUid($this->selectedCorporation);

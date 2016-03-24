@@ -158,11 +158,13 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		if (\count($this->choosedCorporation) != 1) {
 			$this->addFlashMessage('No or to many corporations selected!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 			$this->redirect('index');
+			return;
 		}
 
 		if (!$this->hasCorpMemberListAccess()) {
 			$this->addFlashMessage('No access to corporation member list!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 			$this->redirect('index');
+			return;
 		}
 
 		$corporation = $this->corporationRepository->findByUid($this->choosedCorporation[0]);
@@ -170,6 +172,7 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		if (!$corporationApiKey instanceof \Gerh\Evecorp\Domain\Model\ApiKeyCorporation) {
 			$this->addFlashMessage('No corporation API key found for accessing corporation member list!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 			$this->redirect('index');
+			return;
 		}
 
 		$corpMemberListUpdater = $this->objectManager->get('\\Gerh\Evecorp\\Domain\\Mapper\\CorporationMemberList');

@@ -108,6 +108,7 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
 		if ($this->selectedCorporation < 1) {
 			$this->addFlashMessage('No corporation selected!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 			$this->redirect('index');
+			return;
 		}
 
 		// fetch corporation from database
@@ -115,6 +116,7 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
 		if (!$corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
 			$this->addFlashMessage('Corporation not found!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 			$this->redirect('index');
+			return;
 		}
 
 		// determinate api key with corp title access
@@ -122,6 +124,7 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
 		if (!$corporationApiKey instanceof \Gerh\Evecorp\Domain\Model\ApiKeyCorporation) {
 			$this->addFlashMessage('No corporation api key found with title access!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 			$this->redirect('index');
+			return;
 		}
 
 		$mapper = new \Gerh\Evecorp\Domain\Mapper\CorporationTitleMapper($corporationApiKey);
