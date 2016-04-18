@@ -232,6 +232,23 @@ $TCA['tx_evecorp_domain_model_corporationtitle'] = array (
 	)
 );
 
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_corporationwallet');
+$TCA['tx_evecorp_domain_model_corporationwallet'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation_wallet',
+		'label' => 'title_name',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden'
+		),
+		'searchFields' => 'title_id, title_name',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/CorporationWallet.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+	)
+);
+
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_character');
 $TCA['tx_evecorp_domain_model_character'] = array (
 	'ctrl' => array (

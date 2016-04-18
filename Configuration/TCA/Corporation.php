@@ -34,7 +34,7 @@ $TCA['tx_evecorp_domain_model_corporation'] = array(
 		'showRecordFieldList' => 'hidden, corporation_name, corporation_id, current_alliance',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'hidden, corporation_name, corporation_id, current_alliance, usergroup, apikeys, titles'),
+		'1' => array('showitem' => 'hidden, corporation_name, corporation_id, current_alliance, usergroup, apikeys, titles, wallets'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -102,6 +102,15 @@ $TCA['tx_evecorp_domain_model_corporation'] = array(
 			'config' => array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_evecorp_domain_model_corporationtitle',
+				'foreign_field' => 'corporation',
+			),
+		),
+		'wallets' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.wallets',
+			'config' => array(
+				'type' => 'inline',
+				'foreign_table' => 'tx_evecorp_domain_model_corporationwallet',
 				'foreign_field' => 'corporation',
 			),
 		),

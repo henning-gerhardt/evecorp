@@ -75,6 +75,13 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $usergroup;
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\CorporationWallet>
+	 * @lazy
+	 * @cascade remove
+	 */
+	protected $wallets;
+
+	/**
 	 * class constructor
 	 *
 	 * @param type $corporationId   (Optional) Corporation id
@@ -85,6 +92,7 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->setCorporationName($corporationName);
 		$this->apikeys = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->titles = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->wallets = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 	/**
