@@ -203,7 +203,20 @@ CREATE TABLE `tx_evecorp_domain_model_corporationwallet` (
 	`uid` int(11) NOT NULL auto_increment,
 	`pid` int(11) DEFAULT '0' NOT NULL,
 
-	`corporation` int(11) DEFAULT '0',
+	`corporation` int(11) DEFAULT '0' NOT NULL,
+	`wallet_division` int(11) DEFAULT '0' NOT NULL,
+	`date` int(11) DEFAULT '0' NOT NULL,
+	`ref_id` bigint(20) DEFAULT '0' NOT NULL,
+	`ref_type_id` int(11) DEFAULT '0' NOT NULL,
+	`owner_id1` int(11) DEFAULT '0' NOT NULL,
+	`owner_id2` int(11) DEFAULT '0' NOT NULL,
+	`arg_name1` varchar(255) DEFAULT '' NOT NULL,
+	`arg_id1` int(11) DEFAULT '0' NOT NULL,
+	`amount` DECIMAL(10,4) DEFAULT '0.0000' NOT NULL,
+	`balance` DECIMAL(20,4) DEFAULT '0.0000' NOT NULL,
+	`reason` tinytext DEFAULT '' NOT NULL,
+	`owner1_type_id` int(11) DEFAULT '0' NOT NULL,
+	`owner2_type_id` int(11) DEFAULT '0' NOT NULL,
 
 	`tstamp` int(11) unsigned DEFAULT '0' NOT NULL,
 	`crdate` int(11) unsigned DEFAULT '0' NOT NULL,
@@ -211,7 +224,8 @@ CREATE TABLE `tx_evecorp_domain_model_corporationwallet` (
 	`hidden` tinyint(3) unsigned DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (`uid`),
-	KEY parent (`pid`)
+	KEY parent (`pid`),
+	UNIQUE KEY `uk_corpwallet` (`date`,`refID`,`refTypeID`,`ownerID1`,`ownerID2`,`argID1`)
 );
 
 #
