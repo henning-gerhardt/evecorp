@@ -35,73 +35,73 @@ namespace Gerh\Evecorp\Domain\Model;
  */
 class MarketData {
 
-	/**
-	 * @var \float Holds current used tax rate
-	 */
-	private $corpTax;
+    /**
+     * @var \float Holds current used tax rate
+     */
+    private $corpTax;
 
-	/**
-	 * eveitemRepository
-	 *
-	 * @var \Gerh\Evecorp\Domain\Repository\EveitemRepository
-	 * @inject
-	 */
-	protected $eveitemRepository;
+    /**
+     * eveitemRepository
+     *
+     * @var \Gerh\Evecorp\Domain\Repository\EveitemRepository
+     * @inject
+     */
+    protected $eveitemRepository;
 
-	/**
-	 * Extract database data to an array structure
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\EveItem $entry
-	 * @return \array
-	 */
-	protected function extractDisplayData(\Gerh\Evecorp\Domain\Model\EveItem $entry) {
+    /**
+     * Extract database data to an array structure
+     *
+     * @param \Gerh\Evecorp\Domain\Model\EveItem $entry
+     * @return \array
+     */
+    protected function extractDisplayData(\Gerh\Evecorp\Domain\Model\EveItem $entry) {
 
-		$result = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
-		$result->setDisplayName($entry->getEveName());
-		$result->setBuyPrice($entry->getBuyPrice());
-		$result->setSellPrice($entry->getSellPrice());
-		$result->setCorpTax($this->getCorpTax());
-		$result->setRegionNameByRegion($entry->getRegion());
-		$result->setSolarSystemNameBySolarSystem($entry->getSolarSystem());
+        $result = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
+        $result->setDisplayName($entry->getEveName());
+        $result->setBuyPrice($entry->getBuyPrice());
+        $result->setSellPrice($entry->getSellPrice());
+        $result->setCorpTax($this->getCorpTax());
+        $result->setRegionNameByRegion($entry->getRegion());
+        $result->setSolarSystemNameBySolarSystem($entry->getSolarSystem());
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Return all market data (up to date).
-	 *
-	 * @return array
-	 */
-	public function getMarketData() {
-		$result = array();
-		foreach ($this->eveitemRepository->findAll() as $dbEntry) {
-			if ($dbEntry != null) {
-				$result[] = $this->extractDisplayData($dbEntry);
-			}
-		}
+    /**
+     * Return all market data (up to date).
+     *
+     * @return array
+     */
+    public function getMarketData() {
+        $result = array();
+        foreach ($this->eveitemRepository->findAll() as $dbEntry) {
+            if ($dbEntry != null) {
+                $result[] = $this->extractDisplayData($dbEntry);
+            }
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Return current corporation tax rate
-	 *
-	 * @return integer
-	 */
-	public function getCorpTax() {
-		return $this->corpTax;
-	}
+    /**
+     * Return current corporation tax rate
+     *
+     * @return integer
+     */
+    public function getCorpTax() {
+        return $this->corpTax;
+    }
 
-	/**
-	 * Set corporation tax rate
-	 *
-	 * @param \float $corpTax
-	 */
-	public function setCorpTax($corpTax) {
-		if (($corpTax < 0.0) || ($corpTax > 100.0)) {
-			$corpTax = 0;
-		}
-		$this->corpTax = $corpTax;
-	}
+    /**
+     * Set corporation tax rate
+     *
+     * @param \float $corpTax
+     */
+    public function setCorpTax($corpTax) {
+        if (($corpTax < 0.0) || ($corpTax > 100.0)) {
+            $corpTax = 0;
+        }
+        $this->corpTax = $corpTax;
+    }
 
 }

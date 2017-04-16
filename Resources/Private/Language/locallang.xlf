@@ -1,213 +1,213 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2013-10-03T16:48:55Z" product-name="evecorp">
-		<header/>
-		<body>
+    <file source-language="en" datatype="plaintext" original="messages" date="2013-10-03T16:48:55Z" product-name="evecorp">
+        <header/>
+        <body>
 
-			<trans-unit id="app.buy" xml:space="preserve">
-					<source>buy</source>
-			</trans-unit>
-			<trans-unit id="app.corpbuy" xml:space="preserve">
-					<source>corp buy</source>
-			</trans-unit>
-			<trans-unit id="app.sell" xml:space="preserve">
-					<source>sell</source>
-			</trans-unit>
-			<trans-unit id="app.region" xml:space="preserve">
-					<source>Region: </source>
-			</trans-unit>
-			<trans-unit id="app.solarsystem" xml:space="preserve">
-					<source>System: </source>
-			</trans-unit>
-			<trans-unit id="serverstate.serverstate" xml:space="preserve">
-					<source>Server state</source>
-			</trans-unit>
-			<trans-unit id="serverstate.open" xml:space="preserve">
-					<source>open</source>
-			</trans-unit>
-			<trans-unit id="serverstate.closed" xml:space="preserve">
-					<source>closed</source>
-			</trans-unit>
-			<trans-unit id="serverstate.onlinepilots" xml:space="preserve">
-					<source>Online pilots</source>
-			</trans-unit>
-			<trans-unit id="scheduler.updateEveItemListTask.name" xml:space="preserve">
-				<source>Update EVE item list</source>
-			</trans-unit>
-			<trans-unit id="scheduler.updateEveItemListTask.description" xml:space="preserve">
-				<source>Updating of EVE items is ...</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.index.welcome" xml:space="preserve">
-				<source>EVE API Key Account Management</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.index.overview" xml:space="preserve">
-				<source>List of stored account API keys for %1$s</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.index.keyid" xml:space="preserve">
-				<source>Key ID</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.index.expires" xml:space="preserve">
-				<source>expires</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.index.accessmask" xml:space="preserve">
-				<source>access mask</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.index.characters" xml:space="preserve">
-				<source>characters</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.index.action" xml:space="preserve">
-				<source>action</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.index.expires.never" xml:space="preserve">
-				<source>never</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.index.action.delete" xml:space="preserve">
-				<source>Delete</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.index.action.update" xml:space="preserve">
-				<source>Update</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.index.action.new" xml:space="preserve">
-				<source>Add new account API key</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.new.welcome" xml:space="preserve">
-				<source>Add new account based API key</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.new.keyid" xml:space="preserve">
-				<source>Key ID</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.new.vcode" xml:space="preserve">
-				<source>Verification Code</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.new.submit" xml:space="preserve">
-				<source>Submit</source>
-			</trans-unit>
-			<trans-unit id="apikeymanagement.new.weblink" xml:space="preserve">
-				<source>Create new account API key</source>
-			</trans-unit>
-			<trans-unit id="apikeycorporationmanagement.index.listof" xml:space="preserve">
-				<source>List of stored corporation API keys</source>
-			</trans-unit>
-			<trans-unit id="apikeycorporationmanagement.index. action.new" xml:space="preserve">
-				<source>Create new corporation API key</source>
-			</trans-unit>
-			<trans-unit id="apikeycorporationmanagement.index.nocorporationselected" xml:space="preserve">
-				<source>No corporation selected in plugin options.</source>
-			</trans-unit>
-			<trans-unit id="apikeycorporationmanagement.index.welcome" xml:space="preserve">
-				<source>EVE API Key Corporation Management</source>
-			</trans-unit>
-			<trans-unit id="apikeycorporationmanagement.new.addnewcorpkey" xml:space="preserve">
-				<source>Add new corporation based API key</source>
-			</trans-unit>
-			<trans-unit id="charactermangement.show.welcome" xml:space="preserve">
-				<source>Character information screen</source>
-			</trans-unit>
-			<trans-unit id="charactermangement.show.name" xml:space="preserve">
-				<source>Name</source>
-			</trans-unit>
-			<trans-unit id="charactermangement.show.corporation" xml:space="preserve">
-				<source>Corporation</source>
-			</trans-unit>
-			<trans-unit id="charactermangement.show.alliance" xml:space="preserve">
-				<source>Alliance</source>
-			</trans-unit>
-			<trans-unit id="charactermangement.show.race" xml:space="preserve">
-				<source>Race</source>
-			</trans-unit>
-			<trans-unit id="charactermangement.show.securitystatus" xml:space="preserve">
-				<source>Security status</source>
-			</trans-unit>
-			<trans-unit id="charactermangement.show.corporationtitle" xml:space="preserve">
-				<source>Corporation title(s)</source>
-			</trans-unit>
-			<trans-unit id="charactermangement.show.employmenthistory" xml:space="preserve">
-				<source>Employment history</source>
-			</trans-unit>
-			<trans-unit id="charactermangement.show.joined" xml:space="preserve">
-				<source>joined</source>
-			</trans-unit>
-			<trans-unit id="charactermangement.show.to" xml:space="preserve">
-				<source>to</source>
-			</trans-unit>
-			<trans-unit id="charactermangement.show.timeperiod" xml:space="preserve">
-				<source>time period</source>
-			</trans-unit>
-			<trans-unit id="charactermangement.show.weblink.back" xml:space="preserve">
-				<source>back</source>
-			</trans-unit>
-			<trans-unit id="corpmemberlist.showlight.welcome" xml:space="preserve">
-				<source>Corporation member list (light)</source>
-			</trans-unit>
-			<trans-unit id="corpmemberlist.index.apikeystate" xml:space="preserve">
-				<source>API key state</source>
-			</trans-unit>
-			<trans-unit id="corpmemberlist.index.character" xml:space="preserve">
-				<source>character name</source>
-			</trans-unit>
-			<trans-unit id="corpmemberlist.index.corporation" xml:space="preserve">
-				<source>Current corporation</source>
-			</trans-unit>
-			<trans-unit id="corpmemberlist.index.expires.never" xml:space="preserve">
-				<source>key will never expire</source>
-			</trans-unit>
-			<trans-unit id="corpmemberlist.index.expiredate.unknown" xml:space="preserve">
-				<source>unknown (no API key)</source>
-			</trans-unit>
-			<trans-unit id="corpmemberlist.index.corporationjoined" xml:space="preserve">
-				<source>Corporation join date</source>
-			</trans-unit>
-			<trans-unit id="corpmemberlist.index.loginuser" xml:space="preserve">
-				<source>login user name</source>
-			</trans-unit>
-			<trans-unit id="corpmemberlist.index.loginuser.notregistered" xml:space="preserve">
-				<source>not registered to a login</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.link" xml:space="preserve">
-				<source>Switch to corporation title management</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.index.listof" xml:space="preserve">
-				<source>List of corporation titles</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.index.nocorporationselected" xml:space="preserve">
-				<source>No corporation selected in plugin options.</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.edit.titleid" xml:space="preserve">
-				<source>Title id</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.edit.titlename" xml:space="preserve">
-				<source>Title name</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.edit.usergroup" xml:space="preserve">
-				<source>Frontend user group</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.edit.submit" xml:space="preserve">
-				<source>Submit</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.edit.welcome" xml:space="preserve">
-				<source>Edit frontend user group for corporation title</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.index.backto" xml:space="preserve">
-				<source>Back to corporation api key management.</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.index.title.action" xml:space="preserve">
-				<source>action</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.index.title.edit" xml:space="preserve">
-				<source>edit</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.index.title.id" xml:space="preserve">
-				<source>id</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.index.title.name" xml:space="preserve">
-				<source>name</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.index.title.usergroup" xml:space="preserve">
-				<source>frontend user group</source>
-			</trans-unit>
-			<trans-unit id="corporationtitlemanagement.index.welcome" xml:space="preserve">
-				<source>Corporation Title Management</source>
-			</trans-unit>
-		</body>
-	</file>
+            <trans-unit id="app.buy" xml:space="preserve">
+                    <source>buy</source>
+            </trans-unit>
+            <trans-unit id="app.corpbuy" xml:space="preserve">
+                    <source>corp buy</source>
+            </trans-unit>
+            <trans-unit id="app.sell" xml:space="preserve">
+                    <source>sell</source>
+            </trans-unit>
+            <trans-unit id="app.region" xml:space="preserve">
+                    <source>Region: </source>
+            </trans-unit>
+            <trans-unit id="app.solarsystem" xml:space="preserve">
+                    <source>System: </source>
+            </trans-unit>
+            <trans-unit id="serverstate.serverstate" xml:space="preserve">
+                    <source>Server state</source>
+            </trans-unit>
+            <trans-unit id="serverstate.open" xml:space="preserve">
+                    <source>open</source>
+            </trans-unit>
+            <trans-unit id="serverstate.closed" xml:space="preserve">
+                    <source>closed</source>
+            </trans-unit>
+            <trans-unit id="serverstate.onlinepilots" xml:space="preserve">
+                    <source>Online pilots</source>
+            </trans-unit>
+            <trans-unit id="scheduler.updateEveItemListTask.name" xml:space="preserve">
+                <source>Update EVE item list</source>
+            </trans-unit>
+            <trans-unit id="scheduler.updateEveItemListTask.description" xml:space="preserve">
+                <source>Updating of EVE items is ...</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.index.welcome" xml:space="preserve">
+                <source>EVE API Key Account Management</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.index.overview" xml:space="preserve">
+                <source>List of stored account API keys for %1$s</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.index.keyid" xml:space="preserve">
+                <source>Key ID</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.index.expires" xml:space="preserve">
+                <source>expires</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.index.accessmask" xml:space="preserve">
+                <source>access mask</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.index.characters" xml:space="preserve">
+                <source>characters</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.index.action" xml:space="preserve">
+                <source>action</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.index.expires.never" xml:space="preserve">
+                <source>never</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.index.action.delete" xml:space="preserve">
+                <source>Delete</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.index.action.update" xml:space="preserve">
+                <source>Update</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.index.action.new" xml:space="preserve">
+                <source>Add new account API key</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.new.welcome" xml:space="preserve">
+                <source>Add new account based API key</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.new.keyid" xml:space="preserve">
+                <source>Key ID</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.new.vcode" xml:space="preserve">
+                <source>Verification Code</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.new.submit" xml:space="preserve">
+                <source>Submit</source>
+            </trans-unit>
+            <trans-unit id="apikeymanagement.new.weblink" xml:space="preserve">
+                <source>Create new account API key</source>
+            </trans-unit>
+            <trans-unit id="apikeycorporationmanagement.index.listof" xml:space="preserve">
+                <source>List of stored corporation API keys</source>
+            </trans-unit>
+            <trans-unit id="apikeycorporationmanagement.index. action.new" xml:space="preserve">
+                <source>Create new corporation API key</source>
+            </trans-unit>
+            <trans-unit id="apikeycorporationmanagement.index.nocorporationselected" xml:space="preserve">
+                <source>No corporation selected in plugin options.</source>
+            </trans-unit>
+            <trans-unit id="apikeycorporationmanagement.index.welcome" xml:space="preserve">
+                <source>EVE API Key Corporation Management</source>
+            </trans-unit>
+            <trans-unit id="apikeycorporationmanagement.new.addnewcorpkey" xml:space="preserve">
+                <source>Add new corporation based API key</source>
+            </trans-unit>
+            <trans-unit id="charactermangement.show.welcome" xml:space="preserve">
+                <source>Character information screen</source>
+            </trans-unit>
+            <trans-unit id="charactermangement.show.name" xml:space="preserve">
+                <source>Name</source>
+            </trans-unit>
+            <trans-unit id="charactermangement.show.corporation" xml:space="preserve">
+                <source>Corporation</source>
+            </trans-unit>
+            <trans-unit id="charactermangement.show.alliance" xml:space="preserve">
+                <source>Alliance</source>
+            </trans-unit>
+            <trans-unit id="charactermangement.show.race" xml:space="preserve">
+                <source>Race</source>
+            </trans-unit>
+            <trans-unit id="charactermangement.show.securitystatus" xml:space="preserve">
+                <source>Security status</source>
+            </trans-unit>
+            <trans-unit id="charactermangement.show.corporationtitle" xml:space="preserve">
+                <source>Corporation title(s)</source>
+            </trans-unit>
+            <trans-unit id="charactermangement.show.employmenthistory" xml:space="preserve">
+                <source>Employment history</source>
+            </trans-unit>
+            <trans-unit id="charactermangement.show.joined" xml:space="preserve">
+                <source>joined</source>
+            </trans-unit>
+            <trans-unit id="charactermangement.show.to" xml:space="preserve">
+                <source>to</source>
+            </trans-unit>
+            <trans-unit id="charactermangement.show.timeperiod" xml:space="preserve">
+                <source>time period</source>
+            </trans-unit>
+            <trans-unit id="charactermangement.show.weblink.back" xml:space="preserve">
+                <source>back</source>
+            </trans-unit>
+            <trans-unit id="corpmemberlist.showlight.welcome" xml:space="preserve">
+                <source>Corporation member list (light)</source>
+            </trans-unit>
+            <trans-unit id="corpmemberlist.index.apikeystate" xml:space="preserve">
+                <source>API key state</source>
+            </trans-unit>
+            <trans-unit id="corpmemberlist.index.character" xml:space="preserve">
+                <source>character name</source>
+            </trans-unit>
+            <trans-unit id="corpmemberlist.index.corporation" xml:space="preserve">
+                <source>Current corporation</source>
+            </trans-unit>
+            <trans-unit id="corpmemberlist.index.expires.never" xml:space="preserve">
+                <source>key will never expire</source>
+            </trans-unit>
+            <trans-unit id="corpmemberlist.index.expiredate.unknown" xml:space="preserve">
+                <source>unknown (no API key)</source>
+            </trans-unit>
+            <trans-unit id="corpmemberlist.index.corporationjoined" xml:space="preserve">
+                <source>Corporation join date</source>
+            </trans-unit>
+            <trans-unit id="corpmemberlist.index.loginuser" xml:space="preserve">
+                <source>login user name</source>
+            </trans-unit>
+            <trans-unit id="corpmemberlist.index.loginuser.notregistered" xml:space="preserve">
+                <source>not registered to a login</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.link" xml:space="preserve">
+                <source>Switch to corporation title management</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.index.listof" xml:space="preserve">
+                <source>List of corporation titles</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.index.nocorporationselected" xml:space="preserve">
+                <source>No corporation selected in plugin options.</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.edit.titleid" xml:space="preserve">
+                <source>Title id</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.edit.titlename" xml:space="preserve">
+                <source>Title name</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.edit.usergroup" xml:space="preserve">
+                <source>Frontend user group</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.edit.submit" xml:space="preserve">
+                <source>Submit</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.edit.welcome" xml:space="preserve">
+                <source>Edit frontend user group for corporation title</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.index.backto" xml:space="preserve">
+                <source>Back to corporation api key management.</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.index.title.action" xml:space="preserve">
+                <source>action</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.index.title.edit" xml:space="preserve">
+                <source>edit</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.index.title.id" xml:space="preserve">
+                <source>id</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.index.title.name" xml:space="preserve">
+                <source>name</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.index.title.usergroup" xml:space="preserve">
+                <source>frontend user group</source>
+            </trans-unit>
+            <trans-unit id="corporationtitlemanagement.index.welcome" xml:space="preserve">
+                <source>Corporation Title Management</source>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

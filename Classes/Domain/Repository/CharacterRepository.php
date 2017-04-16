@@ -35,26 +35,26 @@ namespace Gerh\Evecorp\Domain\Repository;
  */
 class CharacterRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
 
-	/**
-	 * Find all characters sorted by character name.
-	 * Could be restricted to choosed corporations.
-	 *
-	 * @param array $corporations (Optional) corporations
-	 * @return QueryResultInterface|array
-	 */
-	public function findAllCharactersSortedByCharacterName(array $corporations) {
-		$orderings = array(
-			'characterName' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
-		);
+    /**
+     * Find all characters sorted by character name.
+     * Could be restricted to choosed corporations.
+     *
+     * @param array $corporations (Optional) corporations
+     * @return QueryResultInterface|array
+     */
+    public function findAllCharactersSortedByCharacterName(array $corporations) {
+        $orderings = array(
+            'characterName' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+        );
 
-		$query = $this->createQuery();
-		$query->setOrderings($orderings);
+        $query = $this->createQuery();
+        $query->setOrderings($orderings);
 
-		if (!empty($corporations)) {
-			$query->matching($query->in('currentCorporation', $corporations));
-		}
+        if (!empty($corporations)) {
+            $query->matching($query->in('currentCorporation', $corporations));
+        }
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 
 }

@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2016-03-21T09:45:00Z" product-name="evecorp">
-		<header/>
-		<body>
-			<trans-unit id="evecorp.apikeycorporationmanagement.sheettitle" xml:space="preserve">
-				<source>Options</source>
-			</trans-unit>
-			<trans-unit id="evecorp.apikeycorporationmanagement.corporation" xml:space="preserve">
-				<source>Choose corporation restriction</source>
-			</trans-unit>
-			<trans-unit id="evecorp.apikeycorporationmanagement.showcorporationjoindate" xml:space="preserve">
-				<source>Show characters corporation join date</source>
-			</trans-unit>
-			<trans-unit id="evecorp.apikeycorporationmanagement.showapikeystate" xml:space="preserve">
-				<source>Show api key expire state</source>
-			</trans-unit>
-			<trans-unit id="evecorp.apikeycorporationmanagement.showloginuser" xml:space="preserve">
-				<source>Show login user name</source>
-			</trans-unit>
+    <file source-language="en" datatype="plaintext" original="messages" date="2016-03-21T09:45:00Z" product-name="evecorp">
+        <header/>
+        <body>
+            <trans-unit id="evecorp.apikeycorporationmanagement.sheettitle" xml:space="preserve">
+                <source>Options</source>
+            </trans-unit>
+            <trans-unit id="evecorp.apikeycorporationmanagement.corporation" xml:space="preserve">
+                <source>Choose corporation restriction</source>
+            </trans-unit>
+            <trans-unit id="evecorp.apikeycorporationmanagement.showcorporationjoindate" xml:space="preserve">
+                <source>Show characters corporation join date</source>
+            </trans-unit>
+            <trans-unit id="evecorp.apikeycorporationmanagement.showapikeystate" xml:space="preserve">
+                <source>Show api key expire state</source>
+            </trans-unit>
+            <trans-unit id="evecorp.apikeycorporationmanagement.showloginuser" xml:space="preserve">
+                <source>Show login user name</source>
+            </trans-unit>
 
-			<trans-unit id="evecorp.corpmemberlist.sheettitle" xml:space="preserve">
-				<source>Options</source>
-			</trans-unit>
-			<trans-unit id="evecorp.corpmemberlist.corporation" xml:space="preserve">
-				<source>Choose corporation restriction</source>
-			</trans-unit>
-			<trans-unit id="evecorp.corpmemberlist.corporation.allcorporations" xml:space="preserve">
-				<source>all available corporations</source>
-			</trans-unit>
-			<trans-unit id="evecorp.corpmemberlist.showcorporationjoindate" xml:space="preserve">
-				<source>Show characters corporation join date</source>
-			</trans-unit>
-			<trans-unit id="evecorp.corpmemberlist.showcurrentcorporation" xml:space="preserve">
-				<source>Show characters current corporation</source>
-			</trans-unit>
-			<trans-unit id="evecorp.corpmemberlist.showapikeystate" xml:space="preserve">
-				<source>Show api key expire state</source>
-			</trans-unit>
-			<trans-unit id="evecorp.corpmemberlist.showloginuser" xml:space="preserve">
-				<source>Show login user name</source>
-			</trans-unit>
+            <trans-unit id="evecorp.corpmemberlist.sheettitle" xml:space="preserve">
+                <source>Options</source>
+            </trans-unit>
+            <trans-unit id="evecorp.corpmemberlist.corporation" xml:space="preserve">
+                <source>Choose corporation restriction</source>
+            </trans-unit>
+            <trans-unit id="evecorp.corpmemberlist.corporation.allcorporations" xml:space="preserve">
+                <source>all available corporations</source>
+            </trans-unit>
+            <trans-unit id="evecorp.corpmemberlist.showcorporationjoindate" xml:space="preserve">
+                <source>Show characters corporation join date</source>
+            </trans-unit>
+            <trans-unit id="evecorp.corpmemberlist.showcurrentcorporation" xml:space="preserve">
+                <source>Show characters current corporation</source>
+            </trans-unit>
+            <trans-unit id="evecorp.corpmemberlist.showapikeystate" xml:space="preserve">
+                <source>Show api key expire state</source>
+            </trans-unit>
+            <trans-unit id="evecorp.corpmemberlist.showloginuser" xml:space="preserve">
+                <source>Show login user name</source>
+            </trans-unit>
 
-			<trans-unit id="evecorp.index.sheettitle" xml:space="preserve">
-				<source>Options</source>
-			</trans-unit>
-			<trans-unit id="evecorp.index.corptax" xml:space="preserve">
-				<source>Corp tax (in percent)</source>
-			</trans-unit>
-			<trans-unit id="evecorp.index.tabletypecontent" xml:space="preserve">
-				<source>table type content</source>
-			</trans-unit>
-			<trans-unit id="evecorp.index.showbuycorpcolumn" xml:space="preserve">
-				<source>show buy corp column</source>
-			</trans-unit>
-			<trans-unit id="evecorp.index.showfetchcolumn" xml:space="preserve">
-				<source>show fetch column (region or solar system)</source>
-			</trans-unit>
-			<trans-unit id="evecorp.index.pretabletext" xml:space="preserve">
-				<source>text before table</source>
-			</trans-unit>
-			<trans-unit id="evecorp.index.posttabletext" xml:space="preserve">
-				<source>text after table</source>
-			</trans-unit>
+            <trans-unit id="evecorp.index.sheettitle" xml:space="preserve">
+                <source>Options</source>
+            </trans-unit>
+            <trans-unit id="evecorp.index.corptax" xml:space="preserve">
+                <source>Corp tax (in percent)</source>
+            </trans-unit>
+            <trans-unit id="evecorp.index.tabletypecontent" xml:space="preserve">
+                <source>table type content</source>
+            </trans-unit>
+            <trans-unit id="evecorp.index.showbuycorpcolumn" xml:space="preserve">
+                <source>show buy corp column</source>
+            </trans-unit>
+            <trans-unit id="evecorp.index.showfetchcolumn" xml:space="preserve">
+                <source>show fetch column (region or solar system)</source>
+            </trans-unit>
+            <trans-unit id="evecorp.index.pretabletext" xml:space="preserve">
+                <source>text before table</source>
+            </trans-unit>
+            <trans-unit id="evecorp.index.posttabletext" xml:space="preserve">
+                <source>text after table</source>
+            </trans-unit>
 
-		</body>
-	</file>
+        </body>
+    </file>
 </xliff>

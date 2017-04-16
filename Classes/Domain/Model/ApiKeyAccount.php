@@ -35,89 +35,89 @@ namespace Gerh\Evecorp\Domain\Model;
  */
 class ApiKeyAccount extends \Gerh\Evecorp\Domain\Model\ApiKey {
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
-	 * @lazy
-	 * @cascade remove
-	 */
-	protected $characters;
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
+     * @lazy
+     * @cascade remove
+     */
+    protected $characters;
 
-	/**
-	 * @var \Gerh\Evecorp\Domain\Model\CorpMember
-	 * @lazy
-	 */
-	protected $corpMember;
+    /**
+     * @var \Gerh\Evecorp\Domain\Model\CorpMember
+     * @lazy
+     */
+    protected $corpMember;
 
-	/**
-	 * class constructor
-	 */
-	public function __construct() {
-		$this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-	}
+    /**
+     * class constructor
+     */
+    public function __construct() {
+        $this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
 
-	/**
-	 * Add character to API key
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\Character $character
-	 */
-	public function addCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
-		$this->characters->attach($character);
-	}
+    /**
+     * Add character to API key
+     *
+     * @param \Gerh\Evecorp\Domain\Model\Character $character
+     */
+    public function addCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
+        $this->characters->attach($character);
+    }
 
-	/**
-	 * Returns all characters of API key
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
-	 */
-	public function getCharacters() {
-		return $this->characters;
-	}
+    /**
+     * Returns all characters of API key
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
+     */
+    public function getCharacters() {
+        return $this->characters;
+    }
 
-	/**
-	 * Remove character from API key
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\Character $character
-	 */
-	public function removeCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
-		$this->characters->detach($character);
-	}
+    /**
+     * Remove character from API key
+     *
+     * @param \Gerh\Evecorp\Domain\Model\Character $character
+     */
+    public function removeCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
+        $this->characters->detach($character);
+    }
 
-	/**
-	 * Remove all characters from API key
-	 */
-	public function removeAllCharacters() {
-		$this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-	}
+    /**
+     * Remove all characters from API key
+     */
+    public function removeAllCharacters() {
+        $this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
 
-	/**
-	 * Set characters of API key
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $characters
-	 */
-	public function setCharacters(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $characters) {
-		$this->characters = $characters;
-	}
+    /**
+     * Set characters of API key
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $characters
+     */
+    public function setCharacters(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $characters) {
+        $this->characters = $characters;
+    }
 
-	/**
-	 * Returns frontend user for API key
-	 *
-	 * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
-	 */
-	public function getCorpMember() {
-		if ($this->corpMember instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
-			$this->corpMember->_loadRealInstance();
-		}
+    /**
+     * Returns frontend user for API key
+     *
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+     */
+    public function getCorpMember() {
+        if ($this->corpMember instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+            $this->corpMember->_loadRealInstance();
+        }
 
-		return $this->corpMember;
-	}
+        return $this->corpMember;
+    }
 
-	/**
-	 * Set frontend user for this API key
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\CorpMember
-	 */
-	public function setCorpMember(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember) {
-		$this->corpMember = $corpMember;
-	}
+    /**
+     * Set frontend user for this API key
+     *
+     * @param \Gerh\Evecorp\Domain\Model\CorpMember
+     */
+    public function setCorpMember(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember) {
+        $this->corpMember = $corpMember;
+    }
 
 }

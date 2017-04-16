@@ -35,36 +35,36 @@ namespace Gerh\Evecorp\ViewHelpers\Format;
  */
 class EmploymentHistoryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
-	/**
-	 * Render employment history of given character
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\Character $character
-	 * @return \string
-	 */
-	public function render(\Gerh\Evecorp\Domain\Model\Character $character) {
+    /**
+     * Render employment history of given character
+     *
+     * @param \Gerh\Evecorp\Domain\Model\Character $character
+     * @return \string
+     */
+    public function render(\Gerh\Evecorp\Domain\Model\Character $character) {
 
-		$output = '';
-		$lastJoinDate = NULL;
+        $output = '';
+        $lastJoinDate = NULL;
 
-		foreach ($character->getEmployments() as $employment) {
-			$output .= '<tr>';
-			$output .= '<td>' . $employment->getCorporation()->getCorporationName() . '</td>';
-			$output .= '<td>' . $employment->getStartDate()->format('d.m.Y H:i') . '</td>';
+        foreach ($character->getEmployments() as $employment) {
+            $output .= '<tr>';
+            $output .= '<td>' . $employment->getCorporation()->getCorporationName() . '</td>';
+            $output .= '<td>' . $employment->getStartDate()->format('d.m.Y H:i') . '</td>';
 
-			if ($lastJoinDate != NULL) {
-				$output .= '<td>' . $lastJoinDate->format('d.m.Y H:i') . '</td>';
-			} else {
-				$output .= '<td>today</td>';
-				$lastJoinDate = new \DateTime();
-			}
+            if ($lastJoinDate != NULL) {
+                $output .= '<td>' . $lastJoinDate->format('d.m.Y H:i') . '</td>';
+            } else {
+                $output .= '<td>today</td>';
+                $lastJoinDate = new \DateTime();
+            }
 
-			$output .= '<td>' . $employment->getStartDate()->diff($lastJoinDate)->format('%a days') . '</td>';
-			$output .= '</tr>' . PHP_EOL;
+            $output .= '<td>' . $employment->getStartDate()->diff($lastJoinDate)->format('%a days') . '</td>';
+            $output .= '</tr>' . PHP_EOL;
 
-			$lastJoinDate = $employment->getStartDate();
-		}
+            $lastJoinDate = $employment->getStartDate();
+        }
 
-		return $output;
-	}
+        return $output;
+    }
 
 }

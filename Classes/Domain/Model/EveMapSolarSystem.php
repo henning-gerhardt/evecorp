@@ -35,52 +35,52 @@ namespace Gerh\Evecorp\Domain\Model;
  */
 class EveMapSolarSystem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
-	/**
-	 * @var \integer
-	 */
-	protected $solarSystemId;
+    /**
+     * @var \integer
+     */
+    protected $solarSystemId;
 
-	/**
-	 * @var \string
-	 */
-	protected $solarSystemName;
+    /**
+     * @var \string
+     */
+    protected $solarSystemName;
 
-	/**
-	 * Get solar system id
-	 *
-	 * @return \integer
-	 */
-	public function getSolarSystemId() {
-		return $this->solarSystemId;
-	}
+    /**
+     * Get solar system id
+     *
+     * @return \integer
+     */
+    public function getSolarSystemId() {
+        return $this->solarSystemId;
+    }
 
-	/**
-	 * Set solar system id
-	 *
-	 * @param \integer $solarSystemId
-	 * @return void
-	 */
-	public function setSolarSystemId($solarSystemId) {
-		$this->solarSystemId = $solarSystemId;
-	}
+    /**
+     * Set solar system id
+     *
+     * @param \integer $solarSystemId
+     * @return void
+     */
+    public function setSolarSystemId($solarSystemId) {
+        $this->solarSystemId = $solarSystemId;
+    }
 
-	/**
-	 * Get solar system name
-	 *
-	 * @return \string
-	 */
-	public function getSolarSystemName() {
-		return $this->solarSystemName;
-	}
+    /**
+     * Get solar system name
+     *
+     * @return \string
+     */
+    public function getSolarSystemName() {
+        return $this->solarSystemName;
+    }
 
-	/**
-	 * Set solar system name
-	 *
-	 * @param \string $solarSystemName
-	 * @return void
-	 */
-	public function setSolarSystemName($solarSystemName) {
-		$this->solarSystemName = $solarSystemName;
-	}
+    /**
+     * Set solar system name
+     *
+     * @param \string $solarSystemName
+     * @return void
+     */
+    public function setSolarSystemName($solarSystemName) {
+        $this->solarSystemName = $solarSystemName;
+    }
 
 }

@@ -33,25 +33,25 @@ namespace Gerh\Evecorp\Domain\Repository;
  */
 class BaseRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
-	/**
-	 * Returns used storage pids for this repository.
-	 *
-	 * @return array
-	 */
-	public function getRepositoryStoragePid() {
-		return $this->createQuery()->getQuerySettings()->getStoragePageIds();
-	}
+    /**
+     * Returns used storage pids for this repository.
+     *
+     * @return array
+     */
+    public function getRepositoryStoragePid() {
+        return $this->createQuery()->getQuerySettings()->getStoragePageIds();
+    }
 
-	/**
-	 * Set storage pid of this repository
-	 *
-	 * @param \int $storagePid
-	 */
-	public function setRepositoryStoragePid($storagePid = 0) {
-		$querySettings = $this->createQuery()->getQuerySettings();
-		$querySettings->setStoragePageIds(array($storagePid));
-		$querySettings->setRespectStoragePage(TRUE);
-		$this->setDefaultQuerySettings($querySettings);
-	}
+    /**
+     * Set storage pid of this repository
+     *
+     * @param \int $storagePid
+     */
+    public function setRepositoryStoragePid($storagePid = 0) {
+        $querySettings = $this->createQuery()->getQuerySettings();
+        $querySettings->setStoragePageIds(array($storagePid));
+        $querySettings->setRespectStoragePage(TRUE);
+        $this->setDefaultQuerySettings($querySettings);
+    }
 
 }

@@ -35,14 +35,14 @@ namespace Gerh\Evecorp\Controller;
  */
 class CharacterManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-	/**
-	 * Show character information
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\Character $character
-	 * @return void
-	 */
-	public function showAction(\Gerh\Evecorp\Domain\Model\Character $character) {
-		$this->view->assign('character', $character);
-	}
+    /**
+     * Show character information
+     *
+     * @param \Gerh\Evecorp\Domain\Model\Character $character
+     * @return void
+     */
+    public function showAction(\Gerh\Evecorp\Domain\Model\Character $character) {
+        $this->view->assign('character', $character);
+    }
 
 }

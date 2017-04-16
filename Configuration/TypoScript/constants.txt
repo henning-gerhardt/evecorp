@@ -1,14 +1,14 @@
 plugin.tx_evecorp {
-	view {
-		# cat=plugin.tx_evecorp/file; type=string; label=Path to template root (FE)
-		templateRootPath = EXT:evecorp/Resources/Private/Templates/
-		# cat=plugin.tx_evecorp/file; type=string; label=Path to template partials (FE)
-		partialRootPath = EXT:evecorp/Resources/Private/Partials/
-		# cat=plugin.tx_evecorp/file; type=string; label=Path to template layouts (FE)
-		layoutRootPath = EXT:evecorp/Resources/Private/Layouts/
-	}
-	persistence {
-		# cat=plugin.tx_evecorp//a; type=string; label=Default storage PID
-		storagePid =
-	}
+    view {
+        # cat=plugin.tx_evecorp/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:evecorp/Resources/Private/Templates/
+        # cat=plugin.tx_evecorp/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:evecorp/Resources/Private/Partials/
+        # cat=plugin.tx_evecorp/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:evecorp/Resources/Private/Layouts/
+    }
+    persistence {
+        # cat=plugin.tx_evecorp//a; type=string; label=Default storage PID
+        storagePid =
+    }
 }

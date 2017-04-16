@@ -2,10 +2,10 @@ Updating evemapregion table from mapregion (static dump):
 
 1. TRUNCATE `tx_evecorp_domain_model_evemapregion`;
 2. INSERT INTO `tx_evecorp_domain_model_evemapregion`(`uid`, `pid`, `region_id`, `region_name`, `tstamp`, `crdate`) 
-	SELECT `regionID`, 0, `regionID`,`regionName`, NOW(), NOW() FROM `mapregions`;
+    SELECT `regionID`, 0, `regionID`,`regionName`, NOW(), NOW() FROM `mapregions`;
 
 Updating evemapsolarsystem table from mapsolarsystem (static dump):
 
 1. TRUNCATE `tx_evecorp_domain_model_evemapsolarsystem`;
 2. INSERT INTO `tx_evecorp_domain_model_evemapsolarsystem`(`uid`, `pid`, `solar_system_id`, `solar_system_name`, `tstamp`, `crdate`) 
-	SELECT `solarSystemID`, 0, `solarSystemID`,`solarSystemName`, NOW(), NOW() FROM `mapsolarsystems`;
+    SELECT `solarSystemID`, 0, `solarSystemID`,`solarSystemName`, NOW(), NOW() FROM `mapsolarsystems`;

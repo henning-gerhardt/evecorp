@@ -109,202 +109,202 @@ $TCA['tx_evecorp_domain_model_eveitem'] = array(
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_evemapregion');
 $TCA['tx_evecorp_domain_model_evemapregion'] = array (
-	'ctrl' => array (
-		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_evemapregion',
-		'label' => 'region_name',
-		'tstamp' => 'tstamp',
-		'crdate' => 'crdate',
-		'delete' => 'deleted',
-		'enablecolumns' => array(
-			'disabled' => 'hidden'
-		),
-		'rootLevel' => 1,
-		'hideTable' => 1,
-		'readOnly' => 1,
-		'searchFields' => 'region_id, region_name,',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/EveMapRegion.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
-	)
+    'ctrl' => array (
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_evemapregion',
+        'label' => 'region_name',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden'
+        ),
+        'rootLevel' => 1,
+        'hideTable' => 1,
+        'readOnly' => 1,
+        'searchFields' => 'region_id, region_name,',
+        'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/EveMapRegion.php',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    )
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_evemapsolarsystem');
 $TCA['tx_evecorp_domain_model_evemapsolarsystem'] = array (
-	'ctrl' => array (
-		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_evemapsolarsystem',
-		'label' => 'solar_system_name',
-		'tstamp' => 'tstamp',
-		'crdate' => 'crdate',
-		'delete' => 'deleted',
-		'enablecolumns' => array(
-			'disabled' => 'hidden'
-		),
-		'rootLevel' => 1,
-		'hideTable' => 1,
-		'readOnly' => 1,
-		'searchFields' => 'solar_system_id, solar_system_name,',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/EveMapSolarSystem.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
-	)
+    'ctrl' => array (
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_evemapsolarsystem',
+        'label' => 'solar_system_name',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden'
+        ),
+        'rootLevel' => 1,
+        'hideTable' => 1,
+        'readOnly' => 1,
+        'searchFields' => 'solar_system_id, solar_system_name,',
+        'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/EveMapSolarSystem.php',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    )
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_apikeyaccount');
 $TCA['tx_evecorp_domain_model_apikeyaccount'] = array (
-	'ctrl' => array (
-		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account',
-		'label' => 'key_id',
-		'tstamp' => 'tstamp',
-		'crdate' => 'crdate',
-		'delete' => 'deleted',
-		'enablecolumns' => array(
-			'disabled' => 'hidden'
-		),
-		'searchFields' => 'key_id, v_code',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/ApiKeyAccount.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
-	)
+    'ctrl' => array (
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account',
+        'label' => 'key_id',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden'
+        ),
+        'searchFields' => 'key_id, v_code',
+        'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/ApiKeyAccount.php',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    )
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_apikeycorporation');
 $TCA['tx_evecorp_domain_model_apikeycorporation'] = array (
-	'ctrl' => array (
-		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.corporation',
-		'label' => 'key_id',
-		'tstamp' => 'tstamp',
-		'crdate' => 'crdate',
-		'delete' => 'deleted',
-		'enablecolumns' => array(
-			'disabled' => 'hidden'
-		),
-		'searchFields' => 'key_id, v_code',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/ApiKeyCorporation.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
-	)
+    'ctrl' => array (
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.corporation',
+        'label' => 'key_id',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden'
+        ),
+        'searchFields' => 'key_id, v_code',
+        'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/ApiKeyCorporation.php',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    )
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_alliance');
 $TCA['tx_evecorp_domain_model_alliance'] = array (
-	'ctrl' => array (
-		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_alliance',
-		'label' => 'alliance_name',
-		'tstamp' => 'tstamp',
-		'crdate' => 'crdate',
-		'delete' => 'deleted',
-		'enablecolumns' => array(
-			'disabled' => 'hidden'
-		),
-		'searchFields' => 'alliance_id, alliance_name',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Alliance.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
-	)
+    'ctrl' => array (
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_alliance',
+        'label' => 'alliance_name',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden'
+        ),
+        'searchFields' => 'alliance_id, alliance_name',
+        'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Alliance.php',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    )
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_corporation');
 $TCA['tx_evecorp_domain_model_corporation'] = array (
-	'ctrl' => array (
-		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation',
-		'label' => 'corporation_name',
-		'tstamp' => 'tstamp',
-		'crdate' => 'crdate',
-		'delete' => 'deleted',
-		'enablecolumns' => array(
-			'disabled' => 'hidden'
-		),
-		'searchFields' => 'corporation_id, corporation_name',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Corporation.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
-	)
+    'ctrl' => array (
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation',
+        'label' => 'corporation_name',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden'
+        ),
+        'searchFields' => 'corporation_id, corporation_name',
+        'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Corporation.php',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    )
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_corporationtitle');
 $TCA['tx_evecorp_domain_model_corporationtitle'] = array (
-	'ctrl' => array (
-		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation_title',
-		'label' => 'title_name',
-		'tstamp' => 'tstamp',
-		'crdate' => 'crdate',
-		'delete' => 'deleted',
-		'enablecolumns' => array(
-			'disabled' => 'hidden'
-		),
-		'searchFields' => 'title_id, title_name',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/CorporationTitle.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
-	)
+    'ctrl' => array (
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation_title',
+        'label' => 'title_name',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden'
+        ),
+        'searchFields' => 'title_id, title_name',
+        'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/CorporationTitle.php',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    )
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_character');
 $TCA['tx_evecorp_domain_model_character'] = array (
-	'ctrl' => array (
-		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
-		'label' => 'character_name',
-		'tstamp' => 'tstamp',
-		'crdate' => 'crdate',
-		'delete' => 'deleted',
-		'enablecolumns' => array(
-			'disabled' => 'hidden'
-		),
-		'searchFields' => 'character_id, character_name',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Character.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
-	)
+    'ctrl' => array (
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
+        'label' => 'character_name',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden'
+        ),
+        'searchFields' => 'character_id, character_name',
+        'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Character.php',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    )
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_evecorp_domain_model_employmenthistory');
 $TCA['tx_evecorp_domain_model_employmenthistory'] = array (
-	'ctrl' => array (
-		'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_employmenthistory',
-		'label' => 'character_uid',
-		'tstamp' => 'tstamp',
-		'crdate' => 'crdate',
-		'delete' => 'deleted',
-		'enablecolumns' => array(
-			'disabled' => 'hidden'
-		),
-		'searchFields' => 'character',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/EmploymentHistory.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
-	)
+    'ctrl' => array (
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_employmenthistory',
+        'label' => 'character_uid',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => array(
+            'disabled' => 'hidden'
+        ),
+        'searchFields' => 'character',
+        'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/EmploymentHistory.php',
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    )
 );
 
 $feUsersExtendedColumns = array(
-	'characters' => array(
-		'exclude' => 0,
-		'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
-		'config' => array(
-			'type' => 'inline',
-			'foreign_table' => 'tx_evecorp_domain_model_character',
-			'foreign_field' => 'corp_member',
-			'size' => 3,
-			'appearance' => array(
-				'levelLinksPosition' => 'none',
-			),
-		),
-	),
-	'api_keys' => array(
-		'exclude' => 0,
-		'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey',
-		'config' => array(
-			'type' => 'inline',
-			'foreign_table' => 'tx_evecorp_domain_model_apikeyaccount',
-			'foreign_field' => 'corp_member',
-			'size' => 3,
-			'appearance' => array(
-				'levelLinksPosition' => 'none',
-			),
-		),
-	),
-	'eve_corp_groups' => array(
-		'exclude' => '0',
-		'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corpmember.evecorpgroups',
-		'config' => array(
-			'type' => 'select',
-			'foreign_table' => 'fe_groups',
-			'foreign_table_where' => 'ORDER BY fe_groups.title',
-			'size' => 5,
-			'minitems' => 0,
-			'maxitems' => 50,
-		),
-	),
+    'characters' => array(
+        'exclude' => 0,
+        'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
+        'config' => array(
+            'type' => 'inline',
+            'foreign_table' => 'tx_evecorp_domain_model_character',
+            'foreign_field' => 'corp_member',
+            'size' => 3,
+            'appearance' => array(
+                'levelLinksPosition' => 'none',
+            ),
+        ),
+    ),
+    'api_keys' => array(
+        'exclude' => 0,
+        'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey',
+        'config' => array(
+            'type' => 'inline',
+            'foreign_table' => 'tx_evecorp_domain_model_apikeyaccount',
+            'foreign_field' => 'corp_member',
+            'size' => 3,
+            'appearance' => array(
+                'levelLinksPosition' => 'none',
+            ),
+        ),
+    ),
+    'eve_corp_groups' => array(
+        'exclude' => '0',
+        'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corpmember.evecorpgroups',
+        'config' => array(
+            'type' => 'select',
+            'foreign_table' => 'fe_groups',
+            'foreign_table_where' => 'ORDER BY fe_groups.title',
+            'size' => 5,
+            'minitems' => 0,
+            'maxitems' => 50,
+        ),
+    ),
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $feUsersExtendedColumns);
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', '--div--;EveCorp, characters, api_keys, eve_corp_groups');

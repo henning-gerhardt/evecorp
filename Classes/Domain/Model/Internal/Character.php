@@ -33,77 +33,77 @@ namespace Gerh\Evecorp\Domain\Model\Internal;
  */
 class Character {
 
-	protected $characterId;
-	protected $characterName;
-	protected $corporationId;
-	protected $corporationName;
-	protected $allianceId;
-	protected $allianceName;
-	protected $factionId;
-	protected $factionName;
+    protected $characterId;
+    protected $characterName;
+    protected $corporationId;
+    protected $corporationName;
+    protected $allianceId;
+    protected $allianceName;
+    protected $factionId;
+    protected $factionName;
 
-	public function getCharacterId() {
-		return $this->characterId;
-	}
+    public function getCharacterId() {
+        return $this->characterId;
+    }
 
-	public function getCharacterName() {
-		return $this->characterName;
-	}
+    public function getCharacterName() {
+        return $this->characterName;
+    }
 
-	public function getCorporationId() {
-		return $this->corporationId;
-	}
+    public function getCorporationId() {
+        return $this->corporationId;
+    }
 
-	public function getCorporationName() {
-		return $this->corporationName;
-	}
+    public function getCorporationName() {
+        return $this->corporationName;
+    }
 
-	public function getAllianceId() {
-		return $this->allianceId;
-	}
+    public function getAllianceId() {
+        return $this->allianceId;
+    }
 
-	public function getAllianceName() {
-		return $this->allianceName;
-	}
+    public function getAllianceName() {
+        return $this->allianceName;
+    }
 
-	public function getFactionId() {
-		return $this->factionId;
-	}
+    public function getFactionId() {
+        return $this->factionId;
+    }
 
-	public function getFactionName() {
-		return $this->factionName;
-	}
+    public function getFactionName() {
+        return $this->factionName;
+    }
 
-	public function setCharacterId($characterId) {
-		$this->characterId = $characterId;
-	}
+    public function setCharacterId($characterId) {
+        $this->characterId = $characterId;
+    }
 
-	public function setCharacterName($characterName) {
-		$this->characterName = $characterName;
-	}
+    public function setCharacterName($characterName) {
+        $this->characterName = $characterName;
+    }
 
-	public function setCorporationId($corporationId) {
-		$this->corporationId = $corporationId;
-	}
+    public function setCorporationId($corporationId) {
+        $this->corporationId = $corporationId;
+    }
 
-	public function setCorporationName($corporationName) {
-		$this->corporationName = $corporationName;
-	}
+    public function setCorporationName($corporationName) {
+        $this->corporationName = $corporationName;
+    }
 
-	public function setAllianceId($allianceId) {
-		$this->allianceId = $allianceId;
-	}
+    public function setAllianceId($allianceId) {
+        $this->allianceId = $allianceId;
+    }
 
-	public function setAllianceName($allianceName) {
-		$this->allianceName = $allianceName;
-	}
+    public function setAllianceName($allianceName) {
+        $this->allianceName = $allianceName;
+    }
 
-	public function setFactionId($factionId) {
-		$this->factionId = $factionId;
-	}
+    public function setFactionId($factionId) {
+        $this->factionId = $factionId;
+    }
 
-	public function setFactionName($factionName) {
-		$this->factionName = $factionName;
-	}
+    public function setFactionName($factionName) {
+        $this->factionName = $factionName;
+    }
 
 }

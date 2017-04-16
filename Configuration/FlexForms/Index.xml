@@ -6,13 +6,13 @@
     <sDefault>
       <ROOT>
         <TCEforms>
-			<sheetTitle>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.index.sheettitle</sheetTitle>
+            <sheetTitle>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.index.sheettitle</sheetTitle>
         </TCEforms>
         <type>array</type>
         <el>
           <settings.corptax>
             <TCEforms>
-				<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.index.corptax</label>
+                <label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.index.corptax</label>
                 <config>
                    <type>input</type>
                    <default>15</default>
@@ -22,7 +22,7 @@
           </settings.corptax>
           <settings.tabletypecontent>
             <TCEforms>
-				<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.index.tabletypecontent</label>
+                <label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.index.tabletypecontent</label>
                 <config>
                    <type>input</type>
                    <default>Minerals</default>
@@ -32,7 +32,7 @@
           </settings.tabletypecontent>
           <settings.showbuycorpcolumn>
             <TCEforms>
-				<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.index.showbuycorpcolumn</label>
+                <label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.index.showbuycorpcolumn</label>
                 <config>
                    <type>check</type>
                    <default>1</default>
@@ -41,7 +41,7 @@
           </settings.showbuycorpcolumn>
           <settings.showfetchcolumn>
             <TCEforms>
-				<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.index.showfetchcolumn</label>
+                <label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.index.showfetchcolumn</label>
                 <config>
                    <type>check</type>
                    <default>1</default>
@@ -50,18 +50,18 @@
           </settings.showfetchcolumn>
           <settings.pretabletext>
             <TCEforms>
-				<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.index.pretabletext</label>
-				<config>
-					<type>text</type>
-					<cols>24</cols>
-					<rows>3</rows>
-				</config>
-				<defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
+                <label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.index.pretabletext</label>
+                <config>
+                    <type>text</type>
+                    <cols>24</cols>
+                    <rows>3</rows>
+                </config>
+                <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
             </TCEforms>
           </settings.pretabletext>
           <settings.posttabletext>
             <TCEforms>
-				<label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.index.posttabletext</label>
+                <label>LLL:EXT:evecorp/Resources/Private/Language/locallang_flex.xlf:evecorp.index.posttabletext</label>
                 <config>
                    <type>text</type>
                    <cols>24</cols>

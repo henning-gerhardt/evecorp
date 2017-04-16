@@ -35,97 +35,97 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  */
 class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
-	/**
-	 * @test
-	 */
-	public function classCouldBeInitiated() {
-		$character = new \Gerh\Evecorp\Domain\Model\Character();
+    /**
+     * @test
+     */
+    public function classCouldBeInitiated() {
+        $character = new \Gerh\Evecorp\Domain\Model\Character();
 
-		$this->assertInstanceOf('Gerh\Evecorp\Domain\Model\Character', $character);
-	}
+        $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\Character', $character);
+    }
 
-	/**
-	 * @test
-	 */
-	public function apiKeyCouldBeSet() {
-		$expected = new \Gerh\Evecorp\Domain\Model\ApiKeyAccount();
+    /**
+     * @test
+     */
+    public function apiKeyCouldBeSet() {
+        $expected = new \Gerh\Evecorp\Domain\Model\ApiKeyAccount();
 
-		$character = new \Gerh\Evecorp\Domain\Model\Character();
-		$character->setApiKey($expected);
+        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character->setApiKey($expected);
 
-		$this->assertEquals($expected, $character->getApiKey());
-	}
+        $this->assertEquals($expected, $character->getApiKey());
+    }
 
-	/**
-	 * @test
-	 */
-	public function characterIdCouldBeSet() {
-		$expected = 13579;
+    /**
+     * @test
+     */
+    public function characterIdCouldBeSet() {
+        $expected = 13579;
 
-		$character = new \Gerh\Evecorp\Domain\Model\Character();
-		$character->setCharacterId($expected);
+        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character->setCharacterId($expected);
 
-		$this->assertEquals($expected, $character->getCharacterId());
-	}
+        $this->assertEquals($expected, $character->getCharacterId());
+    }
 
-	/**
-	 * @test
-	 */
-	public function characterNameCouldBeSet() {
-		$expected = 'FooBar';
+    /**
+     * @test
+     */
+    public function characterNameCouldBeSet() {
+        $expected = 'FooBar';
 
-		$character = new \Gerh\Evecorp\Domain\Model\Character();
-		$character->setCharacterName($expected);
+        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character->setCharacterName($expected);
 
-		$this->assertEquals($expected, $character->getCharacterName());
-	}
+        $this->assertEquals($expected, $character->getCharacterName());
+    }
 
-	/**
-	 * @test
-	 */
-	public function corpMemberCouldBeSet() {
-		$expected = new \Gerh\Evecorp\Domain\Model\CorpMember();
+    /**
+     * @test
+     */
+    public function corpMemberCouldBeSet() {
+        $expected = new \Gerh\Evecorp\Domain\Model\CorpMember();
 
-		$character = new \Gerh\Evecorp\Domain\Model\Character();
-		$character->setCorpMember($expected);
+        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character->setCorpMember($expected);
 
-		$this->assertEquals($expected, $character->getCorpMember());
-	}
+        $this->assertEquals($expected, $character->getCorpMember());
+    }
 
-	/**
-	 * @test
-	 */
-	public function currentCorporationCouldBeSet() {
-		$expected = new \Gerh\Evecorp\Domain\Model\Corporation();
+    /**
+     * @test
+     */
+    public function currentCorporationCouldBeSet() {
+        $expected = new \Gerh\Evecorp\Domain\Model\Corporation();
 
-		$character = new \Gerh\Evecorp\Domain\Model\Character();
-		$character->setCurrentCorporation($expected);
+        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character->setCurrentCorporation($expected);
 
-		$this->assertEquals($expected, $character->getCurrentCorporation());
-	}
+        $this->assertEquals($expected, $character->getCurrentCorporation());
+    }
 
-	/**
-	 * @test
-	 */
-	public function raceCouldBeSet() {
-		$expected = 'Baar';
+    /**
+     * @test
+     */
+    public function raceCouldBeSet() {
+        $expected = 'Baar';
 
-		$character = new \Gerh\Evecorp\Domain\Model\Character();
-		$character->setRace($expected);
+        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character->setRace($expected);
 
-		$this->assertEquals($expected, $character->getRace());
-	}
+        $this->assertEquals($expected, $character->getRace());
+    }
 
-	/**
-	 * @test
-	 */
-	public function securityStatusCouldBeSet() {
-		$expected = 4.3;
+    /**
+     * @test
+     */
+    public function securityStatusCouldBeSet() {
+        $expected = 4.3;
 
-		$character = new \Gerh\Evecorp\Domain\Model\Character();
-		$character->setSecurityStatus($expected);
+        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character->setSecurityStatus($expected);
 
-		$this->assertEquals($expected, $character->getSecurityStatus());
-	}
+        $this->assertEquals($expected, $character->getSecurityStatus());
+    }
 
 }

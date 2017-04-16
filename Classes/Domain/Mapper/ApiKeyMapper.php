@@ -35,217 +35,217 @@ namespace Gerh\Evecorp\Domain\Mapper;
  */
 class ApiKeyMapper {
 
-	/**
-	 * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
-	 * @inject
-	 */
-	protected $characterRepository;
+    /**
+     * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
+     * @inject
+     */
+    protected $characterRepository;
 
-	/**
-	 * @var \string
-	 */
-	protected $errorMessage;
+    /**
+     * @var \string
+     */
+    protected $errorMessage;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
-	 */
-	protected $objectManager;
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @inject
+     */
+    protected $objectManager;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-	 * @inject
-	 */
-	protected $persistenceManager;
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @inject
+     */
+    protected $persistenceManager;
 
-	/**
-	 * @var \int
-	 */
-	protected $storagePid;
+    /**
+     * @var \int
+     */
+    protected $storagePid;
 
-	/**
-	 * Create new character and add him to current api key
-	 *
-	 * @param \integer $characterId
-	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
-	 * @throws \Exception
-	 * @return void
-	 */
-	protected function createAndAddNewCharacter($characterId, \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
-		$characterMapper = $this->getNewCharacterMapper($apiKeyAccount);
-		$characterModel = $characterMapper->createModel($characterId);
+    /**
+     * Create new character and add him to current api key
+     *
+     * @param \integer $characterId
+     * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+     * @throws \Exception
+     * @return void
+     */
+    protected function createAndAddNewCharacter($characterId, \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+        $characterMapper = $this->getNewCharacterMapper($apiKeyAccount);
+        $characterModel = $characterMapper->createModel($characterId);
 
-		if ($characterModel === \NULL) {
-			throw new \Exception($characterMapper->getErrorMessage());
-		}
+        if ($characterModel === \NULL) {
+            throw new \Exception($characterMapper->getErrorMessage());
+        }
 
-		$characterModel->setApiKey($apiKeyAccount);
-		$characterModel->setCorpMember($apiKeyAccount->getCorpMember());
-		$apiKeyAccount->addCharacter($characterModel);
-	}
+        $characterModel->setApiKey($apiKeyAccount);
+        $characterModel->setCorpMember($apiKeyAccount->getCorpMember());
+        $apiKeyAccount->addCharacter($characterModel);
+    }
 
-	/**
-	 * Return new character mapper model with initialized depend repositories.
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
-	 * @return \Gerh\Evecorp\Domain\Mapper\CharacterMapper
-	 */
-	protected function getNewCharacterMapper(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
-		/* @var $characterMapper \Gerh\Evecorp\Domain\Mapper\CharacterMapper */
-		$characterMapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\CharacterMapper', $apiKeyAccount);
-		$characterMapper->setStoragePid($this->storagePid);
+    /**
+     * Return new character mapper model with initialized depend repositories.
+     *
+     * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+     * @return \Gerh\Evecorp\Domain\Mapper\CharacterMapper
+     */
+    protected function getNewCharacterMapper(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+        /* @var $characterMapper \Gerh\Evecorp\Domain\Mapper\CharacterMapper */
+        $characterMapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\CharacterMapper', $apiKeyAccount);
+        $characterMapper->setStoragePid($this->storagePid);
 
-		return $characterMapper;
-	}
+        return $characterMapper;
+    }
 
-	/**
-	 * Remove removed characters from api key
-	 *
-	 * @param array $removedCharacterIds
-	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
-	 */
-	protected function removeCharacters(array $removedCharacterIds, \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
-		foreach ($removedCharacterIds as $characterId) {
-			$characterModel = $this->characterRepository->findOneByCharacterId($characterId);
-			$characterModel->setCorpMember(\NULL);
-			$this->characterRepository->update($characterModel);
-			$apiKeyAccount->removeCharacter($characterModel);
-		}
-	}
+    /**
+     * Remove removed characters from api key
+     *
+     * @param array $removedCharacterIds
+     * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+     */
+    protected function removeCharacters(array $removedCharacterIds, \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+        foreach ($removedCharacterIds as $characterId) {
+            $characterModel = $this->characterRepository->findOneByCharacterId($characterId);
+            $characterModel->setCorpMember(\NULL);
+            $this->characterRepository->update($characterModel);
+            $apiKeyAccount->removeCharacter($characterModel);
+        }
+    }
 
-	/**
-	 * Update character information
-	 *
-	 * @param \integer $characterId
-	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
-	 * @throws \Exception
-	 */
-	protected function updateCharacter($characterId, $apiKeyAccount) {
-		$characterModel = $this->characterRepository->findOneByCharacterId($characterId);
-		$characterMapper = $this->getNewCharacterMapper($apiKeyAccount);
-		$result = $characterMapper->updateModel($characterModel);
-		if ($result === \FALSE) {
-			throw new \Exception($characterMapper->getErrorMessage());
-		}
-		$this->characterRepository->update($characterModel);
-	}
+    /**
+     * Update character information
+     *
+     * @param \integer $characterId
+     * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+     * @throws \Exception
+     */
+    protected function updateCharacter($characterId, $apiKeyAccount) {
+        $characterModel = $this->characterRepository->findOneByCharacterId($characterId);
+        $characterMapper = $this->getNewCharacterMapper($apiKeyAccount);
+        $result = $characterMapper->updateModel($characterModel);
+        if ($result === \FALSE) {
+            throw new \Exception($characterMapper->getErrorMessage());
+        }
+        $this->characterRepository->update($characterModel);
+    }
 
-	/**
-	 * Returns error message
-	 *
-	 * @return \string
-	 */
-	public function getErrorMessage() {
-		return $this->errorMessage;
-	}
+    /**
+     * Returns error message
+     *
+     * @return \string
+     */
+    public function getErrorMessage() {
+        return $this->errorMessage;
+    }
 
-	/**
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccountModel
-	 * @return boolean
-	 */
-	public function fillUpModel(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccountModel) {
-		$keyId = $apiKeyAccountModel->getKeyId();
-		$vCode = $apiKeyAccountModel->getVCode();
-		$scope = 'Account';
+    /**
+     *
+     * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccountModel
+     * @return boolean
+     */
+    public function fillUpModel(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccountModel) {
+        $keyId = $apiKeyAccountModel->getKeyId();
+        $vCode = $apiKeyAccountModel->getVCode();
+        $scope = 'Account';
 
-		$phealService = new \Gerh\Evecorp\Service\PhealService($keyId, $vCode, $scope);
-		$pheal = $phealService->getPhealInstance();
+        $phealService = new \Gerh\Evecorp\Service\PhealService($keyId, $vCode, $scope);
+        $pheal = $phealService->getPhealInstance();
 
-		try {
-			$response = $pheal->accountScope->APIKeyInfo();
-			$apiKeyAccountModel->setAccessMask($response->key->accessMask);
+        try {
+            $response = $pheal->accountScope->APIKeyInfo();
+            $apiKeyAccountModel->setAccessMask($response->key->accessMask);
 
-			$keyExpires = $response->key->expires;
-			if ($keyExpires != '') {
-				$expires = new \Gerh\Evecorp\Domain\Model\DateTime($keyExpires, new \DateTimeZone('UTC'));
-				$apiKeyAccountModel->setExpires($expires);
-			}
+            $keyExpires = $response->key->expires;
+            if ($keyExpires != '') {
+                $expires = new \Gerh\Evecorp\Domain\Model\DateTime($keyExpires, new \DateTimeZone('UTC'));
+                $apiKeyAccountModel->setExpires($expires);
+            }
 
-			foreach ($response->key->characters as $character) {
-				$characterId = intval($character->characterID);
-				$this->createAndAddNewCharacter($characterId, $apiKeyAccountModel);
-			}
-		} catch (\Pheal\Exceptions\PhealException $ex) {
-			$this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage() . '" Model was not be updated!';
-			return \FALSE;
-		} catch (\Exception $e) {
-			$this->errorMessage = 'Fetched general exception with message: "' . $e->getMessage() . '" Model was not be updated!';
-			return \FALSE;
-		}
+            foreach ($response->key->characters as $character) {
+                $characterId = intval($character->characterID);
+                $this->createAndAddNewCharacter($characterId, $apiKeyAccountModel);
+            }
+        } catch (\Pheal\Exceptions\PhealException $ex) {
+            $this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage() . '" Model was not be updated!';
+            return \FALSE;
+        } catch (\Exception $e) {
+            $this->errorMessage = 'Fetched general exception with message: "' . $e->getMessage() . '" Model was not be updated!';
+            return \FALSE;
+        }
 
-		$this->persistenceManager->persistAll();
+        $this->persistenceManager->persistAll();
 
-		return \TRUE;
-	}
+        return \TRUE;
+    }
 
-	/**
-	 * Store storage pid and initialise used repositories to use this storage pid.
-	 *
-	 * @param \int $storagePid
-	 */
-	public function setStoragePid($storagePid = 0) {
-		if ($storagePid !== \NULL) {
-			$this->storagePid = $storagePid;
-			$this->characterRepository->setRepositoryStoragePid($storagePid);
-		}
-	}
+    /**
+     * Store storage pid and initialise used repositories to use this storage pid.
+     *
+     * @param \int $storagePid
+     */
+    public function setStoragePid($storagePid = 0) {
+        if ($storagePid !== \NULL) {
+            $this->storagePid = $storagePid;
+            $this->characterRepository->setRepositoryStoragePid($storagePid);
+        }
+    }
 
-	/**
-	 * Update account based API key
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
-	 * @return boolean
-	 */
-	public function updateApiKeyAccount(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
-		$keyId = $apiKeyAccount->getKeyId();
-		$vCode = $apiKeyAccount->getVCode();
-		$scope = 'Account';
+    /**
+     * Update account based API key
+     *
+     * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+     * @return boolean
+     */
+    public function updateApiKeyAccount(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+        $keyId = $apiKeyAccount->getKeyId();
+        $vCode = $apiKeyAccount->getVCode();
+        $scope = 'Account';
 
-		$currentCharacters = $apiKeyAccount->getCharacters();
-		$currentCharacterIds = array();
-		$wellKnownCharacterIds = array();
+        $currentCharacters = $apiKeyAccount->getCharacters();
+        $currentCharacterIds = array();
+        $wellKnownCharacterIds = array();
 
-		foreach ($currentCharacters as $character) {
-			$currentCharacterIds[] = intval($character->getCharacterId());
-		}
+        foreach ($currentCharacters as $character) {
+            $currentCharacterIds[] = intval($character->getCharacterId());
+        }
 
-		$phealService = new \Gerh\Evecorp\Service\PhealService($keyId, $vCode, $scope);
-		$pheal = $phealService->getPhealInstance();
+        $phealService = new \Gerh\Evecorp\Service\PhealService($keyId, $vCode, $scope);
+        $pheal = $phealService->getPhealInstance();
 
-		try {
-			$response = $pheal->accountScope->APIKeyInfo();
+        try {
+            $response = $pheal->accountScope->APIKeyInfo();
 
-			$apiKeyAccount->setAccessMask($response->key->accessMask);
+            $apiKeyAccount->setAccessMask($response->key->accessMask);
 
-			$keyExpires = $response->key->expires;
-			$expireDate = \NULL;
-			if (!empty($keyExpires)) {
-				$expireDate = new \Gerh\Evecorp\Domain\Model\DateTime($keyExpires, new \DateTimeZone('UTC'));
-			}
-			$apiKeyAccount->setExpires($expireDate);
+            $keyExpires = $response->key->expires;
+            $expireDate = \NULL;
+            if (!empty($keyExpires)) {
+                $expireDate = new \Gerh\Evecorp\Domain\Model\DateTime($keyExpires, new \DateTimeZone('UTC'));
+            }
+            $apiKeyAccount->setExpires($expireDate);
 
-			foreach ($response->key->characters as $character) {
-				$characterId = intval($character->characterID);
+            foreach ($response->key->characters as $character) {
+                $characterId = intval($character->characterID);
 
-				if (in_array($characterId, $currentCharacterIds)) {
-					$this->updateCharacter($characterId, $apiKeyAccount);
-					$wellKnownCharacterIds[] = $characterId;
-				} else {
-					$this->createAndAddNewCharacter($characterId, $apiKeyAccount);
-				}
-			}
+                if (in_array($characterId, $currentCharacterIds)) {
+                    $this->updateCharacter($characterId, $apiKeyAccount);
+                    $wellKnownCharacterIds[] = $characterId;
+                } else {
+                    $this->createAndAddNewCharacter($characterId, $apiKeyAccount);
+                }
+            }
 
-			$removedCharacterIds = array_diff($currentCharacterIds, $wellKnownCharacterIds);
-			$this->removeCharacters($removedCharacterIds, $apiKeyAccount);
-		} catch (Exception $ex) {
-			$this->errorMessage = 'Fetched general exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
-			return \FALSE;
-		}
+            $removedCharacterIds = array_diff($currentCharacterIds, $wellKnownCharacterIds);
+            $this->removeCharacters($removedCharacterIds, $apiKeyAccount);
+        } catch (Exception $ex) {
+            $this->errorMessage = 'Fetched general exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
+            return \FALSE;
+        }
 
-		$this->persistenceManager->persistAll();
+        $this->persistenceManager->persistAll();
 
-		return \TRUE;
-	}
+        return \TRUE;
+    }
 
 }

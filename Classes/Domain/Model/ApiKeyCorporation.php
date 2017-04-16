@@ -35,32 +35,32 @@ namespace Gerh\Evecorp\Domain\Model;
  */
 class ApiKeyCorporation extends \Gerh\Evecorp\Domain\Model\ApiKey {
 
-	/**
-	 * @var \Gerh\Evecorp\Domain\Model\Corporation
-	 * @lazy
-	 */
-	protected $corporation;
+    /**
+     * @var \Gerh\Evecorp\Domain\Model\Corporation
+     * @lazy
+     */
+    protected $corporation;
 
-	/**
-	 * Returns corporation
-	 *
-	 * @return \Gerh\Evecorp\Domain\Model\Corporation
-	 */
-	public function getCorporation() {
-		if ($this->corporation instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
-			$this->corporation->_loadRealInstance();
-		}
+    /**
+     * Returns corporation
+     *
+     * @return \Gerh\Evecorp\Domain\Model\Corporation
+     */
+    public function getCorporation() {
+        if ($this->corporation instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+            $this->corporation->_loadRealInstance();
+        }
 
-		return $this->corporation;
-	}
+        return $this->corporation;
+    }
 
-	/**
-	 * Set corporation
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
-	 */
-	public function setCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
-		$this->corporation = $corporation;
-	}
+    /**
+     * Set corporation
+     *
+     * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
+     */
+    public function setCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
+        $this->corporation = $corporation;
+    }
 
 }

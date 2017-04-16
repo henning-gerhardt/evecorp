@@ -35,98 +35,98 @@ namespace Gerh\Evecorp\Domain\Model\Internal;
  */
 class ApiKeyInfo {
 
-	/**
-	 * @var string
-	 */
-	protected $accessMask;
+    /**
+     * @var string
+     */
+    protected $accessMask;
 
-	/**
-	 *
-	 * @var array
-	 */
-	protected $characters = array();
+    /**
+     *
+     * @var array
+     */
+    protected $characters = array();
 
-	/**
-	 * @var string
-	 */
-	protected $expires;
+    /**
+     * @var string
+     */
+    protected $expires;
 
-	/**
-	 * @var string
-	 */
-	protected $type;
+    /**
+     * @var string
+     */
+    protected $type;
 
-	/**
-	 *
-	 * @return string
-	 */
-	public function getAccessMask() {
-		return $this->accessMask;
-	}
+    /**
+     *
+     * @return string
+     */
+    public function getAccessMask() {
+        return $this->accessMask;
+    }
 
-	/**
-	 * Add a character
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\Internal\Character $character
-	 */
-	public function addCharacter(\Gerh\Evecorp\Domain\Model\Internal\Character $character) {
-		$this->characters[] = $character;
-	}
+    /**
+     * Add a character
+     *
+     * @param \Gerh\Evecorp\Domain\Model\Internal\Character $character
+     */
+    public function addCharacter(\Gerh\Evecorp\Domain\Model\Internal\Character $character) {
+        $this->characters[] = $character;
+    }
 
-	/**
-	 *
-	 * @return array
-	 */
-	public function getCharacters() {
-		return $this->characters;
-	}
+    /**
+     *
+     * @return array
+     */
+    public function getCharacters() {
+        return $this->characters;
+    }
 
-	/**
-	 *
-	 * @return string
-	 */
-	public function getExpires() {
-		return $this->expires;
-	}
+    /**
+     *
+     * @return string
+     */
+    public function getExpires() {
+        return $this->expires;
+    }
 
-	/**
-	 *
-	 * @return string
-	 */
-	public function getType() {
-		return $this->type;
-	}
+    /**
+     *
+     * @return string
+     */
+    public function getType() {
+        return $this->type;
+    }
 
-	/**
-	 *
-	 * @param string $accessMask
-	 */
-	public function setAccessMask($accessMask) {
-		$this->accessMask = $accessMask;
-	}
+    /**
+     *
+     * @param string $accessMask
+     */
+    public function setAccessMask($accessMask) {
+        $this->accessMask = $accessMask;
+    }
 
-	/**
-	 *
-	 * @param array $characters
-	 */
-	public function setCharacters(array $characters) {
-		$this->characters = $characters;
-	}
+    /**
+     *
+     * @param array $characters
+     */
+    public function setCharacters(array $characters) {
+        $this->characters = $characters;
+    }
 
-	/**
-	 *
-	 * @param string $expires
-	 */
-	public function setExpires($expires) {
-		$this->expires = $expires;
-	}
+    /**
+     *
+     * @param string $expires
+     */
+    public function setExpires($expires) {
+        $this->expires = $expires;
+    }
 
-	/**
-	 *
-	 * @param string $type
-	 */
-	public function setType($type) {
-		$this->type = $type;
-	}
+    /**
+     *
+     * @param string $type
+     */
+    public function setType($type) {
+        $this->type = $type;
+    }
 
 }

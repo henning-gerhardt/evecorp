@@ -35,139 +35,139 @@ namespace Gerh\Evecorp\Controller;
  */
 class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-	/**
-	 * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
-	 * @inject
-	 */
-	protected $corporationRepository;
+    /**
+     * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
+     * @inject
+     */
+    protected $corporationRepository;
 
-	/**
-	 * @var \Gerh\Evecorp\Domain\Repository\CorporationTitleRepository
-	 * @inject
-	 */
-	protected $corporationTitleRepository;
+    /**
+     * @var \Gerh\Evecorp\Domain\Repository\CorporationTitleRepository
+     * @inject
+     */
+    protected $corporationTitleRepository;
 
-	/**
-	 *
-	 * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository
-	 * @inject
-	 */
-	protected $frontendUserGroupRepository;
+    /**
+     *
+     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository
+     * @inject
+     */
+    protected $frontendUserGroupRepository;
 
-	/**
-	 * Hold selected corporation uid
-	 *
-	 * @var \integer
-	 */
-	protected $selectedCorporation;
+    /**
+     * Hold selected corporation uid
+     *
+     * @var \integer
+     */
+    protected $selectedCorporation;
 
-	/**
-	 * @see \TYPO3\CMS\Extbase\Mvc\Controller\ActionController::initializeAction()
-	 */
-	public function initializeAction() {
-		$selectedCorporation = (\strlen($this->settings['corporation']) > 0) ?
-				\TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : array();
+    /**
+     * @see \TYPO3\CMS\Extbase\Mvc\Controller\ActionController::initializeAction()
+     */
+    public function initializeAction() {
+        $selectedCorporation = (\strlen($this->settings['corporation']) > 0) ?
+                \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : array();
 
-		$amountOfSelectedCorporation = \count($selectedCorporation);
-		if ($amountOfSelectedCorporation == 1) {
-			$this->selectedCorporation = $selectedCorporation[0];
-		} else if ($amountOfSelectedCorporation == 0) {
-			$this->selectedCorporation = 0;
-		} else {
-			$this->selectedCorporation = -1;
-		}
-	}
+        $amountOfSelectedCorporation = \count($selectedCorporation);
+        if ($amountOfSelectedCorporation == 1) {
+            $this->selectedCorporation = $selectedCorporation[0];
+        } else if ($amountOfSelectedCorporation == 0) {
+            $this->selectedCorporation = 0;
+        } else {
+            $this->selectedCorporation = -1;
+        }
+    }
 
-	/**
-	 * index action
-	 */
-	public function indexAction() {
+    /**
+     * index action
+     */
+    public function indexAction() {
 
-		$hasTitleAccess = \FALSE;
+        $hasTitleAccess = \FALSE;
 
-		if ($this->selectedCorporation > 0) {
-			$titles = $this->corporationTitleRepository->findByCorporation($this->selectedCorporation);
-			$corporation = $this->corporationRepository->findByUid($this->selectedCorporation);
-			if ($corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
-				$hasTitleAccess = $corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
-			}
-		} else {
-			$titles = array();
-		}
+        if ($this->selectedCorporation > 0) {
+            $titles = $this->corporationTitleRepository->findByCorporation($this->selectedCorporation);
+            $corporation = $this->corporationRepository->findByUid($this->selectedCorporation);
+            if ($corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
+                $hasTitleAccess = $corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
+            }
+        } else {
+            $titles = array();
+        }
 
-		$this->view->assign('amountOfSelectedCorporations', ($this->selectedCorporation > 0) ? 1 : $this->selectedCorporation);
-		$this->view->assign('titles', $titles);
-		$this->view->assign('amountOfTitles', \count($titles));
-		$this->view->assign('titleAccess', $hasTitleAccess);
-	}
+        $this->view->assign('amountOfSelectedCorporations', ($this->selectedCorporation > 0) ? 1 : $this->selectedCorporation);
+        $this->view->assign('titles', $titles);
+        $this->view->assign('amountOfTitles', \count($titles));
+        $this->view->assign('titleAccess', $hasTitleAccess);
+    }
 
-	/**
-	 * fetch action
-	 */
-	public function fetchAction() {
-		if ($this->selectedCorporation < 1) {
-			$this->addFlashMessage('No corporation selected!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-			$this->redirect('index');
-			return;
-		}
+    /**
+     * fetch action
+     */
+    public function fetchAction() {
+        if ($this->selectedCorporation < 1) {
+            $this->addFlashMessage('No corporation selected!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->redirect('index');
+            return;
+        }
 
-		// fetch corporation from database
-		$corporation = $this->corporationRepository->findByUid($this->selectedCorporation);
-		if (!$corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
-			$this->addFlashMessage('Corporation not found!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-			$this->redirect('index');
-			return;
-		}
+        // fetch corporation from database
+        $corporation = $this->corporationRepository->findByUid($this->selectedCorporation);
+        if (!$corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
+            $this->addFlashMessage('Corporation not found!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->redirect('index');
+            return;
+        }
 
-		// determinate api key with corp title access
-		$corporationApiKey = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
-		if (!$corporationApiKey instanceof \Gerh\Evecorp\Domain\Model\ApiKeyCorporation) {
-			$this->addFlashMessage('No corporation api key found with title access!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-			$this->redirect('index');
-			return;
-		}
+        // determinate api key with corp title access
+        $corporationApiKey = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
+        if (!$corporationApiKey instanceof \Gerh\Evecorp\Domain\Model\ApiKeyCorporation) {
+            $this->addFlashMessage('No corporation api key found with title access!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->redirect('index');
+            return;
+        }
 
-		$mapper = new \Gerh\Evecorp\Domain\Mapper\CorporationTitleMapper($corporationApiKey);
-		// fetch corp titles with this key
-		$newCorporationTitles = $mapper->fetchCorporationTitles();
-		// clear all existing corp titles
-		$corporation->removeAllCorporationTitles();
-		// add new corp titles (could be empty)
-		$corporation->setCorporationTitles($newCorporationTitles);
-		// update / persistence corporation object
-		$this->corporationRepository->update($corporation);
+        $mapper = new \Gerh\Evecorp\Domain\Mapper\CorporationTitleMapper($corporationApiKey);
+        // fetch corp titles with this key
+        $newCorporationTitles = $mapper->fetchCorporationTitles();
+        // clear all existing corp titles
+        $corporation->removeAllCorporationTitles();
+        // add new corp titles (could be empty)
+        $corporation->setCorporationTitles($newCorporationTitles);
+        // update / persistence corporation object
+        $this->corporationRepository->update($corporation);
 
-		$this->addFlashMessage('Successful fetched corporation titles.');
-		$this->redirect('index');
-	}
+        $this->addFlashMessage('Successful fetched corporation titles.');
+        $this->redirect('index');
+    }
 
-	/**
-	 * edit action
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle
-	 */
-	public function editAction(\Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle) {
-		$this->view->assign('corporationTitle', $corporationTitle);
-		$defaultQuerySettings = new \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings();
-		$defaultQuerySettings->setRespectStoragePage(\FALSE);
-		$this->frontendUserGroupRepository->setDefaultQuerySettings($defaultQuerySettings);
-		$usergroups = array(0 => 'none');
-		foreach ($this->frontendUserGroupRepository->findAll() as $frontendUserGroup) {
-			$usergroups[$frontendUserGroup->getUid()] = $frontendUserGroup->getTitle();
-		}
+    /**
+     * edit action
+     *
+     * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle
+     */
+    public function editAction(\Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle) {
+        $this->view->assign('corporationTitle', $corporationTitle);
+        $defaultQuerySettings = new \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings();
+        $defaultQuerySettings->setRespectStoragePage(\FALSE);
+        $this->frontendUserGroupRepository->setDefaultQuerySettings($defaultQuerySettings);
+        $usergroups = array(0 => 'none');
+        foreach ($this->frontendUserGroupRepository->findAll() as $frontendUserGroup) {
+            $usergroups[$frontendUserGroup->getUid()] = $frontendUserGroup->getTitle();
+        }
 
-		$this->view->assign('usergroups', $usergroups);
-	}
+        $this->view->assign('usergroups', $usergroups);
+    }
 
-	/**
-	 * update action
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle
-	 */
-	public function updateAction(\Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle) {
-		$this->corporationTitleRepository->update($corporationTitle);
-		$this->addFlashMessage('Corporation title successful changed.');
-		$this->redirect('index');
-	}
+    /**
+     * update action
+     *
+     * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle
+     */
+    public function updateAction(\Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle) {
+        $this->corporationTitleRepository->update($corporationTitle);
+        $this->addFlashMessage('Corporation title successful changed.');
+        $this->redirect('index');
+    }
 
 }

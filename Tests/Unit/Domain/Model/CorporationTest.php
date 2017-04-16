@@ -35,201 +35,201 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  */
 class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
-	/**
-	 * @test
-	 */
-	public function classCouldBeInitiated() {
-		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+    /**
+     * @test
+     */
+    public function classCouldBeInitiated() {
+        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
 
-		$this->assertInstanceOf('Gerh\Evecorp\Domain\Model\Corporation', $corporation);
-	}
+        $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\Corporation', $corporation);
+    }
 
-	/**
-	 * @test
-	 */
-	public function corporationIdCouldBeSet() {
-		$expected = 123456;
+    /**
+     * @test
+     */
+    public function corporationIdCouldBeSet() {
+        $expected = 123456;
 
-		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
-		$corporation->setCorporationId($expected);
+        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation->setCorporationId($expected);
 
-		$this->assertEquals($expected, $corporation->getCorporationId());
-	}
+        $this->assertEquals($expected, $corporation->getCorporationId());
+    }
 
-	/**
-	 * @test
-	 */
-	public function corporationNameCouldBeSet() {
-		$expected = 'FooBar';
+    /**
+     * @test
+     */
+    public function corporationNameCouldBeSet() {
+        $expected = 'FooBar';
 
-		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
-		$corporation->setCorporationName($expected);
+        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation->setCorporationName($expected);
 
-		$this->assertEquals($expected, $corporation->getCorporationName());
-	}
+        $this->assertEquals($expected, $corporation->getCorporationName());
+    }
 
-	/**
-	 * @test
-	 */
-	public function corporationCouldBeInitializedThroughConstructor() {
-		$corporationId = 567890;
-		$corporationName = 'BarFoo';
+    /**
+     * @test
+     */
+    public function corporationCouldBeInitializedThroughConstructor() {
+        $corporationId = 567890;
+        $corporationName = 'BarFoo';
 
-		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation($corporationId, $corporationName);
+        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation($corporationId, $corporationName);
 
-		$this->assertEquals($corporationId, $corporation->getCorporationId());
-		$this->assertEquals($corporationName, $corporation->getCorporationName());
-	}
+        $this->assertEquals($corporationId, $corporation->getCorporationId());
+        $this->assertEquals($corporationName, $corporation->getCorporationName());
+    }
 
-	/**
-	 * @test
-	 */
-	public function currentAllianceCouldBeSetToCorporation() {
-		$expected = new \Gerh\Evecorp\Domain\Model\Alliance(12, 'FooBar');
+    /**
+     * @test
+     */
+    public function currentAllianceCouldBeSetToCorporation() {
+        $expected = new \Gerh\Evecorp\Domain\Model\Alliance(12, 'FooBar');
 
-		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
-		$corporation->setCurrentAlliance($expected);
+        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation->setCurrentAlliance($expected);
 
-		$this->assertEquals($expected, $corporation->getCurrentAlliance());
-	}
+        $this->assertEquals($expected, $corporation->getCurrentAlliance());
+    }
 
-	/**
-	 * @test
-	 */
-	public function currentAllianceNameCouldBeGet() {
-		$expected = 'BarFoo';
-		$alliance = new \Gerh\Evecorp\Domain\Model\Alliance(12, $expected);
+    /**
+     * @test
+     */
+    public function currentAllianceNameCouldBeGet() {
+        $expected = 'BarFoo';
+        $alliance = new \Gerh\Evecorp\Domain\Model\Alliance(12, $expected);
 
-		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
-		$corporation->setCurrentAlliance($alliance);
+        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation->setCurrentAlliance($alliance);
 
-		$this->assertEquals($expected, $corporation->getAllianceName());
-	}
+        $this->assertEquals($expected, $corporation->getAllianceName());
+    }
 
-	/**
-	 * @test
-	 */
-	public function corporationApiKeyCouldBeSet() {
-		$apiKey = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
-		$apiKey->setAccessMask(
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
-		);
-		$apiKey->setKeyId(12345678);
-		$apiKey->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
-		$corporation->addApiKey($apiKey);
-		$this->assertTrue($corporation->getApiKeys()->contains($apiKey));
-	}
+    /**
+     * @test
+     */
+    public function corporationApiKeyCouldBeSet() {
+        $apiKey = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKey->setAccessMask(
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+        );
+        $apiKey->setKeyId(12345678);
+        $apiKey->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation->addApiKey($apiKey);
+        $this->assertTrue($corporation->getApiKeys()->contains($apiKey));
+    }
 
-	/**
-	 * @test
-	 */
-	public function hasApiKeyWithProperAccessMask() {
-		$apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
-		$apiKeyOne->setAccessMask(
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
-		);
-		$apiKeyOne->setKeyId(12345678);
-		$apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    /**
+     * @test
+     */
+    public function hasApiKeyWithProperAccessMask() {
+        $apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyOne->setAccessMask(
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+        );
+        $apiKeyOne->setKeyId(12345678);
+        $apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
-		$apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
-		$apiKeyTwo->setAccessMask(
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
-		);
-		$apiKeyTwo->setKeyId(123456789);
-		$apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
+        $apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyTwo->setAccessMask(
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
+        );
+        $apiKeyTwo->setKeyId(123456789);
+        $apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
 
-		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
-		$corporation->addApiKey($apiKeyOne);
-		$corporation->addApiKey($apiKeyTwo);
+        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation->addApiKey($apiKeyOne);
+        $corporation->addApiKey($apiKeyTwo);
 
-		$this->assertTrue($corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY));
-	}
+        $this->assertTrue($corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY));
+    }
 
-	/**
-	 * @test
-	 */
-	public function hasNoneApiKeyWithProperAccessMask() {
-		$apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
-		$apiKeyOne->setAccessMask(
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
-		);
-		$apiKeyOne->setKeyId(12345678);
-		$apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    /**
+     * @test
+     */
+    public function hasNoneApiKeyWithProperAccessMask() {
+        $apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyOne->setAccessMask(
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+        );
+        $apiKeyOne->setKeyId(12345678);
+        $apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
-		$apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
-		$apiKeyTwo->setAccessMask(
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
-		);
-		$apiKeyTwo->setKeyId(123456789);
-		$apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
+        $apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyTwo->setAccessMask(
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
+        );
+        $apiKeyTwo->setKeyId(123456789);
+        $apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
 
-		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
-		$corporation->addApiKey($apiKeyOne);
-		$corporation->addApiKey($apiKeyTwo);
+        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation->addApiKey($apiKeyOne);
+        $corporation->addApiKey($apiKeyTwo);
 
-		$this->assertFalse($corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::KILLLOG));
-	}
+        $this->assertFalse($corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::KILLLOG));
+    }
 
-	/**
-	 * @test
-	 */
-	public function findApiKeyByAccessMask() {
-		$apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
-		$apiKeyOne->setAccessMask(
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
-		);
-		$apiKeyOne->setKeyId(12345678);
-		$apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    /**
+     * @test
+     */
+    public function findApiKeyByAccessMask() {
+        $apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyOne->setAccessMask(
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+        );
+        $apiKeyOne->setKeyId(12345678);
+        $apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
-		$apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
-		$apiKeyTwo->setAccessMask(
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
-		);
-		$apiKeyTwo->setKeyId(123456789);
-		$apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
+        $apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyTwo->setAccessMask(
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
+        );
+        $apiKeyTwo->setKeyId(123456789);
+        $apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
 
-		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
-		$corporation->addApiKey($apiKeyOne);
-		$corporation->addApiKey($apiKeyTwo);
+        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation->addApiKey($apiKeyOne);
+        $corporation->addApiKey($apiKeyTwo);
 
-		$result = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
-		$this->assertEquals($apiKeyTwo, $result);
-	}
+        $result = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
+        $this->assertEquals($apiKeyTwo, $result);
+    }
 
-	/**
-	 * @test
-	 */
-	public function findNoneApiKeyByAccessMask() {
-		$apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
-		$apiKeyOne->setAccessMask(
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
-		);
-		$apiKeyOne->setKeyId(12345678);
-		$apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    /**
+     * @test
+     */
+    public function findNoneApiKeyByAccessMask() {
+        $apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyOne->setAccessMask(
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+        );
+        $apiKeyOne->setKeyId(12345678);
+        $apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
-		$apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
-		$apiKeyTwo->setAccessMask(
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
-				\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
-		);
-		$apiKeyTwo->setKeyId(123456789);
-		$apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
+        $apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyTwo->setAccessMask(
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
+                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
+        );
+        $apiKeyTwo->setKeyId(123456789);
+        $apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
 
-		$corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
-		$corporation->addApiKey($apiKeyOne);
-		$corporation->addApiKey($apiKeyTwo);
+        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation->addApiKey($apiKeyOne);
+        $corporation->addApiKey($apiKeyTwo);
 
-		$result = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEDALS);
-		$this->assertNull($result);
-	}
+        $result = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEDALS);
+        $this->assertNull($result);
+    }
 
 }

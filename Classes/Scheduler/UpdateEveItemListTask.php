@@ -35,203 +35,203 @@ namespace Gerh\Evecorp\Scheduler;
  */
 class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
-	/**
-	 * @var $eveItemRepository \Gerh\Evecorp\Domain\Repository\EveitemRepository
-	 */
-	protected $eveItemRepository;
+    /**
+     * @var $eveItemRepository \Gerh\Evecorp\Domain\Repository\EveitemRepository
+     */
+    protected $eveItemRepository;
 
-	/**
-	 * @var $eveCentralFetcher \Gerh\Evecorp\Domain\Model\EveCentralFetcher
-	 */
-	protected $eveCentralFetcher;
+    /**
+     * @var $eveCentralFetcher \Gerh\Evecorp\Domain\Model\EveCentralFetcher
+     */
+    protected $eveCentralFetcher;
 
-	/**
-	 * Update outdated stored EVE item
-	 *
-	 * @return void
-	 */
-	protected function updateEveItemList() {
+    /**
+     * Update outdated stored EVE item
+     *
+     * @return void
+     */
+    protected function updateEveItemList() {
 
-		/** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
-		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-		$this->eveItemRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EveitemRepository');
-		$this->eveCentralFetcher = $objectManager->get('Gerh\\Evecorp\\Domain\\Model\\EveCentralFetcher');
+        /** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+        $this->eveItemRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EveitemRepository');
+        $this->eveCentralFetcher = $objectManager->get('Gerh\\Evecorp\\Domain\\Model\\EveCentralFetcher');
 
-		$extconf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
-		$this->eveCentralFetcher->setBaseUri($extconf['evecentralUri']);
+        $extconf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
+        $this->eveCentralFetcher->setBaseUri($extconf['evecentralUri']);
 
-		$this->updateItemsBasedOnSystemId();
+        $this->updateItemsBasedOnSystemId();
 
-		$this->updateItemsBasedOnRegionId();
+        $this->updateItemsBasedOnRegionId();
 
-		/** @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
-		$persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-		$persistenceManager->persistAll();
-	}
+        /** @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
+        $persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+        $persistenceManager->persistAll();
+    }
 
-	/**
-	 * Update out of date EVE items on base of region id
-	 */
-	protected function updateItemsBasedOnRegionId() {
-		foreach ($this->eveItemRepository->getListOfUniqueRegionId() as $regionId) {
-			// get out dated items
-			$listOfOutdatedItems = $this->getListOfOutdatedItemsForRegion($regionId);
+    /**
+     * Update out of date EVE items on base of region id
+     */
+    protected function updateItemsBasedOnRegionId() {
+        foreach ($this->eveItemRepository->getListOfUniqueRegionId() as $regionId) {
+            // get out dated items
+            $listOfOutdatedItems = $this->getListOfOutdatedItemsForRegion($regionId);
 
-			// fetch current values for this items
-			$newValuesForDb = $this->fetchUpdateableItemsForRegion($listOfOutdatedItems, $regionId);
+            // fetch current values for this items
+            $newValuesForDb = $this->fetchUpdateableItemsForRegion($listOfOutdatedItems, $regionId);
 
-			// update database
-			$this->updateEveItemsForRegion($newValuesForDb, $regionId);
-		}
-	}
+            // update database
+            $this->updateEveItemsForRegion($newValuesForDb, $regionId);
+        }
+    }
 
-	/**
-	 * Update out date EVE items on base of system id
-	 */
-	protected function updateItemsBasedOnSystemId() {
-		foreach ($this->eveItemRepository->getListOfUniqueSystemId() as $systemId) {
-			// get out dated items
-			$listOfOutdatedItems = $this->getListOfOutdatedItemsForSystem($systemId);
+    /**
+     * Update out date EVE items on base of system id
+     */
+    protected function updateItemsBasedOnSystemId() {
+        foreach ($this->eveItemRepository->getListOfUniqueSystemId() as $systemId) {
+            // get out dated items
+            $listOfOutdatedItems = $this->getListOfOutdatedItemsForSystem($systemId);
 
-			// fetch current values for this items
-			$newValuesForDb = $this->fetchUpdateableItemsForSystem($listOfOutdatedItems, $systemId);
+            // fetch current values for this items
+            $newValuesForDb = $this->fetchUpdateableItemsForSystem($listOfOutdatedItems, $systemId);
 
-			// update database
-			$this->updateEveItemsForSystem($newValuesForDb, $systemId);
-		}
-	}
+            // update database
+            $this->updateEveItemsForSystem($newValuesForDb, $systemId);
+        }
+    }
 
-	/**
-	 * Get list of out dated EVE items for a specific region
-	 *
-	 * @param \integer $regionId
-	 * @return array
-	 */
-	protected function getListOfOutdatedItemsForRegion($regionId) {
-		$fetchList = array();
+    /**
+     * Get list of out dated EVE items for a specific region
+     *
+     * @param \integer $regionId
+     * @return array
+     */
+    protected function getListOfOutdatedItemsForRegion($regionId) {
+        $fetchList = array();
 
-		if (($regionId == null) || ($regionId == 0)) {
-			return $fetchList;
-		}
+        if (($regionId == null) || ($regionId == 0)) {
+            return $fetchList;
+        }
 
-		foreach ($this->eveItemRepository->findAllUpdateableItemsForRegion($regionId) as $entry) {
-			$fetchList[] = $entry->getEveId();
-		}
-		return $fetchList;
-	}
+        foreach ($this->eveItemRepository->findAllUpdateableItemsForRegion($regionId) as $entry) {
+            $fetchList[] = $entry->getEveId();
+        }
+        return $fetchList;
+    }
 
-	/**
-	 * Get list of out dated EVE items for a specific system
-	 *
-	 * @param \integer $systemId
-	 * @return array
-	 */
-	protected function getListOfOutdatedItemsForSystem($systemId) {
-		$fetchList = array();
+    /**
+     * Get list of out dated EVE items for a specific system
+     *
+     * @param \integer $systemId
+     * @return array
+     */
+    protected function getListOfOutdatedItemsForSystem($systemId) {
+        $fetchList = array();
 
-		if (($systemId == null) || ($systemId == 0)) {
-			return $fetchList;
-		}
+        if (($systemId == null) || ($systemId == 0)) {
+            return $fetchList;
+        }
 
-		foreach ($this->eveItemRepository->findAllUpdateableItemsForSystem($systemId) as $entry) {
-			$fetchList[] = $entry->getEveId();
-		}
-		return $fetchList;
-	}
+        foreach ($this->eveItemRepository->findAllUpdateableItemsForSystem($systemId) as $entry) {
+            $fetchList[] = $entry->getEveId();
+        }
+        return $fetchList;
+    }
 
-	/**
-	 * Fetch current EVE item values for a specific region
-	 *
-	 * @param array $fetchList
-	 * @param \integer $regionId
-	 * @return array
-	 */
-	protected function fetchUpdateableItemsForRegion($fetchList, $regionId) {
+    /**
+     * Fetch current EVE item values for a specific region
+     *
+     * @param array $fetchList
+     * @param \integer $regionId
+     * @return array
+     */
+    protected function fetchUpdateableItemsForRegion($fetchList, $regionId) {
 
-		if ((count($fetchList) == 0) || ($regionId == null) || ($regionId == 0)) {
-			return array();
-		}
+        if ((count($fetchList) == 0) || ($regionId == null) || ($regionId == 0)) {
+            return array();
+        }
 
-		$this->eveCentralFetcher->setRegionId($regionId);
-		$this->eveCentralFetcher->setTypeIds($fetchList);
-		$result = $this->eveCentralFetcher->query();
+        $this->eveCentralFetcher->setRegionId($regionId);
+        $this->eveCentralFetcher->setTypeIds($fetchList);
+        $result = $this->eveCentralFetcher->query();
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Fetch current EVE item values for a specific system
-	 *
-	 * @param array $fetchList
-	 * @param \integer $systemId
-	 * @return array
-	 */
-	protected function fetchUpdateableItemsForSystem($fetchList, $systemId) {
+    /**
+     * Fetch current EVE item values for a specific system
+     *
+     * @param array $fetchList
+     * @param \integer $systemId
+     * @return array
+     */
+    protected function fetchUpdateableItemsForSystem($fetchList, $systemId) {
 
-		if ((count($fetchList) == 0) || ($systemId == null) || ($systemId == 0)) {
-			return array();
-		}
+        if ((count($fetchList) == 0) || ($systemId == null) || ($systemId == 0)) {
+            return array();
+        }
 
-		$this->eveCentralFetcher->setSystemId($systemId);
-		$this->eveCentralFetcher->setTypeIds($fetchList);
-		$result = $this->eveCentralFetcher->query();
+        $this->eveCentralFetcher->setSystemId($systemId);
+        $this->eveCentralFetcher->setTypeIds($fetchList);
+        $result = $this->eveCentralFetcher->query();
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Update changed EVE items with new values
-	 *
-	 * @param array $eveItemUpdateList
-	 * @param \integer $regionId
-	 */
-	protected function updateEveItemsForRegion($eveItemUpdateList, $regionId) {
+    /**
+     * Update changed EVE items with new values
+     *
+     * @param array $eveItemUpdateList
+     * @param \integer $regionId
+     */
+    protected function updateEveItemsForRegion($eveItemUpdateList, $regionId) {
 
-		if ((count($eveItemUpdateList) == 0) || ($regionId == null) || $regionId == 0) {
-			return;
-		}
+        if ((count($eveItemUpdateList) == 0) || ($regionId == null) || $regionId == 0) {
+            return;
+        }
 
-		foreach ($eveItemUpdateList as $eveId => $values) {
-			foreach ($this->eveItemRepository->findByEveIdAndRegionId($eveId, $regionId) as $dbEntry) {
-				$dbEntry->setBuyPrice($values['buy']);
-				$dbEntry->setSellPrice($values['sell']);
-				$dbEntry->setCacheTime(time());
-				$this->eveItemRepository->update($dbEntry);
-			}
-		}
-	}
+        foreach ($eveItemUpdateList as $eveId => $values) {
+            foreach ($this->eveItemRepository->findByEveIdAndRegionId($eveId, $regionId) as $dbEntry) {
+                $dbEntry->setBuyPrice($values['buy']);
+                $dbEntry->setSellPrice($values['sell']);
+                $dbEntry->setCacheTime(time());
+                $this->eveItemRepository->update($dbEntry);
+            }
+        }
+    }
 
-	/**
-	 * Update changed EVE items with new values
-	 *
-	 * @param array $eveItemUpdateList
-	 * @param \integer $systemId
-	 */
-	protected function updateEveItemsForSystem($eveItemUpdateList, $systemId) {
+    /**
+     * Update changed EVE items with new values
+     *
+     * @param array $eveItemUpdateList
+     * @param \integer $systemId
+     */
+    protected function updateEveItemsForSystem($eveItemUpdateList, $systemId) {
 
-		if ((count($eveItemUpdateList) == 0) || ($systemId == null) || $systemId == 0) {
-			return;
-		}
+        if ((count($eveItemUpdateList) == 0) || ($systemId == null) || $systemId == 0) {
+            return;
+        }
 
-		foreach ($eveItemUpdateList as $eveId => $values) {
-			foreach ($this->eveItemRepository->findByEveIdAndSystemId($eveId, $systemId) as $dbEntry) {
-				$dbEntry->setBuyPrice($values['buy']);
-				$dbEntry->setSellPrice($values['sell']);
-				$dbEntry->setCacheTime(time());
-				$this->eveItemRepository->update($dbEntry);
-			}
-		}
-	}
+        foreach ($eveItemUpdateList as $eveId => $values) {
+            foreach ($this->eveItemRepository->findByEveIdAndSystemId($eveId, $systemId) as $dbEntry) {
+                $dbEntry->setBuyPrice($values['buy']);
+                $dbEntry->setSellPrice($values['sell']);
+                $dbEntry->setCacheTime(time());
+                $this->eveItemRepository->update($dbEntry);
+            }
+        }
+    }
 
-	/**
-	 * Public method, called by scheduler.
-	 *
-	 * @return boolean TRUE on success
-	 */
-	public function execute() {
-		$this->updateEveItemList();
+    /**
+     * Public method, called by scheduler.
+     *
+     * @return boolean TRUE on success
+     */
+    public function execute() {
+        $this->updateEveItemList();
 
-		return true;
-	}
+        return true;
+    }
 
 }

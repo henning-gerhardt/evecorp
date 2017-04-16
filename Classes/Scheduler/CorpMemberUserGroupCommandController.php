@@ -35,35 +35,35 @@ namespace Gerh\Evecorp\Scheduler;
  */
 class CorpMemberUserGroupCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
 
-	/**
-	 * @var \Gerh\Evecorp\Domain\Repository\CorpMemberRepository
-	 * @inject
-	 */
-	protected $corpMemberRepository;
+    /**
+     * @var \Gerh\Evecorp\Domain\Repository\CorpMemberRepository
+     * @inject
+     */
+    protected $corpMemberRepository;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-	 * @inject
-	 */
-	protected $persistenceManager;
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @inject
+     */
+    protected $persistenceManager;
 
-	/**
-	 * Update usergroup membership of corp member
-	 *
-	 * @param \integer $storagePid PID of stored corp member (mostly fe user pid)
-	 * @return bool
-	 */
-	public function corpMemberUserGroupCommand($storagePid = 0) {
+    /**
+     * Update usergroup membership of corp member
+     *
+     * @param \integer $storagePid PID of stored corp member (mostly fe user pid)
+     * @return bool
+     */
+    public function corpMemberUserGroupCommand($storagePid = 0) {
 
-		$querySettings = $this->corpMemberRepository->createQuery()->getQuerySettings();
-		$querySettings->setStoragePageIds(array($storagePid));
-		$this->corpMemberRepository->setDefaultQuerySettings($querySettings);
-		$corpMemberUtility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
-		foreach ($this->corpMemberRepository->findAll() as $corpMember) {
-			$corpMemberUtility->adjustFrontendUserGroups($corpMember);
-		}
-		$this->persistenceManager->persistAll();
-		return TRUE;
-	}
+        $querySettings = $this->corpMemberRepository->createQuery()->getQuerySettings();
+        $querySettings->setStoragePageIds(array($storagePid));
+        $this->corpMemberRepository->setDefaultQuerySettings($querySettings);
+        $corpMemberUtility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
+        foreach ($this->corpMemberRepository->findAll() as $corpMember) {
+            $corpMemberUtility->adjustFrontendUserGroups($corpMember);
+        }
+        $this->persistenceManager->persistAll();
+        return TRUE;
+    }
 
 }

@@ -35,50 +35,50 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  */
 class AllianceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
-	/**
-	 * @test
-	 */
-	public function classCouldBeInitiated() {
-		$alliance = new \Gerh\Evecorp\Domain\Model\Alliance();
+    /**
+     * @test
+     */
+    public function classCouldBeInitiated() {
+        $alliance = new \Gerh\Evecorp\Domain\Model\Alliance();
 
-		$this->assertInstanceOf('Gerh\Evecorp\Domain\Model\Alliance', $alliance);
-	}
+        $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\Alliance', $alliance);
+    }
 
-	/**
-	 * @test
-	 */
-	public function allianceIdCouldBeSet() {
-		$expected = 123456;
+    /**
+     * @test
+     */
+    public function allianceIdCouldBeSet() {
+        $expected = 123456;
 
-		$alliance = new \Gerh\Evecorp\Domain\Model\Alliance();
-		$alliance->setAllianceId($expected);
+        $alliance = new \Gerh\Evecorp\Domain\Model\Alliance();
+        $alliance->setAllianceId($expected);
 
-		$this->assertEquals($expected, $alliance->getAllianceId());
-	}
+        $this->assertEquals($expected, $alliance->getAllianceId());
+    }
 
-	/**
-	 * @test
-	 */
-	public function allianceNameCouldBeSet() {
-		$expected = 'FooBar';
+    /**
+     * @test
+     */
+    public function allianceNameCouldBeSet() {
+        $expected = 'FooBar';
 
-		$alliance = new \Gerh\Evecorp\Domain\Model\Alliance();
-		$alliance->setAllianceName($expected);
+        $alliance = new \Gerh\Evecorp\Domain\Model\Alliance();
+        $alliance->setAllianceName($expected);
 
-		$this->assertEquals($expected, $alliance->getAllianceName());
-	}
+        $this->assertEquals($expected, $alliance->getAllianceName());
+    }
 
-	/**
-	 * @test
-	 */
-	public function allianceCouldBeInitializedThroughConstructor() {
-		$allianceId = 567890;
-		$allianceName = 'BarFoo';
+    /**
+     * @test
+     */
+    public function allianceCouldBeInitializedThroughConstructor() {
+        $allianceId = 567890;
+        $allianceName = 'BarFoo';
 
-		$alliance = new \Gerh\Evecorp\Domain\Model\Alliance($allianceId, $allianceName);
+        $alliance = new \Gerh\Evecorp\Domain\Model\Alliance($allianceId, $allianceName);
 
-		$this->assertEquals($allianceId, $alliance->getAllianceId());
-		$this->assertEquals($allianceName, $alliance->getAllianceName());
-	}
+        $this->assertEquals($allianceId, $alliance->getAllianceId());
+        $this->assertEquals($allianceName, $alliance->getAllianceName());
+    }
 
 }

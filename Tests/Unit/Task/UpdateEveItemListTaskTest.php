@@ -35,12 +35,12 @@ namespace Gerh\Evecorp\Test\Task;
  */
 class UpdateEveItemListTaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
-	/**
-	 * @test
-	 */
-	public function updateEveItemListTaskIsInstanceOfAbstractTask() {
-		$taskMock = $this->getMock('Gerh\\Evecorp\\Scheduler\\UpdateEveItemListTask');
-		$this->assertInstanceOf('TYPO3\\CMS\\Scheduler\Task\\AbstractTask', $taskMock);
-	}
+    /**
+     * @test
+     */
+    public function updateEveItemListTaskIsInstanceOfAbstractTask() {
+        $taskMock = $this->getMock('Gerh\\Evecorp\\Scheduler\\UpdateEveItemListTask');
+        $this->assertInstanceOf('TYPO3\\CMS\\Scheduler\Task\\AbstractTask', $taskMock);
+    }
 
 }

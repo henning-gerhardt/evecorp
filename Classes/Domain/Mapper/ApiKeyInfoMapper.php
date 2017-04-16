@@ -33,75 +33,75 @@ namespace Gerh\Evecorp\Domain\Mapper;
  */
 class ApiKeyInfoMapper {
 
-	/**
-	 * @var int
-	 */
-	protected $keyId;
+    /**
+     * @var int
+     */
+    protected $keyId;
 
-	/**
-	 * @var string
-	 */
-	protected $vCode;
+    /**
+     * @var string
+     */
+    protected $vCode;
 
-	/**
-	 *
-	 * @param \Pheal\Core\Element $resultElement
-	 * @return \Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo
-	 */
-	protected function mapRetrievedInformation(\Pheal\Core\Element $resultElement) {
-		$result = new \Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo();
-		$result->setAccessMask($resultElement->accessMask);
-		$result->setExpires($resultElement->expires);
-		$result->setType($resultElement->type);
+    /**
+     *
+     * @param \Pheal\Core\Element $resultElement
+     * @return \Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo
+     */
+    protected function mapRetrievedInformation(\Pheal\Core\Element $resultElement) {
+        $result = new \Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo();
+        $result->setAccessMask($resultElement->accessMask);
+        $result->setExpires($resultElement->expires);
+        $result->setType($resultElement->type);
 
-		foreach ($resultElement->characters as $char) {
-			$character = new \Gerh\Evecorp\Domain\Model\Internal\Character();
-			$character->setCharacterId($char->characterID);
-			$character->setCharacterName($char->characterName);
-			$character->setCorporationId($char->corporationID);
-			$character->setCorporationName($char->corporationName);
-			$character->setAllianceId($char->allianceId);
-			$character->setAllianceName($char->allianceName);
-			$character->setFactionId($char->factionID);
-			$character->setFactionName($char->factionName);
+        foreach ($resultElement->characters as $char) {
+            $character = new \Gerh\Evecorp\Domain\Model\Internal\Character();
+            $character->setCharacterId($char->characterID);
+            $character->setCharacterName($char->characterName);
+            $character->setCorporationId($char->corporationID);
+            $character->setCorporationName($char->corporationName);
+            $character->setAllianceId($char->allianceId);
+            $character->setAllianceName($char->allianceName);
+            $character->setFactionId($char->factionID);
+            $character->setFactionName($char->factionName);
 
-			$result->addCharacter($character);
-		}
+            $result->addCharacter($character);
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 *
-	 * @param int $keyId
-	 */
-	public function setKeyId($keyId) {
-		$this->keyId = $keyId;
-	}
+    /**
+     *
+     * @param int $keyId
+     */
+    public function setKeyId($keyId) {
+        $this->keyId = $keyId;
+    }
 
-	/**
-	 *
-	 * @param string $vCode
-	 */
-	public function setVcode($vCode) {
-		$this->vCode = $vCode;
-	}
+    /**
+     *
+     * @param string $vCode
+     */
+    public function setVcode($vCode) {
+        $this->vCode = $vCode;
+    }
 
-	/**
-	 *
-	 * @return \Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo
-	 */
-	public function retrieveApiKeyInfo() {
+    /**
+     *
+     * @return \Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo
+     */
+    public function retrieveApiKeyInfo() {
 
-		try {
-			$phealService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Gerh\\Evecorp\\Service\\PhealService', $this->keyId, $this->vCode);
-			$pheal = $phealService->getPhealInstance();
-			// using account scope as no coporation api key info is available
-			$response = $pheal->accountScope->APIKeyInfo();
-			return $this->mapRetrievedInformation($response->key);
-		} catch (\Pheal\Exceptions\PhealException $ex) {
-			return new \Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo();
-		}
-	}
+        try {
+            $phealService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Gerh\\Evecorp\\Service\\PhealService', $this->keyId, $this->vCode);
+            $pheal = $phealService->getPhealInstance();
+            // using account scope as no coporation api key info is available
+            $response = $pheal->accountScope->APIKeyInfo();
+            return $this->mapRetrievedInformation($response->key);
+        } catch (\Pheal\Exceptions\PhealException $ex) {
+            return new \Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo();
+        }
+    }
 
 }

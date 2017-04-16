@@ -2,49 +2,49 @@
 <f:layout name="default" />
 <f:section name="content">
 
-	<h1><f:translate key="apikeycorporationmanagement.index.welcome">EVE API Key Corporation Management</f:translate></h1>
+    <h1><f:translate key="apikeycorporationmanagement.index.welcome">EVE API Key Corporation Management</f:translate></h1>
 
 <f:flashMessages renderMode="div" />
 
 <f:if condition="{amountOfSelectedCorporations} == 1">
-	<f:then>
-		<h2><f:translate key="apikeycorporationmanagement.index.listof">List of stored corporation API keys</f:translate></h2>
+    <f:then>
+        <h2><f:translate key="apikeycorporationmanagement.index.listof">List of stored corporation API keys</f:translate></h2>
 
-		<div class="table-responsive">
-			<table class="table table-striped table-bordered table-hover">
-				<thead>
-					<tr>
-						<th><f:translate key="apikeymanagement.index.keyid">key id</f:translate></th>
-						<th><f:translate key="apikeymanagement.index.expires">expires</f:translate></th>
-						<th><f:translate key="apikeymanagement.index.accessmask">access mask</f:translate></th>
-						<th><f:translate key="apikeymanagement.index.action">action</f:translate></th>
-					</tr>
-				</thead>
-				<tbody>
-				<f:for each="{keys}" as="apiKeyCorporation">
-					<tr>
-						<td>{apiKeyCorporation.keyId}</td>
-						<td><f:if condition="{apiKeyCorporation.expires}"><f:then><f:format.date format="Y-m-d">{apiKeyCorporation.expires}</f:format.date></f:then><f:else><f:translate key="apikeymanagement.index.expires.never">never</f:translate></f:else></f:if></td>
-						<td>{apiKeyCorporation.accessMask}</td>
-						<td>
-							<f:link.action action="delete" controller="ApiKeyCorporationManagement" class="text-danger" arguments="{apiKeyCorporation : apiKeyCorporation}"><f:translate key="apikeymanagement.index.action.delete">Delete</f:translate></f:link.action>
-						</td>
-					</tr>
-				</f:for>
-				</tbody>
-			</table>
-		</div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th><f:translate key="apikeymanagement.index.keyid">key id</f:translate></th>
+                        <th><f:translate key="apikeymanagement.index.expires">expires</f:translate></th>
+                        <th><f:translate key="apikeymanagement.index.accessmask">access mask</f:translate></th>
+                        <th><f:translate key="apikeymanagement.index.action">action</f:translate></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <f:for each="{keys}" as="apiKeyCorporation">
+                    <tr>
+                        <td>{apiKeyCorporation.keyId}</td>
+                        <td><f:if condition="{apiKeyCorporation.expires}"><f:then><f:format.date format="Y-m-d">{apiKeyCorporation.expires}</f:format.date></f:then><f:else><f:translate key="apikeymanagement.index.expires.never">never</f:translate></f:else></f:if></td>
+                        <td>{apiKeyCorporation.accessMask}</td>
+                        <td>
+                            <f:link.action action="delete" controller="ApiKeyCorporationManagement" class="text-danger" arguments="{apiKeyCorporation : apiKeyCorporation}"><f:translate key="apikeymanagement.index.action.delete">Delete</f:translate></f:link.action>
+                        </td>
+                    </tr>
+                </f:for>
+                </tbody>
+            </table>
+        </div>
 
-		<p><f:link.action action="new" controller="ApiKeyCorporationManagement"><f:translate key="apikeycorporationmanagement.index.action.new">Add new corporation API key</f:translate></f:link.action></p>
+        <p><f:link.action action="new" controller="ApiKeyCorporationManagement"><f:translate key="apikeycorporationmanagement.index.action.new">Add new corporation API key</f:translate></f:link.action></p>
 
-		<f:if condition="{titleAccess}">
-			<p><f:link.action action="index" controller="CorporationTitleManagement"><f:translate key="corporationtitlemanagement.link">Switch to corporation title management</f:translate></f:link.action></p>
-		</f:if>
-		<p><f:link.action action="index" controller="CorpMemberList">Switch to corporation member list</f:link.action></p>
-	</f:then>
-	<f:else>
-		<p class="text-warning"><f:translate key="apikeycorporationmanagement.index.nocorporationselected">No corporation selected in plugin options.</f:translate></p>
-	</f:else>
+        <f:if condition="{titleAccess}">
+            <p><f:link.action action="index" controller="CorporationTitleManagement"><f:translate key="corporationtitlemanagement.link">Switch to corporation title management</f:translate></f:link.action></p>
+        </f:if>
+        <p><f:link.action action="index" controller="CorpMemberList">Switch to corporation member list</f:link.action></p>
+    </f:then>
+    <f:else>
+        <p class="text-warning"><f:translate key="apikeycorporationmanagement.index.nocorporationselected">No corporation selected in plugin options.</f:translate></p>
+    </f:else>
 </f:if>
 
 </f:section>

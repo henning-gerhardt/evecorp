@@ -33,65 +33,65 @@ namespace Gerh\Evecorp\Scheduler;
  */
 class UpdateCorporationMemberListCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
 
-	/**
-	 * @var \Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository
-	 * @inject
-	 */
-	protected $apiKeyCorporationRepository;
+    /**
+     * @var \Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository
+     * @inject
+     */
+    protected $apiKeyCorporationRepository;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-	 * @inject
-	 */
-	protected $persistenceManager;
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @inject
+     */
+    protected $persistenceManager;
 
-	/**
-	 * Set storage pid of api key repository
-	 *
-	 * @param \integer $storagePid
-	 */
-	protected function setApiKeyCorporationRepositoryStoragePid($storagePid = 0) {
-		$querySettings = $this->apiKeyCorporationRepository->createQuery()->getQuerySettings();
-		$querySettings->setStoragePageIds(array($storagePid));
-		$querySettings->setRespectStoragePage(\TRUE);
-		$this->apiKeyCorporationRepository->setDefaultQuerySettings($querySettings);
-	}
+    /**
+     * Set storage pid of api key repository
+     *
+     * @param \integer $storagePid
+     */
+    protected function setApiKeyCorporationRepositoryStoragePid($storagePid = 0) {
+        $querySettings = $this->apiKeyCorporationRepository->createQuery()->getQuerySettings();
+        $querySettings->setStoragePageIds(array($storagePid));
+        $querySettings->setRespectStoragePage(\TRUE);
+        $this->apiKeyCorporationRepository->setDefaultQuerySettings($querySettings);
+    }
 
-	/**
-	 * Initialize all used repositories with correct storage pid
-	 *
-	 * @param \integer $storagePid
-	 */
-	protected function initializeRepositories($storagePid = 0) {
-		$this->setApiKeyCorporationRepositoryStoragePid($storagePid);
-	}
+    /**
+     * Initialize all used repositories with correct storage pid
+     *
+     * @param \integer $storagePid
+     */
+    protected function initializeRepositories($storagePid = 0) {
+        $this->setApiKeyCorporationRepositoryStoragePid($storagePid);
+    }
 
-	/**
-	 * Update corporations member lists
-	 *
-	 * @param \int $storagePid
-	 * @return boolean
-	 */
-	public function updateCorporationMemberListCommand($storagePid = 0) {
+    /**
+     * Update corporations member lists
+     *
+     * @param \int $storagePid
+     * @return boolean
+     */
+    public function updateCorporationMemberListCommand($storagePid = 0) {
 
-		$this->initializeRepositories($storagePid);
+        $this->initializeRepositories($storagePid);
 
-		foreach ($this->apiKeyCorporationRepository->findAll() as $corporationApiKey) {
-			if ($corporationApiKey->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERTRACKINGLIMITED)) {
-				$corporation = $corporationApiKey->getCorporation();
+        foreach ($this->apiKeyCorporationRepository->findAll() as $corporationApiKey) {
+            if ($corporationApiKey->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERTRACKINGLIMITED)) {
+                $corporation = $corporationApiKey->getCorporation();
 
-				// use object manager to get proper initialised object
-				$corpMemberListUpdater = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\CorporationMemberList');
-				$corpMemberListUpdater->setStoragePid($storagePid);
-				$corpMemberListUpdater->setCorporationApiKey($corporationApiKey);
-				$corpMemberListUpdater->setCorporation($corporation);
-				$corpMemberListUpdater->updateCorpMemberList();
-			}
-		}
+                // use object manager to get proper initialised object
+                $corpMemberListUpdater = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\CorporationMemberList');
+                $corpMemberListUpdater->setStoragePid($storagePid);
+                $corpMemberListUpdater->setCorporationApiKey($corporationApiKey);
+                $corpMemberListUpdater->setCorporation($corporation);
+                $corpMemberListUpdater->updateCorpMemberList();
+            }
+        }
 
-		$this->persistenceManager->persistAll();
+        $this->persistenceManager->persistAll();
 
-		return \TRUE;
-	}
+        return \TRUE;
+    }
 
 }

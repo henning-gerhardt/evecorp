@@ -35,65 +35,65 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  */
 class EmploymentHistoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
-	/**
-	 * @test
-	 */
-	public function classCouldBeInitiated() {
-		$history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
+    /**
+     * @test
+     */
+    public function classCouldBeInitiated() {
+        $history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
 
-		$this->assertInstanceOf('Gerh\Evecorp\Domain\Model\EmploymentHistory', $history);
-	}
+        $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\EmploymentHistory', $history);
+    }
 
-	/**
-	 * @test
-	 */
-	public function characterCouldBeSet() {
-		$expected = new \Gerh\Evecorp\Domain\Model\Character();
-		$expected->setCharacterId(815);
-		$expected->setCharacterName('Foo Bar');
+    /**
+     * @test
+     */
+    public function characterCouldBeSet() {
+        $expected = new \Gerh\Evecorp\Domain\Model\Character();
+        $expected->setCharacterId(815);
+        $expected->setCharacterName('Foo Bar');
 
-		$history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
-		$history->setCharacter($expected);
+        $history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
+        $history->setCharacter($expected);
 
-		$this->assertEquals($expected, $history->getCharacter());
-	}
+        $this->assertEquals($expected, $history->getCharacter());
+    }
 
-	/**
-	 * @test
-	 */
-	public function corporationCouldBeSet() {
-		$expected = new \Gerh\Evecorp\Domain\Model\Corporation;
-		$expected->setCorporationId(1234);
-		$expected->setCorporationName('Bar Corporation');
+    /**
+     * @test
+     */
+    public function corporationCouldBeSet() {
+        $expected = new \Gerh\Evecorp\Domain\Model\Corporation;
+        $expected->setCorporationId(1234);
+        $expected->setCorporationName('Bar Corporation');
 
-		$history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
-		$history->setCorporation($expected);
+        $history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
+        $history->setCorporation($expected);
 
-		$this->assertEquals($expected, $history->getCorporation());
-	}
+        $this->assertEquals($expected, $history->getCorporation());
+    }
 
-	/**
-	 * @test
-	 */
-	public function recordIdCouldBeSet() {
-		$expected = 987654;
+    /**
+     * @test
+     */
+    public function recordIdCouldBeSet() {
+        $expected = 987654;
 
-		$history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
-		$history->setRecordId($expected);
+        $history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
+        $history->setRecordId($expected);
 
-		$this->assertEquals($expected, $history->getRecordId());
-	}
+        $this->assertEquals($expected, $history->getRecordId());
+    }
 
-	/**
-	 * @test
-	 */
-	public function startDateCouldBeSet() {
-		$expected = new \Gerh\Evecorp\Domain\Model\DateTime();
+    /**
+     * @test
+     */
+    public function startDateCouldBeSet() {
+        $expected = new \Gerh\Evecorp\Domain\Model\DateTime();
 
-		$history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
-		$history->setStartDate($expected);
+        $history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
+        $history->setStartDate($expected);
 
-		$this->assertEquals($expected, $history->getStartDate());
-	}
+        $this->assertEquals($expected, $history->getStartDate());
+    }
 
 }

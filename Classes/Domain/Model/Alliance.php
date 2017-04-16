@@ -35,116 +35,116 @@ namespace Gerh\Evecorp\Domain\Model;
  */
 class Alliance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
-	/**
-	 * @var \integer
-	 * @validate NotEmpty
-	 * @validate Number
-	 */
-	protected $allianceId;
+    /**
+     * @var \integer
+     * @validate NotEmpty
+     * @validate Number
+     */
+    protected $allianceId;
 
-	/**
-	 *
-	 * @var \string
-	 * @validate NotEmpty
-	 */
-	protected $allianceName;
+    /**
+     *
+     * @var \string
+     * @validate NotEmpty
+     */
+    protected $allianceName;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Corporation>
-	 * @lazy
-	 */
-	protected $corporations;
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Corporation>
+     * @lazy
+     */
+    protected $corporations;
 
-	/**
-	 * class constructor
-	 *
-	 * @param \integer $allianceId   (Optional) Alliance id
-	 * @param \string  $allianceName (Optional) Alliance name
-	 */
-	public function __construct($allianceId = NULL, $allianceName = NULL) {
-		$this->setAllianceId($allianceId);
-		$this->setAllianceName($allianceName);
+    /**
+     * class constructor
+     *
+     * @param \integer $allianceId   (Optional) Alliance id
+     * @param \string  $allianceName (Optional) Alliance name
+     */
+    public function __construct($allianceId = NULL, $allianceName = NULL) {
+        $this->setAllianceId($allianceId);
+        $this->setAllianceName($allianceName);
 
-		$this->corporations = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-	}
+        $this->corporations = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
 
-	/**
-	 * Returns alliance id
-	 *
-	 * @return \integer
-	 */
-	public function getAllianceId() {
-		return $this->allianceId;
-	}
+    /**
+     * Returns alliance id
+     *
+     * @return \integer
+     */
+    public function getAllianceId() {
+        return $this->allianceId;
+    }
 
-	/**
-	 * Set alliance id
-	 *
-	 * @param \integer $allianceId
-	 */
-	public function setAllianceId($allianceId) {
-		$this->allianceId = $allianceId;
-	}
+    /**
+     * Set alliance id
+     *
+     * @param \integer $allianceId
+     */
+    public function setAllianceId($allianceId) {
+        $this->allianceId = $allianceId;
+    }
 
-	/**
-	 * Returns alliance name
-	 *
-	 * @return \string
-	 */
-	public function getAllianceName() {
-		return $this->allianceName;
-	}
+    /**
+     * Returns alliance name
+     *
+     * @return \string
+     */
+    public function getAllianceName() {
+        return $this->allianceName;
+    }
 
-	/**
-	 * Set alliance name
-	 *
-	 * @param \string $allianceName
-	 */
-	public function setAllianceName($allianceName) {
-		$this->allianceName = $allianceName;
-	}
+    /**
+     * Set alliance name
+     *
+     * @param \string $allianceName
+     */
+    public function setAllianceName($allianceName) {
+        $this->allianceName = $allianceName;
+    }
 
-	/**
-	 * Add a corporation to alliance
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
-	 */
-	public function addCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
-		$this->corporations->attach($corporation);
-	}
+    /**
+     * Add a corporation to alliance
+     *
+     * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
+     */
+    public function addCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
+        $this->corporations->attach($corporation);
+    }
 
-	/**
-	 * Returns corporations of alliance
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Corporation>
-	 */
-	public function getCorporations() {
-		return $this->corporations;
-	}
+    /**
+     * Returns corporations of alliance
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Corporation>
+     */
+    public function getCorporations() {
+        return $this->corporations;
+    }
 
-	/**
-	 * Remove all corporations from alliance
-	 */
-	public function removeAllCorporations() {
-		$this->corporations = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-	}
+    /**
+     * Remove all corporations from alliance
+     */
+    public function removeAllCorporations() {
+        $this->corporations = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
 
-	/**
-	 * Remove a corporation from alliance
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
-	 */
-	public function removeCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
-		$this->corporations->detach($corporation);
-	}
+    /**
+     * Remove a corporation from alliance
+     *
+     * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
+     */
+    public function removeCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
+        $this->corporations->detach($corporation);
+    }
 
-	/**
-	 * Set alliance corporations,
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $corporations
-	 */
-	public function setCorporations(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $corporations) {
-		$this->corporations = $corporations;
-	}
+    /**
+     * Set alliance corporations,
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $corporations
+     */
+    public function setCorporations(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $corporations) {
+        $this->corporations = $corporations;
+    }
 
 }

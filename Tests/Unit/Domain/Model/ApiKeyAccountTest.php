@@ -35,25 +35,25 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  */
 class ApiKeyAccountTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
-	/**
-	 * @test
-	 */
-	public function classCouldBeInitiated() {
-		$apiKeyAccount = new \Gerh\Evecorp\Domain\Model\ApiKeyAccount();
+    /**
+     * @test
+     */
+    public function classCouldBeInitiated() {
+        $apiKeyAccount = new \Gerh\Evecorp\Domain\Model\ApiKeyAccount();
 
-		$this->assertInstanceOf('Gerh\Evecorp\Domain\Model\ApiKeyAccount', $apiKeyAccount);
-	}
+        $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\ApiKeyAccount', $apiKeyAccount);
+    }
 
-	/**
-	 * @test
-	 */
-	public function corpMemberCouldBeSet() {
-		$expected = new \Gerh\Evecorp\Domain\Model\CorpMember();
+    /**
+     * @test
+     */
+    public function corpMemberCouldBeSet() {
+        $expected = new \Gerh\Evecorp\Domain\Model\CorpMember();
 
-		$apiKeyAccount = new \Gerh\Evecorp\Domain\Model\ApiKeyAccount();
-		$apiKeyAccount->setCorpMember($expected);
+        $apiKeyAccount = new \Gerh\Evecorp\Domain\Model\ApiKeyAccount();
+        $apiKeyAccount->setCorpMember($expected);
 
-		$this->assertEquals($expected, $apiKeyAccount->getCorpMember());
-	}
+        $this->assertEquals($expected, $apiKeyAccount->getCorpMember());
+    }
 
 }

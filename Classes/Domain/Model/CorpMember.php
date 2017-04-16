@@ -35,88 +35,88 @@ namespace Gerh\Evecorp\Domain\Model;
  */
 class CorpMember extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyAccount>
-	 * @lazy
-	 * @cascade remove
-	 */
-	protected $apiKeys;
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyAccount>
+     * @lazy
+     * @cascade remove
+     */
+    protected $apiKeys;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
-	 * @lazy
-	 * @cascade remove
-	 */
-	protected $characters;
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
+     * @lazy
+     * @cascade remove
+     */
+    protected $characters;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup>
-	 * @lazy
-	 */
-	protected $eveCorpGroups;
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup>
+     * @lazy
+     */
+    protected $eveCorpGroups;
 
-	/**
-	 * default class constructor
-	 *
-	 * @param \string $username
-	 * @param \string $password
-	 */
-	public function __construct($username = '', $password = '') {
-		parent::__construct($username, $password);
-		$this->apiKeys = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->eveCorpGroups = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-	}
+    /**
+     * default class constructor
+     *
+     * @param \string $username
+     * @param \string $password
+     */
+    public function __construct($username = '', $password = '') {
+        parent::__construct($username, $password);
+        $this->apiKeys = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->eveCorpGroups = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
 
-	/**
-	 * Return all corp members api keys
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyAccount>
-	 */
-	public function getApiKeys() {
-		return $this->apiKeys;
-	}
+    /**
+     * Return all corp members api keys
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyAccount>
+     */
+    public function getApiKeys() {
+        return $this->apiKeys;
+    }
 
-	/**
-	 * Return all corp member characters
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
-	 */
-	public function getCharacters() {
-		return $this->characters;
-	}
+    /**
+     * Return all corp member characters
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
+     */
+    public function getCharacters() {
+        return $this->characters;
+    }
 
-	/**
-	 * Add a new frontend user group to eve corp and standard user group
-	 *
-	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $group
-	 */
-	public function addEveCorpGroup(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $group) {
-		$this->eveCorpGroups->attach($group);
-		$this->usergroup->attach($group);
-	}
+    /**
+     * Add a new frontend user group to eve corp and standard user group
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $group
+     */
+    public function addEveCorpGroup(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $group) {
+        $this->eveCorpGroups->attach($group);
+        $this->usergroup->attach($group);
+    }
 
-	/**
-	 * Returns all used frontend user groups
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup>
-	 */
-	public function getEveCorpGroups() {
-		if ($this->eveCorpGroups === NULL) {
-			$this->eveCorpGroups = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		}
+    /**
+     * Returns all used frontend user groups
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup>
+     */
+    public function getEveCorpGroups() {
+        if ($this->eveCorpGroups === NULL) {
+            $this->eveCorpGroups = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        }
 
-		return $this->eveCorpGroups;
-	}
+        return $this->eveCorpGroups;
+    }
 
-	/**
-	 * Remove a frontend user group from eve corp and standard user group
-	 *
-	 * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $group
-	 */
-	public function removeEveCorpGroup(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $group) {
-		$this->eveCorpGroups->detach($group);
-		$this->usergroup->detach($group);
-	}
+    /**
+     * Remove a frontend user group from eve corp and standard user group
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $group
+     */
+    public function removeEveCorpGroup(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $group) {
+        $this->eveCorpGroups->detach($group);
+        $this->usergroup->detach($group);
+    }
 
 }

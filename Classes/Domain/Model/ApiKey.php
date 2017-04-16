@@ -35,112 +35,112 @@ namespace Gerh\Evecorp\Domain\Model;
  */
 class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
-	/**
-	 * @var \integer
-	 * @validate Number
-	 */
-	protected $accessMask;
+    /**
+     * @var \integer
+     * @validate Number
+     */
+    protected $accessMask;
 
-	/**
-	 * @var \Gerh\Evecorp\Domain\Model\DateTime
-	 */
-	protected $expires;
+    /**
+     * @var \Gerh\Evecorp\Domain\Model\DateTime
+     */
+    protected $expires;
 
-	/**
-	 * @var \integer
-	 * @validate NotEmpty
-	 * @validate Number
-	 * @validate NumberRange(minimum=1, maximum=2147483647)
-	 */
-	protected $keyId;
+    /**
+     * @var \integer
+     * @validate NotEmpty
+     * @validate Number
+     * @validate NumberRange(minimum=1, maximum=2147483647)
+     */
+    protected $keyId;
 
-	/**
-	 * @var \string
-	 * @validate NotEmpty
-	 * @validate StringLength(minimum=64, maximum=64)
-	 */
-	protected $vCode;
+    /**
+     * @var \string
+     * @validate NotEmpty
+     * @validate StringLength(minimum=64, maximum=64)
+     */
+    protected $vCode;
 
-	/**
-	 * Returns access mask of API key
-	 *
-	 * @return \integer
-	 */
-	public function getAccessMask() {
-		return $this->accessMask;
-	}
+    /**
+     * Returns access mask of API key
+     *
+     * @return \integer
+     */
+    public function getAccessMask() {
+        return $this->accessMask;
+    }
 
-	/**
-	 * Set acces mask for API key
-	 *
-	 * @param \integer $accessMask
-	 */
-	public function setAccessMask($accessMask) {
-		$this->accessMask = \intval($accessMask);
-	}
+    /**
+     * Set acces mask for API key
+     *
+     * @param \integer $accessMask
+     */
+    public function setAccessMask($accessMask) {
+        $this->accessMask = \intval($accessMask);
+    }
 
-	/**
-	 * Returns date of API key expire
-	 *
-	 * @return \Gerh\Evecorp\Domain\Model\DateTime | NULL if no expire date
-	 */
-	public function getExpires() {
-		return $this->expires;
-	}
+    /**
+     * Returns date of API key expire
+     *
+     * @return \Gerh\Evecorp\Domain\Model\DateTime | NULL if no expire date
+     */
+    public function getExpires() {
+        return $this->expires;
+    }
 
-	/**
-	 * Set date when an API key get expired
-	 *
-	 * @param \Gerh\Evecorp\Domain\Model\DateTime $expires
-	 */
-	public function setExpires(\Gerh\Evecorp\Domain\Model\DateTime $expires = NULL) {
-		$this->expires = $expires;
-	}
+    /**
+     * Set date when an API key get expired
+     *
+     * @param \Gerh\Evecorp\Domain\Model\DateTime $expires
+     */
+    public function setExpires(\Gerh\Evecorp\Domain\Model\DateTime $expires = NULL) {
+        $this->expires = $expires;
+    }
 
-	/**
-	 * Returns key id of this API key
-	 *
-	 * @return \integer
-	 */
-	public function getKeyId() {
-		return $this->keyId;
-	}
+    /**
+     * Returns key id of this API key
+     *
+     * @return \integer
+     */
+    public function getKeyId() {
+        return $this->keyId;
+    }
 
-	/**
-	 * Set key id for this API key
-	 *
-	 * @param \integer $keyId
-	 */
-	public function setKeyId($keyId) {
-		$this->keyId = \intval($keyId);
-	}
+    /**
+     * Set key id for this API key
+     *
+     * @param \integer $keyId
+     */
+    public function setKeyId($keyId) {
+        $this->keyId = \intval($keyId);
+    }
 
-	/**
-	 * Returns verification code (vCode) of API key
-	 *
-	 * @return \string
-	 */
-	public function getVCode() {
-		return $this->vCode;
-	}
+    /**
+     * Returns verification code (vCode) of API key
+     *
+     * @return \string
+     */
+    public function getVCode() {
+        return $this->vCode;
+    }
 
-	/**
-	 * Set verification code (vCode) for this API key
-	 *
-	 * @param \string $vCode
-	 */
-	public function setVCode($vCode) {
-		$this->vCode = $vCode;
-	}
+    /**
+     * Set verification code (vCode) for this API key
+     *
+     * @param \string $vCode
+     */
+    public function setVCode($vCode) {
+        $this->vCode = $vCode;
+    }
 
-	/**
-	 * Check if access mask provides right to restricted information group.
-	 *
-	 * @param \integer $toProveAgainst
-	 * @return \boolean
-	 */
-	public function hasAccessTo($toProveAgainst) {
-		return (($this->accessMask & $toProveAgainst) > 0) ? \TRUE : \FALSE;
-	}
+    /**
+     * Check if access mask provides right to restricted information group.
+     *
+     * @param \integer $toProveAgainst
+     * @return \boolean
+     */
+    public function hasAccessTo($toProveAgainst) {
+        return (($this->accessMask & $toProveAgainst) > 0) ? \TRUE : \FALSE;
+    }
 
 }

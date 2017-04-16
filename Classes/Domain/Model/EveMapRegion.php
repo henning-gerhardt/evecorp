@@ -35,52 +35,52 @@ namespace Gerh\Evecorp\Domain\Model;
  */
 class EveMapRegion extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
-	/**
-	 * @var \integer
-	 */
-	protected $regionId;
+    /**
+     * @var \integer
+     */
+    protected $regionId;
 
-	/**
-	 * @var \string
-	 */
-	protected $regionName;
+    /**
+     * @var \string
+     */
+    protected $regionName;
 
-	/**
-	 * Get region id
-	 *
-	 * @return \integer
-	 */
-	public function getRegionId() {
-		return $this->regionId;
-	}
+    /**
+     * Get region id
+     *
+     * @return \integer
+     */
+    public function getRegionId() {
+        return $this->regionId;
+    }
 
-	/**
-	 * Set region id
-	 *
-	 * @param \integer $regionId
-	 * @return void
-	 */
-	public function setRegionId($regionId) {
-		$this->regionId = $regionId;
-	}
+    /**
+     * Set region id
+     *
+     * @param \integer $regionId
+     * @return void
+     */
+    public function setRegionId($regionId) {
+        $this->regionId = $regionId;
+    }
 
-	/**
-	 * Get region name
-	 *
-	 * @return \string
-	 */
-	public function getRegionName() {
-		return $this->regionName;
-	}
+    /**
+     * Get region name
+     *
+     * @return \string
+     */
+    public function getRegionName() {
+        return $this->regionName;
+    }
 
-	/**
-	 * Set region name
-	 *
-	 * @param \string $regionName
-	 * @return void
-	 */
-	public function setRegionName($regionName) {
-		$this->regionName = $regionName;
-	}
+    /**
+     * Set region name
+     *
+     * @param \string $regionName
+     * @return void
+     */
+    public function setRegionName($regionName) {
+        $this->regionName = $regionName;
+    }
 
 }

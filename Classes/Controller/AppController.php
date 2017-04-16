@@ -35,32 +35,32 @@ namespace Gerh\Evecorp\Controller;
  */
 class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-	/**
-	 * Holds instance for market data
-	 *
-	 * @var \Gerh\Evecorp\Domain\Model\MarketData
-	 * @inject
-	 */
-	protected $marketData;
+    /**
+     * Holds instance for market data
+     *
+     * @var \Gerh\Evecorp\Domain\Model\MarketData
+     * @inject
+     */
+    protected $marketData;
 
-	public function initializeAction() {
-		$this->marketData->setCorpTax($this->settings['corptax']);
-	}
+    public function initializeAction() {
+        $this->marketData->setCorpTax($this->settings['corptax']);
+    }
 
-	/**
-	 * action index
-	 *
-	 * @return void
-	 */
-	public function indexAction() {
-		$result = $this->marketData->getMarketData();
+    /**
+     * action index
+     *
+     * @return void
+     */
+    public function indexAction() {
+        $result = $this->marketData->getMarketData();
 
-		$this->view->assign('result', $result);
-		$this->view->assign('tableTypeContent', $this->settings['tabletypecontent']);
-		$this->view->assign('preTableText', $this->settings['pretabletext']);
-		$this->view->assign('postTableText', $this->settings['posttabletext']);
-		$this->view->assign('showBuyCorpColumn', $this->settings['showbuycorpcolumn']);
-		$this->view->assign('showFetchColumn', $this->settings['showfetchcolumn']);
-	}
+        $this->view->assign('result', $result);
+        $this->view->assign('tableTypeContent', $this->settings['tabletypecontent']);
+        $this->view->assign('preTableText', $this->settings['pretabletext']);
+        $this->view->assign('postTableText', $this->settings['posttabletext']);
+        $this->view->assign('showBuyCorpColumn', $this->settings['showbuycorpcolumn']);
+        $this->view->assign('showFetchColumn', $this->settings['showfetchcolumn']);
+    }
 
 }

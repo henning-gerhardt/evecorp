@@ -35,199 +35,199 @@ namespace Gerh\Evecorp\Domain\Repository;
  */
 class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
 
-	/**
-	 * Check is given column name 'region' or 'solar_system'
-	 *
-	 * @param \string $columnName
-	 * @return boolean
-	 */
-	protected function isCorrectColumn($columnName) {
+    /**
+     * Check is given column name 'region' or 'solar_system'
+     *
+     * @param \string $columnName
+     * @return boolean
+     */
+    protected function isCorrectColumn($columnName) {
 
-		$result = false;
-		if (($columnName === 'region') || ($columnName === 'solar_system')) {
-			$result = true;
-		}
+        $result = false;
+        if (($columnName === 'region') || ($columnName === 'solar_system')) {
+            $result = true;
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Return a list of unique ids for a specific column
-	 *
-	 * @param \string $searchColumn Must be 'region' or 'solar_system'
-	 * @return array
-	 */
-	protected function getListOfUniqueColumn($searchColumn) {
-		$result = array();
-		$returnRawQueryResult = true;
+    /**
+     * Return a list of unique ids for a specific column
+     *
+     * @param \string $searchColumn Must be 'region' or 'solar_system'
+     * @return array
+     */
+    protected function getListOfUniqueColumn($searchColumn) {
+        $result = array();
+        $returnRawQueryResult = true;
 
-		if (!$this->isCorrectColumn($searchColumn)) {
-			return $result;
-		}
+        if (!$this->isCorrectColumn($searchColumn)) {
+            return $result;
+        }
 
-		/** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
-		$query = $this->createQuery();
+        /** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
+        $query = $this->createQuery();
 
-		/** todo replace if possible with matching query */
-		$statement = 'SELECT DISTINCT `' . $searchColumn . '` FROM `tx_evecorp_domain_model_eveitem` ';
-		$statement .= ' WHERE (`' . $searchColumn . '` > 0) AND (`deleted` = 0) AND (`hidden` = 0) ';
+        /** todo replace if possible with matching query */
+        $statement = 'SELECT DISTINCT `' . $searchColumn . '` FROM `tx_evecorp_domain_model_eveitem` ';
+        $statement .= ' WHERE (`' . $searchColumn . '` > 0) AND (`deleted` = 0) AND (`hidden` = 0) ';
 
-		$rowData = $query->statement($statement)->execute($returnRawQueryResult);
+        $rowData = $query->statement($statement)->execute($returnRawQueryResult);
 
-		// own data mapping
-		foreach ($rowData as $rows) {
-			foreach ($rows as $columnValue) {
-				$result[] = $columnValue;
-			}
-		}
+        // own data mapping
+        foreach ($rowData as $rows) {
+            foreach ($rows as $columnValue) {
+                $result[] = $columnValue;
+            }
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Search for all out of date EVE items for a given region or system
-	 *
-	 * @param \integer $searchId
-	 * @param \string  $searchColumn Must be 'region' or 'solar_system'
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
-	 */
-	protected function findAllUpdateableItemsForColumn($searchId, $searchColumn) {
+    /**
+     * Search for all out of date EVE items for a given region or system
+     *
+     * @param \integer $searchId
+     * @param \string  $searchColumn Must be 'region' or 'solar_system'
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     */
+    protected function findAllUpdateableItemsForColumn($searchId, $searchColumn) {
 
-		if ($searchId == null || $searchId == 0) {
-			return new \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult();
-		}
+        if ($searchId == null || $searchId == 0) {
+            return new \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult();
+        }
 
-		if (!$this->isCorrectColumn($searchColumn)) {
-			return new \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult();
-		}
+        if (!$this->isCorrectColumn($searchColumn)) {
+            return new \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult();
+        }
 
-		/** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
-		$query = $this->createQuery();
+        /** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
+        $query = $this->createQuery();
 
-		/** @todo replace if possible with matching query */
-		$queryStatement = 'SELECT * FROM `tx_evecorp_domain_model_eveitem` ';
-		$queryStatement .= ' WHERE `cache_time` < (UNIX_TIMESTAMP() - (`time_to_cache` * 60)) ';
-		$queryStatement .= ' AND (`' . $searchColumn . '` = :searchId) ';
-		$queryStatement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
+        /** @todo replace if possible with matching query */
+        $queryStatement = 'SELECT * FROM `tx_evecorp_domain_model_eveitem` ';
+        $queryStatement .= ' WHERE `cache_time` < (UNIX_TIMESTAMP() - (`time_to_cache` * 60)) ';
+        $queryStatement .= ' AND (`' . $searchColumn . '` = :searchId) ';
+        $queryStatement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
 
-		$statement = new \TYPO3\CMS\Core\Database\PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
-		$statement->bindValues(array(':searchId' => (int) $searchId));
-		$query->statement($statement);
+        $statement = new \TYPO3\CMS\Core\Database\PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
+        $statement->bindValues(array(':searchId' => (int) $searchId));
+        $query->statement($statement);
 
-		/** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
-		$result = $query->execute();
+        /** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
+        $result = $query->execute();
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Search for a specific EVE item
-	 *
-	 * @param \integer $eveId
-	 * @param \integer $searchId
-	 * @param \string  $searchColumn Must be 'region' or 'system'
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
-	 */
-	public function findByEveIdAndColumn($eveId, $searchId, $searchColumn) {
+    /**
+     * Search for a specific EVE item
+     *
+     * @param \integer $eveId
+     * @param \integer $searchId
+     * @param \string  $searchColumn Must be 'region' or 'system'
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     */
+    public function findByEveIdAndColumn($eveId, $searchId, $searchColumn) {
 
-		if (!$this->isCorrectColumn($searchColumn)) {
-			return new \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult();
-		}
+        if (!$this->isCorrectColumn($searchColumn)) {
+            return new \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult();
+        }
 
-		/** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
-		$query = $this->createQuery();
+        /** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
+        $query = $this->createQuery();
 
-		/** @todo replace if possible with matching query */
-		$queryStatement = 'SELECT * FROM `tx_evecorp_domain_model_eveitem` ';
-		$queryStatement .= ' WHERE (`eve_id` = :eveId) ';
-		$queryStatement .= ' AND (`' . $searchColumn . '` = :searchId) ';
-		$queryStatement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
+        /** @todo replace if possible with matching query */
+        $queryStatement = 'SELECT * FROM `tx_evecorp_domain_model_eveitem` ';
+        $queryStatement .= ' WHERE (`eve_id` = :eveId) ';
+        $queryStatement .= ' AND (`' . $searchColumn . '` = :searchId) ';
+        $queryStatement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
 
-		$statement = new \TYPO3\CMS\Core\Database\PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
-		$statement->bindValues(array(':eveId' => (int) $eveId, ':searchId' => (int) $searchId));
-		$query->statement($statement);
+        $statement = new \TYPO3\CMS\Core\Database\PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
+        $statement->bindValues(array(':eveId' => (int) $eveId, ':searchId' => (int) $searchId));
+        $query->statement($statement);
 
-		/** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
-		$result = $query->execute();
-		return $result;
-	}
+        /** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
+        $result = $query->execute();
+        return $result;
+    }
 
-	/**
-	 * Get array of unique used region ids
-	 *
-	 * @return array
-	 */
-	public function getListOfUniqueRegionId() {
+    /**
+     * Get array of unique used region ids
+     *
+     * @return array
+     */
+    public function getListOfUniqueRegionId() {
 
-		$result = $this->getListOfUniqueColumn('region');
+        $result = $this->getListOfUniqueColumn('region');
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Get array of unique used system ids
-	 *
-	 * @return array
-	 */
-	public function getListOfUniqueSystemId() {
+    /**
+     * Get array of unique used system ids
+     *
+     * @return array
+     */
+    public function getListOfUniqueSystemId() {
 
-		$result = $this->getListOfUniqueColumn('solar_system');
+        $result = $this->getListOfUniqueColumn('solar_system');
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Search for all out of date EVE items for a given region
-	 *
-	 * @param \integer $regionId
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
-	 */
-	public function findAllUpdateableItemsForRegion($regionId) {
+    /**
+     * Search for all out of date EVE items for a given region
+     *
+     * @param \integer $regionId
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     */
+    public function findAllUpdateableItemsForRegion($regionId) {
 
-		$result = $this->findAllUpdateableItemsForColumn($regionId, 'region');
+        $result = $this->findAllUpdateableItemsForColumn($regionId, 'region');
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Search for all out of date EVE items for a given system
-	 *
-	 * @param \integer $systemId
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
-	 */
-	public function findAllUpdateableItemsForSystem($systemId) {
+    /**
+     * Search for all out of date EVE items for a given system
+     *
+     * @param \integer $systemId
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     */
+    public function findAllUpdateableItemsForSystem($systemId) {
 
-		$result = $this->findAllUpdateableItemsForColumn($systemId, 'solar_system');
+        $result = $this->findAllUpdateableItemsForColumn($systemId, 'solar_system');
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Search for a specific EVE item and region
-	 *
-	 * @param \integer $eveId
-	 * @param \integer $regionId
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
-	 */
-	public function findByEveIdAndRegionId($eveId, $regionId) {
+    /**
+     * Search for a specific EVE item and region
+     *
+     * @param \integer $eveId
+     * @param \integer $regionId
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     */
+    public function findByEveIdAndRegionId($eveId, $regionId) {
 
-		$result = $this->findByEveIdAndColumn($eveId, $regionId, 'region');
+        $result = $this->findByEveIdAndColumn($eveId, $regionId, 'region');
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Search for a specific EVE item and system
-	 *
-	 * @param \integer $eveId
-	 * @param \integer $systemId
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
-	 */
-	public function findByEveIdAndSystemId($eveId, $systemId) {
+    /**
+     * Search for a specific EVE item and system
+     *
+     * @param \integer $eveId
+     * @param \integer $systemId
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     */
+    public function findByEveIdAndSystemId($eveId, $systemId) {
 
-		$result = $this->findByEveIdAndColumn($eveId, $systemId, 'solar_system');
+        $result = $this->findByEveIdAndColumn($eveId, $systemId, 'solar_system');
 
-		return $result;
-	}
+        return $result;
+    }
 
 }

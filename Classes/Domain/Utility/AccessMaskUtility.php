@@ -35,16 +35,16 @@ namespace Gerh\Evecorp\Domain\Utility;
  */
 class AccessMaskUtility {
 
-	/**
-	 * Returns access mask for valid API keys
-	 *
-	 * @return \integer
-	 */
-	public static function getAccessMask() {
-		$extconf = \unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
-		$result = (\strlen($extconf['accessMask']) > 0) ?
-				\trim($extconf['accessMask']) : 0;
-		return \intval($result);
-	}
+    /**
+     * Returns access mask for valid API keys
+     *
+     * @return \integer
+     */
+    public static function getAccessMask() {
+        $extconf = \unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
+        $result = (\strlen($extconf['accessMask']) > 0) ?
+                \trim($extconf['accessMask']) : 0;
+        return \intval($result);
+    }
 
 }

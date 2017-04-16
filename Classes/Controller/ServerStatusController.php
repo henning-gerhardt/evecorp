@@ -35,42 +35,42 @@ namespace Gerh\Evecorp\Controller;
  */
 class ServerStatusController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-	/**
-	 * @var \Gerh\Evecorp\Service\PhealService
-	 * @inject
-	 */
-	protected $phealService;
+    /**
+     * @var \Gerh\Evecorp\Service\PhealService
+     * @inject
+     */
+    protected $phealService;
 
-	/**
-	 *
-	 * @var \Pheal\Pheal
-	 */
-	private $pheal;
+    /**
+     *
+     * @var \Pheal\Pheal
+     */
+    private $pheal;
 
-	/**
-	 *
-	 */
-	public function initializeAction() {
-		$this->phealService =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Gerh\Evecorp\Service\PhealService');
-		$this->pheal = $this->phealService->getPhealInstance();
-	}
-	/**
-	 * action index
-	 *
-	 * @return void
-	 */
-	public function indexAction() {
+    /**
+     *
+     */
+    public function initializeAction() {
+        $this->phealService =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Gerh\Evecorp\Service\PhealService');
+        $this->pheal = $this->phealService->getPhealInstance();
+    }
+    /**
+     * action index
+     *
+     * @return void
+     */
+    public function indexAction() {
 
-		try {
-			$response = $this->pheal->serverScope->ServerStatus();
-			$serverStatus = $response->serverOpen;
-			$onlinePlayers = $response->onlinePlayers;
-		} catch (\Pheal\Exceptions\PhealException $e) {
-			$serverStatus = false;
-			$onlinePlayers = 0;
-		}
+        try {
+            $response = $this->pheal->serverScope->ServerStatus();
+            $serverStatus = $response->serverOpen;
+            $onlinePlayers = $response->onlinePlayers;
+        } catch (\Pheal\Exceptions\PhealException $e) {
+            $serverStatus = false;
+            $onlinePlayers = 0;
+        }
 
-		$this->view->assign('server_status', $serverStatus);
-		$this->view->assign('online_players', $onlinePlayers);
-	}
+        $this->view->assign('server_status', $serverStatus);
+        $this->view->assign('online_players', $onlinePlayers);
+    }
 }

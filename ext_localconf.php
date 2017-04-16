@@ -84,14 +84,14 @@ if (!defined ('TYPO3_MODE')) {
     array(
         'ApiKeyCorporationManagement' => 'index,new,create,delete',
         'CorporationTitleManagement' => 'index,fetch,edit,update',
-		'CorpMemberList' => 'index,update',
-		'CharacterManagement' => 'show',
+        'CorpMemberList' => 'index,update',
+        'CharacterManagement' => 'show',
     ),
     // non-cacheable actions
     array(
         'ApiKeyCorporationManagement' => 'index,new,create,delete',
         'CorporationTitleManagement' => 'index,fetch,edit,update',
-		'CorpMemberList' => 'index,update',
+        'CorpMemberList' => 'index,update',
     )
 );
 

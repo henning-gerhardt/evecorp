@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2014-03-27T14:50:55Z" product-name="evecorp" target-language="de">
-		<header/>
-		<body>
-			<trans-unit id="evecorp.backendconfig.cacheDirectory" xml:space="preserve">
-				<source>Cache directory for PhealNG data: Full path to a existing and writable directory. If not defined (maybe insecure) typo3temp directory will be used.</source>
-				<target>Cache Verzeichnis für PhealNG Daten: vollständiger Pfad zu einen existierenden und schreibbaren Verzeichnis. Wenn nicht ausgefüllt, wird das (eventuelle unsichere) Typo3Temp Verzeichnis benutzt.</target>
-			</trans-unit>
-			<trans-unit id="evecorp.backendconfig.connectionTimeout" xml:space="preserve">
-				<source>Timeout value for used connections: Value in seconds. Default are 120 seconds.</source>
-				<target>Wert für die Zeitüberschreitung bei Internet-Verbindung: Zeit in Sekunden. Standardmäßig sind es 120 Sekunden.</target>
-			</trans-unit>
-			<trans-unit id="evecorp.backendconfig.verifyingHttpsConnection" xml:space="preserve">
-				<source>Should HTTPS connection be verified? Be sure that your typo3 system could verify CCP certificate.</source>
-				<target>Soll die HTTPS Verbindung verfiziert werden? Es muss sichergestellt werden, dass das Typo3 System das CCP Zertifikat verifizieren kann.</target>
-			</trans-unit>
-			<trans-unit id="evecorp.backendconfig.evecentraluri" xml:space="preserve">
-				<source>Static URI part to eve-central: Default to http://api.eve-central.com/api/marketstat </source>
-				<target>Statischer URI Teil für eve-central: Standardmäßig http://api.eve-central.com/api/marketstat </target>
-			</trans-unit>
-			<trans-unit id="evecorp.backendconfig.fileCreateMask" xml:space="preserve">
-				<source>Configure create mask for a file: No value means using default pheal value (0666). Hint: use same setting as [BE][fileCreateMask]</source>
-				<target>Konfiguren der Erstellungsmaske für Dateien: Kein Wert bedeutet, dass der PhealNG Wert (0666) genommen wird. Hinweis: Es ist gut, den Wert zu nehmen, der in [BE][fileCreateMask] eingestellt ist.</target>
-			</trans-unit>
-			<trans-unit id="evecorp.backendconfig.folderCreateMask" xml:space="preserve">
-				<source>Configure create mask for a folder: No value means using default pheal value (0777). Hint: use same setting as [BE][folderCreateMask]</source>
-				<target>Konfiguren der Erstellungsmaske für Verzeichnisse: Kein Wert bedeutet, dass der PhealNG Wert (0777) genommen wird. Hinweis: Es ist gut, den Wert zu nehmen, der in [BE][folderCreateMask] eingestellt ist.</target>
-			</trans-unit>
-		</body>
-	</file>
+    <file source-language="en" datatype="plaintext" original="messages" date="2014-03-27T14:50:55Z" product-name="evecorp" target-language="de">
+        <header/>
+        <body>
+            <trans-unit id="evecorp.backendconfig.cacheDirectory" xml:space="preserve">
+                <source>Cache directory for PhealNG data: Full path to a existing and writable directory. If not defined (maybe insecure) typo3temp directory will be used.</source>
+                <target>Cache Verzeichnis für PhealNG Daten: vollständiger Pfad zu einen existierenden und schreibbaren Verzeichnis. Wenn nicht ausgefüllt, wird das (eventuelle unsichere) Typo3Temp Verzeichnis benutzt.</target>
+            </trans-unit>
+            <trans-unit id="evecorp.backendconfig.connectionTimeout" xml:space="preserve">
+                <source>Timeout value for used connections: Value in seconds. Default are 120 seconds.</source>
+                <target>Wert für die Zeitüberschreitung bei Internet-Verbindung: Zeit in Sekunden. Standardmäßig sind es 120 Sekunden.</target>
+            </trans-unit>
+            <trans-unit id="evecorp.backendconfig.verifyingHttpsConnection" xml:space="preserve">
+                <source>Should HTTPS connection be verified? Be sure that your typo3 system could verify CCP certificate.</source>
+                <target>Soll die HTTPS Verbindung verfiziert werden? Es muss sichergestellt werden, dass das Typo3 System das CCP Zertifikat verifizieren kann.</target>
+            </trans-unit>
+            <trans-unit id="evecorp.backendconfig.evecentraluri" xml:space="preserve">
+                <source>Static URI part to eve-central: Default to http://api.eve-central.com/api/marketstat </source>
+                <target>Statischer URI Teil für eve-central: Standardmäßig http://api.eve-central.com/api/marketstat </target>
+            </trans-unit>
+            <trans-unit id="evecorp.backendconfig.fileCreateMask" xml:space="preserve">
+                <source>Configure create mask for a file: No value means using default pheal value (0666). Hint: use same setting as [BE][fileCreateMask]</source>
+                <target>Konfiguren der Erstellungsmaske für Dateien: Kein Wert bedeutet, dass der PhealNG Wert (0666) genommen wird. Hinweis: Es ist gut, den Wert zu nehmen, der in [BE][fileCreateMask] eingestellt ist.</target>
+            </trans-unit>
+            <trans-unit id="evecorp.backendconfig.folderCreateMask" xml:space="preserve">
+                <source>Configure create mask for a folder: No value means using default pheal value (0777). Hint: use same setting as [BE][folderCreateMask]</source>
+                <target>Konfiguren der Erstellungsmaske für Verzeichnisse: Kein Wert bedeutet, dass der PhealNG Wert (0777) genommen wird. Hinweis: Es ist gut, den Wert zu nehmen, der in [BE][folderCreateMask] eingestellt ist.</target>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>
