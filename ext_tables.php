@@ -24,13 +24,13 @@ if (!defined ('TYPO3_MODE')) {
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
     $_EXTKEY,
     'Pi1',
-    'EvE Market'
+    'EVE Market'
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
     $_EXTKEY,
     'Pi2',
-    'EvE Server Status'
+    'EVE Server Status'
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(

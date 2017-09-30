@@ -12,8 +12,8 @@
                 <target>Wert für die Zeitüberschreitung bei Internet-Verbindung: Zeit in Sekunden. Standardmäßig sind es 120 Sekunden.</target>
             </trans-unit>
             <trans-unit id="evecorp.backendconfig.verifyingHttpsConnection" xml:space="preserve">
-                <source>Should HTTPS connection be verified? Be sure that your typo3 system could verify CCP certificate.</source>
-                <target>Soll die HTTPS Verbindung verfiziert werden? Es muss sichergestellt werden, dass das Typo3 System das CCP Zertifikat verifizieren kann.</target>
+                <source>Should HTTPS connection be verified? Be sure that your TYPO3 system could verify CCP certificate.</source>
+                <target>Soll die HTTPS Verbindung verfiziert werden? Es muss sichergestellt werden, dass das TYPO3 System das CCP Zertifikat verifizieren kann.</target>
             </trans-unit>
             <trans-unit id="evecorp.backendconfig.evecentraluri" xml:space="preserve">
                 <source>Static URI part to eve-central: Default to http://api.eve-central.com/api/marketstat </source>

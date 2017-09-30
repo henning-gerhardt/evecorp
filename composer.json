@@ -1,10 +1,10 @@
 {
     "name": "gerh/evecorp",
     "type": "typo3-cms-extension",
-    "description": "EVECorp: Typo3 based tool to manage your EVE corporation",
+    "description": "EVECorp: TYPO3 based tool to manage your EVE corporation",
     "homepage": "https://github.com/henning-gerhardt/evecorp",
     "license": ["GPL-3.0+"],
-    "keywords": ["TYPO3 CMS", "TYPO3 Extension", "EvE Online", "Corporation"],
+    "keywords": ["TYPO3 CMS", "TYPO3 Extension", "EVE Online", "Corporation"],
     "support": {
         "issues": "https://github.com/henning-gerhardt/evecorp/issues"
     },

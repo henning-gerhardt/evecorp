@@ -45,7 +45,7 @@ class EveCentralFetcher {
 
     /**
      *
-     * @var array Holds a list of EvE item type ids.
+     * @var array Holds a list of EVE item type ids.
      */
     private $typeIds = array();
 

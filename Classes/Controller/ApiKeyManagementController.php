@@ -81,7 +81,7 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
         $corpMember = $this->accessControlService->getCorpMember();
 
         if (($corpMember === \NULL) || (!$corpMember instanceof \Gerh\Evecorp\Domain\Model\CorpMember)) {
-            $this->addFlashMessage('FE user not defined as Gerh_Evecorp_Domain_Model_CorpMember. Notice your local Typo3 administrator to change your account to correct record type!', 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->addFlashMessage('FE user not defined as Gerh_Evecorp_Domain_Model_CorpMember. Notice your local TYPO3 administrator to change your account to correct record type!', 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
