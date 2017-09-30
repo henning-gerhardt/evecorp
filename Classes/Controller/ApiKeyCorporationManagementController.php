@@ -52,7 +52,7 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
      */
     public function initializeAction() {
         $selectedCorporation = (\strlen($this->settings['corporation']) > 0) ?
-                \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : array();
+            \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : [];
 
         $amountOfSelectedCorporation = \count($selectedCorporation);
         if ($amountOfSelectedCorporation == 1) {
@@ -80,7 +80,7 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
                 $hasTitleAccess = $corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
             }
         } else {
-            $apiKeys = array();
+            $apiKeys = [];
         }
 
         $this->view->assign('keys', $apiKeys);

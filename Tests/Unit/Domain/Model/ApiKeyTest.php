@@ -91,21 +91,21 @@ class ApiKeyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      */
     public function accessProvider() {
         $characterMask = \Gerh\Evecorp\Domain\Constants\AccessMask\Character::BOOKMARKS +
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Character::KILLLOG +
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Character::CONTACTLIST;
+            \Gerh\Evecorp\Domain\Constants\AccessMask\Character::KILLLOG +
+            \Gerh\Evecorp\Domain\Constants\AccessMask\Character::CONTACTLIST;
 
         $corporationMask = \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::FACWARSTATS;
+            \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::FACWARSTATS;
 
-        return array(
-            array(\TRUE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::BOOKMARKS),
-            array(\TRUE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::KILLLOG),
-            array(\TRUE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::CONTACTLIST),
-            array(\FALSE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::CALENDAREVENTATTENDEES),
-            array(\TRUE, $corporationMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES),
-            array(\FALSE, $corporationMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::INDUSTRYJOBS),
-            array(\FALSE, $corporationMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ACCOUNTBALANCE),
-        );
+        return [
+            [\TRUE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::BOOKMARKS],
+            [\TRUE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::KILLLOG],
+            [\TRUE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::CONTACTLIST],
+            [\FALSE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::CALENDAREVENTATTENDEES],
+            [\TRUE, $corporationMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES],
+            [\FALSE, $corporationMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::INDUSTRYJOBS],
+            [\FALSE, $corporationMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ACCOUNTBALANCE],
+        ];
     }
 
     /**

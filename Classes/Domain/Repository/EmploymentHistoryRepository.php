@@ -38,7 +38,7 @@ class EmploymentHistoryRepository extends \Gerh\Evecorp\Domain\Repository\BaseRe
     public function searchForEmployment(\Gerh\Evecorp\Domain\Model\Character $character, \Gerh\Evecorp\Domain\Model\Corporation $corporation, \Gerh\Evecorp\Domain\Model\DateTime $startDate) {
         $query = $this->createQuery();
 
-        $constraints = array();
+        $constraints = [];
         $constraints[] = $query->equals('characterUid', $character);
         $constraints[] = $query->equals('corporationUid', $corporation);
         $constraints[] = $query->equals('startDate', $startDate);

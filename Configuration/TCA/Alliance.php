@@ -21,54 +21,58 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_alliance'] = array(
+$TCA['tx_evecorp_domain_model_alliance'] = [
     'ctrl' => $TCA['tx_evecorp_domain_model_alliance']['ctrl'],
-    'interface' => array(
+    'interface' => [
         'showRecordFieldList' => 'hidden, alliance_name, alliance_id',
-    ),
-    'types' => array(
-        '1' => array('showitem' => 'hidden, alliance_name, alliance_id, corporations'),
-    ),
-    'palettes' => array(
-        '1' => array('showitem' => ''),
-    ),
-    'columns' => array(
-        'hidden' => array(
+    ],
+    'types' => [
+        '1' => [
+            'showitem' => 'hidden, alliance_name, alliance_id, corporations'
+        ],
+    ],
+    'palettes' => [
+        '1' => [
+            'showitem' => ''
+        ],
+    ],
+    'columns' => [
+        'hidden' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
-            'config' => array(
+            'config' => [
                 'type' => 'check'
-            ),
-        ),
-        'alliance_id' => array(
+            ],
+        ],
+        'alliance_id' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_alliance.alliance_id',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'size' => 10,
                 'eval' => 'trim,int,required',
-            ),
-        ),
-        'alliance_name' => array(
+            ],
+        ],
+        'alliance_name' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_alliance.alliance_name',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'size' => 32,
                 'eval' => 'trim,required',
-            )
-        ),
-        'corporations' => array(
+            ]
+        ],
+        'corporations' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_alliance.corporation',
-            'config' => array(
+            'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_evecorp_domain_model_corporation',
                 'foreign_field' => 'current_alliance',
-                'appearance' => array(
+                'appearance' => [
                     'levelLinksPosition' => 'none',
-                ),
-            )
-        ),
-    ),
-);
+                ],
+            ]
+        ],
+    ],
+];

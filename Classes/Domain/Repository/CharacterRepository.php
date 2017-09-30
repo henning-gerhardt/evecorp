@@ -36,9 +36,9 @@ class CharacterRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository
      * @return QueryResultInterface|array
      */
     public function findAllCharactersSortedByCharacterName(array $corporations) {
-        $orderings = array(
+        $orderings = [
             'characterName' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
-        );
+        ];
 
         $query = $this->createQuery();
         $query->setOrderings($orderings);

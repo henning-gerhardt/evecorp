@@ -21,64 +21,68 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_corporationtitle'] = array(
+$TCA['tx_evecorp_domain_model_corporationtitle'] = [
     'ctrl' => $TCA['tx_evecorp_domain_model_corporationtitle']['ctrl'],
-    'interface' => array(
+    'interface' => [
         'showRecordFieldList' => 'title_id, title_name, corporation, hidden',
-    ),
-    'types' => array(
-        '1' => array('showitem' => 'title_id, title_name, corporation, usergroup, characters, hidden'),
-    ),
-    'palettes' => array(
-        '1' => array('showitem' => ''),
-    ),
-    'columns' => array(
-        'hidden' => array(
+    ],
+    'types' => [
+        '1' => [
+            'showitem' => 'title_id, title_name, corporation, usergroup, characters, hidden'
+        ],
+    ],
+    'palettes' => [
+        '1' => [
+            'showitem' => ''
+        ],
+    ],
+    'columns' => [
+        'hidden' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
-            'config' => array(
+            'config' => [
                 'type' => 'check'
-            )
-        ),
-        'title_id' => array(
+            ]
+        ],
+        'title_id' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation_title.titleid',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'eval' => 'trim,int,required'
-            )
-        ),
-        'title_name' => array(
+            ]
+        ],
+        'title_name' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation_title.titlename',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'eval' => 'trim,required'
-            )
-        ),
-        'corporation' => array(
+            ]
+        ],
+        'corporation' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'foreign_table' => 'tx_evecorp_domain_model_corporation',
-            ),
-        ),
-        'usergroup' => array(
+            ],
+        ],
+        'usergroup' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.usergroup',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'foreign_table' => 'fe_groups',
-                'items' => array(
-                    array('--none--', 0),
-                )
-            ),
-        ),
-        'characters' => array(
+                'items' => [
+                    ['--none--', 0],
+                ]
+            ],
+        ],
+        'characters' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'size' => 10,
                 'minitems' => 0,
@@ -89,7 +93,7 @@ $TCA['tx_evecorp_domain_model_corporationtitle'] = array(
                 'foreign_table_where' => ' AND tx_evecorp_domain_model_character.current_corporation=###REC_FIELD_corporation###',
                 'MM' => 'tx_evecorp_domain_model_corporationtitle_character_mm',
                 'MM_hasUidField' => TRUE,
-            ),
-        ),
-    ),
-);
+            ],
+        ],
+    ],
+];

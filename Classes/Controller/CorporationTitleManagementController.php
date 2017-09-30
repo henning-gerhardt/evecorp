@@ -59,7 +59,7 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
      */
     public function initializeAction() {
         $selectedCorporation = (\strlen($this->settings['corporation']) > 0) ?
-                \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : array();
+            \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : [];
 
         $amountOfSelectedCorporation = \count($selectedCorporation);
         if ($amountOfSelectedCorporation == 1) {
@@ -85,7 +85,7 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
                 $hasTitleAccess = $corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
             }
         } else {
-            $titles = array();
+            $titles = [];
         }
 
         $this->view->assign('amountOfSelectedCorporations', ($this->selectedCorporation > 0) ? 1 : $this->selectedCorporation);
@@ -144,7 +144,7 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
         $defaultQuerySettings = new \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings();
         $defaultQuerySettings->setRespectStoragePage(\FALSE);
         $this->frontendUserGroupRepository->setDefaultQuerySettings($defaultQuerySettings);
-        $usergroups = array(0 => 'none');
+        $usergroups = [0 => 'none'];
         foreach ($this->frontendUserGroupRepository->findAll() as $frontendUserGroup) {
             $usergroups[$frontendUserGroup->getUid()] = $frontendUserGroup->getTitle();
         }

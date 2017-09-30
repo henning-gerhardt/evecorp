@@ -21,85 +21,89 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_apikeyaccount'] = array(
+$TCA['tx_evecorp_domain_model_apikeyaccount'] = [
     'ctrl' => $TCA['tx_evecorp_domain_model_apikeyaccount']['ctrl'],
-    'interface' => array(
+    'interface' => [
         'showRecordFieldList' => 'key_id, v_code, corp_member, hidden',
-    ),
-    'types' => array(
-        '1' => array('showitem' => 'key_id, v_code, corp_member, type, access_mask, expires, characters, hidden'),
-    ),
-    'palettes' => array(
-        '1' => array('showitem' => ''),
-    ),
-    'columns' => array(
-        'hidden' => array(
+    ],
+    'types' => [
+        '1' => [
+            'showitem' => 'key_id, v_code, corp_member, type, access_mask, expires, characters, hidden'
+        ],
+    ],
+    'palettes' => [
+        '1' => [
+            'showitem' => ''
+        ],
+    ],
+    'columns' => [
+        'hidden' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
-            'config' => array(
+            'config' => [
                 'type' => 'check'
-            )
-        ),
-        'key_id' => array(
+            ]
+        ],
+        'key_id' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.keyid',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'size' => 10,
                 'eval' => 'trim,int,required,unique'
-            )
-        ),
-        'v_code' => array(
+            ]
+        ],
+        'v_code' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.vcode',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'size' => 64,
                 'eval' => 'trim,required'
-            )
-        ),
-        'corp_member' => array(
+            ]
+        ],
+        'corp_member' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account.corpmember',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'foreign_table' => 'fe_users',
-                'items' => array(
-                    array('--none--', 0),
-                ),
-            ),
-        ),
-        'access_mask' => array(
+                'items' => [
+                    ['--none--', 0],
+                ],
+            ],
+        ],
+        'access_mask' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.accessmask',
-            'config' => array(
+            'config' => [
                 'type' => 'none',
-            ),
-        ),
-        'expires' => array(
+            ],
+        ],
+        'expires' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.expires',
-            'config' => array(
+            'config' => [
                 'type' => 'none',
                 'format' => 'date',
-                'format.' => array(
+                'format.' => [
                     'strftime' => FALSE,
                     'option' => 'Y-m-d H:i:s e'
-                ),
-            ),
-        ),
-        'characters' => array(
+                ],
+            ],
+        ],
+        'characters' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
-            'config' => array(
+            'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_evecorp_domain_model_character',
                 'foreign_field' => 'api_key',
                 'maxitems' => 3,
-                'appearance' => array(
+                'appearance' => [
                     'levelLinksPosition' => 'none',
-                ),
-            )
-        )
-    ),
-);
+                ],
+            ]
+        ]
+    ],
+];

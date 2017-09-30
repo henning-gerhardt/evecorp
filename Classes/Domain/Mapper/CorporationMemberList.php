@@ -91,7 +91,7 @@ class CorporationMemberList {
     protected function fetchCurrentCorporationMembers() {
         try {
             $phealService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-                            'Gerh\\Evecorp\\Service\\PhealService', $this->corporationApiKey->getKeyId(), $this->corporationApiKey->getVCode()
+                    'Gerh\\Evecorp\\Service\\PhealService', $this->corporationApiKey->getKeyId(), $this->corporationApiKey->getVCode()
             );
             $pheal = $phealService->getPhealInstance();
 
@@ -162,7 +162,7 @@ class CorporationMemberList {
      * @return boolean
      */
     public function updateCorpMemberList() {
-        $newCorpMemberIdList = array();
+        $newCorpMemberIdList = [];
 
         // hold current member list
         $currentCorpMembers = $this->characterRepository->findByCurrentCorporation($this->corporation);

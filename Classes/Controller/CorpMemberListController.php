@@ -113,7 +113,7 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
         $this->showLoginUser = $this->hasCheckboxBooleanValue($this->settings, 'showLoginUser');
 
         $this->choosedCorporation = (\strlen($this->settings['corporation']) > 0) ?
-                \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : array();
+            \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : [];
     }
 
     /**
@@ -173,11 +173,11 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
         $corpMemberListUpdater->setCorporation($corporation);
         $result = $corpMemberListUpdater->updateCorpMemberList();
 
-        $flashMessage = array(
+        $flashMessage = [
             'message' => 'Corporation member list updated successfully.',
             'title' => '',
             'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
-        );
+        ];
 
         if ($result === \FALSE) {
             $flashMessage['message'] = 'Error while updating corporation member list!Reason: ' . $corpMemberListUpdater->getErrorMessage();

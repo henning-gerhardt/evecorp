@@ -37,7 +37,7 @@ class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
      * Testsuite setup
      */
     public function setup() {
-        $this->validator = $this->getMock($this->validatorClassName, array('translateErrorMessage'));
+        $this->validator = $this->getMock($this->validatorClassName, ['translateErrorMessage']);
     }
 
     /**
@@ -45,11 +45,11 @@ class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
      * @return array
      */
     public function invalidValidationTypes() {
-        return array(
-            array('string'),
-            array(12345),
-            array(new \stdClass()),
-        );
+        return [
+            ['string'],
+            [12345],
+            [new \stdClass()],
+        ];
     }
 
     /**
@@ -66,12 +66,12 @@ class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
      * @return array
      */
     public function invalidKeyIdOrVCode() {
-        return array(
-            array('', ''),
-            array(12, ''),
-            array('12', ''),
-            array(12.5, ''),
-        );
+        return [
+            ['', ''],
+            [12, ''],
+            ['12', ''],
+            [12.5, ''],
+        ];
     }
 
     /**
@@ -94,10 +94,10 @@ class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
      * @return array
      */
     public function countOfKeyIds() {
-        return array(
-            array(0, false),
-            array(1, true)
-        );
+        return [
+            [0, false],
+            [1, true]
+        ];
     }
 
     /**
@@ -108,11 +108,11 @@ class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
      */
     public function checkIsKeyAlreadyInDatabase($returnValue, $expected) {
         $mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface');
-        $mockedRepository = $this->getMock('Gerh\\Evecorp\\Domain\\Repository\\ApiKeyAccountRepository', array('countByKeyId'), array($mockObjectManager));
+        $mockedRepository = $this->getMock('Gerh\\Evecorp\\Domain\\Repository\\ApiKeyAccountRepository', ['countByKeyId'], [$mockObjectManager]);
         $mockedRepository
-                ->expects($this->once())
-                ->method('countByKeyId')
-                ->will($this->returnValue($returnValue));
+            ->expects($this->once())
+            ->method('countByKeyId')
+            ->will($this->returnValue($returnValue));
 
         $this->inject($this->validator, 'apiKeyAccountRepository', $mockedRepository);
 
@@ -133,11 +133,11 @@ class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
         $complexCharacter = new \Gerh\Evecorp\Domain\Model\Character();
         $complexCharacter->setCorpMember(new \Gerh\Evecorp\Domain\Model\CorpMember());
 
-        return array(
-            array($internalCharacter, \NULL, \TRUE),
-            array($internalCharacter, $simpleCharacter, \TRUE),
-            array($internalCharacter, $complexCharacter, \FALSE)
-        );
+        return [
+            [$internalCharacter, \NULL, \TRUE],
+            [$internalCharacter, $simpleCharacter, \TRUE],
+            [$internalCharacter, $complexCharacter, \FALSE]
+        ];
     }
 
     /**
@@ -149,11 +149,11 @@ class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
      */
     public function checkIsCharacterIsNotInDatabaseNorHasALoginAssigned($internalCharacter, $databaseValue, $expected) {
         $mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface');
-        $mockedRepository = $this->getMock('Gerh\\Evecorp\\Domain\\Repository\\CharacterRepository', array('findOneByCharacterId'), array($mockObjectManager));
+        $mockedRepository = $this->getMock('Gerh\\Evecorp\\Domain\\Repository\\CharacterRepository', ['findOneByCharacterId'], [$mockObjectManager]);
         $mockedRepository
-                ->expects($this->once())
-                ->method('findOneByCharacterId')
-                ->will($this->returnValue($databaseValue));
+            ->expects($this->once())
+            ->method('findOneByCharacterId')
+            ->will($this->returnValue($databaseValue));
 
         $this->inject($this->validator, 'characterRepository', $mockedRepository);
 
@@ -168,11 +168,11 @@ class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
      * @return \array
      */
     public function accessMaskList() {
-        return array(
-            array(8388608, 8388608, true),
-            array(8388608, 2, false),
-            array(8388608, 25165896, true),
-        );
+        return [
+            [8388608, 8388608, true],
+            [8388608, 2, false],
+            [8388608, 25165896, true],
+        ];
     }
 
     /**
@@ -184,7 +184,7 @@ class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
      * @param \boolean $expected
      */
     public function checkAccessMask($configuredAccessMask, $actualAccessMask, $expected) {
-        $modifier = array('accessMask' => $configuredAccessMask);
+        $modifier = ['accessMask' => $configuredAccessMask];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
         $actual = $this->callInaccessibleMethod($this->validator, 'hasCorrectAccessMask', $actualAccessMask);

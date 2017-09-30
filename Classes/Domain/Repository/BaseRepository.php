@@ -42,7 +42,7 @@ class BaseRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
      */
     public function setRepositoryStoragePid($storagePid = 0) {
         $querySettings = $this->createQuery()->getQuerySettings();
-        $querySettings->setStoragePageIds(array($storagePid));
+        $querySettings->setStoragePageIds([$storagePid]);
         $querySettings->setRespectStoragePage(TRUE);
         $this->setDefaultQuerySettings($querySettings);
     }

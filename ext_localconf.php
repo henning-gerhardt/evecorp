@@ -17,84 +17,38 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-if (!defined ('TYPO3_MODE')) {
-    die ('Access denied.');
+if (!defined('TYPO3_MODE')) {
+    die('Access denied.');
 }
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Gerh.' . $_EXTKEY,
-    'Pi1',
-    array(
-        'App' => 'index'
-    ),
-    // non-cacheable actions
-    array(
-        'App' => 'index'
-    )
+    'Gerh.' . $_EXTKEY, 'Pi1', ['App' => 'index'], ['App' => 'index']
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Gerh.' . $_EXTKEY,
-    'Pi2',
-    array(
-        'ServerStatus' => 'index',
-    ),
-    // non-cacheable actions
-    array(
-        'ServerStatus' => 'index',
-    )
+    'Gerh.' . $_EXTKEY, 'Pi2', ['ServerStatus' => 'index'], ['ServerStatus' => 'index']
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Gerh.' . $_EXTKEY,
-    'Pi3',
-    array(
-        'ApiKeyManagement' => 'index,new,create,delete,update',
-        'CharacterManagement' => 'show',
-    ),
-    // non-cacheable actions
-    array(
-        'ApiKeyManagement' => 'index,new,create,delete,update',
-        'CharacterManagement' => 'show',
-    )
+    'Gerh.' . $_EXTKEY, 'Pi3', ['ApiKeyManagement' => 'index,new,create,delete,update', 'CharacterManagement' => 'show'], ['ApiKeyManagement' => 'index,new,create,delete,update', 'CharacterManagement' => 'show']
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Gerh.' . $_EXTKEY,
-    'Pi4',
-    array(
-        'CorpMemberList' => 'showLight',
-        'CharacterManagement' => 'show',
-    ),
-    // non-cacheable actions
-    array(
-    )
+    'Gerh.' . $_EXTKEY, 'Pi4', ['CorpMemberList' => 'showLight', 'CharacterManagement' => 'show'], []
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Gerh.' . $_EXTKEY,
-    'Pi5',
-    array(
-        'ApiKeyCorporationManagement' => 'index,new,create,delete',
-        'CorporationTitleManagement' => 'index,fetch,edit,update',
-        'CorpMemberList' => 'index,update',
-        'CharacterManagement' => 'show',
-    ),
-    // non-cacheable actions
-    array(
-        'ApiKeyCorporationManagement' => 'index,new,create,delete',
-        'CorporationTitleManagement' => 'index,fetch,edit,update',
-        'CorpMemberList' => 'index,update',
-    )
+    'Gerh.' . $_EXTKEY, 'Pi5', ['ApiKeyCorporationManagement' => 'index,new,create,delete', 'CorporationTitleManagement' => 'index,fetch,edit,update', 'CorpMemberList' => 'index,update', 'CharacterManagement' => 'show'], ['ApiKeyCorporationManagement' => 'index,new,create,delete', 'CorporationTitleManagement' => 'index,fetch,edit,update', 'CorpMemberList' => 'index,update'
+    ]
 );
 
 // Register EVE item list update task
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Gerh\\Evecorp\\Scheduler\\UpdateEveItemListTask'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Gerh\\Evecorp\\Scheduler\\UpdateEveItemListTask'] = [
     'extension' => $_EXTKEY,
     'title' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang.xlf:scheduler.updateEveItemListTask.name',
     'description' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang.xlf:scheduler.updateEveItemListTask.description',
     'additionalFields' => '',
-);
+];
 
 // Register update corp member data based on account API key
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'Gerh\\Evecorp\\Scheduler\\ApiKeyAccountCommandController';

@@ -204,10 +204,10 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
      * @return array
      */
     public function getUmaskOptions() {
-        return array(
+        return [
             'umask' => $this->getFileMask(),
             'umask_directory' => $this->getFolderMask(),
-        );
+        ];
     }
 
 }

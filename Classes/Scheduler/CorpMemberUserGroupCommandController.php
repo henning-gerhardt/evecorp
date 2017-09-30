@@ -49,7 +49,7 @@ class CorpMemberUserGroupCommandController extends \TYPO3\CMS\Extbase\Mvc\Contro
     public function corpMemberUserGroupCommand($storagePid = 0) {
 
         $querySettings = $this->corpMemberRepository->createQuery()->getQuerySettings();
-        $querySettings->setStoragePageIds(array($storagePid));
+        $querySettings->setStoragePageIds([$storagePid]);
         $this->corpMemberRepository->setDefaultQuerySettings($querySettings);
         $corpMemberUtility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
         foreach ($this->corpMemberRepository->findAll() as $corpMember) {

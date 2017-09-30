@@ -27,7 +27,7 @@ class ext_update {
      *
      * @var \array
      */
-    protected $messageArray = array();
+    protected $messageArray = [];
 
     /**
      * Execute a query inside database
@@ -54,7 +54,7 @@ class ext_update {
             $status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
         }
 
-        return array('message' => $message, 'status' => $status);
+        return ['message' => $message, 'status' => $status];
     }
 
     /**
@@ -110,7 +110,7 @@ class ext_update {
                 $status = $result['status'];
             }
         }
-        $this->messageArray[] = array($status, $title, $message);
+        $this->messageArray[] = [$status, $title, $message];
         return $status;
     }
 
@@ -145,7 +145,7 @@ class ext_update {
             $status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
         }
 
-        $this->messageArray[] = array($status, $title, $message);
+        $this->messageArray[] = [$status, $title, $message];
         return $status;
     }
 

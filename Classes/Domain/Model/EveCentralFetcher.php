@@ -47,7 +47,7 @@ class EveCentralFetcher {
      *
      * @var array Holds a list of EVE item type ids.
      */
-    private $typeIds = array();
+    private $typeIds = [];
 
     /**
      * Returns current used EvE-Central uri.
@@ -138,7 +138,7 @@ class EveCentralFetcher {
      * @return array
      */
     public function query() {
-        $result = array();
+        $result = [];
         $query = $this->buildQuery();
         if (!empty($query)) {
             $content = file_get_contents($query);
@@ -180,7 +180,7 @@ class EveCentralFetcher {
      * @return array
      */
     protected function parse($content) {
-        $result = array();
+        $result = [];
 
         if (empty($content)) {
             return $result;
@@ -196,10 +196,10 @@ class EveCentralFetcher {
             $resourceId = $resource->getAttribute('id');
             $resourceBuyMax = $xpath->evaluate('.//buy/max', $resource)->item(0)->textContent;
             $resourceSellMin = $xpath->evaluate('.//sell/min', $resource)->item(0)->textContent;
-            $result[$resourceId] = array(
+            $result[$resourceId] = [
                 'buy' => $resourceBuyMax,
                 'sell' => $resourceSellMin,
-            );
+            ];
         }
 
         return $result;

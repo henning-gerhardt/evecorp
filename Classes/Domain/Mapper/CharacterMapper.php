@@ -239,7 +239,7 @@ class CharacterMapper {
     protected function updateEmploymentHistoryOfCharacter(\Gerh\Evecorp\Domain\Model\Character $character, \Pheal\Core\RowSet $employmentHistory) {
 
         $currentEmployments = $this->employmentHistoryRepository->findByCharacterUid($character);
-        $wellknownEmployments = array();
+        $wellknownEmployments = [];
 
         foreach ($employmentHistory as $record) {
             $corporation = $this->getOrCreateCorporationModel(\intval($record->corporationID), $record->corporationName);
@@ -323,7 +323,7 @@ class CharacterMapper {
         $pheal = $this->phealService->getPhealInstance();
 
         try {
-            $response = $pheal->eveScope->CharacterInfo(array('CharacterID' => $characterId));
+            $response = $pheal->eveScope->CharacterInfo(['CharacterID' => $characterId]);
         } catch (\Pheal\Exceptions\PhealException $ex) {
             $this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage();
             return \NULL;
@@ -348,7 +348,7 @@ class CharacterMapper {
 
         if ($this->apiKey->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Character::CHARACTERSHEET)) {
             try {
-                $response = $pheal->charScope->CharacterSheet(array('CharacterID' => $characterId));
+                $response = $pheal->charScope->CharacterSheet(['CharacterID' => $characterId]);
             } catch (\Pheal\Exceptions\PhealException $ex) {
                 $this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage();
                 return \NULL;
@@ -415,13 +415,13 @@ class CharacterMapper {
     public function setStoragePid($storagePid = 0) {
         if ($storagePid !== \NULL) {
             $this->allianceRepository->setRepositoryStoragePid($storagePid);
-            $this->allianceRepositoryStoragePids = array($storagePid);
+            $this->allianceRepositoryStoragePids = [$storagePid];
             $this->characterRepository->setRepositoryStoragePid($storagePid);
-            $this->characterRepositoryStoragePids = array($storagePid);
+            $this->characterRepositoryStoragePids = [$storagePid];
             $this->corporationRepository->setRepositoryStoragePid($storagePid);
-            $this->corporationRepositoryStoragePids = array($storagePid);
+            $this->corporationRepositoryStoragePids = [$storagePid];
             $this->employmentHistoryRepository->setRepositoryStoragePid($storagePid);
-            $this->employmentHistoryRepositoryStoragePids = array($storagePid);
+            $this->employmentHistoryRepositoryStoragePids = [$storagePid];
         }
     }
 
@@ -437,7 +437,7 @@ class CharacterMapper {
         $characterId = $characterModel->getCharacterId();
 
         try {
-            $response = $pheal->eveScope->CharacterInfo(array('CharacterID' => $characterId));
+            $response = $pheal->eveScope->CharacterInfo(['CharacterID' => $characterId]);
         } catch (\Pheal\Exceptions\PhealException $ex) {
             $this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage();
             return \FALSE;
@@ -454,7 +454,7 @@ class CharacterMapper {
 
         if ($this->apiKey->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Character::CHARACTERSHEET)) {
             try {
-                $response = $pheal->charScope->CharacterSheet(array('CharacterID' => $characterId));
+                $response = $pheal->charScope->CharacterSheet(['CharacterID' => $characterId]);
             } catch (\Pheal\Exceptions\PhealException $ex) {
                 $this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage();
                 return \FALSE;

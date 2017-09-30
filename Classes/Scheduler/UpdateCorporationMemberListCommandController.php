@@ -45,7 +45,7 @@ class UpdateCorporationMemberListCommandController extends \TYPO3\CMS\Extbase\Mv
      */
     protected function setApiKeyCorporationRepositoryStoragePid($storagePid = 0) {
         $querySettings = $this->apiKeyCorporationRepository->createQuery()->getQuerySettings();
-        $querySettings->setStoragePageIds(array($storagePid));
+        $querySettings->setStoragePageIds([$storagePid]);
         $querySettings->setRespectStoragePage(\TRUE);
         $this->apiKeyCorporationRepository->setDefaultQuerySettings($querySettings);
     }

@@ -196,8 +196,8 @@ class ApiKeyMapper {
         $scope = 'Account';
 
         $currentCharacters = $apiKeyAccount->getCharacters();
-        $currentCharacterIds = array();
-        $wellKnownCharacterIds = array();
+        $currentCharacterIds = [];
+        $wellKnownCharacterIds = [];
 
         foreach ($currentCharacters as $character) {
             $currentCharacterIds[] = intval($character->getCharacterId());

@@ -66,7 +66,7 @@ class MarketData {
      * @return array
      */
     public function getMarketData() {
-        $result = array();
+        $result = [];
         foreach ($this->eveitemRepository->findAll() as $dbEntry) {
             if ($dbEntry != null) {
                 $result[] = $this->extractDisplayData($dbEntry);

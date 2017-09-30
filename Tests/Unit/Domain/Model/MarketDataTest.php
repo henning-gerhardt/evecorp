@@ -70,18 +70,18 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function getMarketDataReturnsEmptyArrayOnEmptyRepository() {
-        $marketData = $this->getMock('\Gerh\Evecorp\Domain\Model\MarketData', array('updateEveItems'));
+        $marketData = $this->getMock('\Gerh\Evecorp\Domain\Model\MarketData', ['updateEveItems']);
 
         $mockedQueryInterface = $this->getMock('TYPO3\CMS\Extbase\Persistence\QueryInterface');
-        $mockedRepository = $this->getMock('Gerh\Evecorp\Domain\Repository\EveitemRepository', array('findAll'), array($this->mockObjectManager));
+        $mockedRepository = $this->getMock('Gerh\Evecorp\Domain\Repository\EveitemRepository', ['findAll'], [$this->mockObjectManager]);
         $mockedRepository
-                ->expects($this->once())
-                ->method('findAll')
-                ->will($this->returnValue($mockedQueryInterface));
+            ->expects($this->once())
+            ->method('findAll')
+            ->will($this->returnValue($mockedQueryInterface));
 
         $this->inject($marketData, 'eveitemRepository', $mockedRepository);
 
-        $expected = array();
+        $expected = [];
         $actual = $marketData->getMarketData();
         $this->assertEquals($expected, $actual);
     }

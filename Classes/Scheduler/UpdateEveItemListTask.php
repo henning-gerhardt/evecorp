@@ -101,7 +101,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
      * @return array
      */
     protected function getListOfOutdatedItemsForRegion($regionId) {
-        $fetchList = array();
+        $fetchList = [];
 
         if (($regionId == null) || ($regionId == 0)) {
             return $fetchList;
@@ -120,7 +120,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
      * @return array
      */
     protected function getListOfOutdatedItemsForSystem($systemId) {
-        $fetchList = array();
+        $fetchList = [];
 
         if (($systemId == null) || ($systemId == 0)) {
             return $fetchList;
@@ -142,7 +142,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
     protected function fetchUpdateableItemsForRegion($fetchList, $regionId) {
 
         if ((count($fetchList) == 0) || ($regionId == null) || ($regionId == 0)) {
-            return array();
+            return [];
         }
 
         $this->eveCentralFetcher->setRegionId($regionId);
@@ -162,7 +162,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
     protected function fetchUpdateableItemsForSystem($fetchList, $systemId) {
 
         if ((count($fetchList) == 0) || ($systemId == null) || ($systemId == 0)) {
-            return array();
+            return [];
         }
 
         $this->eveCentralFetcher->setSystemId($systemId);

@@ -51,7 +51,7 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
      * @return array
      */
     protected function getListOfUniqueColumn($searchColumn) {
-        $result = array();
+        $result = [];
         $returnRawQueryResult = true;
 
         if (!$this->isCorrectColumn($searchColumn)) {
@@ -104,7 +104,7 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
         $queryStatement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
 
         $statement = new \TYPO3\CMS\Core\Database\PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
-        $statement->bindValues(array(':searchId' => (int) $searchId));
+        $statement->bindValues([':searchId' => (int) $searchId]);
         $query->statement($statement);
 
         /** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
@@ -137,7 +137,7 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
         $queryStatement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
 
         $statement = new \TYPO3\CMS\Core\Database\PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
-        $statement->bindValues(array(':eveId' => (int) $eveId, ':searchId' => (int) $searchId));
+        $statement->bindValues([':eveId' => (int) $eveId, ':searchId' => (int) $searchId]);
         $query->statement($statement);
 
         /** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */

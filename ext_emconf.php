@@ -17,7 +17,7 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => 'EVE Online Corp Tool',
     'description' => 'Using different EVE services: direct from CCP through PhealNG or third party sites like eve-central.com',
     'category' => 'plugin',
@@ -28,17 +28,17 @@ $EM_CONF[$_EXTKEY] = array(
     'clearCacheOnLoad' => 1,
     'state' => 'alpha',
     'version' => '0.6.0',
-    'constraints' => array(
-        'depends' => array(
+    'constraints' => [
+        'depends' => [
             'php' => '5.6.0',
             'typo3' => '7.6.0-7.9.99',
             'extbase' => '7.6.0-7.9.99',
             'fluid' => '7.6.0-7.9.99',
-        ),
-    ),
-    'autoload' => array(
-        'psr-4' => array(
+        ],
+    ],
+    'autoload' => [
+        'psr-4' => [
             'Gerh\\Evecorp\\' => 'Classes',
-        )
-    )
-);
+        ]
+    ]
+];

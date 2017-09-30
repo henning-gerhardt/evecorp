@@ -37,7 +37,7 @@ class ApiKeyInfo {
      *
      * @var array
      */
-    protected $characters = array();
+    protected $characters = [];
 
     /**
      * @var string

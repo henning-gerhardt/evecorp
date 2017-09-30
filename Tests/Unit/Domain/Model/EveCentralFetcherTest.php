@@ -80,7 +80,7 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function typeIdsCouldBeSet() {
-        $typeIds = array(34, 35);
+        $typeIds = [34, 35];
         $fetcher = new \Gerh\Evecorp\Domain\Model\EveCentralFetcher();
         $fetcher->setTypeIds($typeIds);
         $this->assertEquals($typeIds, $fetcher->getTypeIds());
@@ -90,7 +90,7 @@ class EveCentralFetcherTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function queryReturnsEmptyArrayOnNonConfiguredFetcher() {
-        $expected = array();
+        $expected = [];
         $fetcher = new \Gerh\Evecorp\Domain\Model\EveCentralFetcher();
         $this->assertEquals($expected, $fetcher->query());
     }

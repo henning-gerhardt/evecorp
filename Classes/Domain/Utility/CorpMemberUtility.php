@@ -35,7 +35,7 @@ class CorpMemberUtility {
      * @return array
      */
     protected function collectCorpGroups(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember) {
-        $collected = array();
+        $collected = [];
         foreach ($corpMember->getCharacters() as $character) {
             $corpUserGroup = $character->getCurrentCorporation()->getUserGroup();
             if ((empty($corpUserGroup) === false) && (\array_key_exists($corpUserGroup->getUid(), $collected) === false)) {

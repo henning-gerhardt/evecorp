@@ -21,82 +21,86 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_corporation'] = array(
+$TCA['tx_evecorp_domain_model_corporation'] = [
     'ctrl' => $TCA['tx_evecorp_domain_model_corporation']['ctrl'],
-    'interface' => array(
+    'interface' => [
         'showRecordFieldList' => 'hidden, corporation_name, corporation_id, current_alliance',
-    ),
-    'types' => array(
-        '1' => array('showitem' => 'hidden, corporation_name, corporation_id, current_alliance, usergroup, apikeys, titles'),
-    ),
-    'palettes' => array(
-        '1' => array('showitem' => ''),
-    ),
-    'columns' => array(
-        'hidden' => array(
+    ],
+    'types' => [
+        '1' => [
+            'showitem' => 'hidden, corporation_name, corporation_id, current_alliance, usergroup, apikeys, titles'
+        ],
+    ],
+    'palettes' => [
+        '1' => [
+            'showitem' => ''
+        ],
+    ],
+    'columns' => [
+        'hidden' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
-            'config' => array(
+            'config' => [
                 'type' => 'check'
-            ),
-        ),
-        'corporation_id' => array(
+            ],
+        ],
+        'corporation_id' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.corporation_id',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'size' => 10,
                 'eval' => 'trim,int,required',
-            ),
-        ),
-        'corporation_name' => array(
+            ],
+        ],
+        'corporation_name' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.corporation_name',
-            'config' => array(
+            'config' => [
                 'type' => 'input',
                 'size' => 32,
                 'eval' => 'trim,required',
-            )
-        ),
-        'current_alliance' => array(
+            ]
+        ],
+        'current_alliance' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_alliance',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'foreign_table' => 'tx_evecorp_domain_model_alliance',
-                'items' => array(
-                    array('--none--', 0),
-                ),
-            ),
-        ),
-        'usergroup' => array(
+                'items' => [
+                    ['--none--', 0],
+                ],
+            ],
+        ],
+        'usergroup' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.usergroup',
-            'config' => array(
+            'config' => [
                 'type' => 'select',
                 'foreign_table' => 'fe_groups',
-                'items' => array(
-                    array('--none--', 0),
-                )
-            ),
-        ),
-        'apikeys' => array(
+                'items' => [
+                    ['--none--', 0],
+                ]
+            ],
+        ],
+        'apikeys' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.corporation',
-            'config' => array(
+            'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_evecorp_domain_model_apikeycorporation',
                 'foreign_field' => 'corporation',
-            ),
-        ),
-        'titles' => array(
+            ],
+        ],
+        'titles' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.titles',
-            'config' => array(
+            'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_evecorp_domain_model_corporationtitle',
                 'foreign_field' => 'corporation',
-            ),
-        ),
-    ),
-);
+            ],
+        ],
+    ],
+];

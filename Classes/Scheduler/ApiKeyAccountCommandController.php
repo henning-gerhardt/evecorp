@@ -47,7 +47,7 @@ class ApiKeyAccountCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\C
      */
     protected function setApiKeyRepositoryStoragePid($storagePid = 0) {
         $querySettings = $this->apiKeyAccountRepository->createQuery()->getQuerySettings();
-        $querySettings->setStoragePageIds(array($storagePid));
+        $querySettings->setStoragePageIds([$storagePid]);
         $querySettings->setRespectStoragePage(\TRUE);
         $this->apiKeyAccountRepository->setDefaultQuerySettings($querySettings);
     }
