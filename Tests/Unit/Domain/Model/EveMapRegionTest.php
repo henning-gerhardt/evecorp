@@ -19,17 +19,20 @@
 
 namespace Gerh\Evecorp\Test\Domain\Model;
 
+use Gerh\Evecorp\Domain\Model\EveMapRegion;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /**
  * Testcase for EveMapRegion
  */
-class EveMapRegionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class EveMapRegionTest extends UnitTestCase {
 
     /**
      * @test
      */
     public function regionIdCouldBeSet() {
         $regionId = 10000002;
-        $region = new \Gerh\Evecorp\Domain\Model\EveMapRegion();
+        $region = new EveMapRegion();
         $region->setRegionId($regionId);
 
         $this->assertEquals($regionId, $region->getRegionId());
@@ -40,7 +43,7 @@ class EveMapRegionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      */
     public function regionNameCouldBeSet() {
         $regionName = 'The Forge';
-        $region = new \Gerh\Evecorp\Domain\Model\EveMapRegion();
+        $region = new EveMapRegion();
         $region->setRegionName($regionName);
 
         $this->assertEquals($regionName, $region->getRegionName());

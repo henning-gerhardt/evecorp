@@ -19,6 +19,8 @@
 
 namespace Gerh\Evecorp\ViewHelpers\Format;
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+
 /**
  *
  *
@@ -26,7 +28,7 @@ namespace Gerh\Evecorp\ViewHelpers\Format;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EveImageViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
+class EveImageViewHelper extends AbstractTagBasedViewHelper {
 
     /**
      * @var string
@@ -39,9 +41,9 @@ class EveImageViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBas
     public function initializeArguments() {
         parent::initializeArguments();
         $this->registerUniversalTagAttributes();
-        $this->registerArgument('characterId', 'integer', 'character id for image', true);
-        $this->registerArgument('characterName', 'string', 'name of character', false, '');
-        $this->registerArgument('size', 'integer', 'size of image', false, 64);
+        $this->registerArgument('characterId', 'integer', 'character id for image', \TRUE);
+        $this->registerArgument('characterName', 'string', 'name of character', \FALSE, '');
+        $this->registerArgument('size', 'integer', 'size of image', \FALSE, 64);
         $this->registerTagAttribute('alt', 'string', 'Alternative text for the image');
         $this->registerTagAttribute('width', 'string', 'with of image');
         $this->registerTagAttribute('height', 'string', 'height of image');

@@ -19,21 +19,26 @@
 
 namespace Gerh\Evecorp\Scheduler;
 
+use Gerh\Evecorp\Domain\Constants\AccessMask\Corporation;
+use Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository;
+use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+
 /**
  * Description of CorpMemberListCommandController
  *
  * @author Henning Gerhardt
  */
-class UpdateCorporationMemberListCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
+class UpdateCorporationMemberListCommandController extends CommandController {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository
+     * @var ApiKeyCorporationRepository
      * @inject
      */
     protected $apiKeyCorporationRepository;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @var PersistenceManager
      * @inject
      */
     protected $persistenceManager;
@@ -70,7 +75,7 @@ class UpdateCorporationMemberListCommandController extends \TYPO3\CMS\Extbase\Mv
         $this->initializeRepositories($storagePid);
 
         foreach ($this->apiKeyCorporationRepository->findAll() as $corporationApiKey) {
-            if ($corporationApiKey->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERTRACKINGLIMITED)) {
+            if ($corporationApiKey->hasAccessTo(Corporation::MEMBERTRACKINGLIMITED)) {
                 $corporation = $corporationApiKey->getCorporation();
 
                 // use object manager to get proper initialised object

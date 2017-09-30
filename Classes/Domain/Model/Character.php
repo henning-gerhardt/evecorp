@@ -19,6 +19,10 @@
 
 namespace Gerh\Evecorp\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /**
  *
  *
@@ -26,10 +30,10 @@ namespace Gerh\Evecorp\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Character extends AbstractEntity {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\ApiKeyAccount
+     * @var ApiKeyAccount
      * @lazy
      */
     protected $apiKey;
@@ -48,25 +52,25 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $characterName;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\CorpMember
+     * @var CorpMember
      * @lazy
      */
     protected $corpMember;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\DateTime
+     * @var DateTime
      * @validate NotEmpty
      */
     protected $corporationDate;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\Alliance
+     * @var Alliance
      * @lazy
      */
     protected $currentAlliance;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\Corporation
+     * @var Corporation
      * @lazy
      * @validate NotEmpty
      */
@@ -99,17 +103,17 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * class constructor
      */
     public function __construct() {
-        $this->employments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->titles = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->employments = new ObjectStorage();
+        $this->titles = new ObjectStorage();
     }
 
     /**
      * Returns characters dependend API key
      *
-     * @return \Gerh\Evecorp\Domain\Model\ApiKey
+     * @return ApiKey
      */
     public function getApiKey() {
-        if ($this->apiKey instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->apiKey instanceof LazyLoadingProxy) {
             $this->apiKey->_loadRealInstance();
         }
 
@@ -119,9 +123,9 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Set characters dependend API key
      *
-     * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+     * @param ApiKeyAccount $apiKeyAccount
      */
-    public function setApiKey(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+    public function setApiKey(ApiKeyAccount $apiKeyAccount) {
         $this->apiKey = $apiKeyAccount;
     }
 
@@ -164,10 +168,10 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Returns frontend user for API key
      *
-     * @return \Gerh\Evecorp\Domain\Model\CorpMember
+     * @return CorpMember
      */
     public function getCorpMember() {
-        if ($this->corpMember instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->corpMember instanceof LazyLoadingProxy) {
             $this->corpMember->_loadRealInstance();
         }
 
@@ -177,9 +181,9 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Set frontend user for this API key
      *
-     * @param \Gerh\Evecorp\Domain\Model\CorpMember
+     * @param CorpMember
      */
-    public function setCorpMember(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember = NULL) {
+    public function setCorpMember(CorpMember $corpMember = \NULL) {
         $this->corpMember = $corpMember;
     }
 
@@ -187,7 +191,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * Get date when character joined his current corporation.
      * This information could be retrieved from employment history too.
      *
-     * @return \Gerh\Evecorp\Domain\Model\DateTime
+     * @return DateTime
      */
     public function getCorporationDate() {
         return $this->corporationDate;
@@ -196,19 +200,19 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Set date when character joins his current corporation.
      *
-     * @param \Gerh\Evecorp\Domain\Model\DateTime $corporationDate
+     * @param DateTime $corporationDate
      */
-    public function setCorporationDate(\Gerh\Evecorp\Domain\Model\DateTime $corporationDate) {
+    public function setCorporationDate(DateTime $corporationDate) {
         $this->corporationDate = $corporationDate;
     }
 
     /**
      * Returns characters current corporation
      *
-     * @return \Gerh\Evecorp\Domain\Model\Corporation
+     * @return Corporation
      */
     public function getCurrentCorporation() {
-        if ($this->currentCorporation instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->currentCorporation instanceof LazyLoadingProxy) {
             $this->currentCorporation->_loadRealInstance();
         }
 
@@ -218,18 +222,18 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Set characters current corporation
      *
-     * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
+     * @param Corporation $corporation
      */
-    public function setCurrentCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
+    public function setCurrentCorporation(Corporation $corporation) {
         $this->currentCorporation = $corporation;
     }
 
     /**
      * Add a employment
      *
-     * @param \Gerh\Evecorp\Domain\Model\EmploymentHistory $employment
+     * @param EmploymentHistory $employment
      */
-    public function addEmployment(\Gerh\Evecorp\Domain\Model\EmploymentHistory $employment) {
+    public function addEmployment(EmploymentHistory $employment) {
         $this->employments->attach($employment);
     }
 
@@ -239,7 +243,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\EmploymentHistory>
      */
     public function getEmployments() {
-        if ($this->employments instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->employments instanceof LazyLoadingProxy) {
             $this->employments->_loadRealInstance();
         }
 
@@ -249,9 +253,9 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Remove a single employment
      *
-     * @param \Gerh\Evecorp\Domain\Model\EmploymentHistory $employment
+     * @param EmploymentHistory $employment
      */
-    public function removeEmployment(\Gerh\Evecorp\Domain\Model\EmploymentHistory $employment) {
+    public function removeEmployment(EmploymentHistory $employment) {
         $this->employments->detach($employment);
     }
 
@@ -259,15 +263,15 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * Remove all employments of character
      */
     public function removeAllEmployments() {
-        $this->employments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->employments = new ObjectStorage();
     }
 
     /**
      * Set employments of character
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $employments
+     * @param ObjectStorage $employments
      */
-    public function setEmployments(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $employments) {
+    public function setEmployments(ObjectStorage $employments) {
         $this->employments = $employments;
     }
 
@@ -310,9 +314,9 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Add corporation title
      *
-     * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $title
+     * @param CorporationTitle $title
      */
-    public function addTitle(\Gerh\Evecorp\Domain\Model\CorporationTitle $title) {
+    public function addTitle(CorporationTitle $title) {
         $this->titles->attach($title);
     }
 
@@ -322,7 +326,7 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\CorporationTitle>
      */
     public function getTitles() {
-        if ($this->titles instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->titles instanceof LazyLoadingProxy) {
             $this->titles->_loadRealInstance();
         }
 
@@ -332,9 +336,9 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Remove a single corporation title
      *
-     * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $title
+     * @param CorporationTitle $title
      */
-    public function removeTitle(\Gerh\Evecorp\Domain\Model\CorporationTitle $title) {
+    public function removeTitle(CorporationTitle $title) {
         $this->titles->detach($title);
     }
 
@@ -342,15 +346,15 @@ class Character extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * Remove all corporation titles from character
      */
     public function removeAllTitles() {
-        $this->titles = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->titles = new ObjectStorage();
     }
 
     /**
      * Set corporation titles of character
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $titles
+     * @param ObjectStorage $titles
      */
-    public function setTitles(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $titles) {
+    public function setTitles(ObjectStorage $titles) {
         $this->titles = $titles;
     }
 

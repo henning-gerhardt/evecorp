@@ -19,6 +19,8 @@
 
 namespace Gerh\Evecorp\Domain\Model;
 
+use Gerh\Evecorp\Domain\Repository\EveitemRepository;
+
 /**
  *
  *
@@ -36,7 +38,7 @@ class MarketData {
     /**
      * eveitemRepository
      *
-     * @var \Gerh\Evecorp\Domain\Repository\EveitemRepository
+     * @var EveitemRepository
      * @inject
      */
     protected $eveitemRepository;
@@ -44,12 +46,12 @@ class MarketData {
     /**
      * Extract database data to an array structure
      *
-     * @param \Gerh\Evecorp\Domain\Model\EveItem $entry
+     * @param Eveitem $entry
      * @return \array
      */
-    protected function extractDisplayData(\Gerh\Evecorp\Domain\Model\EveItem $entry) {
+    protected function extractDisplayData(Eveitem $entry) {
 
-        $result = new \Gerh\Evecorp\Domain\Model\EveItemDisplay();
+        $result = new EveItemDisplay();
         $result->setDisplayName($entry->getEveName());
         $result->setBuyPrice($entry->getBuyPrice());
         $result->setSellPrice($entry->getSellPrice());
@@ -68,7 +70,7 @@ class MarketData {
     public function getMarketData() {
         $result = [];
         foreach ($this->eveitemRepository->findAll() as $dbEntry) {
-            if ($dbEntry != null) {
+            if ($dbEntry != \NULL) {
                 $result[] = $this->extractDisplayData($dbEntry);
             }
         }

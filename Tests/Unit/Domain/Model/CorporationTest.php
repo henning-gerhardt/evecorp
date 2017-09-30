@@ -19,6 +19,12 @@
 
 namespace Gerh\Evecorp\Test\Domain\Model;
 
+use Gerh\Evecorp\Domain\Constants\AccessMask\Corporation as Corporation2;
+use Gerh\Evecorp\Domain\Model\Alliance;
+use Gerh\Evecorp\Domain\Model\ApiKeyCorporation;
+use Gerh\Evecorp\Domain\Model\Corporation;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /**
  *
  *
@@ -26,13 +32,13 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class CorporationTest extends UnitTestCase {
 
     /**
      * @test
      */
     public function classCouldBeInitiated() {
-        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation = new Corporation();
 
         $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\Corporation', $corporation);
     }
@@ -43,7 +49,7 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     public function corporationIdCouldBeSet() {
         $expected = 123456;
 
-        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation = new Corporation();
         $corporation->setCorporationId($expected);
 
         $this->assertEquals($expected, $corporation->getCorporationId());
@@ -55,7 +61,7 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     public function corporationNameCouldBeSet() {
         $expected = 'FooBar';
 
-        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation = new Corporation();
         $corporation->setCorporationName($expected);
 
         $this->assertEquals($expected, $corporation->getCorporationName());
@@ -68,7 +74,7 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $corporationId = 567890;
         $corporationName = 'BarFoo';
 
-        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation($corporationId, $corporationName);
+        $corporation = new Corporation($corporationId, $corporationName);
 
         $this->assertEquals($corporationId, $corporation->getCorporationId());
         $this->assertEquals($corporationName, $corporation->getCorporationName());
@@ -78,9 +84,9 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function currentAllianceCouldBeSetToCorporation() {
-        $expected = new \Gerh\Evecorp\Domain\Model\Alliance(12, 'FooBar');
+        $expected = new Alliance(12, 'FooBar');
 
-        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation = new Corporation();
         $corporation->setCurrentAlliance($expected);
 
         $this->assertEquals($expected, $corporation->getCurrentAlliance());
@@ -91,9 +97,9 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      */
     public function currentAllianceNameCouldBeGet() {
         $expected = 'BarFoo';
-        $alliance = new \Gerh\Evecorp\Domain\Model\Alliance(12, $expected);
+        $alliance = new Alliance(12, $expected);
 
-        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation = new Corporation();
         $corporation->setCurrentAlliance($alliance);
 
         $this->assertEquals($expected, $corporation->getAllianceName());
@@ -103,14 +109,14 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function corporationApiKeyCouldBeSet() {
-        $apiKey = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKey = new ApiKeyCorporation();
         $apiKey->setAccessMask(
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+                Corporation2::ASSETLIST +
+            Corporation2::CORPORATIONSHEET
         );
         $apiKey->setKeyId(12345678);
         $apiKey->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation = new Corporation();
         $corporation->addApiKey($apiKey);
         $this->assertTrue($corporation->getApiKeys()->contains($apiKey));
     }
@@ -119,81 +125,81 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function hasApiKeyWithProperAccessMask() {
-        $apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyOne = new ApiKeyCorporation();
         $apiKeyOne->setAccessMask(
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+                Corporation2::ASSETLIST +
+            Corporation2::CORPORATIONSHEET
         );
         $apiKeyOne->setKeyId(12345678);
         $apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
-        $apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyTwo = new ApiKeyCorporation();
         $apiKeyTwo->setAccessMask(
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
+                Corporation2::TITLES +
+            Corporation2::MEMBERSECURITY
         );
         $apiKeyTwo->setKeyId(123456789);
         $apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
 
-        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation = new Corporation();
         $corporation->addApiKey($apiKeyOne);
         $corporation->addApiKey($apiKeyTwo);
 
-        $this->assertTrue($corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY));
+        $this->assertTrue($corporation->hasAccessTo(Corporation2::MEMBERSECURITY));
     }
 
     /**
      * @test
      */
     public function hasNoneApiKeyWithProperAccessMask() {
-        $apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyOne = new ApiKeyCorporation();
         $apiKeyOne->setAccessMask(
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+                Corporation2::ASSETLIST +
+            Corporation2::CORPORATIONSHEET
         );
         $apiKeyOne->setKeyId(12345678);
         $apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
-        $apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyTwo = new ApiKeyCorporation();
         $apiKeyTwo->setAccessMask(
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
+                Corporation2::TITLES +
+            Corporation2::MEMBERSECURITY
         );
         $apiKeyTwo->setKeyId(123456789);
         $apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
 
-        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation = new Corporation();
         $corporation->addApiKey($apiKeyOne);
         $corporation->addApiKey($apiKeyTwo);
 
-        $this->assertFalse($corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::KILLLOG));
+        $this->assertFalse($corporation->hasAccessTo(Corporation2::KILLLOG));
     }
 
     /**
      * @test
      */
     public function findApiKeyByAccessMask() {
-        $apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyOne = new ApiKeyCorporation();
         $apiKeyOne->setAccessMask(
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+                Corporation2::ASSETLIST +
+            Corporation2::CORPORATIONSHEET
         );
         $apiKeyOne->setKeyId(12345678);
         $apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
-        $apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyTwo = new ApiKeyCorporation();
         $apiKeyTwo->setAccessMask(
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
+                Corporation2::TITLES +
+            Corporation2::MEMBERSECURITY
         );
         $apiKeyTwo->setKeyId(123456789);
         $apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
 
-        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation = new Corporation();
         $corporation->addApiKey($apiKeyOne);
         $corporation->addApiKey($apiKeyTwo);
 
-        $result = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
+        $result = $corporation->findFirstApiKeyByAccessMask(Corporation2::TITLES);
         $this->assertEquals($apiKeyTwo, $result);
     }
 
@@ -201,27 +207,27 @@ class CorporationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function findNoneApiKeyByAccessMask() {
-        $apiKeyOne = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyOne = new ApiKeyCorporation();
         $apiKeyOne->setAccessMask(
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ASSETLIST +
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::CORPORATIONSHEET
+                Corporation2::ASSETLIST +
+            Corporation2::CORPORATIONSHEET
         );
         $apiKeyOne->setKeyId(12345678);
         $apiKeyOne->setVCode('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
-        $apiKeyTwo = new \Gerh\Evecorp\Domain\Model\ApiKeyCorporation();
+        $apiKeyTwo = new ApiKeyCorporation();
         $apiKeyTwo->setAccessMask(
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
-                \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERSECURITY
+                Corporation2::TITLES +
+            Corporation2::MEMBERSECURITY
         );
         $apiKeyTwo->setKeyId(123456789);
         $apiKeyTwo->setVCode('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
 
-        $corporation = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $corporation = new Corporation();
         $corporation->addApiKey($apiKeyOne);
         $corporation->addApiKey($apiKeyTwo);
 
-        $result = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEDALS);
+        $result = $corporation->findFirstApiKeyByAccessMask(Corporation2::MEDALS);
         $this->assertNull($result);
     }
 

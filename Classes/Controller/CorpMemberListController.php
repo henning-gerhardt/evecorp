@@ -19,6 +19,15 @@
 
 namespace Gerh\Evecorp\Controller;
 
+use Gerh\Evecorp\Domain\Constants\AccessMask\Corporation as Corporation2;
+use Gerh\Evecorp\Domain\Model\ApiKeyCorporation;
+use Gerh\Evecorp\Domain\Model\Corporation;
+use Gerh\Evecorp\Domain\Repository\CharacterRepository;
+use Gerh\Evecorp\Domain\Repository\CorporationRepository;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
 /**
  *
  *
@@ -26,10 +35,10 @@ namespace Gerh\Evecorp\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class CorpMemberListController extends ActionController {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
+     * @var CharacterRepository
      * @inject
      */
     protected $characterRepository;
@@ -40,7 +49,7 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
     protected $choosedCorporation;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
+     * @var CorporationRepository
      * @inject
      */
     protected $corporationRepository;
@@ -95,8 +104,8 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
     private function hasCorpMemberListAccess() {
         if (\count($this->choosedCorporation) == 1) {
             $corporation = $this->corporationRepository->findByUid($this->choosedCorporation[0]);
-            if ($corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
-                return $corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERTRACKINGLIMITED);
+            if ($corporation instanceof Corporation) {
+                return $corporation->hasAccessTo(Corporation2::MEMBERTRACKINGLIMITED);
             }
         }
         return \FALSE;
@@ -113,7 +122,7 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
         $this->showLoginUser = $this->hasCheckboxBooleanValue($this->settings, 'showLoginUser');
 
         $this->choosedCorporation = (\strlen($this->settings['corporation']) > 0) ?
-            \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : [];
+            GeneralUtility::intExplode(',', $this->settings['corporation']) : [];
     }
 
     /**
@@ -149,26 +158,26 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
      */
     public function updateAction() {
         if (\count($this->choosedCorporation) != 1) {
-            $this->addFlashMessage('No or to many corporations selected!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->addFlashMessage('No or to many corporations selected!', '', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
 
         if (!$this->hasCorpMemberListAccess()) {
-            $this->addFlashMessage('No access to corporation member list!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->addFlashMessage('No access to corporation member list!', '', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
 
         $corporation = $this->corporationRepository->findByUid($this->choosedCorporation[0]);
-        $corporationApiKey = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::MEMBERTRACKINGLIMITED);
-        if (!$corporationApiKey instanceof \Gerh\Evecorp\Domain\Model\ApiKeyCorporation) {
-            $this->addFlashMessage('No corporation API key found for accessing corporation member list!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        $corporationApiKey = $corporation->findFirstApiKeyByAccessMask(Corporation2::MEMBERTRACKINGLIMITED);
+        if (!$corporationApiKey instanceof ApiKeyCorporation) {
+            $this->addFlashMessage('No corporation API key found for accessing corporation member list!', '', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
 
-        $corpMemberListUpdater = $this->objectManager->get('\\Gerh\Evecorp\\Domain\\Mapper\\CorporationMemberList');
+        $corpMemberListUpdater = $this->objectManager->get('Gerh\Evecorp\\Domain\\Mapper\\CorporationMemberList');
         $corpMemberListUpdater->setCorporationApiKey($corporationApiKey);
         $corpMemberListUpdater->setCorporation($corporation);
         $result = $corpMemberListUpdater->updateCorpMemberList();
@@ -176,12 +185,12 @@ class CorpMemberListController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
         $flashMessage = [
             'message' => 'Corporation member list updated successfully.',
             'title' => '',
-            'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
+            'severity' => AbstractMessage::OK
         ];
 
         if ($result === \FALSE) {
             $flashMessage['message'] = 'Error while updating corporation member list!Reason: ' . $corpMemberListUpdater->getErrorMessage();
-            $flashMessage['severity'] = \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR;
+            $flashMessage['severity'] = AbstractMessage::ERROR;
         }
 
         $this->addFlashMessage($flashMessage['message'], $flashMessage['title'], $flashMessage['severity']);

@@ -19,6 +19,8 @@
 
 namespace Gerh\Evecorp\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 /**
  *
  *
@@ -26,7 +28,7 @@ namespace Gerh\Evecorp\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EveMapRegion extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class EveMapRegion extends AbstractEntity {
 
     /**
      * @var \integer

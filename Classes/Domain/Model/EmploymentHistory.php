@@ -19,6 +19,9 @@
 
 namespace Gerh\Evecorp\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
+
 /**
  *
  *
@@ -26,16 +29,16 @@ namespace Gerh\Evecorp\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class EmploymentHistory extends AbstractEntity {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\Character
+     * @var Character
      * @lazy
      */
     protected $characterUid;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\Corporation
+     * @var Corporation
      * @lazy
      */
     protected $corporationUid;
@@ -48,7 +51,7 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $recordId;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\DateTime
+     * @var DateTime
      * @validate NotEmpty
      */
     protected $startDate;
@@ -56,10 +59,10 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Returns character
      *
-     * @return \Gerh\Evecorp\Domain\Model\Character
+     * @return Character
      */
     public function getCharacter() {
-        if ($this->characterUid instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->characterUid instanceof LazyLoadingProxy) {
             $this->characterUid->_loadRealInstance();
         }
 
@@ -69,19 +72,19 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Set character
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $character
+     * @param Character $character
      */
-    public function setCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
+    public function setCharacter(Character $character) {
         $this->characterUid = $character;
     }
 
     /**
      * Returns corporation
      *
-     * @return \Gerh\Evecorp\Domain\Model\Corporation
+     * @return Corporation
      */
     public function getCorporation() {
-        if ($this->corporationUid instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->corporationUid instanceof LazyLoadingProxy) {
             $this->corporationUid->_loadRealInstance();
         }
 
@@ -91,9 +94,9 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Set corporation
      *
-     * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
+     * @param Corporation $corporation
      */
-    public function setCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
+    public function setCorporation(Corporation $corporation) {
         $this->corporationUid = $corporation;
     }
 
@@ -118,7 +121,7 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Returns date when character joined corporation
      *
-     * @return \Gerh\Evecorp\Domain\Model\DateTime
+     * @return DateTime
      */
     public function getStartDate() {
         return $this->startDate;
@@ -127,9 +130,9 @@ class EmploymentHistory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Set date when character joined corporation
      *
-     * @param \Gerh\Evecorp\Domain\Model\DateTime $startDate
+     * @param DateTime $startDate
      */
-    public function setStartDate(\Gerh\Evecorp\Domain\Model\DateTime $startDate) {
+    public function setStartDate(DateTime $startDate) {
         $this->startDate = $startDate;
     }
 

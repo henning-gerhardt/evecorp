@@ -19,6 +19,12 @@
 
 namespace Gerh\Evecorp\Test\Domain\Model;
 
+use Gerh\Evecorp\Domain\Model\Character;
+use Gerh\Evecorp\Domain\Model\Corporation;
+use Gerh\Evecorp\Domain\Model\DateTime;
+use Gerh\Evecorp\Domain\Model\EmploymentHistory;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /**
  *
  *
@@ -26,13 +32,13 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EmploymentHistoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class EmploymentHistoryTest extends UnitTestCase {
 
     /**
      * @test
      */
     public function classCouldBeInitiated() {
-        $history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
+        $history = new EmploymentHistory();
 
         $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\EmploymentHistory', $history);
     }
@@ -41,11 +47,11 @@ class EmploymentHistoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function characterCouldBeSet() {
-        $expected = new \Gerh\Evecorp\Domain\Model\Character();
+        $expected = new Character();
         $expected->setCharacterId(815);
         $expected->setCharacterName('Foo Bar');
 
-        $history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
+        $history = new EmploymentHistory();
         $history->setCharacter($expected);
 
         $this->assertEquals($expected, $history->getCharacter());
@@ -55,11 +61,11 @@ class EmploymentHistoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function corporationCouldBeSet() {
-        $expected = new \Gerh\Evecorp\Domain\Model\Corporation;
+        $expected = new Corporation;
         $expected->setCorporationId(1234);
         $expected->setCorporationName('Bar Corporation');
 
-        $history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
+        $history = new EmploymentHistory();
         $history->setCorporation($expected);
 
         $this->assertEquals($expected, $history->getCorporation());
@@ -71,7 +77,7 @@ class EmploymentHistoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     public function recordIdCouldBeSet() {
         $expected = 987654;
 
-        $history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
+        $history = new EmploymentHistory();
         $history->setRecordId($expected);
 
         $this->assertEquals($expected, $history->getRecordId());
@@ -81,9 +87,9 @@ class EmploymentHistoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function startDateCouldBeSet() {
-        $expected = new \Gerh\Evecorp\Domain\Model\DateTime();
+        $expected = new DateTime();
 
-        $history = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
+        $history = new EmploymentHistory();
         $history->setStartDate($expected);
 
         $this->assertEquals($expected, $history->getStartDate());

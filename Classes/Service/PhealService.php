@@ -21,6 +21,7 @@ namespace Gerh\Evecorp\Service;
 
 use Pheal\Pheal;
 use Pheal\Core\Config;
+use TYPO3\CMS\Core\SingletonInterface;
 
 /**
  *
@@ -29,7 +30,7 @@ use Pheal\Core\Config;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
+class PhealService implements SingletonInterface {
 
     /**
      * @var \string
@@ -69,8 +70,8 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
      * @param \string $scope    optional scope to use, default account, could be change while runtime
      * @return void
      */
-    public function __construct($keyId = null, $vCode = null, $scope = 'account') {
-        $extconf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
+    public function __construct($keyId = \NULL, $vCode = \NULL, $scope = 'account') {
+        $extconf = \unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
         $this->setPhealCacheDirectory($extconf['phealCacheDirectory']);
         $this->setHttpsConnectionVerified($extconf['phealVerifyingHttpsConnection']);
         $this->setConnectionTimeout($extconf['phealConnectionTimeout']);
@@ -79,7 +80,7 @@ class PhealService implements \TYPO3\CMS\Core\SingletonInterface {
 
         Config::getInstance()->http_ssl_verifypeer = $this->isHttpsConnectionVerified();
         Config::getInstance()->http_timeout = $this->getConnectionTimeout();
-        Config::getInstance()->cache = new \Pheal\Cache\FileStorage($this->getPhealCacheDirectory() . DIRECTORY_SEPARATOR, $this->getUmaskOptions());
+        Config::getInstance()->cache = new \Pheal\Cache\FileStorage($this->getPhealCacheDirectory() . \DIRECTORY_SEPARATOR, $this->getUmaskOptions());
         Config::getInstance()->access = new \Pheal\Access\StaticCheck();
         $this->pheal = new Pheal($keyId, $vCode, $scope);
     }

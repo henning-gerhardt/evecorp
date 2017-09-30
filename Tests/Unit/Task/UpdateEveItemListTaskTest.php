@@ -19,6 +19,8 @@
 
 namespace Gerh\Evecorp\Test\Task;
 
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /**
  *
  *
@@ -26,7 +28,7 @@ namespace Gerh\Evecorp\Test\Task;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class UpdateEveItemListTaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class UpdateEveItemListTaskTest extends UnitTestCase {
 
     /**
      * @test

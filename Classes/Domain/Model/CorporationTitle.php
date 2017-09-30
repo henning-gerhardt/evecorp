@@ -19,6 +19,11 @@
 
 namespace Gerh\Evecorp\Domain\Model;
 
+use TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /**
  *
  *
@@ -26,7 +31,7 @@ namespace Gerh\Evecorp\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorporationTitle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class CorporationTitle extends AbstractEntity {
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
@@ -48,13 +53,13 @@ class CorporationTitle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $titleName;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\Corporation
+     * @var Corporation
      * @lazy
      */
     protected $corporation;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+     * @var FrontendUserGroup
      * @lazy
      */
     protected $usergroup;
@@ -63,16 +68,16 @@ class CorporationTitle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * class constructor
      */
     public function __construct() {
-        $this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->characters = new ObjectStorage();
     }
 
     /**
      * Returns corporation
      *
-     * @return \Gerh\Evecorp\Domain\Model\Corporation
+     * @return Corporation
      */
     public function getCorporation() {
-        if ($this->corporation instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->corporation instanceof LazyLoadingProxy) {
             $this->corporation->_loadRealInstance();
         }
 
@@ -100,10 +105,10 @@ class CorporationTitle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Get default frontend user group
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+     * @return FrontendUserGroup
      */
     public function getUsergroup() {
-        if ($this->usergroup instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->usergroup instanceof LazyLoadingProxy) {
             $this->usergroup->_loadRealInstance();
         }
 
@@ -113,9 +118,9 @@ class CorporationTitle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Set corporation
      *
-     * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
+     * @param Corporation $corporation
      */
-    public function setCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
+    public function setCorporation(Corporation $corporation) {
         $this->corporation = $corporation;
     }
 
@@ -140,19 +145,19 @@ class CorporationTitle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Set frontend user group
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup
+     * @param FrontendUserGroup $usergroup
      * @return void
      */
-    public function setUsergroup(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup = \NULL) {
+    public function setUsergroup(FrontendUserGroup $usergroup = \NULL) {
         $this->usergroup = $usergroup;
     }
 
     /**
      * Add character to this title
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $character
+     * @param Character $character
      */
-    public function addCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
+    public function addCharacter(Character $character) {
         $this->characters->attach($character);
     }
 
@@ -162,7 +167,7 @@ class CorporationTitle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
      */
     public function getCharacters() {
-        if ($this->characters instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->characters instanceof LazyLoadingProxy) {
             $this->characters->_loadRealInstance();
         }
 
@@ -172,9 +177,9 @@ class CorporationTitle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Remove a single character
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $character
+     * @param Character $character
      */
-    public function removeCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
+    public function removeCharacter(Character $character) {
         $this->characters->detach($character);
     }
 
@@ -182,15 +187,15 @@ class CorporationTitle extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * Remove all characters from this title
      */
     public function removeAllCharacters() {
-        $this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->characters = new ObjectStorage();
     }
 
     /**
      * Set characters of this title
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $characters
+     * @param ObjectStorage $characters
      */
-    public function setCharacters(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $characters) {
+    public function setCharacters(ObjectStorage $characters) {
         $this->characters = $characters;
     }
 

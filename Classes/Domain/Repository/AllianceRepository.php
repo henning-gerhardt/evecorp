@@ -26,6 +26,6 @@ namespace Gerh\Evecorp\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class AllianceRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
+class AllianceRepository extends BaseRepository {
 
 }

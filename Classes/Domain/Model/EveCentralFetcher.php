@@ -19,6 +19,9 @@
 
 namespace Gerh\Evecorp\Domain\Model;
 
+use DOMDocument;
+use DOMXPath;
+
 /**
  *
  *
@@ -31,7 +34,7 @@ class EveCentralFetcher {
     /**
      * @var string Holds static part of Eve-Central uri
      */
-    private $baseUri = null;
+    private $baseUri = \NULL;
 
     /**
      * @var \integer Holds used region id
@@ -186,9 +189,9 @@ class EveCentralFetcher {
             return $result;
         }
 
-        $doc = new \DOMDocument();
+        $doc = new DOMDocument();
         $doc->loadXML($content);
-        $xpath = new \DOMXPath($doc);
+        $xpath = new DOMXPath($doc);
 
         $resourceTypes = $xpath->evaluate('.//type');
         for ($i = 0; $i < $resourceTypes->length; $i++) {

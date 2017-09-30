@@ -19,6 +19,25 @@
 
 namespace Gerh\Evecorp\Domain\Mapper;
 
+use DateTimeZone;
+use Exception;
+use Gerh\Evecorp\Domain\Constants\AccessMask\Character as CharacterModel;
+use Gerh\Evecorp\Domain\Model\Alliance;
+use Gerh\Evecorp\Domain\Model\ApiKey;
+use Gerh\Evecorp\Domain\Model\Character;
+use Gerh\Evecorp\Domain\Model\Corporation;
+use Gerh\Evecorp\Domain\Model\CorporationTitle;
+use Gerh\Evecorp\Domain\Model\DateTime;
+use Gerh\Evecorp\Domain\Model\EmploymentHistory;
+use Gerh\Evecorp\Domain\Repository\AllianceRepository;
+use Gerh\Evecorp\Domain\Repository\CharacterRepository;
+use Gerh\Evecorp\Domain\Repository\CorporationRepository;
+use Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository;
+use Gerh\Evecorp\Service\PhealService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+
 /**
  *
  *
@@ -29,7 +48,7 @@ namespace Gerh\Evecorp\Domain\Mapper;
 class CharacterMapper {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\AllianceRepository
+     * @var AllianceRepository
      * @inject
      */
     protected $allianceRepository;
@@ -44,12 +63,12 @@ class CharacterMapper {
     /**
      * Holds api  key
      *
-     * @var \Gerh\Evecorp\Domain\Model\ApiKey
+     * @var ApiKey
      */
     protected $apiKey;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
+     * @var CharacterRepository
      * @inject
      */
     protected $characterRepository;
@@ -62,7 +81,7 @@ class CharacterMapper {
     protected $characterRepositoryStoragePids;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
+     * @var CorporationRepository
      * @inject
      */
     protected $corporationRepository;
@@ -75,7 +94,7 @@ class CharacterMapper {
     protected $corporationRepositoryStoragePids;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository
+     * @var EmploymentHistoryRepository
      * @inject
      */
     protected $employmentHistoryRepository;
@@ -93,32 +112,32 @@ class CharacterMapper {
     protected $errorMessage;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @var ObjectManagerInterface
      * @inject
      */
     protected $objectManager;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @var PersistenceManager
      * @inject
      */
     protected $persistenceManager;
 
     /**
-     * @var \Gerh\Evecorp\Service\PhealService
+     * @var PhealService
      */
     protected $phealService;
 
     /**
      * Add employment history of character
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $character
+     * @param Character $character
      * @param \Pheal\Core\RowSet $employmentHistory
      */
-    protected function addEmploymentHistoryOfCharacter(\Gerh\Evecorp\Domain\Model\Character $character, \Pheal\Core\RowSet $employmentHistory) {
+    protected function addEmploymentHistoryOfCharacter(Character $character, \Pheal\Core\RowSet $employmentHistory) {
         foreach ($employmentHistory as $record) {
             $corporation = $this->getOrCreateCorporationModel(\intval($record->corporationID), $record->corporationName);
-            $startDate = new \Gerh\Evecorp\Domain\Model\DateTime($record->startDate, new \DateTimeZone('UTC'));
+            $startDate = new DateTime($record->startDate, new DateTimeZone('UTC'));
 
             $employment = $this->createEmploymentHistoryModel($character, $corporation, intval($record->recordID), $startDate);
             $this->employmentHistoryRepository->add($employment);
@@ -129,14 +148,14 @@ class CharacterMapper {
     /**
      * Create an employment history model
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $character
-     * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
+     * @param Character $character
+     * @param Corporation $corporation
      * @param \integer $recordId
-     * @param \Gerh\Evecorp\Domain\Model\DateTime $startDate
-     * @return \Gerh\Evecorp\Domain\Model\EmploymentHistory
+     * @param DateTime $startDate
+     * @return EmploymentHistory
      */
     protected function createEmploymentHistoryModel($character, $corporation, $recordId, $startDate) {
-        $employment = new \Gerh\Evecorp\Domain\Model\EmploymentHistory();
+        $employment = new EmploymentHistory();
         $employment->setCharacter($character);
         $employment->setCorporation($corporation);
         $employment->setRecordId($recordId);
@@ -151,8 +170,8 @@ class CharacterMapper {
      *
      * @param \integer $allianceId
      * @param \string $allianceName
-     * @return \Gerh\Evecorp\Domain\Model\Alliance
-     * @throws \Exception Throws exception if allianceId is less then one.
+     * @return Alliance
+     * @throws Exception Throws exception if allianceId is less then one.
      */
     protected function getOrCreateAllianceModel($allianceId, $allianceName) {
         if ($allianceId > 0) {
@@ -160,7 +179,7 @@ class CharacterMapper {
             if ($searchResult) {
                 $alliance = $searchResult;
             } else {
-                $alliance = new \Gerh\Evecorp\Domain\Model\Alliance($allianceId, $allianceName);
+                $alliance = new Alliance($allianceId, $allianceName);
                 // TODO check if setting pid is really necessary
                 $alliance->setPid($this->allianceRepositoryStoragePids[0]);
                 $this->allianceRepository->add($alliance);
@@ -170,7 +189,7 @@ class CharacterMapper {
             return $alliance;
         }
 
-        throw new \Exception('Could not determinate characters alliance.');
+        throw new Exception('Could not determinate characters alliance.');
     }
 
     /**
@@ -178,8 +197,8 @@ class CharacterMapper {
      *
      * @param \integer $corporationId
      * @param \string $corporationName
-     * @return \Gerh\Evecorp\Domain\Model\Corporation
-     * @throws \Exception Throws exception if corporationId is less then one.
+     * @return Corporation
+     * @throws Exception Throws exception if corporationId is less then one.
      */
     protected function getOrCreateCorporationModel($corporationId, $corporationName) {
         if ($corporationId > 0) {
@@ -187,7 +206,7 @@ class CharacterMapper {
             if ($searchResult) {
                 $corporation = $searchResult;
             } else {
-                $corporation = new \Gerh\Evecorp\Domain\Model\Corporation($corporationId, $corporationName);
+                $corporation = new Corporation($corporationId, $corporationName);
                 // TODO check if setting pid is really necessary
                 $corporation->setPid($this->corporationRepositoryStoragePids[0]);
                 $this->corporationRepository->add($corporation);
@@ -197,13 +216,13 @@ class CharacterMapper {
             return $corporation;
         }
 
-        throw new \Exception('Could not determinate characters corporation.');
+        throw new Exception('Could not determinate characters corporation.');
     }
 
     /**
      * Set chracter information from character info response
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $character
+     * @param Character $character
      * @param \Pheal\Core\Result $response
      */
     protected function setCharacterInformationFromCharacterInfoResponse($character, $response) {
@@ -211,7 +230,7 @@ class CharacterMapper {
         $character->setRace($response->race);
         $character->setSecurityStatus($response->securityStatus);
 
-        $corporationDate = new \Gerh\Evecorp\Domain\Model\DateTime($response->corporationDate, new \DateTimeZone('UTC'));
+        $corporationDate = new DateTime($response->corporationDate, new DateTimeZone('UTC'));
         $character->setCorporationDate($corporationDate);
 
         // TODO check if setting pid is really necessary
@@ -232,18 +251,18 @@ class CharacterMapper {
     /**
      * Updating employment history of character
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $character
+     * @param Character $character
      * @param \Pheal\Core\RowSet $employmentHistory
      * @return void
      */
-    protected function updateEmploymentHistoryOfCharacter(\Gerh\Evecorp\Domain\Model\Character $character, \Pheal\Core\RowSet $employmentHistory) {
+    protected function updateEmploymentHistoryOfCharacter(Character $character, \Pheal\Core\RowSet $employmentHistory) {
 
         $currentEmployments = $this->employmentHistoryRepository->findByCharacterUid($character);
         $wellknownEmployments = [];
 
         foreach ($employmentHistory as $record) {
             $corporation = $this->getOrCreateCorporationModel(\intval($record->corporationID), $record->corporationName);
-            $startDate = new \Gerh\Evecorp\Domain\Model\DateTime($record->startDate, new \DateTimeZone('UTC'));
+            $startDate = new DateTime($record->startDate, new DateTimeZone('UTC'));
 
             $result = $this->employmentHistoryRepository->searchForEmployment($character, $corporation, $startDate);
 
@@ -256,7 +275,7 @@ class CharacterMapper {
         }
 
         foreach ($currentEmployments as $employment) {
-            if (array_key_exists($employment->getUid(), $wellknownEmployments) === false) {
+            if (\array_key_exists($employment->getUid(), $wellknownEmployments) === \FALSE) {
                 $character->removeEmployment($employment);
             }
         }
@@ -266,14 +285,14 @@ class CharacterMapper {
     /**
      * Set characters corporation titles
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $characterModel
+     * @param Character $characterModel
      * @param \Pheal\Core\RowSet $fetchedTitles
      */
-    protected function setCharacterCorporationTitles(\Gerh\Evecorp\Domain\Model\Character $characterModel, \Pheal\Core\RowSet $fetchedTitles) {
+    protected function setCharacterCorporationTitles(Character $characterModel, \Pheal\Core\RowSet $fetchedTitles) {
         $existingCorpTitles = $characterModel->getCurrentCorporation()->getCorporationTitles();
         $characterModel->removeAllTitles();
         foreach ($fetchedTitles as $fetchedTitle) {
-            /* @var $existingCorpTitle \Gerh\Evecorp\Domain\Model\CorporationTitle */
+            /* @var $existingCorpTitle CorporationTitle */
             foreach ($existingCorpTitles as $existingCorpTitle) {
                 if ($existingCorpTitle->getTitleId() === intval($fetchedTitle->titleID)) {
                     $characterModel->addTitle($existingCorpTitle);
@@ -285,16 +304,16 @@ class CharacterMapper {
     /**
      * class constructor
      */
-    public function __construct(\Gerh\Evecorp\Domain\Model\ApiKey $apiKeyModel = \NULL) {
+    public function __construct(ApiKey $apiKeyModel = \NULL) {
 
         if ($apiKeyModel === \NULL) {
-            $apiKeyModel = new \Gerh\Evecorp\Domain\Model\ApiKey();
+            $apiKeyModel = new ApiKey();
         }
 
         $this->apiKey = $apiKeyModel;
         $scope = 'eve';
-        $this->phealService = new \Gerh\Evecorp\Service\PhealService($this->apiKey->getKeyId(), $this->apiKey->getVCode(), $scope);
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+        $this->phealService = new PhealService($this->apiKey->getKeyId(), $this->apiKey->getVCode(), $scope);
+        $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 
         $this->setAllianceRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\AllianceRepository'));
         $this->setCharacterRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CharacterRepository'));
@@ -316,7 +335,7 @@ class CharacterMapper {
      * Create character model for given character id from API data
      *
      * @param \integer $characterId
-     * @return \Gerh\Evecorp\Domain\Model\Character | NULL
+     * @return Character | NULL
      */
     public function createModel($characterId) {
 
@@ -330,23 +349,23 @@ class CharacterMapper {
         }
 
         $characterDb = $this->characterRepository->findOneByCharacterId(\intval($response->characterID));
-        if ($characterDb instanceof \Gerh\Evecorp\Domain\Model\Character) {
+        if ($characterDb instanceof Character) {
             return $characterDb;
         }
 
         try {
-            $character = new \Gerh\Evecorp\Domain\Model\Character();
+            $character = new Character();
             $character->setCharacterId(\intval($response->characterID));
 
             $this->setCharacterInformationFromCharacterInfoResponse($character, $response);
 
             $this->addEmploymentHistoryOfCharacter($character, $response->employmentHistory);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             $this->errorMessage = 'Fetched general Exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
             return \NULL;
         }
 
-        if ($this->apiKey->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Character::CHARACTERSHEET)) {
+        if ($this->apiKey->hasAccessTo(CharacterModel::CHARACTERSHEET)) {
             try {
                 $response = $pheal->charScope->CharacterSheet(['CharacterID' => $characterId]);
             } catch (\Pheal\Exceptions\PhealException $ex) {
@@ -356,7 +375,7 @@ class CharacterMapper {
 
             try {
                 $this->setCharacterCorporationTitles($character, $response->corporationTitles);
-            } catch (\Exception $ex) {
+            } catch (Exception $ex) {
                 $this->errorMessage = 'Fetched general Exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
                 return \NULL;
             }
@@ -370,9 +389,9 @@ class CharacterMapper {
     /**
      * Set alliance repository from outside
      *
-     * @param \Gerh\Evecorp\Domain\Repository\AllianceRepository $repository
+     * @param AllianceRepository $repository
      */
-    public function setAllianceRepository(\Gerh\Evecorp\Domain\Repository\AllianceRepository $repository) {
+    public function setAllianceRepository(AllianceRepository $repository) {
         $this->allianceRepository = $repository;
         $this->allianceRepositoryStoragePids = $repository->getRepositoryStoragePid();
     }
@@ -380,9 +399,9 @@ class CharacterMapper {
     /**
      * Set character repository from outside
      *
-     * @param \Gerh\Evecorp\Domain\Repository\CharacterRepository $repository
+     * @param CharacterRepository $repository
      */
-    public function setCharacterRepository(\Gerh\Evecorp\Domain\Repository\CharacterRepository $repository) {
+    public function setCharacterRepository(CharacterRepository $repository) {
         $this->characterRepository = $repository;
         $this->characterRepositoryStoragePids = $repository->getRepositoryStoragePid();
     }
@@ -390,9 +409,9 @@ class CharacterMapper {
     /**
      * Set corporation repository from outside
      *
-     * @param \Gerh\Evecorp\Domain\Repository\CorporationRepository $repository
+     * @param CorporationRepository $repository
      */
-    public function setCorporationRepository(\Gerh\Evecorp\Domain\Repository\CorporationRepository $repository) {
+    public function setCorporationRepository(CorporationRepository $repository) {
         $this->corporationRepository = $repository;
         $this->corporationRepositoryStoragePids = $repository->getRepositoryStoragePid();
     }
@@ -400,9 +419,9 @@ class CharacterMapper {
     /**
      * Set employment history repository from outside
      *
-     * @param \Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository $repository
+     * @param EmploymentHistoryRepository $repository
      */
-    public function setEmploymentHistoryRepository(\Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository $repository) {
+    public function setEmploymentHistoryRepository(EmploymentHistoryRepository $repository) {
         $this->employmentHistoryRepository = $repository;
         $this->employmentHistoryRepositoryStoragePids = $repository->getRepositoryStoragePid();
     }
@@ -428,10 +447,10 @@ class CharacterMapper {
     /**
      * Update character model with API data
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $characterModel
+     * @param Character $characterModel
      * @return boolean
      */
-    public function updateModel(\Gerh\Evecorp\Domain\Model\Character $characterModel) {
+    public function updateModel(Character $characterModel) {
 
         $pheal = $this->phealService->getPhealInstance();
         $characterId = $characterModel->getCharacterId();
@@ -447,12 +466,12 @@ class CharacterMapper {
             $this->setCharacterInformationFromCharacterInfoResponse($characterModel, $response);
 
             $this->updateEmploymentHistoryOfCharacter($characterModel, $response->employmentHistory);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             $this->errorMessage = 'Fetched general Exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
             return \FALSE;
         }
 
-        if ($this->apiKey->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Character::CHARACTERSHEET)) {
+        if ($this->apiKey->hasAccessTo(CharacterModel::CHARACTERSHEET)) {
             try {
                 $response = $pheal->charScope->CharacterSheet(['CharacterID' => $characterId]);
             } catch (\Pheal\Exceptions\PhealException $ex) {
@@ -462,7 +481,7 @@ class CharacterMapper {
 
             try {
                 $this->setCharacterCorporationTitles($characterModel, $response->corporationTitles);
-            } catch (\Exception $ex) {
+            } catch (Exception $ex) {
                 $this->errorMessage = 'Fetched general Exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
                 return \FALSE;
             }

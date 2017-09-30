@@ -19,13 +19,17 @@
 
 namespace Gerh\Evecorp\Test\Domain\Model;
 
+use Gerh\Evecorp\Domain\Model\MarketData;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+
 /**
  * Testcase for MarketData
  */
-class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class MarketDataTest extends UnitTestCase {
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @var ObjectManagerInterface
      */
     protected $mockObjectManager;
 
@@ -41,7 +45,7 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      */
     public function corpTaxCouldBeSet() {
         $corpTax = 10;
-        $marketData = new \Gerh\Evecorp\Domain\Model\MarketData();
+        $marketData = new MarketData();
         $marketData->setCorpTax($corpTax);
         $this->assertEquals($corpTax, $marketData->getCorpTax());
     }
@@ -51,7 +55,7 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      */
     public function corpTaxCouldNotBeSetLowerThanZero() {
         $corpTax = -0.1;
-        $marketData = new \Gerh\Evecorp\Domain\Model\MarketData();
+        $marketData = new MarketData();
         $marketData->setCorpTax($corpTax);
         $this->assertEquals(0, $marketData->getCorpTax());
     }
@@ -61,7 +65,7 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      */
     public function corpTaxCouldNotBeSetHigherThanOneHundred() {
         $corpTax = 100.1;
-        $marketData = new \Gerh\Evecorp\Domain\Model\MarketData();
+        $marketData = new MarketData();
         $marketData->setCorpTax($corpTax);
         $this->assertEquals(0, $marketData->getCorpTax());
     }
@@ -70,7 +74,7 @@ class MarketDataTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function getMarketDataReturnsEmptyArrayOnEmptyRepository() {
-        $marketData = $this->getMock('\Gerh\Evecorp\Domain\Model\MarketData', ['updateEveItems']);
+        $marketData = $this->getMock('Gerh\Evecorp\Domain\Model\MarketData', ['updateEveItems']);
 
         $mockedQueryInterface = $this->getMock('TYPO3\CMS\Extbase\Persistence\QueryInterface');
         $mockedRepository = $this->getMock('Gerh\Evecorp\Domain\Repository\EveitemRepository', ['findAll'], [$this->mockObjectManager]);

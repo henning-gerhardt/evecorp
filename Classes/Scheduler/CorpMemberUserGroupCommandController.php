@@ -19,6 +19,11 @@
 
 namespace Gerh\Evecorp\Scheduler;
 
+use Gerh\Evecorp\Domain\Repository\CorpMemberRepository;
+use Gerh\Evecorp\Domain\Utility\CorpMemberUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+
 /**
  *
  *
@@ -26,16 +31,16 @@ namespace Gerh\Evecorp\Scheduler;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorpMemberUserGroupCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
+class CorpMemberUserGroupCommandController extends CommandController {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\CorpMemberRepository
+     * @var CorpMemberRepository
      * @inject
      */
     protected $corpMemberRepository;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @var PersistenceManager
      * @inject
      */
     protected $persistenceManager;
@@ -51,12 +56,12 @@ class CorpMemberUserGroupCommandController extends \TYPO3\CMS\Extbase\Mvc\Contro
         $querySettings = $this->corpMemberRepository->createQuery()->getQuerySettings();
         $querySettings->setStoragePageIds([$storagePid]);
         $this->corpMemberRepository->setDefaultQuerySettings($querySettings);
-        $corpMemberUtility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
+        $corpMemberUtility = new CorpMemberUtility();
         foreach ($this->corpMemberRepository->findAll() as $corpMember) {
             $corpMemberUtility->adjustFrontendUserGroups($corpMember);
         }
         $this->persistenceManager->persistAll();
-        return TRUE;
+        return \TRUE;
     }
 
 }

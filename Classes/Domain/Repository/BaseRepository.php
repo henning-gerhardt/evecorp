@@ -19,12 +19,14 @@
 
 namespace Gerh\Evecorp\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
 /**
  * Description of BaseRepository
  *
  * @author Henning Gerhardt
  */
-class BaseRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class BaseRepository extends Repository {
 
     /**
      * Returns used storage pids for this repository.
@@ -43,7 +45,7 @@ class BaseRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
     public function setRepositoryStoragePid($storagePid = 0) {
         $querySettings = $this->createQuery()->getQuerySettings();
         $querySettings->setStoragePageIds([$storagePid]);
-        $querySettings->setRespectStoragePage(TRUE);
+        $querySettings->setRespectStoragePage(\TRUE);
         $this->setDefaultQuerySettings($querySettings);
     }
 

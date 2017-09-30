@@ -169,7 +169,7 @@ class EveItemDisplay {
     /**
      * Get current region name
      *
-     * @return \Gerh\Evecorp\Domain\Model\EveMapRegion
+     * @return EveMapRegion
      */
     public function getRegionName() {
         return $this->regionName;
@@ -187,10 +187,10 @@ class EveItemDisplay {
     /**
      * Set region name by a given region object
      *
-     * @param \Gerh\Evecorp\Domain\Model\EveMapRegion $region
+     * @param EveMapRegion $region
      */
-    public function setRegionNameByRegion(\Gerh\Evecorp\Domain\Model\EveMapRegion $region = null) {
-        if (($region instanceof \Gerh\Evecorp\Domain\Model\EveMapRegion) && ($region != null)) {
+    public function setRegionNameByRegion(EveMapRegion $region = \NULL) {
+        if (($region instanceof EveMapRegion) && ($region != \NULL)) {
             $this->setRegionName($region->getRegionName());
         }
     }
@@ -198,7 +198,7 @@ class EveItemDisplay {
     /**
      * Return used solar system name
      *
-     * @return \Gerh\Evecorp\Domain\Model\EveMapSolarSystem
+     * @return EveMapSolarSystem
      */
     public function getSolarSystemName() {
         return $this->solarSystemName;
@@ -217,11 +217,11 @@ class EveItemDisplay {
     /**
      * Set solar system name by solar system object
      *
-     * @param \Gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem
+     * @param EveMapSolarSystem $solarSystem
      * @return void
      */
-    public function setSolarSystemNameBySolarSystem(\Gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem = null) {
-        if (($solarSystem instanceof \Gerh\Evecorp\Domain\Model\EveMapSolarSystem) && ($solarSystem != null)) {
+    public function setSolarSystemNameBySolarSystem(EveMapSolarSystem $solarSystem = \NULL) {
+        if (($solarSystem instanceof EveMapSolarSystem) && ($solarSystem != \NULLl)) {
             $this->setSolarSystemName($solarSystem->getSolarSystemName());
         }
     }

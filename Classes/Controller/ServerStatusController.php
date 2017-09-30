@@ -19,6 +19,10 @@
 
 namespace Gerh\Evecorp\Controller;
 
+use Gerh\Evecorp\Service\PhealService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
 /**
  *
  *
@@ -26,10 +30,10 @@ namespace Gerh\Evecorp\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ServerStatusController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class ServerStatusController extends ActionController {
 
     /**
-     * @var \Gerh\Evecorp\Service\PhealService
+     * @var PhealService
      * @inject
      */
     protected $phealService;
@@ -44,7 +48,7 @@ class ServerStatusController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
      *
      */
     public function initializeAction() {
-        $this->phealService =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Gerh\Evecorp\Service\PhealService');
+        $this->phealService = GeneralUtility::makeInstance('Gerh\\Evecorp\\Service\\PhealService');
         $this->pheal = $this->phealService->getPhealInstance();
     }
     /**

@@ -19,6 +19,11 @@
 
 namespace Gerh\Evecorp\Domain\Mapper;
 
+use Gerh\Evecorp\Domain\Model\ApiKeyCorporation;
+use Gerh\Evecorp\Domain\Model\CorporationTitle;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /**
  *
  *
@@ -30,7 +35,7 @@ class CorporationTitleMapper {
 
     /**
      *
-     * @var \Gerh\Evecorp\Domain\Model\ApiKeyCorporation
+     * @var ApiKeyCorporation
      */
     private $corporationApiKey;
 
@@ -48,11 +53,11 @@ class CorporationTitleMapper {
     protected function mapRetrievedInformation(\Pheal\Core\RowSet $titleObjects) {
 
         foreach ($titleObjects as $retrievedTitle) {
-            $corporationTitle = new \Gerh\Evecorp\Domain\Model\CorporationTitle();
+            $corporationTitle = new CorporationTitle();
             $corporationTitle->setCorporation($this->corporationApiKey->getCorporation());
-            $corporationTitle->setTitleId(intval($retrievedTitle->titleID));
+            $corporationTitle->setTitleId(\intval($retrievedTitle->titleID));
             // strip every html tags (used for coloring titles)
-            $corporationTitle->setTitleName(strip_tags($retrievedTitle->titleName));
+            $corporationTitle->setTitleName(\strip_tags($retrievedTitle->titleName));
             $this->corporationTitles->attach($corporationTitle);
         }
     }
@@ -60,22 +65,22 @@ class CorporationTitleMapper {
     /**
      * class constuctor
      *
-     * @param \Gerh\Evecorp\Domain\Model\ApiKeyCorporation $corporationApiKey
+     * @param ApiKeyCorporation $corporationApiKey
      */
-    public function __construct(\Gerh\Evecorp\Domain\Model\ApiKeyCorporation $corporationApiKey) {
+    public function __construct(ApiKeyCorporation $corporationApiKey) {
         $this->corporationApiKey = $corporationApiKey;
-        $this->corporationTitles = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->corporationTitles = new ObjectStorage();
     }
 
     /**
      * fetch corporation titles from CCP
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @return ObjectStorage
      */
     public function fetchCorporationTitles() {
         try {
-            $phealService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-                            'Gerh\\Evecorp\\Service\\PhealService', $this->corporationApiKey->getKeyId(), $this->corporationApiKey->getVCode()
+            $phealService = GeneralUtility::makeInstance(
+                    'Gerh\\Evecorp\\Service\\PhealService', $this->corporationApiKey->getKeyId(), $this->corporationApiKey->getVCode()
             );
             $pheal = $phealService->getPhealInstance();
 

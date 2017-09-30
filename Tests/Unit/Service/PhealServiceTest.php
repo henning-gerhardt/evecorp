@@ -19,16 +19,20 @@
 
 namespace Gerh\Evecorp\Test\Service;
 
+use Gerh\Evecorp\Service\PhealService;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use const PATH_site;
+
 /**
  * Testcase for PhealService
  */
-class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class PhealServiceTest extends UnitTestCase {
 
     /**
      * @test
      */
     public function classCouldBeInstantiated() {
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
         $this->assertEquals('Gerh\Evecorp\Service\PhealService', \get_class($service));
     }
 
@@ -36,7 +40,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function serviceReturnsInstanceOfPhealClass() {
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
         $this->assertEquals('Pheal\Pheal', \get_class($service->getPhealInstance()));
     }
 
@@ -44,7 +48,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function defaultConnectionTimeoutIsUsedIfNonConfigurated() {
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
         $this->assertEquals(120, $service->getConnectionTimeout());
     }
 
@@ -57,7 +61,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $modifier = ['phealConnectionTimeout' => $expected];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
         $this->assertEquals($expected, $service->getConnectionTimeout());
     }
 
@@ -70,7 +74,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $modifier = ['phealConnectionTimeout' => $expected];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
         $this->assertEquals($expected, $service->getConnectionTimeout());
     }
 
@@ -83,7 +87,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $modifier = ['phealConnectionTimeout' => $expected];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
         $this->assertEquals(120, $service->getConnectionTimeout());
     }
 
@@ -92,10 +96,10 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function defaultCachePathIsUsedIfNonConfigurated() {
-        $modifier = ['phealCacheDirectory' => null];
+        $modifier = ['phealCacheDirectory' => \NULL];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
         $expected = \realpath(PATH_site . 'typo3temp');
         $this->assertEquals($expected, $service->getPhealCacheDirectory());
     }
@@ -108,7 +112,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $modifier = ['phealCacheDirectory' => '\a\b\a'];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
         $expected = \realpath(PATH_site . 'typo3temp');
         $this->assertEquals($expected, $service->getPhealCacheDirectory());
     }
@@ -121,7 +125,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $modifier = ['phealCacheDirectory' => \tempnam(\sys_get_temp_dir(), 'FOO')];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
         $expected = \realpath(PATH_site . 'typo3temp');
         $this->assertEquals($expected, $service->getPhealCacheDirectory());
     }
@@ -131,11 +135,11 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function cacheDirectoryCouldBeSet() {
-        $expected = sys_get_temp_dir();
+        $expected = \sys_get_temp_dir();
         $modifier = ['phealCacheDirectory' => $expected];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
         $this->assertEquals($expected, $service->getPhealCacheDirectory());
     }
 
@@ -143,7 +147,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function verifyingHttpsConnectionIsFalseOnDefault() {
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
         $this->assertFalse($service->isHttpsConnectionVerified());
     }
 
@@ -152,9 +156,9 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function verifyHttpsConnectoinsCouldBeTrue() {
-        $modifier = ['phealVerifyingHttpsConnection' => true];
+        $modifier = ['phealVerifyingHttpsConnection' => \TRUE];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
         $this->assertTrue($service->isHttpsConnectionVerified());
     }
 
@@ -165,7 +169,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     public function verifyHttpsConnectoinsIsFalseOnWrongValues() {
         $modifier = ['phealVerifyingHttpsConnection' => 'bla'];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
         $this->assertFalse($service->isHttpsConnectionVerified());
     }
 
@@ -179,7 +183,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $modifier = ['phealFileCreateMask' => $octValue];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
 
         $this->assertEquals($expected, $service->getFileMask());
     }
@@ -194,7 +198,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $modifier = ['phealFileCreateMask' => ''];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
 
         $this->assertEquals($expected, $service->getFileMask());
     }
@@ -209,7 +213,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $modifier = ['phealFolderCreateMask' => $octValue];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
 
         $this->assertEquals($expected, $service->getFolderMask());
     }
@@ -224,7 +228,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $modifier = ['phealFolderCreateMask' => ''];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
 
         $this->assertEquals($expected, $service->getFolderMask());
     }
@@ -239,7 +243,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $modifier = ['phealFileCreateMask' => '', 'phealFolderCreateMask' => ''];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
 
         $this->assertEquals($expected, $service->getUmaskOptions());
     }
@@ -253,7 +257,7 @@ class PhealServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $modifier = ['phealFileCreateMask' => '0640', 'phealFolderCreateMask' => '0750'];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
-        $service = new \Gerh\Evecorp\Service\PhealService();
+        $service = new PhealService();
 
         $this->assertEquals($expected, $service->getUmaskOptions());
     }

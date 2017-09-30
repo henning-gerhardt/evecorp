@@ -19,6 +19,8 @@
 
 namespace Gerh\Evecorp\Domain\Model;
 
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
+
 /**
  *
  *
@@ -26,10 +28,10 @@ namespace Gerh\Evecorp\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyCorporation extends \Gerh\Evecorp\Domain\Model\ApiKey {
+class ApiKeyCorporation extends ApiKey {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\Corporation
+     * @var Corporation
      * @lazy
      */
     protected $corporation;
@@ -37,10 +39,10 @@ class ApiKeyCorporation extends \Gerh\Evecorp\Domain\Model\ApiKey {
     /**
      * Returns corporation
      *
-     * @return \Gerh\Evecorp\Domain\Model\Corporation
+     * @return Corporation
      */
     public function getCorporation() {
-        if ($this->corporation instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->corporation instanceof LazyLoadingProxy) {
             $this->corporation->_loadRealInstance();
         }
 
@@ -50,9 +52,9 @@ class ApiKeyCorporation extends \Gerh\Evecorp\Domain\Model\ApiKey {
     /**
      * Set corporation
      *
-     * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
+     * @param Corporation $corporation
      */
-    public function setCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
+    public function setCorporation(Corporation $corporation) {
         $this->corporation = $corporation;
     }
 

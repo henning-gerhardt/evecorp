@@ -19,6 +19,9 @@
 
 namespace Gerh\Evecorp\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /**
  *
  *
@@ -26,7 +29,7 @@ namespace Gerh\Evecorp\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CharacterRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
+class CharacterRepository extends BaseRepository {
 
     /**
      * Find all characters sorted by character name.
@@ -37,7 +40,7 @@ class CharacterRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository
      */
     public function findAllCharactersSortedByCharacterName(array $corporations) {
         $orderings = [
-            'characterName' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+            'characterName' => QueryInterface::ORDER_ASCENDING
         ];
 
         $query = $this->createQuery();

@@ -19,6 +19,10 @@
 
 namespace Gerh\Evecorp\Domain\Repository;
 
+use TYPO3\CMS\Core\Database\PreparedStatement;
+use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /**
  *
  *
@@ -26,7 +30,7 @@ namespace Gerh\Evecorp\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
+class EveitemRepository extends BaseRepository {
 
     /**
      * Check is given column name 'region' or 'solar_system'
@@ -36,9 +40,9 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
      */
     protected function isCorrectColumn($columnName) {
 
-        $result = false;
+        $result = \FALSE;
         if (($columnName === 'region') || ($columnName === 'solar_system')) {
-            $result = true;
+            $result = \TRUE;
         }
 
         return $result;
@@ -52,7 +56,7 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
      */
     protected function getListOfUniqueColumn($searchColumn) {
         $result = [];
-        $returnRawQueryResult = true;
+        $returnRawQueryResult = \TRUE;
 
         if (!$this->isCorrectColumn($searchColumn)) {
             return $result;
@@ -82,16 +86,16 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
      *
      * @param \integer $searchId
      * @param \string  $searchColumn Must be 'region' or 'solar_system'
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     * @return QueryResultInterface|array
      */
     protected function findAllUpdateableItemsForColumn($searchId, $searchColumn) {
 
-        if ($searchId == null || $searchId == 0) {
-            return new \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult();
+        if ($searchId == \NULL || $searchId == 0) {
+            return new QueryResult();
         }
 
         if (!$this->isCorrectColumn($searchColumn)) {
-            return new \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult();
+            return new QueryResult();
         }
 
         /** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
@@ -103,7 +107,7 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
         $queryStatement .= ' AND (`' . $searchColumn . '` = :searchId) ';
         $queryStatement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
 
-        $statement = new \TYPO3\CMS\Core\Database\PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
+        $statement = new PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
         $statement->bindValues([':searchId' => (int) $searchId]);
         $query->statement($statement);
 
@@ -119,12 +123,12 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
      * @param \integer $eveId
      * @param \integer $searchId
      * @param \string  $searchColumn Must be 'region' or 'system'
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     * @return QueryResultInterface|array
      */
     public function findByEveIdAndColumn($eveId, $searchId, $searchColumn) {
 
         if (!$this->isCorrectColumn($searchColumn)) {
-            return new \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult();
+            return new QueryResult();
         }
 
         /** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
@@ -136,7 +140,7 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
         $queryStatement .= ' AND (`' . $searchColumn . '` = :searchId) ';
         $queryStatement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
 
-        $statement = new \TYPO3\CMS\Core\Database\PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
+        $statement = new PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
         $statement->bindValues([':eveId' => (int) $eveId, ':searchId' => (int) $searchId]);
         $query->statement($statement);
 
@@ -173,7 +177,7 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
      * Search for all out of date EVE items for a given region
      *
      * @param \integer $regionId
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     * @return QueryResultInterface|array
      */
     public function findAllUpdateableItemsForRegion($regionId) {
 
@@ -186,7 +190,7 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
      * Search for all out of date EVE items for a given system
      *
      * @param \integer $systemId
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     * @return QueryResultInterface|array
      */
     public function findAllUpdateableItemsForSystem($systemId) {
 
@@ -200,7 +204,7 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
      *
      * @param \integer $eveId
      * @param \integer $regionId
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     * @return QueryResultInterface|array
      */
     public function findByEveIdAndRegionId($eveId, $regionId) {
 
@@ -214,7 +218,7 @@ class EveitemRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
      *
      * @param \integer $eveId
      * @param \integer $systemId
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     * @return QueryResultInterface|array
      */
     public function findByEveIdAndSystemId($eveId, $systemId) {
 

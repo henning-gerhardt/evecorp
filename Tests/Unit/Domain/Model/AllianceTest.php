@@ -19,6 +19,9 @@
 
 namespace Gerh\Evecorp\Test\Domain\Model;
 
+use Gerh\Evecorp\Domain\Model\Alliance;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /**
  *
  *
@@ -26,13 +29,13 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class AllianceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class AllianceTest extends UnitTestCase {
 
     /**
      * @test
      */
     public function classCouldBeInitiated() {
-        $alliance = new \Gerh\Evecorp\Domain\Model\Alliance();
+        $alliance = new Alliance();
 
         $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\Alliance', $alliance);
     }
@@ -43,7 +46,7 @@ class AllianceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     public function allianceIdCouldBeSet() {
         $expected = 123456;
 
-        $alliance = new \Gerh\Evecorp\Domain\Model\Alliance();
+        $alliance = new Alliance();
         $alliance->setAllianceId($expected);
 
         $this->assertEquals($expected, $alliance->getAllianceId());
@@ -55,7 +58,7 @@ class AllianceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     public function allianceNameCouldBeSet() {
         $expected = 'FooBar';
 
-        $alliance = new \Gerh\Evecorp\Domain\Model\Alliance();
+        $alliance = new Alliance();
         $alliance->setAllianceName($expected);
 
         $this->assertEquals($expected, $alliance->getAllianceName());
@@ -68,7 +71,7 @@ class AllianceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $allianceId = 567890;
         $allianceName = 'BarFoo';
 
-        $alliance = new \Gerh\Evecorp\Domain\Model\Alliance($allianceId, $allianceName);
+        $alliance = new Alliance($allianceId, $allianceName);
 
         $this->assertEquals($allianceId, $alliance->getAllianceId());
         $this->assertEquals($allianceName, $alliance->getAllianceName());

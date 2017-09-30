@@ -19,6 +19,10 @@
 
 namespace Gerh\Evecorp\Domain\Utility;
 
+use Gerh\Evecorp\Domain\Model\CorpMember;
+use Gerh\Evecorp\Domain\Model\CorporationTitle;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  *
  *
@@ -31,18 +35,18 @@ class CorpMemberUtility {
     /**
      * Returns all frontend user groups from characters corporations
      *
-     * @param \Gerh\Evecorp\Domain\Model\CorpMember $corpMember
+     * @param CorpMember $corpMember
      * @return array
      */
-    protected function collectCorpGroups(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember) {
+    protected function collectCorpGroups(CorpMember $corpMember) {
         $collected = [];
         foreach ($corpMember->getCharacters() as $character) {
             $corpUserGroup = $character->getCurrentCorporation()->getUserGroup();
-            if ((empty($corpUserGroup) === false) && (\array_key_exists($corpUserGroup->getUid(), $collected) === false)) {
+            if ((empty($corpUserGroup) === \FALSE) && (\array_key_exists($corpUserGroup->getUid(), $collected) === \FALSE)) {
                 $collected[$corpUserGroup->getUid()] = $corpUserGroup;
             }
 
-            /* @var $corpTitle \Gerh\Evecorp\Domain\Model\CorporationTitle */
+            /* @var $corpTitle CorporationTitle */
             foreach ($character->getTitles() as $corpTitle) {
                 $corpTitleGroup = $corpTitle->getUsergroup();
                 if ((empty($corpTitleGroup) === \FALSE) && (\array_key_exists($corpTitleGroup->getUid(), $collected) === \FALSE)) {
@@ -56,11 +60,11 @@ class CorpMemberUtility {
     /**
      * Persistence changed corp member
      *
-     * @param \Gerh\Evecorp\Domain\Model\CorpMember $corpMember
+     * @param CorpMember $corpMember
      */
-    protected function persistenceCorpMember(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember) {
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-        $corpMemberRepository = $objectManager->get('\\Gerh\\Evecorp\\Domain\\Repository\\CorpMemberRepository');
+    protected function persistenceCorpMember(CorpMember $corpMember) {
+        $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+        $corpMemberRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CorpMemberRepository');
         $corpMemberRepository->update($corpMember);
 
         // real persistence to database
@@ -71,9 +75,9 @@ class CorpMemberUtility {
     /**
      * Adjust corp member groups
      *
-     * @param \Gerh\Evecorp\Domain\Model\CorpMember $corpMember
+     * @param CorpMember $corpMember
      */
-    public function adjustFrontendUserGroups(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember) {
+    public function adjustFrontendUserGroups(CorpMember $corpMember) {
 
         // persistence maybe pending changes
         $this->persistenceCorpMember($corpMember);
@@ -83,14 +87,14 @@ class CorpMemberUtility {
 
         // add groups
         foreach ($collectedCorpUserGroups as $frontendUserGroup) {
-            if ($currentEveGroups->contains($frontendUserGroup) === false) {
+            if ($currentEveGroups->contains($frontendUserGroup) === \FALSE) {
                 $corpMember->addEveCorpGroup($frontendUserGroup);
             }
         }
 
         // remove groups
         foreach ($currentEveGroups as $frontendUserGroup) {
-            if (\array_key_exists($frontendUserGroup->getUid(), $collectedCorpUserGroups) === false) {
+            if (\array_key_exists($frontendUserGroup->getUid(), $collectedCorpUserGroups) === \FALSE) {
                 $corpMember->removeEveCorpGroup($frontendUserGroup);
             }
         }

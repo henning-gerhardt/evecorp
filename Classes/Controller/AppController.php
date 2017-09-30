@@ -19,6 +19,9 @@
 
 namespace Gerh\Evecorp\Controller;
 
+use Gerh\Evecorp\Domain\Model\MarketData;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
 /**
  *
  *
@@ -26,12 +29,12 @@ namespace Gerh\Evecorp\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class AppController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class AppController extends ActionController {
 
     /**
      * Holds instance for market data
      *
-     * @var \Gerh\Evecorp\Domain\Model\MarketData
+     * @var MarketData
      * @inject
      */
     protected $marketData;

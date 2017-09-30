@@ -19,6 +19,19 @@
 
 namespace Gerh\Evecorp\Controller;
 
+use Gerh\Evecorp\Domain\Constants\AccessMask\Corporation as Corporation2;
+use Gerh\Evecorp\Domain\Mapper\CorporationTitleMapper;
+use Gerh\Evecorp\Domain\Model\ApiKeyCorporation;
+use Gerh\Evecorp\Domain\Model\Corporation;
+use Gerh\Evecorp\Domain\Model\CorporationTitle;
+use Gerh\Evecorp\Domain\Repository\CorporationRepository;
+use Gerh\Evecorp\Domain\Repository\CorporationTitleRepository;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+
 /**
  *
  *
@@ -26,23 +39,23 @@ namespace Gerh\Evecorp\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class CorporationTitleManagementController extends ActionController {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
+     * @var CorporationRepository
      * @inject
      */
     protected $corporationRepository;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\CorporationTitleRepository
+     * @var CorporationTitleRepository
      * @inject
      */
     protected $corporationTitleRepository;
 
     /**
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository
+     * @var FrontendUserGroupRepository
      * @inject
      */
     protected $frontendUserGroupRepository;
@@ -55,11 +68,11 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
     protected $selectedCorporation;
 
     /**
-     * @see \TYPO3\CMS\Extbase\Mvc\Controller\ActionController::initializeAction()
+     * @see ActionController::initializeAction()
      */
     public function initializeAction() {
         $selectedCorporation = (\strlen($this->settings['corporation']) > 0) ?
-            \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : [];
+            GeneralUtility::intExplode(',', $this->settings['corporation']) : [];
 
         $amountOfSelectedCorporation = \count($selectedCorporation);
         if ($amountOfSelectedCorporation == 1) {
@@ -81,8 +94,8 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
         if ($this->selectedCorporation > 0) {
             $titles = $this->corporationTitleRepository->findByCorporation($this->selectedCorporation);
             $corporation = $this->corporationRepository->findByUid($this->selectedCorporation);
-            if ($corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
-                $hasTitleAccess = $corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
+            if ($corporation instanceof Corporation) {
+                $hasTitleAccess = $corporation->hasAccessTo(Corporation2::TITLES);
             }
         } else {
             $titles = [];
@@ -99,28 +112,28 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
      */
     public function fetchAction() {
         if ($this->selectedCorporation < 1) {
-            $this->addFlashMessage('No corporation selected!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->addFlashMessage('No corporation selected!', 'Error', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
 
         // fetch corporation from database
         $corporation = $this->corporationRepository->findByUid($this->selectedCorporation);
-        if (!$corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
-            $this->addFlashMessage('Corporation not found!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        if (!$corporation instanceof Corporation) {
+            $this->addFlashMessage('Corporation not found!', 'Error', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
 
         // determinate api key with corp title access
-        $corporationApiKey = $corporation->findFirstApiKeyByAccessMask(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
-        if (!$corporationApiKey instanceof \Gerh\Evecorp\Domain\Model\ApiKeyCorporation) {
-            $this->addFlashMessage('No corporation api key found with title access!', 'Error', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        $corporationApiKey = $corporation->findFirstApiKeyByAccessMask(Corporation2::TITLES);
+        if (!$corporationApiKey instanceof ApiKeyCorporation) {
+            $this->addFlashMessage('No corporation api key found with title access!', 'Error', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
 
-        $mapper = new \Gerh\Evecorp\Domain\Mapper\CorporationTitleMapper($corporationApiKey);
+        $mapper = new CorporationTitleMapper($corporationApiKey);
         // fetch corp titles with this key
         $newCorporationTitles = $mapper->fetchCorporationTitles();
         // clear all existing corp titles
@@ -137,11 +150,11 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
     /**
      * edit action
      *
-     * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle
+     * @param CorporationTitle $corporationTitle
      */
-    public function editAction(\Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle) {
+    public function editAction(CorporationTitle $corporationTitle) {
         $this->view->assign('corporationTitle', $corporationTitle);
-        $defaultQuerySettings = new \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings();
+        $defaultQuerySettings = new Typo3QuerySettings();
         $defaultQuerySettings->setRespectStoragePage(\FALSE);
         $this->frontendUserGroupRepository->setDefaultQuerySettings($defaultQuerySettings);
         $usergroups = [0 => 'none'];
@@ -155,9 +168,9 @@ class CorporationTitleManagementController extends \TYPO3\CMS\Extbase\Mvc\Contro
     /**
      * update action
      *
-     * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle
+     * @param CorporationTitle $corporationTitle
      */
-    public function updateAction(\Gerh\Evecorp\Domain\Model\CorporationTitle $corporationTitle) {
+    public function updateAction(CorporationTitle $corporationTitle) {
         $this->corporationTitleRepository->update($corporationTitle);
         $this->addFlashMessage('Corporation title successful changed.');
         $this->redirect('index');

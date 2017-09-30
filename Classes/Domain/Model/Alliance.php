@@ -19,6 +19,9 @@
 
 namespace Gerh\Evecorp\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /**
  *
  *
@@ -26,7 +29,7 @@ namespace Gerh\Evecorp\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Alliance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Alliance extends AbstractEntity {
 
     /**
      * @var \integer
@@ -54,11 +57,11 @@ class Alliance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @param \integer $allianceId   (Optional) Alliance id
      * @param \string  $allianceName (Optional) Alliance name
      */
-    public function __construct($allianceId = NULL, $allianceName = NULL) {
+    public function __construct($allianceId = \NULL, $allianceName = \NULL) {
         $this->setAllianceId($allianceId);
         $this->setAllianceName($allianceName);
 
-        $this->corporations = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->corporations = new ObjectStorage();
     }
 
     /**
@@ -100,9 +103,9 @@ class Alliance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Add a corporation to alliance
      *
-     * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
+     * @param Corporation $corporation
      */
-    public function addCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
+    public function addCorporation(Corporation $corporation) {
         $this->corporations->attach($corporation);
     }
 
@@ -119,24 +122,24 @@ class Alliance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * Remove all corporations from alliance
      */
     public function removeAllCorporations() {
-        $this->corporations = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->corporations = new ObjectStorage();
     }
 
     /**
      * Remove a corporation from alliance
      *
-     * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
+     * @param Corporation $corporation
      */
-    public function removeCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
+    public function removeCorporation(Corporation $corporation) {
         $this->corporations->detach($corporation);
     }
 
     /**
      * Set alliance corporations,
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $corporations
+     * @param ObjectStorage $corporations
      */
-    public function setCorporations(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $corporations) {
+    public function setCorporations(ObjectStorage $corporations) {
         $this->corporations = $corporations;
     }
 

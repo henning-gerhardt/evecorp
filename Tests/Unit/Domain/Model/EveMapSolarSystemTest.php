@@ -19,17 +19,20 @@
 
 namespace Gerh\Evecorp\Test\Domain\Model;
 
+use Gerh\Evecorp\Domain\Model\EveMapSolarSystem;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /**
  * Testcase for EveMapRegion
  */
-class EveMapSolarSystemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class EveMapSolarSystemTest extends UnitTestCase {
 
     /**
      * @test
      */
     public function solarSystemIdCouldBeSet() {
         $systemId = 30000142;
-        $solarSystem = new \Gerh\Evecorp\Domain\Model\EveMapSolarSystem();
+        $solarSystem = new EveMapSolarSystem();
         $solarSystem->setSolarSystemId($systemId);
 
         $this->assertEquals($systemId, $solarSystem->getSolarSystemId());
@@ -40,7 +43,7 @@ class EveMapSolarSystemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      */
     public function solarSystemNameCouldBeSet() {
         $systemName = 'Jita';
-        $solarSystem = new \Gerh\Evecorp\Domain\Model\EveMapSolarSystem();
+        $solarSystem = new EveMapSolarSystem();
         $solarSystem->setSolarSystemName($systemName);
 
         $this->assertEquals($systemName, $solarSystem->getSolarSystemName());

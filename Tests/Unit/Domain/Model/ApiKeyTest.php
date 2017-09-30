@@ -19,6 +19,12 @@
 
 namespace Gerh\Evecorp\Test\Domain\Model;
 
+use Gerh\Evecorp\Domain\Constants\AccessMask\Character;
+use Gerh\Evecorp\Domain\Constants\AccessMask\Corporation;
+use Gerh\Evecorp\Domain\Model\ApiKey;
+use Gerh\Evecorp\Domain\Model\DateTime;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /**
  *
  *
@@ -26,13 +32,13 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class ApiKeyTest extends UnitTestCase {
 
     /**
      * @test
      */
     public function classCouldBeInitiated() {
-        $apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+        $apiKey = new ApiKey();
 
         $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\ApiKey', $apiKey);
     }
@@ -43,7 +49,7 @@ class ApiKeyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     public function accessMaskCouldBeSet() {
         $expected = 1234567890;
 
-        $apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+        $apiKey = new ApiKey();
         $apiKey->setAccessMask($expected);
 
         $this->assertEquals($expected, $apiKey->getAccessMask());
@@ -53,9 +59,9 @@ class ApiKeyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function expiresCouldBeSet() {
-        $expected = new \Gerh\Evecorp\Domain\Model\DateTime();
+        $expected = new DateTime();
 
-        $apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+        $apiKey = new ApiKey();
         $apiKey->setExpires($expected);
 
         $this->assertEquals($expected, $apiKey->getExpires());
@@ -67,7 +73,7 @@ class ApiKeyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     public function keyIdCouldBeSet() {
         $expected = 1234567890;
 
-        $apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+        $apiKey = new ApiKey();
         $apiKey->setKeyId($expected);
 
         $this->assertEquals($expected, $apiKey->getKeyId());
@@ -79,7 +85,7 @@ class ApiKeyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     public function vCodeCouldBeSet() {
         $expected = 'FooBar';
 
-        $apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+        $apiKey = new ApiKey();
         $apiKey->setVCode($expected);
 
         $this->assertEquals($expected, $apiKey->getVCode());
@@ -90,21 +96,21 @@ class ApiKeyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @return array
      */
     public function accessProvider() {
-        $characterMask = \Gerh\Evecorp\Domain\Constants\AccessMask\Character::BOOKMARKS +
-            \Gerh\Evecorp\Domain\Constants\AccessMask\Character::KILLLOG +
-            \Gerh\Evecorp\Domain\Constants\AccessMask\Character::CONTACTLIST;
+        $characterMask = Character::BOOKMARKS +
+            Character::KILLLOG +
+            Character::CONTACTLIST;
 
-        $corporationMask = \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES +
-            \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::FACWARSTATS;
+        $corporationMask = Corporation::TITLES +
+            Corporation::FACWARSTATS;
 
         return [
-            [\TRUE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::BOOKMARKS],
-            [\TRUE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::KILLLOG],
-            [\TRUE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::CONTACTLIST],
-            [\FALSE, $characterMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Character::CALENDAREVENTATTENDEES],
-            [\TRUE, $corporationMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES],
-            [\FALSE, $corporationMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::INDUSTRYJOBS],
-            [\FALSE, $corporationMask, \Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::ACCOUNTBALANCE],
+            [\TRUE, $characterMask, Character::BOOKMARKS],
+            [\TRUE, $characterMask, Character::KILLLOG],
+            [\TRUE, $characterMask, Character::CONTACTLIST],
+            [\FALSE, $characterMask, Character::CALENDAREVENTATTENDEES],
+            [\TRUE, $corporationMask, Corporation::TITLES],
+            [\FALSE, $corporationMask, Corporation::INDUSTRYJOBS],
+            [\FALSE, $corporationMask, Corporation::ACCOUNTBALANCE],
         ];
     }
 
@@ -116,7 +122,7 @@ class ApiKeyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @dataProvider accessProvider
      */
     public function hasAccessToChecks($expected, $accessMask, $toProveAgainst) {
-        $apiKey = new \Gerh\Evecorp\Domain\Model\ApiKey();
+        $apiKey = new ApiKey();
         $apiKey->setAccessMask($accessMask);
         $result = $apiKey->hasAccessTo($toProveAgainst);
 

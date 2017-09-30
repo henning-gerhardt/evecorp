@@ -19,6 +19,10 @@
 
 namespace Gerh\Evecorp\Domain\Mapper;
 
+use Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo;
+use Gerh\Evecorp\Domain\Model\Internal\Character;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Description of ApiKeyInfoMapper
  *
@@ -39,16 +43,16 @@ class ApiKeyInfoMapper {
     /**
      *
      * @param \Pheal\Core\Element $resultElement
-     * @return \Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo
+     * @return ApiKeyInfo
      */
     protected function mapRetrievedInformation(\Pheal\Core\Element $resultElement) {
-        $result = new \Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo();
+        $result = new ApiKeyInfo();
         $result->setAccessMask($resultElement->accessMask);
         $result->setExpires($resultElement->expires);
         $result->setType($resultElement->type);
 
         foreach ($resultElement->characters as $char) {
-            $character = new \Gerh\Evecorp\Domain\Model\Internal\Character();
+            $character = new Character();
             $character->setCharacterId($char->characterID);
             $character->setCharacterName($char->characterName);
             $character->setCorporationId($char->corporationID);
@@ -82,18 +86,18 @@ class ApiKeyInfoMapper {
 
     /**
      *
-     * @return \Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo
+     * @return ApiKeyInfo
      */
     public function retrieveApiKeyInfo() {
 
         try {
-            $phealService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Gerh\\Evecorp\\Service\\PhealService', $this->keyId, $this->vCode);
+            $phealService = GeneralUtility::makeInstance('Gerh\\Evecorp\\Service\\PhealService', $this->keyId, $this->vCode);
             $pheal = $phealService->getPhealInstance();
             // using account scope as no coporation api key info is available
             $response = $pheal->accountScope->APIKeyInfo();
             return $this->mapRetrievedInformation($response->key);
         } catch (\Pheal\Exceptions\PhealException $ex) {
-            return new \Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo();
+            return new ApiKeyInfo();
         }
     }
 

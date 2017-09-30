@@ -19,6 +19,12 @@
 
 namespace Gerh\Evecorp\Service;
 
+use Gerh\Evecorp\Domain\Model\CorpMember;
+use Gerh\Evecorp\Domain\Repository\CorpMemberRepository;
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
+
 /**
  *
  *
@@ -26,16 +32,16 @@ namespace Gerh\Evecorp\Service;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
+class AccessControlService implements SingletonInterface {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\CorpMemberRepository
+     * @var CorpMemberRepository
      * @inject
      */
     protected $corpMemberRepository;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
+     * @var FrontendUserRepository
      * @inject
      */
     protected $frontendUserRepository;
@@ -46,7 +52,7 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
      * @return \boolean
      */
     public function isLoggedIn() {
-        return $GLOBALS['TSFE']->loginUser == TRUE ? TRUE : FALSE;
+        return $GLOBALS['TSFE']->loginUser == \TRUE ? \TRUE : \FALSE;
     }
 
     /**
@@ -56,36 +62,36 @@ class AccessControlService implements \TYPO3\CMS\Core\SingletonInterface {
      */
     public function getFrontendUserId() {
         if ($this->isLoggedIn()) {
-            return intval($GLOBALS['TSFE']->fe_user->user['uid']);
+            return \intval($GLOBALS['TSFE']->fe_user->user['uid']);
         }
 
-        return NULL;
+        return \NULL;
     }
 
     /**
      * Returns frontend user object if logged in
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser | NULL if not logged in
+     * @return FrontendUser | NULL if not logged in
      */
     public function getFrontendUser() {
         if ($this->isLoggedIn()) {
             return $this->frontendUserRepository->findByUid($this->getFrontendUserId());
         }
 
-        return NULL;
+        return \NULL;
     }
 
     /**
      * Return corp member object for logged in frontend user
      *
-     * @return \Gerh\Evecorp\Domain\Model\CorpMember | NULL
+     * @return CorpMember | NULL
      */
     public function getCorpMember() {
         if ($this->isLoggedIn()) {
             return $this->corpMemberRepository->findByUid($this->getFrontendUserId());
         }
 
-        return NULL;
+        return \NULL;
     }
 
 }

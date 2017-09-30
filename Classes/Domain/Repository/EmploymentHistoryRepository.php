@@ -19,6 +19,10 @@
 
 namespace Gerh\Evecorp\Domain\Repository;
 
+use Gerh\Evecorp\Domain\Model\Character;
+use Gerh\Evecorp\Domain\Model\Corporation;
+use Gerh\Evecorp\Domain\Model\DateTime;
+
 /**
  *
  *
@@ -26,16 +30,16 @@ namespace Gerh\Evecorp\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EmploymentHistoryRepository extends \Gerh\Evecorp\Domain\Repository\BaseRepository {
+class EmploymentHistoryRepository extends BaseRepository {
 
     /**
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $character
-     * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
-     * @param \Gerh\Evecorp\Domain\Model\DateTime $startDate
+     * @param Character $character
+     * @param Corporation $corporation
+     * @param DateTime $startDate
      * @return null | \Gerh\Evecorp\Domain\Model\EmploymentHistory
      */
-    public function searchForEmployment(\Gerh\Evecorp\Domain\Model\Character $character, \Gerh\Evecorp\Domain\Model\Corporation $corporation, \Gerh\Evecorp\Domain\Model\DateTime $startDate) {
+    public function searchForEmployment(Character $character, Corporation $corporation, DateTime $startDate) {
         $query = $this->createQuery();
 
         $constraints = [];

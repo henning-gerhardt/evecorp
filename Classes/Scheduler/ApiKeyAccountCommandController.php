@@ -19,6 +19,10 @@
 
 namespace Gerh\Evecorp\Scheduler;
 
+use Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository;
+use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+
 /**
  *
  *
@@ -26,16 +30,16 @@ namespace Gerh\Evecorp\Scheduler;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyAccountCommandController extends \TYPO3\CMS\Extbase\Mvc\Controller\CommandController {
+class ApiKeyAccountCommandController extends CommandController {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
+     * @var ApiKeyAccountRepository
      * @inject
      */
     protected $apiKeyAccountRepository;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @var PersistenceManager
      * @inject
      */
     protected $persistenceManager;

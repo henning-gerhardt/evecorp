@@ -19,6 +19,11 @@
 
 namespace Gerh\Evecorp\Domain\Validator;
 
+use Gerh\Evecorp\Domain\Mapper\ApiKeyInfoMapper;
+use Gerh\Evecorp\Domain\Model\ApiKey;
+use Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository;
+use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
+
 /**
  *
  *
@@ -26,10 +31,10 @@ namespace Gerh\Evecorp\Domain\Validator;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorporationApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
+class CorporationApiKeyValidator extends AbstractValidator {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
+     * @var ApiKeyAccountRepository
      * @inject
      */
     protected $apiKeyAccountRepository;
@@ -44,17 +49,17 @@ class CorporationApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator
      */
     protected function checkApiKey($keyId, $vCode) {
 
-        $mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyInfoMapper();
+        $mapper = new ApiKeyInfoMapper();
         $mapper->setKeyId($keyId);
         $mapper->setVcode($vCode);
         $apiKeyInfo = $mapper->retrieveApiKeyInfo();
 
         if ($apiKeyInfo->getType() !== 'Corporation') {
             $this->addError('Given API key is not an corporation API key.', 123456890);
-            return FALSE;
+            return \FALSE;
         }
 
-        return TRUE;
+        return \TRUE;
     }
 
     /**
@@ -67,46 +72,46 @@ class CorporationApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator
 
         $result = $this->apiKeyAccountRepository->countByKeyId($keyId);
         if ($result > 0) {
-            return TRUE;
+            return \TRUE;
         }
 
-        return FALSE;
+        return \FALSE;
     }
 
     /**
      * Made some checks for given model to be valid
      *
-     * @param \Gerh\Evecorp\Domain\Model\ApiKey $value
+     * @param ApiKey $value
      * @return \boolean
      */
     protected function isValid($value) {
 
-        if (($value instanceof \Gerh\Evecorp\Domain\Model\ApiKey) === FALSE) {
+        if (($value instanceof ApiKey) === \FALSE) {
             $this->addError('Given object has wrong type!', 1234567890);
-            return FALSE;
+            return \FALSE;
         }
 
         $keyId = $value->getKeyId();
         $vCode = $value->getVCode();
 
-        if (empty($keyId) === TRUE) {
+        if (empty($keyId) === \TRUE) {
             $this->addError('Key ID is empty!', 1234567890);
-            return FALSE;
+            return \FALSE;
         }
 
-        if (\is_int($keyId) === FALSE) {
+        if (\is_int($keyId) === \FALSE) {
             $this->addError('Key ID is not a integer value!', 1234567890);
-            return FALSE;
+            return \FALSE;
         }
 
-        if (empty($vCode) === TRUE) {
+        if (empty($vCode) === \TRUE) {
             $this->addError('Verification code is empty!', 1234567890);
-            return FALSE;
+            return \FALSE;
         }
 
         if ($this->isKeyIdAlreadyInDatabase($keyId)) {
             $this->addError('Key already stored in database', 1234567890);
-            return FALSE;
+            return \FALSE;
         }
 
         return $this->checkApiKey($keyId, $vCode);

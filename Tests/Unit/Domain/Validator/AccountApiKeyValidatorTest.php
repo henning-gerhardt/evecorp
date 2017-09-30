@@ -19,6 +19,12 @@
 
 namespace Gerh\Evecorp\Test\Domain\Validator;
 
+use Gerh\Evecorp\Domain\Model\ApiKeyAccount;
+use Gerh\Evecorp\Domain\Model\Character as CharacterModel;
+use Gerh\Evecorp\Domain\Model\CorpMember;
+use Gerh\Evecorp\Domain\Model\Internal\Character;
+use stdClass;
+
 /**
  *
  *
@@ -48,7 +54,7 @@ class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
         return [
             ['string'],
             [12345],
-            [new \stdClass()],
+            [new stdClass()],
         ];
     }
 
@@ -81,7 +87,7 @@ class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
      * @param mixed $vCode
      */
     public function apiKeyAccountValidatorReturnFalseForInvalidKeyIdOrVCode($keyId, $vCode) {
-        $apiKeyAccountModel = new \Gerh\Evecorp\Domain\Model\ApiKeyAccount();
+        $apiKeyAccountModel = new ApiKeyAccount();
         $apiKeyAccountModel->setKeyId($keyId);
         $apiKeyAccountModel->setVCode($vCode);
 
@@ -127,11 +133,11 @@ class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
      * @return array
      */
     public function characterInDatabase() {
-        $internalCharacter = new \Gerh\Evecorp\Domain\Model\Internal\Character();
+        $internalCharacter = new Character();
         $internalCharacter->setCharacterId(1);
-        $simpleCharacter = new \Gerh\Evecorp\Domain\Model\Character();
-        $complexCharacter = new \Gerh\Evecorp\Domain\Model\Character();
-        $complexCharacter->setCorpMember(new \Gerh\Evecorp\Domain\Model\CorpMember());
+        $simpleCharacter = new CharacterModel();
+        $complexCharacter = new CharacterModel();
+        $complexCharacter->setCorpMember(new CorpMember());
 
         return [
             [$internalCharacter, \NULL, \TRUE],
@@ -143,7 +149,7 @@ class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
     /**
      * @test
      * @dataProvider characterInDatabase
-     * @param \Gerh\Evecorp\Domain\Model\Internal\Character $internalCharacter
+     * @param Character $internalCharacter
      * @param mixed $databaseValue
      * @param \boolean $expected
      */
@@ -169,9 +175,9 @@ class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validatio
      */
     public function accessMaskList() {
         return [
-            [8388608, 8388608, true],
-            [8388608, 2, false],
-            [8388608, 25165896, true],
+            [8388608, 8388608, \TRUE],
+            [8388608, 2, \FALSE],
+            [8388608, 25165896, \TRUE],
         ];
     }
 

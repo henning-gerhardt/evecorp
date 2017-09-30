@@ -19,6 +19,9 @@
 
 namespace Gerh\Evecorp\Controller;
 
+use Gerh\Evecorp\Domain\Model\Character;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
 /**
  *
  *
@@ -26,15 +29,15 @@ namespace Gerh\Evecorp\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CharacterManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class CharacterManagementController extends ActionController {
 
     /**
      * Show character information
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $character
+     * @param Character $character
      * @return void
      */
-    public function showAction(\Gerh\Evecorp\Domain\Model\Character $character) {
+    public function showAction(Character $character) {
         $this->view->assign('character', $character);
     }
 

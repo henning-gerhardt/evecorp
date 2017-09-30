@@ -19,6 +19,16 @@
 
 namespace Gerh\Evecorp\Controller;
 
+use Gerh\Evecorp\Domain\Model\ApiKey;
+use Gerh\Evecorp\Domain\Model\ApiKeyAccount;
+use Gerh\Evecorp\Domain\Model\CorpMember;
+use Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository;
+use Gerh\Evecorp\Domain\Utility\AccessMaskUtility;
+use Gerh\Evecorp\Domain\Utility\CorpMemberUtility;
+use Gerh\Evecorp\Service\AccessControlService;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
 /**
  *
  *
@@ -26,16 +36,16 @@ namespace Gerh\Evecorp\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class ApiKeyManagementController extends ActionController {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
+     * @var ApiKeyAccountRepository
      * @inject
      */
     protected $apiKeyAccountRepository;
 
     /**
-     * @var \Gerh\Evecorp\Service\AccessControlService
+     * @var AccessControlService
      * @inject
      */
     protected $accessControlService;
@@ -60,28 +70,28 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
     /**
      * show form for new api key
      *
-     * @param \Gerh\Evecorp\Domain\Model\ApiKey $newApiKey
+     * @param ApiKey $newApiKey
      * @ignorevalidation $newApiKey
      * @return void
      */
-    public function newAction(\Gerh\Evecorp\Domain\Model\ApiKey $newApiKey = \NULL) {
+    public function newAction(ApiKey $newApiKey = \NULL) {
         $this->view->assign('newApiKey', $newApiKey);
 
-        $accessMask = \Gerh\Evecorp\Domain\Utility\AccessMaskUtility::getAccessMask();
+        $accessMask = AccessMaskUtility::getAccessMask();
         $this->view->assign('accessMask', $accessMask);
     }
 
     /**
      * Add new api key account
      *
-     * @param \Gerh\Evecorp\Domain\Model\ApiKey $newApiKeyAccount
+     * @param ApiKey $newApiKeyAccount
      * @validate $newApiKeyAccount \Gerh\Evecorp\Domain\Validator\AccountApiKeyValidator
      */
-    public function createAction(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $newApiKeyAccount) {
+    public function createAction(ApiKeyAccount $newApiKeyAccount) {
         $corpMember = $this->accessControlService->getCorpMember();
 
-        if (($corpMember === \NULL) || (!$corpMember instanceof \Gerh\Evecorp\Domain\Model\CorpMember)) {
-            $this->addFlashMessage('FE user not defined as Gerh_Evecorp_Domain_Model_CorpMember. Notice your local TYPO3 administrator to change your account to correct record type!', 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        if (($corpMember === \NULL) || (!$corpMember instanceof CorpMember)) {
+            $this->addFlashMessage('FE user not defined as Gerh_Evecorp_Domain_Model_CorpMember. Notice your local TYPO3 administrator to change your account to correct record type!', 'Error happening', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
@@ -92,14 +102,14 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
         $result = $mapper->fillUpModel($newApiKeyAccount);
 
         if ($result === \FALSE) {
-            $this->addFlashMessage($mapper->getErrorMessage(), 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->addFlashMessage($mapper->getErrorMessage(), 'Error happening', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
 
         $this->apiKeyAccountRepository->add($newApiKeyAccount);
 
-        $utility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
+        $utility = new CorpMemberUtility();
         $utility->adjustFrontendUserGroups($corpMember);
 
         $this->redirect('index');
@@ -108,15 +118,15 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
     /**
      * Deleting api key account
      *
-     * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+     * @param ApiKeyAccount $apiKeyAccount
      * @ignorevalidation $apiKeyAccount
      * @return void
      */
-    public function deleteAction(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+    public function deleteAction(ApiKeyAccount $apiKeyAccount) {
         $this->apiKeyAccountRepository->remove($apiKeyAccount);
 
         $corpMember = $this->accessControlService->getCorpMember();
-        $utility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
+        $utility = new CorpMemberUtility();
         $utility->adjustFrontendUserGroups($corpMember);
 
         $this->redirect('index');
@@ -125,17 +135,17 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
     /**
      * Updating api key account
      *
-     * @param \Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount
+     * @param ApiKeyAccount $apiKeyAccount
      * @ignorevalidation $apiKeyAccount
      * @return void
      */
-    public function updateAction(\Gerh\Evecorp\Domain\Model\ApiKeyAccount $apiKeyAccount) {
+    public function updateAction(ApiKeyAccount $apiKeyAccount) {
         $mapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\ApiKeyMapper');
 
         $result = $mapper->updateApiKeyAccount($apiKeyAccount);
 
         if ($result === \FALSE) {
-            $this->addFlashMessage($mapper->getErrorMessage(), 'Error happening', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->addFlashMessage($mapper->getErrorMessage(), 'Error happening', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
@@ -143,7 +153,7 @@ class ApiKeyManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
         $this->apiKeyAccountRepository->update($apiKeyAccount);
 
         $corpMember = $this->accessControlService->getCorpMember();
-        $utility = new \Gerh\Evecorp\Domain\Utility\CorpMemberUtility();
+        $utility = new CorpMemberUtility();
         $utility->adjustFrontendUserGroups($corpMember);
 
         $this->redirect('index');

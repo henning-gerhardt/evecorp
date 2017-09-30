@@ -19,6 +19,11 @@
 
 namespace Gerh\Evecorp\Domain\Model;
 
+use TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /**
  *
  *
@@ -26,7 +31,7 @@ namespace Gerh\Evecorp\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Corporation extends AbstractEntity {
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyCorporation>
@@ -49,7 +54,7 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $corporationName;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\Alliance
+     * @var Alliance
      * @lazy
      */
     protected $currentAlliance;
@@ -62,7 +67,7 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $titles;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+     * @var FrontendUserGroup
      * @lazy
      */
     protected $usergroup;
@@ -73,11 +78,11 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @param type $corporationId   (Optional) Corporation id
      * @param type $corporationName (Optional) Corporation name
      */
-    public function __construct($corporationId = NULL, $corporationName = NULL) {
+    public function __construct($corporationId = \NULL, $corporationName = \NULL) {
         $this->setCorporationId($corporationId);
         $this->setCorporationName($corporationName);
-        $this->apikeys = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->titles = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->apikeys = new ObjectStorage();
+        $this->titles = new ObjectStorage();
     }
 
     /**
@@ -119,10 +124,10 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Get current alliance as object
      *
-     * @return \Gerh\Evecorp\Domain\Model\Alliance | NULL
+     * @return Alliance | NULL
      */
     public function getCurrentAlliance() {
-        if ($this->currentAlliance instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->currentAlliance instanceof LazyLoadingProxy) {
             $this->currentAlliance->_loadRealInstance();
         }
 
@@ -132,9 +137,9 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Set current alliance
      *
-     * @param \Gerh\Evecorp\Domain\Model\Alliance $alliance
+     * @param Alliance $alliance
      */
-    public function setCurrentAlliance(\Gerh\Evecorp\Domain\Model\Alliance $alliance = \NULL) {
+    public function setCurrentAlliance(Alliance $alliance = \NULL) {
         $this->currentAlliance = $alliance;
     }
 
@@ -146,7 +151,7 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     public function getAllianceName() {
         $result = '';
         $alliance = $this->getCurrentAlliance();
-        if ($alliance instanceof \Gerh\Evecorp\Domain\Model\Alliance) {
+        if ($alliance instanceof Alliance) {
             $result = $alliance->getAllianceName();
         }
 
@@ -156,10 +161,10 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Get default frontend user group
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+     * @return FrontendUserGroup
      */
     public function getUsergroup() {
-        if ($this->usergroup instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->usergroup instanceof LazyLoadingProxy) {
             $this->usergroup->_loadRealInstance();
         }
 
@@ -169,19 +174,19 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Set default frontend user group
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup
+     * @param FrontendUserGroup $usergroup
      * @return void
      */
-    public function setUsergroup(\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $usergroup = NULL) {
+    public function setUsergroup(FrontendUserGroup $usergroup = \NULL) {
         $this->usergroup = $usergroup;
     }
 
     /**
      * Add a api key to corporation
      *
-     * @param \Gerh\Evecorp\Domain\Model\ApiKeyCorporation $apikey
+     * @param ApiKeyCorporation $apikey
      */
-    public function addApiKey(\Gerh\Evecorp\Domain\Model\ApiKeyCorporation $apikey) {
+    public function addApiKey(ApiKeyCorporation $apikey) {
         $this->apikeys->attach($apikey);
     }
 
@@ -191,7 +196,7 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyCorporation>
      */
     public function getApiKeys() {
-        if ($this->apikeys instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->apikeys instanceof LazyLoadingProxy) {
             $this->apikeys->_loadRealInstance();
         }
         return $this->apikeys;
@@ -201,33 +206,33 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * Remove all api keys from corporation
      */
     public function removeAllApiKeys() {
-        $this->apikeys = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->apikeys = new ObjectStorage();
     }
 
     /**
      * Remove a api key from corporation
      *
-     * @param \Gerh\Evecorp\Domain\Model\ApiKeyCorporation $apikey
+     * @param ApiKeyCorporation $apikey
      */
-    public function removeApiKey(\Gerh\Evecorp\Domain\Model\ApiKeyCorporation $apikey) {
+    public function removeApiKey(ApiKeyCorporation $apikey) {
         $this->apikeys->detach($apikey);
     }
 
     /**
      * Set api keys of corporation
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $apikeys
+     * @param ObjectStorage $apikeys
      */
-    public function setApiKeys(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $apikeys) {
+    public function setApiKeys(ObjectStorage $apikeys) {
         $this->apikeys = $apikeys;
     }
 
     /**
      * Add a title to corporation
      *
-     * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $title
+     * @param CorporationTitle $title
      */
-    public function addCorporationTitle(\Gerh\Evecorp\Domain\Model\CorporationTitle $title) {
+    public function addCorporationTitle(CorporationTitle $title) {
         $this->titles->attach($title);
     }
 
@@ -244,24 +249,24 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * Remove all titles from corporation
      */
     public function removeAllCorporationTitles() {
-        $this->titles = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->titles = new ObjectStorage();
     }
 
     /**
      * Remove a title from corporation
      *
-     * @param \Gerh\Evecorp\Domain\Model\CorporationTitle $title
+     * @param CorporationTitle $title
      */
-    public function removeCorporationTitle(\Gerh\Evecorp\Domain\Model\CorporationTitle $title) {
+    public function removeCorporationTitle(CorporationTitle $title) {
         $this->titles->detach($title);
     }
 
     /**
      * Set titles of corporation
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $titles
+     * @param ObjectStorage $titles
      */
-    public function setCorporationTitles(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $titles) {
+    public function setCorporationTitles(ObjectStorage $titles) {
         $this->titles = $titles;
     }
 
@@ -287,7 +292,7 @@ class Corporation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * requirements. If none is found NULL is returned.
      *
      * @param \integer $accessMaskToSearchFor
-     * @return \NULL|\Gerh\Evecorp\Domain\Model\ApiKeyCorporation
+     * @return \NULL|ApiKeyCorporation
      */
     public function findFirstApiKeyByAccessMask($accessMaskToSearchFor) {
         $result = \NULL;

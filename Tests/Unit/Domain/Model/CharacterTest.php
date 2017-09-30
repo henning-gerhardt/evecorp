@@ -19,6 +19,12 @@
 
 namespace Gerh\Evecorp\Test\Domain\Model;
 
+use Gerh\Evecorp\Domain\Model\ApiKeyAccount;
+use Gerh\Evecorp\Domain\Model\Character;
+use Gerh\Evecorp\Domain\Model\CorpMember;
+use Gerh\Evecorp\Domain\Model\Corporation;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+
 /**
  *
  *
@@ -26,13 +32,13 @@ namespace Gerh\Evecorp\Test\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class CharacterTest extends UnitTestCase {
 
     /**
      * @test
      */
     public function classCouldBeInitiated() {
-        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character = new Character();
 
         $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\Character', $character);
     }
@@ -41,9 +47,9 @@ class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function apiKeyCouldBeSet() {
-        $expected = new \Gerh\Evecorp\Domain\Model\ApiKeyAccount();
+        $expected = new ApiKeyAccount();
 
-        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character = new Character();
         $character->setApiKey($expected);
 
         $this->assertEquals($expected, $character->getApiKey());
@@ -55,7 +61,7 @@ class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     public function characterIdCouldBeSet() {
         $expected = 13579;
 
-        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character = new Character();
         $character->setCharacterId($expected);
 
         $this->assertEquals($expected, $character->getCharacterId());
@@ -67,7 +73,7 @@ class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     public function characterNameCouldBeSet() {
         $expected = 'FooBar';
 
-        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character = new Character();
         $character->setCharacterName($expected);
 
         $this->assertEquals($expected, $character->getCharacterName());
@@ -77,9 +83,9 @@ class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function corpMemberCouldBeSet() {
-        $expected = new \Gerh\Evecorp\Domain\Model\CorpMember();
+        $expected = new CorpMember();
 
-        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character = new Character();
         $character->setCorpMember($expected);
 
         $this->assertEquals($expected, $character->getCorpMember());
@@ -89,9 +95,9 @@ class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      */
     public function currentCorporationCouldBeSet() {
-        $expected = new \Gerh\Evecorp\Domain\Model\Corporation();
+        $expected = new Corporation();
 
-        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character = new Character();
         $character->setCurrentCorporation($expected);
 
         $this->assertEquals($expected, $character->getCurrentCorporation());
@@ -103,7 +109,7 @@ class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     public function raceCouldBeSet() {
         $expected = 'Baar';
 
-        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character = new Character();
         $character->setRace($expected);
 
         $this->assertEquals($expected, $character->getRace());
@@ -115,7 +121,7 @@ class CharacterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     public function securityStatusCouldBeSet() {
         $expected = 4.3;
 
-        $character = new \Gerh\Evecorp\Domain\Model\Character();
+        $character = new Character();
         $character->setSecurityStatus($expected);
 
         $this->assertEquals($expected, $character->getSecurityStatus());

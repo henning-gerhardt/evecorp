@@ -19,6 +19,16 @@
 
 namespace Gerh\Evecorp\Domain\Validator;
 
+use Gerh\Evecorp\Domain\Mapper\ApiKeyInfoMapper;
+use Gerh\Evecorp\Domain\Model\ApiKey;
+use Gerh\Evecorp\Domain\Model\Character as CharacterModel;
+use Gerh\Evecorp\Domain\Model\CorpMember;
+use Gerh\Evecorp\Domain\Model\Internal\Character;
+use Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository;
+use Gerh\Evecorp\Domain\Repository\CharacterRepository;
+use Gerh\Evecorp\Domain\Utility\AccessMaskUtility;
+use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
+
 /**
  *
  *
@@ -26,16 +36,16 @@ namespace Gerh\Evecorp\Domain\Validator;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class AccountApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
+class AccountApiKeyValidator extends AbstractValidator {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
+     * @var ApiKeyAccountRepository
      * @inject
      */
     protected $apiKeyAccountRepository;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
+     * @var CharacterRepository
      * @inject
      */
     protected $characterRepository;
@@ -46,7 +56,7 @@ class AccountApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
      * @return \integer
      */
     protected function getAccessMask() {
-        return \Gerh\Evecorp\Domain\Utility\AccessMaskUtility::getAccessMask();
+        return AccessMaskUtility::getAccessMask();
     }
 
     /**
@@ -71,13 +81,13 @@ class AccountApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
     /**
      * Check if a given character is not in database nor has a login assigned
      *
-     * @param \Gerh\Evecorp\Domain\Model\Internal\Character $internalCharacterInfo
+     * @param Character $internalCharacterInfo
      * @return boolean
      */
-    protected function isCharacterIsNotInDatabaseNorHasALoginAssigned(\Gerh\Evecorp\Domain\Model\Internal\Character $internalCharacterInfo) {
+    protected function isCharacterIsNotInDatabaseNorHasALoginAssigned(Character $internalCharacterInfo) {
         $character = $this->getCharacterFromDatabase($internalCharacterInfo->getCharacterId());
-        if ($character instanceof \Gerh\Evecorp\Domain\Model\Character) {
-            if ($character->getCorpMember() instanceof \Gerh\Evecorp\Domain\Model\CorpMember) {
+        if ($character instanceof CharacterModel) {
+            if ($character->getCorpMember() instanceof CorpMember) {
                 $this->addError('Character "' . $character->getCharacterName() . '" is already assigned to a login.', 1234567890);
                 return \FALSE;
             }
@@ -97,7 +107,7 @@ class AccountApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
      */
     protected function checkApiKey($keyId, $vCode) {
 
-        $mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyInfoMapper();
+        $mapper = new ApiKeyInfoMapper();
         $mapper->setKeyId($keyId);
         $mapper->setVcode($vCode);
         $apiKeyInfo = $mapper->retrieveApiKeyInfo();
@@ -112,7 +122,7 @@ class AccountApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
             return \FALSE;
         }
 
-        /* @var $characterInfo \Gerh\Evecorp\Domain\Model\Internal\Character */
+        /* @var $characterInfo Character */
         foreach ($apiKeyInfo->getCharacters() as $characterInfo) {
             if (!$this->isCharacterIsNotInDatabaseNorHasALoginAssigned($characterInfo)) {
                 return \FALSE;
@@ -141,12 +151,12 @@ class AccountApiKeyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abs
     /**
      * Made some checks for given model to be valid
      *
-     * @param \Gerh\Evecorp\Domain\Model\ApiKey $value
+     * @param ApiKey $value
      * @return \boolean
      */
     protected function isValid($value) {
 
-        if (($value instanceof \Gerh\Evecorp\Domain\Model\ApiKey) === \FALSE) {
+        if (($value instanceof ApiKey) === \FALSE) {
             $this->addError('Given object has wrong type!', 1234567890);
             return \FALSE;
         }

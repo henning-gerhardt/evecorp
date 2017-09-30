@@ -19,6 +19,9 @@
 
 namespace Gerh\Evecorp\Scheduler;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Scheduler\Task\AbstractTask;
+
 /**
  *
  *
@@ -26,7 +29,7 @@ namespace Gerh\Evecorp\Scheduler;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class UpdateEveItemListTask extends AbstractTask {
 
     /**
      * @var $eveItemRepository \Gerh\Evecorp\Domain\Repository\EveitemRepository
@@ -46,11 +49,11 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
     protected function updateEveItemList() {
 
         /** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+        $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
         $this->eveItemRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EveitemRepository');
         $this->eveCentralFetcher = $objectManager->get('Gerh\\Evecorp\\Domain\\Model\\EveCentralFetcher');
 
-        $extconf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
+        $extconf = \unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
         $this->eveCentralFetcher->setBaseUri($extconf['evecentralUri']);
 
         $this->updateItemsBasedOnSystemId();
@@ -103,7 +106,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
     protected function getListOfOutdatedItemsForRegion($regionId) {
         $fetchList = [];
 
-        if (($regionId == null) || ($regionId == 0)) {
+        if (($regionId == \NULL) || ($regionId == 0)) {
             return $fetchList;
         }
 
@@ -122,7 +125,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
     protected function getListOfOutdatedItemsForSystem($systemId) {
         $fetchList = [];
 
-        if (($systemId == null) || ($systemId == 0)) {
+        if (($systemId == \NULL) || ($systemId == 0)) {
             return $fetchList;
         }
 
@@ -141,7 +144,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
      */
     protected function fetchUpdateableItemsForRegion($fetchList, $regionId) {
 
-        if ((count($fetchList) == 0) || ($regionId == null) || ($regionId == 0)) {
+        if ((count($fetchList) == 0) || ($regionId == \NULL) || ($regionId == 0)) {
             return [];
         }
 
@@ -161,7 +164,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
      */
     protected function fetchUpdateableItemsForSystem($fetchList, $systemId) {
 
-        if ((count($fetchList) == 0) || ($systemId == null) || ($systemId == 0)) {
+        if ((count($fetchList) == 0) || ($systemId == \NULL) || ($systemId == 0)) {
             return [];
         }
 
@@ -180,7 +183,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
      */
     protected function updateEveItemsForRegion($eveItemUpdateList, $regionId) {
 
-        if ((count($eveItemUpdateList) == 0) || ($regionId == null) || $regionId == 0) {
+        if ((count($eveItemUpdateList) == 0) || ($regionId == \NULL) || $regionId == 0) {
             return;
         }
 
@@ -188,7 +191,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
             foreach ($this->eveItemRepository->findByEveIdAndRegionId($eveId, $regionId) as $dbEntry) {
                 $dbEntry->setBuyPrice($values['buy']);
                 $dbEntry->setSellPrice($values['sell']);
-                $dbEntry->setCacheTime(time());
+                $dbEntry->setCacheTime(\time());
                 $this->eveItemRepository->update($dbEntry);
             }
         }
@@ -202,7 +205,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
      */
     protected function updateEveItemsForSystem($eveItemUpdateList, $systemId) {
 
-        if ((count($eveItemUpdateList) == 0) || ($systemId == null) || $systemId == 0) {
+        if ((count($eveItemUpdateList) == 0) || ($systemId == \NULL) || $systemId == 0) {
             return;
         }
 
@@ -210,7 +213,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
             foreach ($this->eveItemRepository->findByEveIdAndSystemId($eveId, $systemId) as $dbEntry) {
                 $dbEntry->setBuyPrice($values['buy']);
                 $dbEntry->setSellPrice($values['sell']);
-                $dbEntry->setCacheTime(time());
+                $dbEntry->setCacheTime(\time());
                 $this->eveItemRepository->update($dbEntry);
             }
         }
@@ -224,7 +227,7 @@ class UpdateEveItemListTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
     public function execute() {
         $this->updateEveItemList();
 
-        return true;
+        return \TRUE;
     }
 
 }

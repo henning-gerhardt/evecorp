@@ -60,9 +60,9 @@ class ApiKeyInfo {
     /**
      * Add a character
      *
-     * @param \Gerh\Evecorp\Domain\Model\Internal\Character $character
+     * @param Character $character
      */
-    public function addCharacter(\Gerh\Evecorp\Domain\Model\Internal\Character $character) {
+    public function addCharacter(Character $character) {
         $this->characters[] = $character;
     }
 

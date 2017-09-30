@@ -19,6 +19,10 @@
 
 namespace Gerh\Evecorp\Domain\Model;
 
+use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /**
  *
  *
@@ -26,7 +30,7 @@ namespace Gerh\Evecorp\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyAccount extends \Gerh\Evecorp\Domain\Model\ApiKey {
+class ApiKeyAccount extends ApiKey {
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
@@ -36,7 +40,7 @@ class ApiKeyAccount extends \Gerh\Evecorp\Domain\Model\ApiKey {
     protected $characters;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\CorpMember
+     * @var CorpMember
      * @lazy
      */
     protected $corpMember;
@@ -45,15 +49,15 @@ class ApiKeyAccount extends \Gerh\Evecorp\Domain\Model\ApiKey {
      * class constructor
      */
     public function __construct() {
-        $this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->characters = new ObjectStorage();
     }
 
     /**
      * Add character to API key
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $character
+     * @param Character $character
      */
-    public function addCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
+    public function addCharacter(Character $character) {
         $this->characters->attach($character);
     }
 
@@ -69,9 +73,9 @@ class ApiKeyAccount extends \Gerh\Evecorp\Domain\Model\ApiKey {
     /**
      * Remove character from API key
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $character
+     * @param Character $character
      */
-    public function removeCharacter(\Gerh\Evecorp\Domain\Model\Character $character) {
+    public function removeCharacter(Character $character) {
         $this->characters->detach($character);
     }
 
@@ -79,25 +83,25 @@ class ApiKeyAccount extends \Gerh\Evecorp\Domain\Model\ApiKey {
      * Remove all characters from API key
      */
     public function removeAllCharacters() {
-        $this->characters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->characters = new ObjectStorage();
     }
 
     /**
      * Set characters of API key
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $characters
+     * @param ObjectStorage $characters
      */
-    public function setCharacters(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $characters) {
+    public function setCharacters(ObjectStorage $characters) {
         $this->characters = $characters;
     }
 
     /**
      * Returns frontend user for API key
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+     * @return FrontendUser
      */
     public function getCorpMember() {
-        if ($this->corpMember instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+        if ($this->corpMember instanceof LazyLoadingProxy) {
             $this->corpMember->_loadRealInstance();
         }
 
@@ -107,9 +111,9 @@ class ApiKeyAccount extends \Gerh\Evecorp\Domain\Model\ApiKey {
     /**
      * Set frontend user for this API key
      *
-     * @param \Gerh\Evecorp\Domain\Model\CorpMember
+     * @param CorpMember
      */
-    public function setCorpMember(\Gerh\Evecorp\Domain\Model\CorpMember $corpMember) {
+    public function setCorpMember(CorpMember $corpMember) {
         $this->corpMember = $corpMember;
     }
 

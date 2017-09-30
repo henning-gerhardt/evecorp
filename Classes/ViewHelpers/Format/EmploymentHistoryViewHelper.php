@@ -19,6 +19,10 @@
 
 namespace Gerh\Evecorp\ViewHelpers\Format;
 
+use DateTime;
+use Gerh\Evecorp\Domain\Model\Character;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  *
  *
@@ -26,29 +30,29 @@ namespace Gerh\Evecorp\ViewHelpers\Format;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EmploymentHistoryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class EmploymentHistoryViewHelper extends AbstractViewHelper {
 
     /**
      * Render employment history of given character
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $character
+     * @param Character $character
      * @return \string
      */
-    public function render(\Gerh\Evecorp\Domain\Model\Character $character) {
+    public function render(Character $character) {
 
         $output = '';
-        $lastJoinDate = NULL;
+        $lastJoinDate = \NULL;
 
         foreach ($character->getEmployments() as $employment) {
             $output .= '<tr>';
             $output .= '<td>' . $employment->getCorporation()->getCorporationName() . '</td>';
             $output .= '<td>' . $employment->getStartDate()->format('d.m.Y H:i') . '</td>';
 
-            if ($lastJoinDate != NULL) {
+            if ($lastJoinDate != \NULL) {
                 $output .= '<td>' . $lastJoinDate->format('d.m.Y H:i') . '</td>';
             } else {
                 $output .= '<td>today</td>';
-                $lastJoinDate = new \DateTime();
+                $lastJoinDate = new DateTime();
             }
 
             $output .= '<td>' . $employment->getStartDate()->diff($lastJoinDate)->format('%a days') . '</td>';

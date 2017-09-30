@@ -19,6 +19,8 @@
 
 namespace Gerh\Evecorp\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 /**
  *
  *
@@ -26,7 +28,7 @@ namespace Gerh\Evecorp\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class ApiKey extends AbstractEntity {
 
     /**
      * @var \integer
@@ -35,7 +37,7 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     protected $accessMask;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\DateTime
+     * @var DateTime
      */
     protected $expires;
 
@@ -75,7 +77,7 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Returns date of API key expire
      *
-     * @return \Gerh\Evecorp\Domain\Model\DateTime | NULL if no expire date
+     * @return DateTime | NULL if no expire date
      */
     public function getExpires() {
         return $this->expires;
@@ -84,9 +86,9 @@ class ApiKey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Set date when an API key get expired
      *
-     * @param \Gerh\Evecorp\Domain\Model\DateTime $expires
+     * @param DateTime $expires
      */
-    public function setExpires(\Gerh\Evecorp\Domain\Model\DateTime $expires = NULL) {
+    public function setExpires(DateTime $expires = \NULL) {
         $this->expires = $expires;
     }
 

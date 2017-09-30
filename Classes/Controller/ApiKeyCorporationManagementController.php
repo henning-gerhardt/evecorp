@@ -19,6 +19,15 @@
 
 namespace Gerh\Evecorp\Controller;
 
+use Gerh\Evecorp\Domain\Constants\AccessMask\Corporation as CorporationAccessMask;
+use Gerh\Evecorp\Domain\Mapper\ApiKeyInfoMapper;
+use Gerh\Evecorp\Domain\Model\ApiKeyCorporation;
+use Gerh\Evecorp\Domain\Model\Corporation;
+use Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository;
+use Gerh\Evecorp\Domain\Repository\CorporationRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
 /**
  *
  *
@@ -26,16 +35,16 @@ namespace Gerh\Evecorp\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class ApiKeyCorporationManagementController extends ActionController {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository
+     * @var ApiKeyCorporationRepository
      * @inject
      */
     protected $apiKeyCorporationRepository;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
+     * @var CorporationRepository
      * @inject
      */
     protected $corporationRepository;
@@ -48,11 +57,11 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
     protected $selectedCorporation;
 
     /**
-     * @see \TYPO3\CMS\Extbase\Mvc\Controller\ActionController::initializeAction()
+     * @see ActionController::initializeAction()
      */
     public function initializeAction() {
         $selectedCorporation = (\strlen($this->settings['corporation']) > 0) ?
-            \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->settings['corporation']) : [];
+            GeneralUtility::intExplode(',', $this->settings['corporation']) : [];
 
         $amountOfSelectedCorporation = \count($selectedCorporation);
         if ($amountOfSelectedCorporation == 1) {
@@ -76,8 +85,8 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
         if ($this->selectedCorporation > 0) {
             $apiKeys = $this->apiKeyCorporationRepository->findByCorporation($this->selectedCorporation);
             $corporation = $this->corporationRepository->findByUid($this->selectedCorporation);
-            if ($corporation instanceof \Gerh\Evecorp\Domain\Model\Corporation) {
-                $hasTitleAccess = $corporation->hasAccessTo(\Gerh\Evecorp\Domain\Constants\AccessMask\Corporation::TITLES);
+            if ($corporation instanceof Corporation) {
+                $hasTitleAccess = $corporation->hasAccessTo(CorporationAccessMask::TITLES);
             }
         } else {
             $apiKeys = [];
@@ -91,22 +100,22 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
     /**
      * show form for new api key
      *
-     * @param \Gerh\Evecorp\Domain\Model\ApiKeyCorporation $newApiKeyCorporation
+     * @param ApiKeyCorporation $newApiKeyCorporation
      * @ignorevalidation $newApiKeyCorporation
      * @return void
      */
-    public function newAction(\Gerh\Evecorp\Domain\Model\ApiKeyCorporation $newApiKeyCorporation = NULL) {
+    public function newAction(ApiKeyCorporation $newApiKeyCorporation = NULL) {
         $this->view->assign('newApiKeyCorporation', $newApiKeyCorporation);
     }
 
     /**
      * Add new api key corporation
      *
-     * @param \Gerh\Evecorp\Domain\Model\ApiKeyCorporation $newApiKeyCorporation
+     * @param ApiKeyCorporation $newApiKeyCorporation
      * @validate $newApiKeyCorporation \Gerh\Evecorp\Domain\Validator\CorporationApiKeyValidator
      * @return void
      */
-    public function createAction(\Gerh\Evecorp\Domain\Model\ApiKeyCorporation $newApiKeyCorporation) {
+    public function createAction(ApiKeyCorporation $newApiKeyCorporation) {
 
         if ($this->selectedCorporation <= 0) {
             $this->addFlashMessage('No or to many corporations selected!');
@@ -117,7 +126,7 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
         $corporation = $this->corporationRepository->findByUid($this->selectedCorporation);
         $newApiKeyCorporation->setCorporation($corporation);
 
-        $mapper = new \Gerh\Evecorp\Domain\Mapper\ApiKeyInfoMapper();
+        $mapper = new ApiKeyInfoMapper();
         $mapper->setKeyId($newApiKeyCorporation->getKeyId());
         $mapper->setVcode($newApiKeyCorporation->getVCode());
         $apiKeyInfo = $mapper->retrieveApiKeyInfo();
@@ -130,11 +139,11 @@ class ApiKeyCorporationManagementController extends \TYPO3\CMS\Extbase\Mvc\Contr
     /**
      * Deleting api key corporation
      *
-     * @param \Gerh\Evecorp\Domain\Model\ApiKeyCorporation $apiKeyCorporation
+     * @param ApiKeyCorporation $apiKeyCorporation
      * @ignorevalidation $apiKeyCorporation
      * @return void
      */
-    public function deleteAction(\Gerh\Evecorp\Domain\Model\ApiKeyCorporation $apiKeyCorporation) {
+    public function deleteAction(ApiKeyCorporation $apiKeyCorporation) {
         $this->apiKeyCorporationRepository->remove($apiKeyCorporation);
 
         $this->redirect('index');

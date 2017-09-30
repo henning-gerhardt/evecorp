@@ -19,6 +19,8 @@
 
 namespace Gerh\Evecorp\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 /**
  *
  *
@@ -26,7 +28,7 @@ namespace Gerh\Evecorp\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Eveitem extends AbstractEntity {
 
     /**
      * eveName
@@ -79,14 +81,14 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * region
      *
-     * @var \Gerh\Evecorp\Domain\Model\EveMapRegion
+     * @var EveMapRegion
      */
     protected $region;
 
     /**
      * solar system
      *
-     * @var \Gerh\Evecorp\Domain\Model\EveMapSolarSystem
+     * @var EveMapSolarSystem
      */
     protected $solarSystem;
 
@@ -202,7 +204,7 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      */
     public function setTimeToCache($timeToCache) {
         $this->timeToCache = 1;
-        if (is_int($timeToCache) && ($timeToCache > 0)) {
+        if (\is_int($timeToCache) && ($timeToCache > 0)) {
             $this->timeToCache = \intval($timeToCache);
         }
     }
@@ -210,7 +212,7 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Get current region
      *
-     * @return \Gerh\Evecorp\Domain\Model\EveMapRegion
+     * @return EveMapRegion
      */
     public function getRegion() {
         return $this->region;
@@ -219,16 +221,16 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Set region
      *
-     * @param \Gerh\Evecorp\Domain\Model\EveMapRegion $region
+     * @param EveMapRegion $region
      */
-    public function setRegion(\Gerh\Evecorp\Domain\Model\EveMapRegion $region) {
+    public function setRegion(EveMapRegion $region) {
         $this->region = $region;
     }
 
     /**
      * Return used solar system
      *
-     * @return \Gerh\Evecorp\Domain\Model\EveMapSolarSystem
+     * @return EveMapSolarSystem
      */
     public function getSolarSystem() {
         return $this->solarSystem;
@@ -237,10 +239,10 @@ class Eveitem extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Set solar system
      *
-     * @param \Gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem
+     * @param EveMapSolarSystem $solarSystem
      * @return void
      */
-    public function setSolarSystem(\Gerh\Evecorp\Domain\Model\EveMapSolarSystem $solarSystem) {
+    public function setSolarSystem(EveMapSolarSystem $solarSystem) {
         $this->solarSystem = $solarSystem;
     }
 

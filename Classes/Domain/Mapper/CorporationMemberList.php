@@ -19,6 +19,16 @@
 
 namespace Gerh\Evecorp\Domain\Mapper;
 
+use ArrayObject;
+use Gerh\Evecorp\Domain\Model\ApiKeyCorporation;
+use Gerh\Evecorp\Domain\Model\Character;
+use Gerh\Evecorp\Domain\Model\Corporation;
+use Gerh\Evecorp\Domain\Repository\CharacterRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Install\ViewHelpers\Exception;
+
 /**
  * Description of CorporationMemberList
  *
@@ -27,18 +37,18 @@ namespace Gerh\Evecorp\Domain\Mapper;
 class CorporationMemberList {
 
     /**
-     * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
+     * @var CharacterRepository
      * @inject
      */
     protected $characterRepository;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\Corporation
+     * @var Corporation
      */
     protected $corporation;
 
     /**
-     * @var \Gerh\Evecorp\Domain\Model\ApiKeyCorporation
+     * @var ApiKeyCorporation
      */
     protected $corporationApiKey;
 
@@ -48,13 +58,13 @@ class CorporationMemberList {
     protected $errorMessage;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @var ObjectManagerInterface
      * @inject
      */
     protected $objectManager;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @var PersistenceManager
      * @inject
      */
     protected $persistenceManager;
@@ -70,12 +80,12 @@ class CorporationMemberList {
      * @return \boolean
      */
     protected function createAndStoreNewCharacterByCharacterId($characterId) {
-        /* @var $characterMapper \Gerh\Evecorp\Domain\Mapper\CharacterMapper */
+        /* @var $characterMapper CharacterMapper */
         $characterMapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\CharacterMapper');
         $characterMapper->setStoragePid($this->storagePid);
 
         $character = $characterMapper->createModel($characterId);
-        if ($character instanceof \Gerh\Evecorp\Domain\Model\Character) {
+        if ($character instanceof Character) {
             $this->characterRepository->add($character);
             return \TRUE;
         }
@@ -90,7 +100,7 @@ class CorporationMemberList {
      */
     protected function fetchCurrentCorporationMembers() {
         try {
-            $phealService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            $phealService = GeneralUtility::makeInstance(
                     'Gerh\\Evecorp\\Service\\PhealService', $this->corporationApiKey->getKeyId(), $this->corporationApiKey->getVCode()
             );
             $pheal = $phealService->getPhealInstance();
@@ -100,16 +110,16 @@ class CorporationMemberList {
         } catch (Exception $ex) {
             $this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage();
         }
-        return new \ArrayObject();
+        return new ArrayObject();
     }
 
     /**
      * Update character data
      *
-     * @param \Gerh\Evecorp\Domain\Model\Character $formerCorporationMember
+     * @param Character $formerCorporationMember
      */
-    protected function updateFormerCorporationMember(\Gerh\Evecorp\Domain\Model\Character $formerCorporationMember) {
-        /* @var $characterMapper \Gerh\Evecorp\Domain\Mapper\CharacterMapper */
+    protected function updateFormerCorporationMember(Character $formerCorporationMember) {
+        /* @var $characterMapper CharacterMapper */
         $characterMapper = $this->objectManager->get('Gerh\Evecorp\Domain\Mapper\CharacterMapper', $formerCorporationMember->getApiKey());
         $characterMapper->setStoragePid($this->storagePid);
 
@@ -129,18 +139,18 @@ class CorporationMemberList {
     /**
      * Set corporation be used for updating usage
      *
-     * @param \Gerh\Evecorp\Domain\Model\Corporation $corporation
+     * @param Corporation $corporation
      */
-    public function setCorporation(\Gerh\Evecorp\Domain\Model\Corporation $corporation) {
+    public function setCorporation(Corporation $corporation) {
         $this->corporation = $corporation;
     }
 
     /**
      * Set corporation api key
      *
-     * @param \Gerh\Evecorp\Domain\Model\ApiKeyCorporation $corporationApiKey
+     * @param ApiKeyCorporation $corporationApiKey
      */
-    public function setCorporationApiKey(\Gerh\Evecorp\Domain\Model\ApiKeyCorporation $corporationApiKey) {
+    public function setCorporationApiKey(ApiKeyCorporation $corporationApiKey) {
         $this->corporationApiKey = $corporationApiKey;
     }
 
@@ -178,7 +188,7 @@ class CorporationMemberList {
         foreach ($fetchedCorporationMembers as $member) {
             $characterId = $member->characterID;
             $corpMember = $this->characterRepository->findOneByCharacterId($characterId);
-            if ($corpMember instanceof \Gerh\Evecorp\Domain\Model\Character) {
+            if ($corpMember instanceof Character) {
                 $newCorpMemberIdList[] = $characterId;
             } else {
                 if ($this->createAndStoreNewCharacterByCharacterId($characterId)) {
@@ -188,9 +198,9 @@ class CorporationMemberList {
         }
 
         // search for characters which left corporation and update their data
-        /* @var $formerCorpMember \Gerh\Evecorp\Domain\Model\Character */
+        /* @var $formerCorpMember Character */
         foreach ($currentCorpMembers as $formerCorpMember) {
-            if (!in_array($formerCorpMember->getCharacterId(), $newCorpMemberIdList)) {
+            if (!\in_array($formerCorpMember->getCharacterId(), $newCorpMemberIdList)) {
                 // found former corporation character, update his data
                 $this->updateFormerCorporationMember($formerCorpMember);
             }
