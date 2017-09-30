@@ -24,15 +24,19 @@ use Gerh\Evecorp\Domain\Model\Character as CharacterModel;
 use Gerh\Evecorp\Domain\Model\CorpMember;
 use Gerh\Evecorp\Domain\Model\Internal\Character;
 use stdClass;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /**
  *
  *
  * @package evecorp
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
+ * @requires PHP 10.0
  */
-class AccountApiKeyValidatorTest extends \TYPO3\CMS\Extbase\Tests\Unit\Validation\Validator\AbstractValidatorTestcase {
+class AccountApiKeyValidatorTest extends UnitTestCase {
+
+    // TODO: find the reason why \TYPO3\CMS\Extbase\Tests\Unit\Validation\Validator\AbstractValidatorTestcase is not available
+    // remove afterwards the requires annotation
 
     /**
      * @var \string

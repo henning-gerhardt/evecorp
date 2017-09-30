@@ -221,7 +221,7 @@ class EveItemDisplay {
      * @return void
      */
     public function setSolarSystemNameBySolarSystem(EveMapSolarSystem $solarSystem = \NULL) {
-        if (($solarSystem instanceof EveMapSolarSystem) && ($solarSystem != \NULLl)) {
+        if (($solarSystem instanceof EveMapSolarSystem) && ($solarSystem != \NULL)) {
             $this->setSolarSystemName($solarSystem->getSolarSystemName());
         }
     }

@@ -19,13 +19,15 @@
 
 namespace Gerh\Evecorp\Domain\Model;
 
-use DateTime;
 use DateTimeZone;
 
 /**
  * A Decorator for the PHP DateTime object
+ *
+ * class must extends as \DateTime (no use statement!) or
+ * class must be renamed to a better name
  */
-class DateTime extends DateTime {
+class DateTime extends \DateTime {
 
     public function __construct($time = 'now', DateTimeZone $timezone = \NULL) {
         // We need to override the constructor, because Extbase tries to apply the reflection API
