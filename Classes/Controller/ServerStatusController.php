@@ -48,7 +48,7 @@ class ServerStatusController extends ActionController {
      *
      */
     public function initializeAction() {
-        $this->phealService = GeneralUtility::makeInstance('Gerh\\Evecorp\\Service\\PhealService');
+        $this->phealService = GeneralUtility::makeInstance(PhealService::class);
         $this->pheal = $this->phealService->getPhealInstance();
     }
     /**

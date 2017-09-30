@@ -19,6 +19,7 @@
 
 namespace Gerh\Evecorp\Scheduler;
 
+use Gerh\Evecorp\Domain\Mapper\ApiKeyMapper;
 use Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -75,7 +76,7 @@ class ApiKeyAccountCommandController extends CommandController {
 
         $this->initializeRepositories($storagePid);
 
-        $mapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\ApiKeyMapper');
+        $mapper = $this->objectManager->get(ApiKeyMapper::class);
         $mapper->setStoragePid($storagePid);
 
         foreach ($this->apiKeyAccountRepository->findAll() as $apiKeyAccount) {

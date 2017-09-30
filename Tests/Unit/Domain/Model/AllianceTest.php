@@ -37,7 +37,7 @@ class AllianceTest extends UnitTestCase {
     public function classCouldBeInitiated() {
         $alliance = new Alliance();
 
-        $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\Alliance', $alliance);
+        $this->assertInstanceOf(Alliance::class, $alliance);
     }
 
     /**

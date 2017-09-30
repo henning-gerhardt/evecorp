@@ -33,7 +33,7 @@ class CorpMemberTest extends UnitTestCase {
     public function classCouldBeInitiatedWithoutUsernameAndPassword() {
         $corpMember = new CorpMember();
 
-        $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\CorpMember', $corpMember);
+        $this->assertInstanceOf(CorpMember::class, $corpMember);
     }
 
 }

@@ -20,8 +20,10 @@
 namespace Gerh\Evecorp\Test\Domain\Model;
 
 use Gerh\Evecorp\Domain\Model\MarketData;
+use Gerh\Evecorp\Domain\Repository\EveitemRepository;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
  * Testcase for MarketData
@@ -37,7 +39,7 @@ class MarketDataTest extends UnitTestCase {
      * Sets up this test case.
      */
     public function setUp() {
-        $this->mockObjectManager = $this->getMock('TYPO3\CMS\Extbase\Object\ObjectManagerInterface');
+        $this->mockObjectManager = $this->getMock(ObjectManagerInterface::class);
     }
 
     /**
@@ -74,10 +76,10 @@ class MarketDataTest extends UnitTestCase {
      * @test
      */
     public function getMarketDataReturnsEmptyArrayOnEmptyRepository() {
-        $marketData = $this->getMock('Gerh\Evecorp\Domain\Model\MarketData', ['updateEveItems']);
+        $marketData = $this->getMock(MarketData::class, ['updateEveItems']);
 
-        $mockedQueryInterface = $this->getMock('TYPO3\CMS\Extbase\Persistence\QueryInterface');
-        $mockedRepository = $this->getMock('Gerh\Evecorp\Domain\Repository\EveitemRepository', ['findAll'], [$this->mockObjectManager]);
+        $mockedQueryInterface = $this->getMock(QueryInterface::class);
+        $mockedRepository = $this->getMock(EveitemRepository::class, ['findAll'], [$this->mockObjectManager]);
         $mockedRepository
             ->expects($this->once())
             ->method('findAll')

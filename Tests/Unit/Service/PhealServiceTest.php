@@ -33,7 +33,7 @@ class PhealServiceTest extends UnitTestCase {
      */
     public function classCouldBeInstantiated() {
         $service = new PhealService();
-        $this->assertEquals('Gerh\Evecorp\Service\PhealService', \get_class($service));
+        $this->assertInstanceOf(PhealService::class, $service);
     }
 
     /**
@@ -41,7 +41,7 @@ class PhealServiceTest extends UnitTestCase {
      */
     public function serviceReturnsInstanceOfPhealClass() {
         $service = new PhealService();
-        $this->assertEquals('Pheal\Pheal', \get_class($service->getPhealInstance()));
+        $this->assertInstanceOf(\Pheal\Pheal::class, $service->getPhealInstance());
     }
 
     /**

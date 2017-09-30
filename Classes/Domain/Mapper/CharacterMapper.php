@@ -35,6 +35,7 @@ use Gerh\Evecorp\Domain\Repository\CorporationRepository;
 use Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository;
 use Gerh\Evecorp\Service\PhealService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -313,13 +314,13 @@ class CharacterMapper {
         $this->apiKey = $apiKeyModel;
         $scope = 'eve';
         $this->phealService = new PhealService($this->apiKey->getKeyId(), $this->apiKey->getVCode(), $scope);
-        $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
-        $this->setAllianceRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\AllianceRepository'));
-        $this->setCharacterRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CharacterRepository'));
-        $this->setCorporationRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CorporationRepository'));
-        $this->setEmploymentHistoryRepository($objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EmploymentHistoryRepository'));
-        $this->persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+        $this->setAllianceRepository($objectManager->get(AllianceRepository::class));
+        $this->setCharacterRepository($objectManager->get(CharacterRepository::class));
+        $this->setCorporationRepository($objectManager->get(CorporationRepository::class));
+        $this->setEmploymentHistoryRepository($objectManager->get(EmploymentHistoryRepository::class));
+        $this->persistenceManager = $objectManager->get(PersistenceManager::class);
     }
 
     /**

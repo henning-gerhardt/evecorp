@@ -95,7 +95,7 @@ class ApiKeyMapper {
      */
     protected function getNewCharacterMapper(ApiKeyAccount $apiKeyAccount) {
         /* @var $characterMapper CharacterMapper */
-        $characterMapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\CharacterMapper', $apiKeyAccount);
+        $characterMapper = $this->objectManager->get(CharacterMapper::class, $apiKeyAccount);
         $characterMapper->setStoragePid($this->storagePid);
 
         return $characterMapper;

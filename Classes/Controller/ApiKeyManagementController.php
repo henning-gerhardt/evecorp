@@ -19,6 +19,7 @@
 
 namespace Gerh\Evecorp\Controller;
 
+use Gerh\Evecorp\Domain\Mapper\ApiKeyMapper;
 use Gerh\Evecorp\Domain\Model\ApiKey;
 use Gerh\Evecorp\Domain\Model\ApiKeyAccount;
 use Gerh\Evecorp\Domain\Model\CorpMember;
@@ -98,7 +99,7 @@ class ApiKeyManagementController extends ActionController {
 
         $newApiKeyAccount->setCorpMember($corpMember);
 
-        $mapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\ApiKeyMapper');
+        $mapper = $this->objectManager->get(ApiKeyMapper::class);
         $result = $mapper->fillUpModel($newApiKeyAccount);
 
         if ($result === \FALSE) {
@@ -140,7 +141,7 @@ class ApiKeyManagementController extends ActionController {
      * @return void
      */
     public function updateAction(ApiKeyAccount $apiKeyAccount) {
-        $mapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\ApiKeyMapper');
+        $mapper = $this->objectManager->get(ApiKeyMapper::class);
 
         $result = $mapper->updateApiKeyAccount($apiKeyAccount);
 

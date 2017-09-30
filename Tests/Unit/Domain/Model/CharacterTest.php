@@ -40,7 +40,7 @@ class CharacterTest extends UnitTestCase {
     public function classCouldBeInitiated() {
         $character = new Character();
 
-        $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\Character', $character);
+        $this->assertInstanceOf(Character::class, $character);
     }
 
     /**

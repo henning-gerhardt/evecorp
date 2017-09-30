@@ -40,7 +40,7 @@ class CorporationTest extends UnitTestCase {
     public function classCouldBeInitiated() {
         $corporation = new Corporation();
 
-        $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\Corporation', $corporation);
+        $this->assertInstanceOf(Corporation::class, $corporation);
     }
 
     /**

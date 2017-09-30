@@ -21,6 +21,7 @@ namespace Gerh\Evecorp\Domain\Mapper;
 
 use Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo;
 use Gerh\Evecorp\Domain\Model\Internal\Character;
+use Gerh\Evecorp\Service\PhealService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -91,7 +92,7 @@ class ApiKeyInfoMapper {
     public function retrieveApiKeyInfo() {
 
         try {
-            $phealService = GeneralUtility::makeInstance('Gerh\\Evecorp\\Service\\PhealService', $this->keyId, $this->vCode);
+            $phealService = GeneralUtility::makeInstance(PhealService::class, $this->keyId, $this->vCode);
             $pheal = $phealService->getPhealInstance();
             // using account scope as no coporation api key info is available
             $response = $pheal->accountScope->APIKeyInfo();

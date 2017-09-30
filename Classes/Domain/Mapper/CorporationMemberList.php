@@ -24,6 +24,7 @@ use Gerh\Evecorp\Domain\Model\ApiKeyCorporation;
 use Gerh\Evecorp\Domain\Model\Character;
 use Gerh\Evecorp\Domain\Model\Corporation;
 use Gerh\Evecorp\Domain\Repository\CharacterRepository;
+use Gerh\Evecorp\Service\PhealService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -81,7 +82,7 @@ class CorporationMemberList {
      */
     protected function createAndStoreNewCharacterByCharacterId($characterId) {
         /* @var $characterMapper CharacterMapper */
-        $characterMapper = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\CharacterMapper');
+        $characterMapper = $this->objectManager->get(CharacterMapper::class);
         $characterMapper->setStoragePid($this->storagePid);
 
         $character = $characterMapper->createModel($characterId);
@@ -101,7 +102,7 @@ class CorporationMemberList {
     protected function fetchCurrentCorporationMembers() {
         try {
             $phealService = GeneralUtility::makeInstance(
-                    'Gerh\\Evecorp\\Service\\PhealService', $this->corporationApiKey->getKeyId(), $this->corporationApiKey->getVCode()
+                    PhealService::class, $this->corporationApiKey->getKeyId(), $this->corporationApiKey->getVCode()
             );
             $pheal = $phealService->getPhealInstance();
 
@@ -120,7 +121,7 @@ class CorporationMemberList {
      */
     protected function updateFormerCorporationMember(Character $formerCorporationMember) {
         /* @var $characterMapper CharacterMapper */
-        $characterMapper = $this->objectManager->get('Gerh\Evecorp\Domain\Mapper\CharacterMapper', $formerCorporationMember->getApiKey());
+        $characterMapper = $this->objectManager->get(CharacterMapper::class, $formerCorporationMember->getApiKey());
         $characterMapper->setStoragePid($this->storagePid);
 
         $characterMapper->updateModel($formerCorporationMember);

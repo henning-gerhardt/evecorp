@@ -40,7 +40,7 @@ class EmploymentHistoryTest extends UnitTestCase {
     public function classCouldBeInitiated() {
         $history = new EmploymentHistory();
 
-        $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\EmploymentHistory', $history);
+        $this->assertInstanceOf(EmploymentHistory::class, $history);
     }
 
     /**

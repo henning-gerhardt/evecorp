@@ -19,7 +19,11 @@
 
 namespace Gerh\Evecorp\Scheduler;
 
+use Gerh\Evecorp\Domain\Model\EveCentralFetcher;
+use Gerh\Evecorp\Domain\Repository\EveitemRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 /**
@@ -49,9 +53,9 @@ class UpdateEveItemListTask extends AbstractTask {
     protected function updateEveItemList() {
 
         /** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
-        $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-        $this->eveItemRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\EveitemRepository');
-        $this->eveCentralFetcher = $objectManager->get('Gerh\\Evecorp\\Domain\\Model\\EveCentralFetcher');
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $this->eveItemRepository = $objectManager->get(EveitemRepository::class);
+        $this->eveCentralFetcher = $objectManager->get(EveCentralFetcher::class);
 
         $extconf = \unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
         $this->eveCentralFetcher->setBaseUri($extconf['evecentralUri']);
@@ -61,7 +65,7 @@ class UpdateEveItemListTask extends AbstractTask {
         $this->updateItemsBasedOnRegionId();
 
         /** @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
-        $persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+        $persistenceManager = $objectManager->get(PersistenceManager::class);
         $persistenceManager->persistAll();
     }
 

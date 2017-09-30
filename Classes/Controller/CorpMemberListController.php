@@ -20,6 +20,7 @@
 namespace Gerh\Evecorp\Controller;
 
 use Gerh\Evecorp\Domain\Constants\AccessMask\Corporation as Corporation2;
+use Gerh\Evecorp\Domain\Mapper\CorporationMemberList;
 use Gerh\Evecorp\Domain\Model\ApiKeyCorporation;
 use Gerh\Evecorp\Domain\Model\Corporation;
 use Gerh\Evecorp\Domain\Repository\CharacterRepository;
@@ -177,7 +178,7 @@ class CorpMemberListController extends ActionController {
             return;
         }
 
-        $corpMemberListUpdater = $this->objectManager->get('Gerh\Evecorp\\Domain\\Mapper\\CorporationMemberList');
+        $corpMemberListUpdater = $this->objectManager->get(CorporationMemberList::class);
         $corpMemberListUpdater->setCorporationApiKey($corporationApiKey);
         $corpMemberListUpdater->setCorporation($corporation);
         $result = $corpMemberListUpdater->updateCorpMemberList();

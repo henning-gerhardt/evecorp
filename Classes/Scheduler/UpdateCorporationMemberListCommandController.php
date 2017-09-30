@@ -20,6 +20,7 @@
 namespace Gerh\Evecorp\Scheduler;
 
 use Gerh\Evecorp\Domain\Constants\AccessMask\Corporation;
+use Gerh\Evecorp\Domain\Mapper\CorporationMemberList;
 use Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -79,7 +80,7 @@ class UpdateCorporationMemberListCommandController extends CommandController {
                 $corporation = $corporationApiKey->getCorporation();
 
                 // use object manager to get proper initialised object
-                $corpMemberListUpdater = $this->objectManager->get('Gerh\\Evecorp\\Domain\\Mapper\\CorporationMemberList');
+                $corpMemberListUpdater = $this->objectManager->get(CorporationMemberList::class);
                 $corpMemberListUpdater->setStoragePid($storagePid);
                 $corpMemberListUpdater->setCorporationApiKey($corporationApiKey);
                 $corpMemberListUpdater->setCorporation($corporation);

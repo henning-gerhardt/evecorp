@@ -21,7 +21,10 @@ namespace Gerh\Evecorp\Domain\Utility;
 
 use Gerh\Evecorp\Domain\Model\CorpMember;
 use Gerh\Evecorp\Domain\Model\CorporationTitle;
+use Gerh\Evecorp\Domain\Repository\CorpMemberRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
  *
@@ -63,12 +66,12 @@ class CorpMemberUtility {
      * @param CorpMember $corpMember
      */
     protected function persistenceCorpMember(CorpMember $corpMember) {
-        $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-        $corpMemberRepository = $objectManager->get('Gerh\\Evecorp\\Domain\\Repository\\CorpMemberRepository');
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $corpMemberRepository = $objectManager->get(CorpMemberRepository::class);
         $corpMemberRepository->update($corpMember);
 
         // real persistence to database
-        $persistenceManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+        $persistenceManager = $objectManager->get(PersistenceManager::class);
         $persistenceManager->persistAll();
     }
 

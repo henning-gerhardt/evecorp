@@ -38,7 +38,7 @@ class ApiKeyAccountTest extends UnitTestCase {
     public function classCouldBeInitiated() {
         $apiKeyAccount = new ApiKeyAccount();
 
-        $this->assertInstanceOf('Gerh\Evecorp\Domain\Model\ApiKeyAccount', $apiKeyAccount);
+        $this->assertInstanceOf(ApiKeyAccount::class, $apiKeyAccount);
     }
 
     /**
