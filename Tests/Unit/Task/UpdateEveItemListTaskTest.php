@@ -36,7 +36,7 @@ class UpdateEveItemListTaskTest extends UnitTestCase {
      * @test
      */
     public function updateEveItemListTaskIsInstanceOfAbstractTask() {
-        $taskMock = $this->getMock(UpdateEveItemListTask::class);
+        $taskMock = $this->createMock(UpdateEveItemListTask::class);
         $this->assertInstanceOf(AbstractTask::class, $taskMock);
     }
 

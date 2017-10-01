@@ -28,6 +28,7 @@ use Gerh\Evecorp\Domain\Repository\CharacterRepository;
 use Gerh\Evecorp\Domain\Validator\AccountApiKeyValidator;
 use stdClass;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Extbase\Error\Result;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /**
@@ -51,7 +52,9 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      * Testsuite setup
      */
     public function setup() {
-        $this->validator = $this->getMock($this->validatorClassName, ['translateErrorMessage']);
+        $this->validator = $this->getMockBuilder($this->validatorClassName)
+            ->setMethods(['translateErrorMessage'])
+            ->getMock();
     }
 
     /**
@@ -121,8 +124,12 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      * @param \boolean $expected
      */
     public function checkIsKeyAlreadyInDatabase($returnValue, $expected) {
-        $mockObjectManager = $this->getMock(ObjectManagerInterface::class);
-        $mockedRepository = $this->getMock(ApiKeyAccountRepository::class, ['countByKeyId'], [$mockObjectManager]);
+        $mockObjectManager = $this->createMock(ObjectManagerInterface::class);
+
+        $mockedRepository = $this->getMockBuilder(ApiKeyAccountRepository::class)
+            ->setConstructorArgs([$mockObjectManager])
+            ->setMethods(['countByKeyId'])
+            ->getMock();
         $mockedRepository
             ->expects($this->once())
             ->method('countByKeyId')
@@ -163,8 +170,13 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      */
     public function checkIsCharacterIsNotInDatabaseNorHasALoginAssigned($internalCharacter, $databaseValue, $expected) {
         $this->markTestSkipped('Test needs love.');
-        $mockObjectManager = $this->getMock(ObjectManagerInterface::class);
-        $mockedRepository = $this->getMock(CharacterRepository::class, ['findOneByCharacterId'], [$mockObjectManager]);
+        $mockObjectManager = $this->createMock(ObjectManagerInterface::class);
+
+        $mockedRepository = $this->getMockBuilder(CharacterRepository::class)
+            ->setConstructorArgs([$mockObjectManager])
+            ->setMethods(['findOneByCharacterId'])
+            ->getMock();
+
         $mockedRepository
             ->expects($this->once())
             ->method('findOneByCharacterId')

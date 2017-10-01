@@ -39,7 +39,7 @@ class MarketDataTest extends UnitTestCase {
      * Sets up this test case.
      */
     public function setUp() {
-        $this->mockObjectManager = $this->getMock(ObjectManagerInterface::class);
+        $this->mockObjectManager = $this->createMock(ObjectManagerInterface::class);
     }
 
     /**
@@ -76,10 +76,17 @@ class MarketDataTest extends UnitTestCase {
      * @test
      */
     public function getMarketDataReturnsEmptyArrayOnEmptyRepository() {
-        $marketData = $this->getMock(MarketData::class, ['updateEveItems']);
+        $marketData = $this->getMockBuilder(MarketData::class)
+            ->setMethods(['updateEveItems'])
+            ->getMock();
 
-        $mockedQueryInterface = $this->getMock(QueryInterface::class);
-        $mockedRepository = $this->getMock(EveitemRepository::class, ['findAll'], [$this->mockObjectManager]);
+        $mockedQueryInterface = $this->createMock(QueryInterface::class);
+
+        $mockedRepository = $this->getMockBuilder(EveitemRepository::class)
+            ->setConstructorArgs([$this->mockObjectManager])
+            ->setMethods(['findAll'])
+            ->getMock();
+
         $mockedRepository
             ->expects($this->once())
             ->method('findAll')
