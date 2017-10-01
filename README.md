@@ -29,11 +29,12 @@ Why not develop something in two things which makes fun? TYPO3 extension develop
 
 Started as basic example of TYPO3 extension development on version 6.0 (how its works in general and what changed since version 4.2) and searching of current market data from Jita 4-4, the idea was born to merge this two things together. After first presentation inside my corporation some suggestions (f.e. showing / hiding prices based on corporation tax) were made and later implemented. Other suggestions came through development and using earlier versions like caching of market data to reduce calling third party sites.
 
-## Code analysis
+## Code analysis and continues integration tools
 
-Using automatic code analysis tools is a good practice and used in this project 
+Using automatic code analysis, continues intregration tools beside test execution is a good practice and used in this project
 
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/1221c637986c4e939f0a927aeafd46a6)](https://www.codacy.com/app/henning-gerhardt/evecorp)
+[![Build Status](https://travis-ci.org/henning-gerhardt/evecorp.svg?branch=master)](https://travis-ci.org/henning-gerhardt/evecorp)
 
 ## Copyright notice
 
