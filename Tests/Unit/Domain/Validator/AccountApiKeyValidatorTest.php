@@ -40,9 +40,6 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
  */
 class AccountApiKeyValidatorTest extends UnitTestCase {
 
-    // TODO: find the reason why \TYPO3\CMS\Extbase\Tests\Unit\Validation\Validator\AbstractValidatorTestcase is not available
-    // remove afterwards the requires annotation
-
     /**
      * @var \string
      */
@@ -169,7 +166,6 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      * @param \boolean $expected
      */
     public function checkIsCharacterIsNotInDatabaseNorHasALoginAssigned($internalCharacter, $databaseValue, $expected) {
-        $this->markTestSkipped('Test needs love.');
         $mockObjectManager = $this->createMock(ObjectManagerInterface::class);
 
         $mockedRepository = $this->getMockBuilder(CharacterRepository::class)
@@ -183,6 +179,7 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
             ->will($this->returnValue($databaseValue));
 
         $this->inject($this->validator, 'characterRepository', $mockedRepository);
+        $this->inject($this->validator, 'result', new Result());
 
         $actual = $this->callInaccessibleMethod($this->validator, 'isCharacterIsNotInDatabaseNorHasALoginAssigned', $internalCharacter);
 
