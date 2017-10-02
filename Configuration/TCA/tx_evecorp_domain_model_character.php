@@ -21,19 +21,25 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_character'] = [
-    'ctrl' => $TCA['tx_evecorp_domain_model_character']['ctrl'],
+return [
+    'ctrl' => [
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
+        'label' => 'character_name',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => [
+            'disabled' => 'hidden'
+        ],
+        'searchFields' => 'character_id, character_name',
+        'iconfile' => 'EXT:evecorp/Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    ],
     'interface' => [
         'showRecordFieldList' => 'character_name, character_id, hidden',
     ],
     'types' => [
         '1' => [
             'showitem' => 'character_name, character_id, corporation_date, current_corporation, employments, race, security_status, api_key, corp_member, titles, hidden'
-        ],
-    ],
-    'palettes' => [
-        '1' => [
-            'showitem' => ''
         ],
     ],
     'columns' => [
@@ -49,6 +55,7 @@ $TCA['tx_evecorp_domain_model_character'] = [
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_evecorp_domain_model_apikeyaccount',
                 'items' => [
                     ['--none--', 0],
@@ -60,6 +67,7 @@ $TCA['tx_evecorp_domain_model_character'] = [
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account.corpmember',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'fe_users',
                 'items' => [
                     ['--none--', 0],
@@ -98,6 +106,7 @@ $TCA['tx_evecorp_domain_model_character'] = [
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_evecorp_domain_model_corporation',
                 'items' => [
                     ['--none--', 0],
@@ -140,6 +149,7 @@ $TCA['tx_evecorp_domain_model_character'] = [
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation_title',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectCheckBox',
                 'size' => 10,
                 'minitems' => 0,
                 'multiple' => TRUE,

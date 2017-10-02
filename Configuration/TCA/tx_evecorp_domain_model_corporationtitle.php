@@ -21,19 +21,25 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_corporationtitle'] = [
-    'ctrl' => $TCA['tx_evecorp_domain_model_corporationtitle']['ctrl'],
+return [
+    'ctrl' => [
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation_title',
+        'label' => 'title_name',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => [
+            'disabled' => 'hidden'
+        ],
+        'searchFields' => 'title_id, title_name',
+        'iconfile' => 'EXT:evecorp/Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    ],
     'interface' => [
         'showRecordFieldList' => 'title_id, title_name, corporation, hidden',
     ],
     'types' => [
         '1' => [
             'showitem' => 'title_id, title_name, corporation, usergroup, characters, hidden'
-        ],
-    ],
-    'palettes' => [
-        '1' => [
-            'showitem' => ''
         ],
     ],
     'columns' => [
@@ -65,6 +71,7 @@ $TCA['tx_evecorp_domain_model_corporationtitle'] = [
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_evecorp_domain_model_corporation',
             ],
         ],
@@ -73,6 +80,7 @@ $TCA['tx_evecorp_domain_model_corporationtitle'] = [
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.usergroup',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'fe_groups',
                 'items' => [
                     ['--none--', 0],
@@ -84,6 +92,7 @@ $TCA['tx_evecorp_domain_model_corporationtitle'] = [
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectCheckBox',
                 'size' => 10,
                 'minitems' => 0,
                 'multiple' => TRUE,

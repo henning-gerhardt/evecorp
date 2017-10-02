@@ -21,19 +21,25 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_corporation'] = [
-    'ctrl' => $TCA['tx_evecorp_domain_model_corporation']['ctrl'],
+return [
+    'ctrl' => [
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation',
+        'label' => 'corporation_name',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => [
+            'disabled' => 'hidden'
+        ],
+        'searchFields' => 'corporation_id, corporation_name',
+        'iconfile' => 'EXT:evecorp/Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    ],
     'interface' => [
         'showRecordFieldList' => 'hidden, corporation_name, corporation_id, current_alliance',
     ],
     'types' => [
         '1' => [
             'showitem' => 'hidden, corporation_name, corporation_id, current_alliance, usergroup, apikeys, titles'
-        ],
-    ],
-    'palettes' => [
-        '1' => [
-            'showitem' => ''
         ],
     ],
     'columns' => [
@@ -67,6 +73,7 @@ $TCA['tx_evecorp_domain_model_corporation'] = [
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_alliance',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_evecorp_domain_model_alliance',
                 'items' => [
                     ['--none--', 0],
@@ -78,6 +85,7 @@ $TCA['tx_evecorp_domain_model_corporation'] = [
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.usergroup',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'fe_groups',
                 'items' => [
                     ['--none--', 0],

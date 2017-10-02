@@ -21,19 +21,25 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_alliance'] = [
-    'ctrl' => $TCA['tx_evecorp_domain_model_alliance']['ctrl'],
+return [
+    'ctrl' => [
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_alliance',
+        'label' => 'alliance_name',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => [
+            'disabled' => 'hidden'
+        ],
+        'searchFields' => 'alliance_id, alliance_name',
+        'iconfile' => 'EXT:evecorp/Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    ],
     'interface' => [
         'showRecordFieldList' => 'hidden, alliance_name, alliance_id',
     ],
     'types' => [
         '1' => [
             'showitem' => 'hidden, alliance_name, alliance_id, corporations'
-        ],
-    ],
-    'palettes' => [
-        '1' => [
-            'showitem' => ''
         ],
     ],
     'columns' => [

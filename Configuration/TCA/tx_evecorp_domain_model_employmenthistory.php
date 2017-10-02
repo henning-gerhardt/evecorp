@@ -21,19 +21,25 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_employmenthistory'] = [
-    'ctrl' => $TCA['tx_evecorp_domain_model_employmenthistory']['ctrl'],
+return [
+    'ctrl' => [
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_employmenthistory',
+        'label' => 'character_uid',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => [
+            'disabled' => 'hidden'
+        ],
+        'searchFields' => 'character',
+        'iconfile' => 'EXT:evecorp/Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    ],
     'interface' => [
         'showRecordFieldList' => 'character_uid, hidden',
     ],
     'types' => [
         '1' => [
             'showitem' => 'character_uid, corporation_uid, start_date, record_id, hidden'
-        ],
-    ],
-    'palettes' => [
-        '1' => [
-            'showitem' => ''
         ],
     ],
     'columns' => [
@@ -49,6 +55,7 @@ $TCA['tx_evecorp_domain_model_employmenthistory'] = [
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_evecorp_domain_model_character',
                 'items' => [
                     ['--none--', 0],
@@ -60,6 +67,7 @@ $TCA['tx_evecorp_domain_model_employmenthistory'] = [
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_evecorp_domain_model_corporation',
                 'items' => [
                     ['--none--', 0],

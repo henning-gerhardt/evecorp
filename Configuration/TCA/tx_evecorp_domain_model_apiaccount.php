@@ -21,19 +21,25 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_apikeycorporation'] = [
-    'ctrl' => $TCA['tx_evecorp_domain_model_apikeycorporation']['ctrl'],
+return [
+    'ctrl' => [
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account',
+        'label' => 'key_id',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => [
+            'disabled' => 'hidden'
+        ],
+        'searchFields' => 'key_id, v_code',
+        'iconfile' => 'EXT:evecorp/Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    ],
     'interface' => [
-        'showRecordFieldList' => 'key_id, v_code, corporation, hidden',
+        'showRecordFieldList' => 'key_id, v_code, corp_member, hidden',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'corporation, key_id, v_code, type, access_mask, expires, hidden'
-        ],
-    ],
-    'palettes' => [
-        '1' => [
-            'showitem' => ''
+            'showitem' => 'key_id, v_code, corp_member, type, access_mask, expires, characters, hidden'
         ],
     ],
     'columns' => [
@@ -62,6 +68,18 @@ $TCA['tx_evecorp_domain_model_apikeycorporation'] = [
                 'eval' => 'trim,required'
             ]
         ],
+        'corp_member' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account.corpmember',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'fe_users',
+                'items' => [
+                    ['--none--', 0],
+                ],
+            ],
+        ],
         'access_mask' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.accessmask',
@@ -81,13 +99,18 @@ $TCA['tx_evecorp_domain_model_apikeycorporation'] = [
                 ],
             ],
         ],
-        'corporation' => [
-            'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation',
+        'characters' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
             'config' => [
-                'type' => 'select',
-                'foreign_table' => 'tx_evecorp_domain_model_corporation',
-            ],
-        ],
+                'type' => 'inline',
+                'foreign_table' => 'tx_evecorp_domain_model_character',
+                'foreign_field' => 'api_key',
+                'maxitems' => 3,
+                'appearance' => [
+                    'levelLinksPosition' => 'none',
+                ],
+            ]
+        ]
     ],
 ];

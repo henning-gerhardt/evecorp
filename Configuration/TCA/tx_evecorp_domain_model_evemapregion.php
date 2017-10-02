@@ -21,19 +21,28 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_evemapsolarsystem'] = [
-    'ctrl' => $TCA['tx_evecorp_domain_model_evemapsolarsystem']['ctrl'],
+return [
+    'ctrl' => [
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_evemapregion',
+        'label' => 'region_name',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => [
+            'disabled' => 'hidden'
+        ],
+        'rootLevel' => 1,
+        'hideTable' => 1,
+        'readOnly' => 1,
+        'searchFields' => 'region_id, region_name,',
+        'iconfile' => 'EXT:evecorp/Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    ],
     'interface' => [
-        'showRecordFieldList' => 'solar_system_id, solar_system_name, hidden',
+        'showRecordFieldList' => 'region_id, region_name, hidden',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'solar_system_id, solar_system_name, hidden'
-        ],
-    ],
-    'palettes' => [
-        '1' => [
-            'showitem' => ''
+            'showitem' => 'region_id, region_name, hidden'
         ],
     ],
     'columns' => [
@@ -44,18 +53,18 @@ $TCA['tx_evecorp_domain_model_evemapsolarsystem'] = [
                 'type' => 'check'
             ]
         ],
-        'solar_system_id' => [
+        'region_id' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_evemapsolarsystem.solar_system_id',
+            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_evemapregion.region_id',
             'config' => [
                 'type' => 'input',
                 'size' => '10',
                 'eval' => 'trim,int,required',
             ]
         ],
-        'solar_system_name' => [
+        'region_name' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_evemapsolarsystem.solar_system_name',
+            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_evemapregion.region_name',
             'config' => [
                 'type' => 'input',
                 'size' => '20',

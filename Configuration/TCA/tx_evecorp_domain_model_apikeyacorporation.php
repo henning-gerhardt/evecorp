@@ -21,19 +21,25 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$TCA['tx_evecorp_domain_model_apikeyaccount'] = [
-    'ctrl' => $TCA['tx_evecorp_domain_model_apikeyaccount']['ctrl'],
+return [
+    'ctrl' => [
+        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.corporation',
+        'label' => 'key_id',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'delete' => 'deleted',
+        'enablecolumns' => [
+            'disabled' => 'hidden'
+        ],
+        'searchFields' => 'key_id, v_code',
+        'iconfile' => 'EXT:evecorp/Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
+    ],
     'interface' => [
-        'showRecordFieldList' => 'key_id, v_code, corp_member, hidden',
+        'showRecordFieldList' => 'key_id, v_code, corporation, hidden',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'key_id, v_code, corp_member, type, access_mask, expires, characters, hidden'
-        ],
-    ],
-    'palettes' => [
-        '1' => [
-            'showitem' => ''
+            'showitem' => 'corporation, key_id, v_code, type, access_mask, expires, hidden'
         ],
     ],
     'columns' => [
@@ -62,17 +68,6 @@ $TCA['tx_evecorp_domain_model_apikeyaccount'] = [
                 'eval' => 'trim,required'
             ]
         ],
-        'corp_member' => [
-            'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account.corpmember',
-            'config' => [
-                'type' => 'select',
-                'foreign_table' => 'fe_users',
-                'items' => [
-                    ['--none--', 0],
-                ],
-            ],
-        ],
         'access_mask' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.accessmask',
@@ -92,18 +87,14 @@ $TCA['tx_evecorp_domain_model_apikeyaccount'] = [
                 ],
             ],
         ],
-        'characters' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
+        'corporation' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation',
             'config' => [
-                'type' => 'inline',
-                'foreign_table' => 'tx_evecorp_domain_model_character',
-                'foreign_field' => 'api_key',
-                'maxitems' => 3,
-                'appearance' => [
-                    'levelLinksPosition' => 'none',
-                ],
-            ]
-        ]
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tx_evecorp_domain_model_corporation',
+            ],
+        ],
     ],
 ];
