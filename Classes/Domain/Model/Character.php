@@ -70,7 +70,9 @@ class Character extends AbstractEntity {
     protected $currentAlliance;
 
     /**
-     * @var Corporation
+     * TODO: why a full defined qualifier name is needed here
+     *
+     * @var \Gerh\Evecorp\Domain\Model\Corporation
      * @lazy
      * @validate NotEmpty
      */

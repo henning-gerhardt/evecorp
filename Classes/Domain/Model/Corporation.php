@@ -67,7 +67,9 @@ class Corporation extends AbstractEntity {
     protected $titles;
 
     /**
-     * @var FrontendUserGroup
+     * TODO: why a full defined qualifier name is needed here
+     *
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
      * @lazy
      */
     protected $usergroup;

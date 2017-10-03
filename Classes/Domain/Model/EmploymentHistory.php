@@ -38,7 +38,9 @@ class EmploymentHistory extends AbstractEntity {
     protected $characterUid;
 
     /**
-     * @var Corporation
+     * TODO: why a full defined qualifier name is needed here
+     *
+     * @var \Gerh\Evecorp\Domain\Model\Corporation
      * @lazy
      */
     protected $corporationUid;
