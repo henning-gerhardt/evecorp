@@ -41,15 +41,28 @@ class ApiKeyManagementController extends ActionController {
 
     /**
      * @var ApiKeyAccountRepository
-     * @inject
      */
     protected $apiKeyAccountRepository;
 
     /**
      * @var AccessControlService
-     * @inject
      */
     protected $accessControlService;
+
+    /**
+     * Class constructor.
+     *
+     * @param ApiKeyAccountRepository $apiKeyAccountRepository
+     * @param AccessControlService $accessControlService
+     * @return void
+     */
+    public function __construct(ApiKeyAccountRepository $apiKeyAccountRepository, AccessControlService $accessControlService) {
+        // calling default controller constructor
+        parent::__construct();
+
+        $this->apiKeyAccountRepository = $apiKeyAccountRepository;
+        $this->accessControlService = $accessControlService;
+    }
 
     /**
      * index action

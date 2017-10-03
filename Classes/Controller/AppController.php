@@ -35,10 +35,27 @@ class AppController extends ActionController {
      * Holds instance for market data
      *
      * @var MarketData
-     * @inject
      */
     protected $marketData;
 
+    /**
+     * Class constructor.
+     *
+     * @param MarketData $marketData
+     * @return void
+     */
+    public function __construct(MarketData $marketData) {
+        // calling default controller constructor
+        parent::__construct();
+
+        $this->marketData = $marketData;
+    }
+
+    /**
+     * Initialise later used member variables.
+     *
+     * @return void
+     */
     public function initializeAction() {
         $this->marketData->setCorpTax($this->settings['corptax']);
     }

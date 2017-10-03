@@ -20,7 +20,8 @@
 namespace Gerh\Evecorp\Controller;
 
 use Gerh\Evecorp\Service\PhealService;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Pheal\Exceptions\PhealException;
+use Pheal\Pheal;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
@@ -34,23 +35,36 @@ class ServerStatusController extends ActionController {
 
     /**
      * @var PhealService
-     * @inject
      */
     protected $phealService;
 
     /**
-     *
-     * @var \Pheal\Pheal
+     * @var Pheal
      */
     private $pheal;
 
     /**
+     * Class constructor.
      *
+     * @param PhealService $phealService
+     * @return void
+     */
+    public function __construct(PhealService $phealService) {
+        // calling default controller constructor
+        parent::__construct();
+
+        $this->phealService = $phealService;
+    }
+
+    /**
+     * Initialize later called actions
+     *
+     * @return void
      */
     public function initializeAction() {
-        $this->phealService = GeneralUtility::makeInstance(PhealService::class);
         $this->pheal = $this->phealService->getPhealInstance();
     }
+
     /**
      * action index
      *
@@ -62,7 +76,7 @@ class ServerStatusController extends ActionController {
             $response = $this->pheal->serverScope->ServerStatus();
             $serverStatus = $response->serverOpen;
             $onlinePlayers = $response->onlinePlayers;
-        } catch (\Pheal\Exceptions\PhealException $e) {
+        } catch (PhealException $e) {
             $serverStatus = false;
             $onlinePlayers = 0;
         }
@@ -70,4 +84,5 @@ class ServerStatusController extends ActionController {
         $this->view->assign('server_status', $serverStatus);
         $this->view->assign('online_players', $onlinePlayers);
     }
+
 }

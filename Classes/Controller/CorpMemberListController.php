@@ -40,7 +40,6 @@ class CorpMemberListController extends ActionController {
 
     /**
      * @var CharacterRepository
-     * @inject
      */
     protected $characterRepository;
 
@@ -51,7 +50,6 @@ class CorpMemberListController extends ActionController {
 
     /**
      * @var CorporationRepository
-     * @inject
      */
     protected $corporationRepository;
 
@@ -110,6 +108,21 @@ class CorpMemberListController extends ActionController {
             }
         }
         return \FALSE;
+    }
+
+    /**
+     * Class constructor.
+     *
+     * @param CharacterRepository $characterRepository
+     * @param CorporationRepository $corporationRepository
+     * @return void
+     */
+    public function __construct(CharacterRepository $characterRepository, CorporationRepository $corporationRepository) {
+        // calling default controller constructor
+        parent::__construct();
+
+        $this->characterRepository = $characterRepository;
+        $this->corporationRepository = $corporationRepository;
     }
 
     /**

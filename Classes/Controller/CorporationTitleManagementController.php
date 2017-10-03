@@ -43,20 +43,16 @@ class CorporationTitleManagementController extends ActionController {
 
     /**
      * @var CorporationRepository
-     * @inject
      */
     protected $corporationRepository;
 
     /**
      * @var CorporationTitleRepository
-     * @inject
      */
     protected $corporationTitleRepository;
 
     /**
-     *
      * @var FrontendUserGroupRepository
-     * @inject
      */
     protected $frontendUserGroupRepository;
 
@@ -66,6 +62,23 @@ class CorporationTitleManagementController extends ActionController {
      * @var \integer
      */
     protected $selectedCorporation;
+
+    /**
+     * Class constructor.
+     *
+     * @param CorporationRepository $corporationRepository
+     * @param CorporationTitleRepository $corporationTitleRepository
+     * @param FrontendUserGroupRepository $frontendUserGroupRepository
+     * @return void
+     */
+    public function __construct(CorporationRepository $corporationRepository, CorporationTitleRepository $corporationTitleRepository, FrontendUserGroupRepository $frontendUserGroupRepository) {
+        // calling default controller constructor
+        parent::__construct();
+
+        $this->corporationRepository = $corporationRepository;
+        $this->corporationTitleRepository = $corporationTitleRepository;
+        $this->frontendUserGroupRepository = $frontendUserGroupRepository;
+    }
 
     /**
      * @see ActionController::initializeAction()

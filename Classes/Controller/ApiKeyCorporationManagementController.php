@@ -39,13 +39,11 @@ class ApiKeyCorporationManagementController extends ActionController {
 
     /**
      * @var ApiKeyCorporationRepository
-     * @inject
      */
     protected $apiKeyCorporationRepository;
 
     /**
      * @var CorporationRepository
-     * @inject
      */
     protected $corporationRepository;
 
@@ -55,6 +53,21 @@ class ApiKeyCorporationManagementController extends ActionController {
      * @var \integer
      */
     protected $selectedCorporation;
+
+    /**
+     * Class constructor.
+     *
+     * @param ApiKeyCorporationRepository $apiKeyCorporationRepository
+     * @param CorporationRepository $corporationRepository
+     * @return void
+     */
+    public function __construct(ApiKeyCorporationRepository $apiKeyCorporationRepository, CorporationRepository $corporationRepository) {
+        // calling default controller constructor
+        parent::__construct();
+
+        $this->apiKeyCorporationRepository = $apiKeyCorporationRepository;
+        $this->corporationRepository = $corporationRepository;
+    }
 
     /**
      * @see ActionController::initializeAction()
