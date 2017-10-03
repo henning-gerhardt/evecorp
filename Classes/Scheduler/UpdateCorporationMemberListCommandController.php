@@ -34,13 +34,11 @@ class UpdateCorporationMemberListCommandController extends CommandController {
 
     /**
      * @var ApiKeyCorporationRepository
-     * @inject
      */
     protected $apiKeyCorporationRepository;
 
     /**
      * @var PersistenceManager
-     * @inject
      */
     protected $persistenceManager;
 
@@ -63,6 +61,18 @@ class UpdateCorporationMemberListCommandController extends CommandController {
      */
     protected function initializeRepositories($storagePid = 0) {
         $this->setApiKeyCorporationRepositoryStoragePid($storagePid);
+    }
+
+    /**
+     * Class constructor.
+     *
+     * @param ApiKeyCorporationRepository $apiKeyCorporationRepository
+     * @param PersistenceManager $persistenceManager
+     * @return void
+     */
+    public function __construct(ApiKeyCorporationRepository $apiKeyCorporationRepository, PersistenceManager $persistenceManager) {
+        $this->apiKeyCorporationRepository = $apiKeyCorporationRepository;
+        $this->persistenceManager = $persistenceManager;
     }
 
     /**

@@ -35,15 +35,25 @@ class CorpMemberUserGroupCommandController extends CommandController {
 
     /**
      * @var CorpMemberRepository
-     * @inject
      */
     protected $corpMemberRepository;
 
     /**
      * @var PersistenceManager
-     * @inject
      */
     protected $persistenceManager;
+
+    /**
+     * Class constructor.
+     *
+     * @param CorpMemberRepository $corpMemberRepository
+     * @param PersistenceManager $persistenceManager
+     * @return void
+     */
+    public function __construct(CorpMemberRepository $corpMemberRepository, PersistenceManager $persistenceManager) {
+        $this->corpMemberRepository = $corpMemberRepository;
+        $this->persistenceManager = $persistenceManager;
+    }
 
     /**
      * Update usergroup membership of corp member

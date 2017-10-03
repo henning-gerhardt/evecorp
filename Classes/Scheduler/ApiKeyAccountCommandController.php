@@ -35,13 +35,11 @@ class ApiKeyAccountCommandController extends CommandController {
 
     /**
      * @var ApiKeyAccountRepository
-     * @inject
      */
     protected $apiKeyAccountRepository;
 
     /**
      * @var PersistenceManager
-     * @inject
      */
     protected $persistenceManager;
 
@@ -64,6 +62,18 @@ class ApiKeyAccountCommandController extends CommandController {
      */
     protected function initializeRepositories($storagePid = 0) {
         $this->setApiKeyRepositoryStoragePid($storagePid);
+    }
+
+    /**
+     * Class constructor.
+     *
+     * @param ApiKeyAccountRepository $apiKeyAccountRepository
+     * @param PersistenceManager $persistenceManager
+     * @return void
+     */
+    public function __construct(ApiKeyAccountRepository $apiKeyAccountRepository, PersistenceManager $persistenceManager) {
+        $this->apiKeyAccountRepository = $apiKeyAccountRepository;
+        $this->persistenceManager = $persistenceManager;
     }
 
     /**
