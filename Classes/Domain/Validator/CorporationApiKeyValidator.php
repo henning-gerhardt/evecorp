@@ -21,7 +21,7 @@ namespace Gerh\Evecorp\Domain\Validator;
 
 use Gerh\Evecorp\Domain\Mapper\ApiKeyInfoMapper;
 use Gerh\Evecorp\Domain\Model\ApiKey;
-use Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository;
+use Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
 /**
@@ -34,10 +34,9 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 class CorporationApiKeyValidator extends AbstractValidator {
 
     /**
-     * @var ApiKeyAccountRepository
-     * @inject
+     * @var ApiKeyCorporationRepository
      */
-    protected $apiKeyAccountRepository;
+    protected $apiKeyCorporationRepository;
 
     /**
      * Check for :
@@ -70,7 +69,7 @@ class CorporationApiKeyValidator extends AbstractValidator {
      */
     protected function isKeyIdAlreadyInDatabase($keyId) {
 
-        $result = $this->apiKeyAccountRepository->countByKeyId($keyId);
+        $result = $this->apiKeyCorporationRepository->countByKeyId($keyId);
         if ($result > 0) {
             return \TRUE;
         }
@@ -115,6 +114,20 @@ class CorporationApiKeyValidator extends AbstractValidator {
         }
 
         return $this->checkApiKey($keyId, $vCode);
+    }
+
+    /**
+     * Class constructor.
+     *
+     * @param ApiKeyCorporationRepository $apiKeyCorporationRepository
+     * @param array $options
+     * @return void
+     */
+    public function __construct(ApiKeyCorporationRepository $apiKeyCorporationRepository, array $options = array()) {
+        // call default validator constructor
+        parent::__construct($options);
+
+        $this->apiKeyCorporationRepository = $apiKeyCorporationRepository;
     }
 
 }

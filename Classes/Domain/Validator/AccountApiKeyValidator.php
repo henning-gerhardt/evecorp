@@ -40,13 +40,11 @@ class AccountApiKeyValidator extends AbstractValidator {
 
     /**
      * @var ApiKeyAccountRepository
-     * @inject
      */
     protected $apiKeyAccountRepository;
 
     /**
      * @var CharacterRepository
-     * @inject
      */
     protected $characterRepository;
 
@@ -185,6 +183,22 @@ class AccountApiKeyValidator extends AbstractValidator {
         }
 
         return $this->checkApiKey($keyId, $vCode);
+    }
+
+    /**
+     * Class constructor.
+     *
+     * @param ApiKeyAccountRepository $apiKeyAccountRepository
+     * @param CharacterRepository $characterRepository
+     * @param array $options
+     * @return void
+     */
+    public function __construct(ApiKeyAccountRepository $apiKeyAccountRepository, CharacterRepository $characterRepository, array $options = array()) {
+        // call default validator constructor
+        parent::__construct($options);
+
+        $this->apiKeyAccountRepository = $apiKeyAccountRepository;
+        $this->characterRepository = $characterRepository;
     }
 
 }

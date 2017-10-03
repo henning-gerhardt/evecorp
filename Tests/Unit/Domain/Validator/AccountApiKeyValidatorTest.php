@@ -41,6 +41,11 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 class AccountApiKeyValidatorTest extends UnitTestCase {
 
     /**
+     * @var ObjectManagerInterface
+     */
+    protected $mockObjectManager;
+
+    /**
      * @var \string
      */
     protected $validatorClassName = AccountApiKeyValidator::class;
@@ -49,7 +54,18 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      * Testsuite setup
      */
     public function setup() {
+        $this->mockObjectManager = $this->createMock(ObjectManagerInterface::class);
+
+        $apiKeyAccountRepository = $this->getMockBuilder(ApiKeyAccountRepository::class)
+            ->setConstructorArgs([$this->mockObjectManager])
+            ->getMock();
+
+        $characterRepository = $this->getMockBuilder(CharacterRepository::class)
+            ->setConstructorArgs([$this->mockObjectManager])
+            ->getMock();
+
         $this->validator = $this->getMockBuilder($this->validatorClassName)
+            ->setConstructorArgs([$apiKeyAccountRepository, $characterRepository])
             ->setMethods(['translateErrorMessage'])
             ->getMock();
     }
@@ -121,12 +137,12 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      * @param \boolean $expected
      */
     public function checkIsKeyAlreadyInDatabase($returnValue, $expected) {
-        $mockObjectManager = $this->createMock(ObjectManagerInterface::class);
 
         $mockedRepository = $this->getMockBuilder(ApiKeyAccountRepository::class)
-            ->setConstructorArgs([$mockObjectManager])
+            ->setConstructorArgs([$this->mockObjectManager])
             ->setMethods(['countByKeyId'])
             ->getMock();
+
         $mockedRepository
             ->expects($this->once())
             ->method('countByKeyId')
