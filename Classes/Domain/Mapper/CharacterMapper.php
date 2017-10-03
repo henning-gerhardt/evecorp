@@ -21,7 +21,7 @@ namespace Gerh\Evecorp\Domain\Mapper;
 
 use DateTimeZone;
 use Exception;
-use Gerh\Evecorp\Domain\Constants\AccessMask\Character as CharacterModel;
+use Gerh\Evecorp\Domain\Constants\AccessMask\Character as CharacterAccessMask;
 use Gerh\Evecorp\Domain\Model\Alliance;
 use Gerh\Evecorp\Domain\Model\ApiKey;
 use Gerh\Evecorp\Domain\Model\Character;
@@ -34,9 +34,6 @@ use Gerh\Evecorp\Domain\Repository\CharacterRepository;
 use Gerh\Evecorp\Domain\Repository\CorporationRepository;
 use Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository;
 use Gerh\Evecorp\Service\PhealService;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
@@ -50,7 +47,6 @@ class CharacterMapper {
 
     /**
      * @var AllianceRepository
-     * @inject
      */
     protected $allianceRepository;
 
@@ -70,7 +66,6 @@ class CharacterMapper {
 
     /**
      * @var CharacterRepository
-     * @inject
      */
     protected $characterRepository;
 
@@ -83,7 +78,6 @@ class CharacterMapper {
 
     /**
      * @var CorporationRepository
-     * @inject
      */
     protected $corporationRepository;
 
@@ -96,7 +90,6 @@ class CharacterMapper {
 
     /**
      * @var EmploymentHistoryRepository
-     * @inject
      */
     protected $employmentHistoryRepository;
 
@@ -113,14 +106,7 @@ class CharacterMapper {
     protected $errorMessage;
 
     /**
-     * @var ObjectManagerInterface
-     * @inject
-     */
-    protected $objectManager;
-
-    /**
      * @var PersistenceManager
-     * @inject
      */
     protected $persistenceManager;
 
@@ -303,24 +289,35 @@ class CharacterMapper {
     }
 
     /**
-     * class constructor
+     * Class constructor.
+     *
+     * @param CharacterRepository $characterRepository
+     * @param CorporationRepository $corporationRepository
+     * @param EmploymentHistoryRepository $employmentHistoryRepository
+     * @param AllianceRepository $allianceRepository
+     * @param PersistenceManager $persistenceMananger
+     * @param ApiKey $apiKeyModel
+     * @return void
      */
-    public function __construct(ApiKey $apiKeyModel = \NULL) {
+    public function __construct(CharacterRepository $characterRepository, CorporationRepository $corporationRepository, EmploymentHistoryRepository $employmentHistoryRepository, AllianceRepository $allianceRepository, PersistenceManager $persistenceMananger) {
 
-        if ($apiKeyModel === \NULL) {
-            $apiKeyModel = new ApiKey();
-        }
+        $this->characterRepository = $characterRepository;
+        $this->characterRepositoryStoragePids = $characterRepository->getRepositoryStoragePid();
 
-        $this->apiKey = $apiKeyModel;
+        $this->corporationRepository = $corporationRepository;
+        $this->CorporationRepositoryStoragePids = $corporationRepository->getRepositoryStoragePid();
+
+        $this->employmentHistoryRepository = $employmentHistoryRepository;
+        $this->employmentHistoryRepositoryStoragePids = $employmentHistoryRepository->getRepositoryStoragePid();
+
+        $this->allianceRepository = $allianceRepository;
+        $this->allianceRepositoryStoragePids = $allianceRepository->getRepositoryStoragePid();
+
+        $this->persistenceManager = $persistenceMananger;
+
+        $this->apiKey = new ApiKey();
         $scope = 'eve';
         $this->phealService = new PhealService($this->apiKey->getKeyId(), $this->apiKey->getVCode(), $scope);
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-
-        $this->setAllianceRepository($objectManager->get(AllianceRepository::class));
-        $this->setCharacterRepository($objectManager->get(CharacterRepository::class));
-        $this->setCorporationRepository($objectManager->get(CorporationRepository::class));
-        $this->setEmploymentHistoryRepository($objectManager->get(EmploymentHistoryRepository::class));
-        $this->persistenceManager = $objectManager->get(PersistenceManager::class);
     }
 
     /**
@@ -366,7 +363,7 @@ class CharacterMapper {
             return \NULL;
         }
 
-        if ($this->apiKey->hasAccessTo(CharacterModel::CHARACTERSHEET)) {
+        if ($this->apiKey->hasAccessTo(CharacterAccessMask::CHARACTERSHEET)) {
             try {
                 $response = $pheal->charScope->CharacterSheet(['CharacterID' => $characterId]);
             } catch (\Pheal\Exceptions\PhealException $ex) {
@@ -388,43 +385,14 @@ class CharacterMapper {
     }
 
     /**
-     * Set alliance repository from outside
+     * Set api key.
      *
-     * @param AllianceRepository $repository
+     * @param ApiKey $apiKey
+     * @return void
      */
-    public function setAllianceRepository(AllianceRepository $repository) {
-        $this->allianceRepository = $repository;
-        $this->allianceRepositoryStoragePids = $repository->getRepositoryStoragePid();
-    }
-
-    /**
-     * Set character repository from outside
-     *
-     * @param CharacterRepository $repository
-     */
-    public function setCharacterRepository(CharacterRepository $repository) {
-        $this->characterRepository = $repository;
-        $this->characterRepositoryStoragePids = $repository->getRepositoryStoragePid();
-    }
-
-    /**
-     * Set corporation repository from outside
-     *
-     * @param CorporationRepository $repository
-     */
-    public function setCorporationRepository(CorporationRepository $repository) {
-        $this->corporationRepository = $repository;
-        $this->corporationRepositoryStoragePids = $repository->getRepositoryStoragePid();
-    }
-
-    /**
-     * Set employment history repository from outside
-     *
-     * @param EmploymentHistoryRepository $repository
-     */
-    public function setEmploymentHistoryRepository(EmploymentHistoryRepository $repository) {
-        $this->employmentHistoryRepository = $repository;
-        $this->employmentHistoryRepositoryStoragePids = $repository->getRepositoryStoragePid();
+    public function setApiKey(ApiKey $apiKey) {
+        $this->apiKey = $apiKey;
+        $this->phealService = new PhealService($this->apiKey->getKeyId(), $this->apiKey->getVCode(), 'eve');
     }
 
     /**
@@ -472,7 +440,7 @@ class CharacterMapper {
             return \FALSE;
         }
 
-        if ($this->apiKey->hasAccessTo(CharacterModel::CHARACTERSHEET)) {
+        if ($this->apiKey->hasAccessTo(CharacterAccessMask::CHARACTERSHEET)) {
             try {
                 $response = $pheal->charScope->CharacterSheet(['CharacterID' => $characterId]);
             } catch (\Pheal\Exceptions\PhealException $ex) {

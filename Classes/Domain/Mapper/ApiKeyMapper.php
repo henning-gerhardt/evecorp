@@ -25,7 +25,8 @@ use Gerh\Evecorp\Domain\Model\ApiKeyAccount;
 use Gerh\Evecorp\Domain\Model\DateTime;
 use Gerh\Evecorp\Domain\Repository\CharacterRepository;
 use Gerh\Evecorp\Service\PhealService;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use Pheal\Exceptions\PhealException;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Install\ViewHelpers\Exception as ExceptionViewHelper;
 
@@ -40,7 +41,6 @@ class ApiKeyMapper {
 
     /**
      * @var CharacterRepository
-     * @inject
      */
     protected $characterRepository;
 
@@ -50,14 +50,12 @@ class ApiKeyMapper {
     protected $errorMessage;
 
     /**
-     * @var ObjectManagerInterface
-     * @inject
+     * @var ObjectManager
      */
     protected $objectManager;
 
     /**
      * @var PersistenceManager
-     * @inject
      */
     protected $persistenceManager;
 
@@ -95,7 +93,8 @@ class ApiKeyMapper {
      */
     protected function getNewCharacterMapper(ApiKeyAccount $apiKeyAccount) {
         /* @var $characterMapper CharacterMapper */
-        $characterMapper = $this->objectManager->get(CharacterMapper::class, $apiKeyAccount);
+        $characterMapper = $this->objectManager->get(CharacterMapper::class);
+        $characterMapper->setApiKey($apiKeyAccount);
         $characterMapper->setStoragePid($this->storagePid);
 
         return $characterMapper;
@@ -134,6 +133,20 @@ class ApiKeyMapper {
     }
 
     /**
+     * Class constructor.
+     *
+     * @param CharacterRepository $characterRepository
+     * @param ObjectManager $objectManager
+     * @param PersistenceManager $persistenceManager
+     * @return void
+     */
+    public function __construct(CharacterRepository $characterRepository, ObjectManager $objectManager, PersistenceManager $persistenceManager) {
+        $this->characterRepository = $characterRepository;
+        $this->objectManager = $objectManager;
+        $this->persistenceManager = $persistenceManager;
+    }
+
+    /**
      * Returns error message
      *
      * @return \string
@@ -169,7 +182,7 @@ class ApiKeyMapper {
                 $characterId = \intval($character->characterID);
                 $this->createAndAddNewCharacter($characterId, $apiKeyAccountModel);
             }
-        } catch (\Pheal\Exceptions\PhealException $ex) {
+        } catch (PhealException $ex) {
             $this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage() . '" Model was not be updated!';
             return \FALSE;
         } catch (Exception $e) {

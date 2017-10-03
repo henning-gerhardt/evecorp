@@ -26,7 +26,7 @@ use Gerh\Evecorp\Domain\Model\Corporation;
 use Gerh\Evecorp\Domain\Repository\CharacterRepository;
 use Gerh\Evecorp\Service\PhealService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Install\ViewHelpers\Exception;
 
@@ -39,7 +39,6 @@ class CorporationMemberList {
 
     /**
      * @var CharacterRepository
-     * @inject
      */
     protected $characterRepository;
 
@@ -59,14 +58,12 @@ class CorporationMemberList {
     protected $errorMessage;
 
     /**
-     * @var ObjectManagerInterface
-     * @inject
+     * @var ObjectManager
      */
     protected $objectManager;
 
     /**
      * @var PersistenceManager
-     * @inject
      */
     protected $persistenceManager;
 
@@ -121,11 +118,27 @@ class CorporationMemberList {
      */
     protected function updateFormerCorporationMember(Character $formerCorporationMember) {
         /* @var $characterMapper CharacterMapper */
-        $characterMapper = $this->objectManager->get(CharacterMapper::class, $formerCorporationMember->getApiKey());
+        $characterMapper = $this->objectManager->get(CharacterMapper::class);
+        $characterMapper->setApiKey($formerCorporationMember->getApiKey());
         $characterMapper->setStoragePid($this->storagePid);
 
         $characterMapper->updateModel($formerCorporationMember);
         $this->characterRepository->update($formerCorporationMember);
+    }
+
+    /**
+     * Class constructor.
+     *
+     * @param CharacterRepository $characterRepository
+     * @param ObjectManager $objectManager
+     * @param PersistenceManager $persistenceManager
+     * @return void
+     */
+    public function __construct(CharacterRepository $characterRepository, ObjectManager $objectManager, PersistenceManager $persistenceManager) {
+
+        $this->characterRepository = $characterRepository;
+        $this->objectManager = $objectManager;
+        $this->persistenceManager = $persistenceManager;
     }
 
     /**

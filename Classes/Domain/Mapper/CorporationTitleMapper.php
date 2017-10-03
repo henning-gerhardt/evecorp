@@ -21,6 +21,9 @@ namespace Gerh\Evecorp\Domain\Mapper;
 
 use Gerh\Evecorp\Domain\Model\ApiKeyCorporation;
 use Gerh\Evecorp\Domain\Model\CorporationTitle;
+use Gerh\Evecorp\Service\PhealService;
+use Pheal\Core\RowSet;
+use Pheal\Exceptions\PhealException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -48,9 +51,9 @@ class CorporationTitleMapper {
     /**
      * map data and attach it to object store
      *
-     * @param \Pheal\Core\RowSet $titleObjects
+     * @param RowSet $titleObjects
      */
-    protected function mapRetrievedInformation(\Pheal\Core\RowSet $titleObjects) {
+    protected function mapRetrievedInformation(RowSet $titleObjects) {
 
         foreach ($titleObjects as $retrievedTitle) {
             $corporationTitle = new CorporationTitle();
@@ -80,13 +83,13 @@ class CorporationTitleMapper {
     public function fetchCorporationTitles() {
         try {
             $phealService = GeneralUtility::makeInstance(
-                    'Gerh\\Evecorp\\Service\\PhealService', $this->corporationApiKey->getKeyId(), $this->corporationApiKey->getVCode()
+                    PhealService::class, $this->corporationApiKey->getKeyId(), $this->corporationApiKey->getVCode()
             );
             $pheal = $phealService->getPhealInstance();
 
             $response = $pheal->corpScope->Titles();
             $this->mapRetrievedInformation($response->titles);
-        } catch (\Pheal\Exceptions\PhealException $ex) {
+        } catch (PhealException $ex) {
             // TODO: handle exception usage
         }
 
