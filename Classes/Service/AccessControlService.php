@@ -36,15 +36,24 @@ class AccessControlService implements SingletonInterface {
 
     /**
      * @var CorpMemberRepository
-     * @inject
      */
     protected $corpMemberRepository;
 
     /**
      * @var FrontendUserRepository
-     * @inject
      */
     protected $frontendUserRepository;
+
+    /**
+     * Class constructor.
+     *
+     * @param CorpMemberRepository $corpMemberRepository
+     * @param FrontendUserRepository $frontendUserRepository
+     */
+    public function __construct(CorpMemberRepository $corpMemberRepository, FrontendUserRepository $frontendUserRepository) {
+        $this->corpMemberRepository = $corpMemberRepository;
+        $this->frontendUserRepository = $frontendUserRepository;
+    }
 
     /**
      * Returns if a user is logged in or not
