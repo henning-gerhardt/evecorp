@@ -39,7 +39,6 @@ class MarketData {
      * eveitemRepository
      *
      * @var EveitemRepository
-     * @inject
      */
     protected $eveitemRepository;
 
@@ -60,6 +59,16 @@ class MarketData {
         $result->setSolarSystemNameBySolarSystem($entry->getSolarSystem());
 
         return $result;
+    }
+
+    /**
+     * Class constructor.
+     *
+     * @param EveitemRepository $eveitemRepository
+     * @return void
+     */
+    public function __construct(EveitemRepository $eveitemRepository) {
+        $this->eveitemRepository = $eveitemRepository;
     }
 
     /**

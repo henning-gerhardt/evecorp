@@ -31,6 +31,11 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 class MarketDataTest extends UnitTestCase {
 
     /**
+     * @var EveitemRepository
+     */
+    protected $eveitemRepository;
+
+    /**
      * @var ObjectManagerInterface
      */
     protected $mockObjectManager;
@@ -40,6 +45,10 @@ class MarketDataTest extends UnitTestCase {
      */
     public function setUp() {
         $this->mockObjectManager = $this->createMock(ObjectManagerInterface::class);
+
+        $this->eveitemRepository = $this->getMockBuilder(EveitemRepository::class)
+            ->setConstructorArgs([$this->mockObjectManager])
+            ->getMock();
     }
 
     /**
@@ -47,7 +56,7 @@ class MarketDataTest extends UnitTestCase {
      */
     public function corpTaxCouldBeSet() {
         $corpTax = 10;
-        $marketData = new MarketData();
+        $marketData = new MarketData($this->eveitemRepository);
         $marketData->setCorpTax($corpTax);
         $this->assertEquals($corpTax, $marketData->getCorpTax());
     }
@@ -57,7 +66,7 @@ class MarketDataTest extends UnitTestCase {
      */
     public function corpTaxCouldNotBeSetLowerThanZero() {
         $corpTax = -0.1;
-        $marketData = new MarketData();
+        $marketData = new MarketData($this->eveitemRepository);
         $marketData->setCorpTax($corpTax);
         $this->assertEquals(0, $marketData->getCorpTax());
     }
@@ -67,7 +76,7 @@ class MarketDataTest extends UnitTestCase {
      */
     public function corpTaxCouldNotBeSetHigherThanOneHundred() {
         $corpTax = 100.1;
-        $marketData = new MarketData();
+        $marketData = new MarketData($this->eveitemRepository);
         $marketData->setCorpTax($corpTax);
         $this->assertEquals(0, $marketData->getCorpTax());
     }
@@ -76,9 +85,6 @@ class MarketDataTest extends UnitTestCase {
      * @test
      */
     public function getMarketDataReturnsEmptyArrayOnEmptyRepository() {
-        $marketData = $this->getMockBuilder(MarketData::class)
-            ->setMethods(['updateEveItems'])
-            ->getMock();
 
         $mockedQueryInterface = $this->createMock(QueryInterface::class);
 
@@ -92,7 +98,10 @@ class MarketDataTest extends UnitTestCase {
             ->method('findAll')
             ->will($this->returnValue($mockedQueryInterface));
 
-        $this->inject($marketData, 'eveitemRepository', $mockedRepository);
+        $marketData = $this->getMockBuilder(MarketData::class)
+            ->setConstructorArgs([$mockedRepository])
+            ->setMethods(['updateEveItems'])
+            ->getMock();
 
         $expected = [];
         $actual = $marketData->getMarketData();
