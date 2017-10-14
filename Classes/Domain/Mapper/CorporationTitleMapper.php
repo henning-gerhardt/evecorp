@@ -38,7 +38,7 @@ class CorporationTitleMapper {
 
     /**
      *
-     * @var ApiKeyCorporation
+     * @var \Gerh\Evecorp\Domain\Model\ApiKeyCorporation
      */
     private $corporationApiKey;
 

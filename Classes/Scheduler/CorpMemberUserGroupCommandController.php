@@ -34,12 +34,12 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 class CorpMemberUserGroupCommandController extends CommandController {
 
     /**
-     * @var CorpMemberRepository
+     * @var \Gerh\Evecorp\Domain\Repository\CorpMemberRepository
      */
     protected $corpMemberRepository;
 
     /**
-     * @var PersistenceManager
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      */
     protected $persistenceManager;
 

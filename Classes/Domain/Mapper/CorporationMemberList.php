@@ -38,17 +38,17 @@ use TYPO3\CMS\Install\ViewHelpers\Exception;
 class CorporationMemberList {
 
     /**
-     * @var CharacterRepository
+     * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
      */
     protected $characterRepository;
 
     /**
-     * @var Corporation
+     * @var \Gerh\Evecorp\Domain\Model\Corporation
      */
     protected $corporation;
 
     /**
-     * @var ApiKeyCorporation
+     * @var \Gerh\Evecorp\Domain\Model\ApiKeyCorporation
      */
     protected $corporationApiKey;
 
@@ -58,12 +58,12 @@ class CorporationMemberList {
     protected $errorMessage;
 
     /**
-     * @var ObjectManager
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
      */
     protected $objectManager;
 
     /**
-     * @var PersistenceManager
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      */
     protected $persistenceManager;
 

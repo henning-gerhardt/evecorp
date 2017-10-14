@@ -40,7 +40,7 @@ class ApiKeyAccount extends ApiKey {
     protected $characters;
 
     /**
-     * @var CorpMember
+     * @var \Gerh\Evecorp\Domain\Model\CorpMember
      * @lazy
      */
     protected $corpMember;

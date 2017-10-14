@@ -32,14 +32,12 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 class EmploymentHistory extends AbstractEntity {
 
     /**
-     * @var Character
+     * @var \Gerh\Evecorp\Domain\Model\Character
      * @lazy
      */
     protected $characterUid;
 
     /**
-     * TODO: why a full defined qualifier name is needed here
-     *
      * @var \Gerh\Evecorp\Domain\Model\Corporation
      * @lazy
      */
@@ -53,7 +51,7 @@ class EmploymentHistory extends AbstractEntity {
     protected $recordId;
 
     /**
-     * @var DateTime
+     * @var \Gerh\Evecorp\Domain\Model\DateTime
      * @validate NotEmpty
      */
     protected $startDate;

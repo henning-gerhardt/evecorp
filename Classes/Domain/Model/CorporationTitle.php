@@ -53,13 +53,13 @@ class CorporationTitle extends AbstractEntity {
     protected $titleName;
 
     /**
-     * @var Corporation
+     * @var \Gerh\Evecorp\Domain\Model\Corporation
      * @lazy
      */
     protected $corporation;
 
     /**
-     * @var FrontendUserGroup
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
      * @lazy
      */
     protected $usergroup;

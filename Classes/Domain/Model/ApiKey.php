@@ -37,7 +37,7 @@ class ApiKey extends AbstractEntity {
     protected $accessMask;
 
     /**
-     * @var DateTime
+     * @var \Gerh\Evecorp\Domain\Model\DateTime
      */
     protected $expires;
 

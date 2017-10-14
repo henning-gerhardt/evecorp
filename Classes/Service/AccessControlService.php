@@ -35,12 +35,12 @@ use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
 class AccessControlService implements SingletonInterface {
 
     /**
-     * @var CorpMemberRepository
+     * @var \Gerh\Evecorp\Domain\Repository\CorpMemberRepository
      */
     protected $corpMemberRepository;
 
     /**
-     * @var FrontendUserRepository
+     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
      */
     protected $frontendUserRepository;
 

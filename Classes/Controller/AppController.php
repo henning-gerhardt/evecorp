@@ -34,7 +34,7 @@ class AppController extends ActionController {
     /**
      * Holds instance for market data
      *
-     * @var MarketData
+     * @var \Gerh\Evecorp\Domain\Model\MarketData
      */
     protected $marketData;
 

@@ -38,12 +38,12 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class ApiKeyCorporationManagementController extends ActionController {
 
     /**
-     * @var ApiKeyCorporationRepository
+     * @var \Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository
      */
     protected $apiKeyCorporationRepository;
 
     /**
-     * @var CorporationRepository
+     * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
      */
     protected $corporationRepository;
 

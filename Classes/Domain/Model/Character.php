@@ -33,7 +33,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class Character extends AbstractEntity {
 
     /**
-     * @var ApiKeyAccount
+     * @var \Gerh\Evecorp\Domain\Model\ApiKeyAccount
      * @lazy
      */
     protected $apiKey;
@@ -52,26 +52,24 @@ class Character extends AbstractEntity {
     protected $characterName;
 
     /**
-     * @var CorpMember
+     * @var \Gerh\Evecorp\Domain\Model\CorpMember
      * @lazy
      */
     protected $corpMember;
 
     /**
-     * @var DateTime
+     * @var \Gerh\Evecorp\Domain\Model\DateTime
      * @validate NotEmpty
      */
     protected $corporationDate;
 
     /**
-     * @var Alliance
+     * @var \Gerh\Evecorp\Domain\Model\Alliance
      * @lazy
      */
     protected $currentAlliance;
 
     /**
-     * TODO: why a full defined qualifier name is needed here
-     *
      * @var \Gerh\Evecorp\Domain\Model\Corporation
      * @lazy
      * @validate NotEmpty

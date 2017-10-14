@@ -54,7 +54,7 @@ class Corporation extends AbstractEntity {
     protected $corporationName;
 
     /**
-     * @var Alliance
+     * @var \Gerh\Evecorp\Domain\Model\Alliance
      * @lazy
      */
     protected $currentAlliance;
@@ -67,8 +67,6 @@ class Corporation extends AbstractEntity {
     protected $titles;
 
     /**
-     * TODO: why a full defined qualifier name is needed here
-     *
      * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
      * @lazy
      */

@@ -34,7 +34,7 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 class CorporationApiKeyValidator extends AbstractValidator {
 
     /**
-     * @var ApiKeyCorporationRepository
+     * @var \Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository
      */
     protected $apiKeyCorporationRepository;
 

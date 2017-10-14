@@ -38,7 +38,7 @@ class MarketData {
     /**
      * eveitemRepository
      *
-     * @var EveitemRepository
+     * @var \Gerh\Evecorp\Domain\Repository\EveitemRepository
      */
     protected $eveitemRepository;
 

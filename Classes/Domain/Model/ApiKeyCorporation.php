@@ -31,7 +31,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 class ApiKeyCorporation extends ApiKey {
 
     /**
-     * @var Corporation
+     * @var \Gerh\Evecorp\Domain\Model\Corporation
      * @lazy
      */
     protected $corporation;

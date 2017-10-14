@@ -39,7 +39,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class CorpMemberListController extends ActionController {
 
     /**
-     * @var CharacterRepository
+     * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
      */
     protected $characterRepository;
 
@@ -49,7 +49,7 @@ class CorpMemberListController extends ActionController {
     protected $choosedCorporation;
 
     /**
-     * @var CorporationRepository
+     * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
      */
     protected $corporationRepository;
 

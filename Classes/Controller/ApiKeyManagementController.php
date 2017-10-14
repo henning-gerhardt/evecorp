@@ -40,12 +40,12 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class ApiKeyManagementController extends ActionController {
 
     /**
-     * @var ApiKeyAccountRepository
+     * @var \Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
      */
     protected $apiKeyAccountRepository;
 
     /**
-     * @var AccessControlService
+     * @var \Gerh\Evecorp\Service\AccessControlService
      */
     protected $accessControlService;
 

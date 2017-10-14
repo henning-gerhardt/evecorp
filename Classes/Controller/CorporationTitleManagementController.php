@@ -42,17 +42,17 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 class CorporationTitleManagementController extends ActionController {
 
     /**
-     * @var CorporationRepository
+     * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
      */
     protected $corporationRepository;
 
     /**
-     * @var CorporationTitleRepository
+     * @var \Gerh\Evecorp\Domain\Repository\CorporationTitleRepository
      */
     protected $corporationTitleRepository;
 
     /**
-     * @var FrontendUserGroupRepository
+     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserGroupRepository
      */
     protected $frontendUserGroupRepository;
 

@@ -39,12 +39,12 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 class AccountApiKeyValidator extends AbstractValidator {
 
     /**
-     * @var ApiKeyAccountRepository
+     * @var \Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
      */
     protected $apiKeyAccountRepository;
 
     /**
-     * @var CharacterRepository
+     * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
      */
     protected $characterRepository;
 

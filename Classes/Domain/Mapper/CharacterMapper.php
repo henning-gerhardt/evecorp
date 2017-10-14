@@ -46,7 +46,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 class CharacterMapper {
 
     /**
-     * @var AllianceRepository
+     * @var \Gerh\Evecorp\Domain\Repository\AllianceRepository
      */
     protected $allianceRepository;
 
@@ -60,12 +60,12 @@ class CharacterMapper {
     /**
      * Holds api  key
      *
-     * @var ApiKey
+     * @var \Gerh\Evecorp\Domain\Model\ApiKey
      */
     protected $apiKey;
 
     /**
-     * @var CharacterRepository
+     * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
      */
     protected $characterRepository;
 
@@ -77,7 +77,7 @@ class CharacterMapper {
     protected $characterRepositoryStoragePids;
 
     /**
-     * @var CorporationRepository
+     * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
      */
     protected $corporationRepository;
 
@@ -89,7 +89,7 @@ class CharacterMapper {
     protected $corporationRepositoryStoragePids;
 
     /**
-     * @var EmploymentHistoryRepository
+     * @var \Gerh\Evecorp\Domain\Repository\EmploymentHistoryRepository
      */
     protected $employmentHistoryRepository;
 
@@ -106,12 +106,12 @@ class CharacterMapper {
     protected $errorMessage;
 
     /**
-     * @var PersistenceManager
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      */
     protected $persistenceManager;
 
     /**
-     * @var PhealService
+     * @var \Gerh\Evecorp\Service\PhealService
      */
     protected $phealService;
 

@@ -33,12 +33,12 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 class UpdateCorporationMemberListCommandController extends CommandController {
 
     /**
-     * @var ApiKeyCorporationRepository
+     * @var \Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository
      */
     protected $apiKeyCorporationRepository;
 
     /**
-     * @var PersistenceManager
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      */
     protected $persistenceManager;
 

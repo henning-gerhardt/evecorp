@@ -34,12 +34,12 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 class ApiKeyAccountCommandController extends CommandController {
 
     /**
-     * @var ApiKeyAccountRepository
+     * @var \Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
      */
     protected $apiKeyAccountRepository;
 
     /**
-     * @var PersistenceManager
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      */
     protected $persistenceManager;
 

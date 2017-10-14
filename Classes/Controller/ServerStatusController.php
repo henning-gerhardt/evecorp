@@ -34,12 +34,12 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class ServerStatusController extends ActionController {
 
     /**
-     * @var PhealService
+     * @var \Gerh\Evecorp\Service\PhealService
      */
     protected $phealService;
 
     /**
-     * @var Pheal
+     * @var \Pheal\Pheal
      */
     private $pheal;
 

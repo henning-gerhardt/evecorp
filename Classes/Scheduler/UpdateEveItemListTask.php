@@ -36,12 +36,12 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
 class UpdateEveItemListTask extends AbstractTask {
 
     /**
-     * @var $eveItemRepository \Gerh\Evecorp\Domain\Repository\EveitemRepository
+     * @var \Gerh\Evecorp\Domain\Repository\EveitemRepository
      */
     protected $eveItemRepository;
 
     /**
-     * @var $eveCentralFetcher \Gerh\Evecorp\Domain\Model\EveCentralFetcher
+     * @var \Gerh\Evecorp\Domain\Model\EveCentralFetcher
      */
     protected $eveCentralFetcher;
 

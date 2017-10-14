@@ -40,7 +40,7 @@ use TYPO3\CMS\Install\ViewHelpers\Exception as ExceptionViewHelper;
 class ApiKeyMapper {
 
     /**
-     * @var CharacterRepository
+     * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
      */
     protected $characterRepository;
 
@@ -50,12 +50,12 @@ class ApiKeyMapper {
     protected $errorMessage;
 
     /**
-     * @var ObjectManager
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
      */
     protected $objectManager;
 
     /**
-     * @var PersistenceManager
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      */
     protected $persistenceManager;
 

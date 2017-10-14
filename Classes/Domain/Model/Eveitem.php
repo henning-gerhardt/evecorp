@@ -81,14 +81,14 @@ class Eveitem extends AbstractEntity {
     /**
      * region
      *
-     * @var EveMapRegion
+     * @var \Gerh\Evecorp\Domain\Model\EveMapRegion
      */
     protected $region;
 
     /**
      * solar system
      *
-     * @var EveMapSolarSystem
+     * @var \Gerh\Evecorp\Domain\Model\EveMapSolarSystem
      */
     protected $solarSystem;
 
