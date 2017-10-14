@@ -27,13 +27,12 @@ $EM_CONF[$_EXTKEY] = [
     'dependencies' => 'extbase,fluid',
     'clearCacheOnLoad' => 1,
     'state' => 'alpha',
-    'version' => '0.6.0',
+    'version' => '0.7.0',
     'constraints' => [
         'depends' => [
-            'php' => '5.6.0',
-            'typo3' => '7.6.0-7.9.99',
-            'extbase' => '7.6.0-7.9.99',
-            'fluid' => '7.6.0-7.9.99',
+            'typo3' => '8.7.0-8.7.999',
+            'extbase' => '8.7.0-8.7.999',
+            'fluid' => '8.7.0-8.7.999',
         ],
     ],
     'autoload' => [
