@@ -17,6 +17,12 @@
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
+use TYPO3\CMS\Install\Service\SqlSchemaMigrationService;
+
 /**
  * Class for updating Evecorp data
  *
@@ -24,129 +30,35 @@
 class ext_update {
 
     /**
-     *
-     * @var \array
+     * @var string Name of the extension this controller belongs to
      */
-    protected $messageArray = [];
+    protected $extensionName = 'evecorp';
 
     /**
-     * Execute a query inside database
-     *
-     * @param \string $query
-     * @return mixed
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager Extbase Object Manager
      */
-    private function executeDatabaseQuery($query) {
-        return $GLOBALS['TYPO3_DB']->sql_query($query);
-    }
+    protected $objectManager;
 
     /**
-     * Insert a line from static file into database
-     *
-     * @param \string $line
-     * @return \array containing message and status of insert
+     * @var \TYPO3\CMS\Extensionmanager\Utility\InstallUtility Extension Manager Install Tool
      */
-    private function insertStaticDataLine($line) {
-        $message = 'OK!';
-        $status = \TYPO3\CMS\Core\Messaging\FlashMessage::OK;
-
-        if ($this->executeDatabaseQuery($line) === \FALSE) {
-            $message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
-            $status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
-        }
-
-        return ['message' => $message, 'status' => $status];
-    }
+    protected $installTool;
 
     /**
-     * Check if table tx_evecorp_domain_model_eveitem needs
-     * a structure update.
+     * Imports a static tables SQL File (ext_tables_static+adt)
      *
-     * @deprecated after version 0.5.x
-     * @return \boolean
+     * @param string $extensionSitePath
+     * @return void
      */
-    protected function checkIfEveItemTableNeedsUpdate() {
-        $fields = $GLOBALS['TYPO3_DB']->admin_get_fields('tx_evecorp_domain_model_eveitem');
-        return isset($fields['region_id']) && isset($fields['system_id']);
-    }
-
-    /**
-     * Generates output by using flash messages
-     *
-     * @return string
-     */
-    protected function generateOutput() {
-        $output = '';
-        foreach ($this->messageArray as $messageItem) {
-            $flashMessage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-                            'TYPO3\CMS\Core\Messaging\FlashMessage', $messageItem[2], $messageItem[1], $messageItem[0]
-            );
-            $output .= $flashMessage->render();
+    protected function importStaticSqlFile($extensionSitePath) {
+        $extTablesStaticSqlFile = $extensionSitePath . 'ext_tables_static+adt.sql';
+        $extTablesStaticSqlContent = '';
+        if (file_exists($extTablesStaticSqlFile)) {
+            $extTablesStaticSqlContent .= GeneralUtility::getUrl($extTablesStaticSqlFile);
         }
-        return $output;
-    }
-
-    /**
-     * Import static data from ext_tables_static+adt.sql file
-     *
-     * @return \int
-     */
-    protected function importStaticData() {
-        $title = 'Import static data';
-        $message = 'Import needs to be executed!';
-        $status = \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING;
-        $extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('evecorp');
-        $fileContent = explode(LF, \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($extPath . 'ext_tables_static+adt.sql'));
-
-        // clean up / truncate database tables
-        $this->executeDatabaseQuery('TRUNCATE `tx_evecorp_domain_model_evemapregion`');
-        $this->executeDatabaseQuery('TRUNCATE `tx_evecorp_domain_model_evemapsolarsystem`');
-
-        // insert new static data
-        foreach ($fileContent as $line) {
-            $line = trim($line);
-            if ($line && preg_match('#^INSERT#i', $line)) {
-                $result = $this->insertStaticDataLine($line);
-                $message = $result['message'];
-                $status = $result['status'];
-            }
+        if ($extTablesStaticSqlContent !== '') {
+            $this->installTool->importStaticSql($extTablesStaticSqlContent);
         }
-        $this->messageArray[] = [$status, $title, $message];
-        return $status;
-    }
-
-    /**
-     * Update structure of table tx_evecorp_domain_model_eveitem
-     *
-     * @deprecated after version 0.5.x
-     * @return \int
-     */
-    protected function updateEveItemStructure() {
-        $title = 'Update structure of table "tx_evecorp_domain_model_eveitem"';
-        $message = 'Structure of table "tx_evecorp_domain_model_eveitem" successful updated.';
-        $status = \TYPO3\CMS\Core\Messaging\FlashMessage::OK;
-
-        if ($this->executeDatabaseQuery('UPDATE `tx_evecorp_domain_model_eveitem` SET `region` = `region_id` WHERE `region_id` <> 0;') === \FALSE) {
-            $message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
-            $status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
-        }
-
-        if ($this->executeDatabaseQuery('UPDATE `tx_evecorp_domain_model_eveitem` SET `solar_system` = `system_id` WHERE `system_id` <> 0;') === \FALSE) {
-            $message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
-            $status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
-        }
-
-        if ($this->executeDatabaseQuery('UPDATE `tx_evecorp_domain_model_eveitem` SET `region_id` = 0, `system_id` = 0;') === \FALSE) {
-            $message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
-            $status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
-        }
-
-        if ($this->executeDatabaseQuery('ALTER TABLE `tx_evecorp_domain_model_eveitem` DROP `region_id`,  DROP `system_id`;') === \FALSE) {
-            $message = 'SQL ERROR:' . $GLOBALS['TYPO3_DB']->sql_error();
-            $status = \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR;
-        }
-
-        $this->messageArray[] = [$status, $title, $message];
-        return $status;
     }
 
     /**
@@ -155,7 +67,7 @@ class ext_update {
      * @return \boolean true to allow access
      */
     public function access() {
-        return \TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('6.0');
+        return GeneralUtility::compat_version('7.6');
     }
 
     /**
@@ -165,18 +77,19 @@ class ext_update {
      */
     public function main() {
 
-        // structure update should be removed in version 0.6.0
-        if ($this->checkIfEveItemTableNeedsUpdate()) {
-            $this->updateEveItemStructure();
-        }
+        $content = '';
+        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $this->installTool = $this->objectManager->get(InstallUtility::class);
+        $installToolSqlParser = GeneralUtility::makeInstance(SqlSchemaMigrationService::class);
+        $this->installTool->injectInstallToolSqlParser($installToolSqlParser);
 
-        $this->importStaticData();
+        // Process the database updates of this base extension (we want to re-process these updates every time the update script is invoked)
+        $extensionSitePath = ExtensionManagementUtility::extPath(GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName));
+        $content .= '<p>Updating tables for evecorp extension</p>';
 
-        return $this->generateOutput();
+        $this->importStaticSqlFile($extensionSitePath);
+
+        return $content;
     }
 
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/evecorp/class.ext_update.php']) {
-    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/evecorp/class.ext_update.php']);
 }
