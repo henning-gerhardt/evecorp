@@ -32,9 +32,10 @@ return [
             'disabled' => 'hidden'
         ],
         'rootLevel' => 1,
-        'hideTable' => 1,
         'readOnly' => 1,
-        'searchFields' => 'solar_system_id, solar_system_name,',
+        'is_static' => 1,
+        'default_sortby' => 'ORDER BY solar_system_name',
+        'searchFields' => 'solar_system_id, solar_system_name',
         'iconfile' => 'EXT:evecorp/Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
     ],
     'interface' => [

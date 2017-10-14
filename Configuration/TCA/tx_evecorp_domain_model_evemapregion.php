@@ -32,9 +32,10 @@ return [
             'disabled' => 'hidden'
         ],
         'rootLevel' => 1,
-        'hideTable' => 1,
         'readOnly' => 1,
-        'searchFields' => 'region_id, region_name,',
+        'is_static' => 1,
+        'default_sortby' => 'ORDER BY region_name',
+        'searchFields' => 'region_id, region_name',
         'iconfile' => 'EXT:evecorp/Resources/Public/Icons/tx_evecorp_domain_model_eveitem.gif'
     ],
     'interface' => [
