@@ -97,6 +97,7 @@ return [
             'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_employmenthistory.start_date',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 16,
                 'eval' => 'trim,datetime,required'
             ],

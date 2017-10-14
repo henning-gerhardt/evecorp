@@ -74,17 +74,32 @@ return [
         'buy_price' => [
             'exclude' => 0,
             'label' => 'buy_price',
-            'config' => [],
+            'config' => [
+                'type' => 'input',
+                'size' => 10,
+                'eval' => 'double2'
+            ],
         ],
         'sell_price' => [
             'exclude' => 0,
             'label' => 'sell_price',
-            'config' => [],
+            'config' => [
+                'type' => 'input',
+                'size' => 10,
+                'eval' => 'double2'
+            ],
         ],
         'cache_time' => [
             'exclude' => 0,
             'label' => 'cache_time',
-            'config' => [],
+            'config' => [
+                'type' => 'input',
+                'size' => 10,
+                'eval' => 'int',
+                'range' => [
+                    'lower' => 0
+                ]
+            ],
         ],
         'solar_system' => [
             'exclude' => 0,

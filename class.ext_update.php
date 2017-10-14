@@ -67,7 +67,7 @@ class ext_update {
      * @return \boolean true to allow access
      */
     public function access() {
-        return GeneralUtility::compat_version('7.6');
+        return \TRUE;
     }
 
     /**
