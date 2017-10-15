@@ -108,15 +108,12 @@ class UpdateEveItemListTask extends AbstractTask {
      * @return array
      */
     protected function getListOfOutdatedItemsForRegion($regionId) {
-        $fetchList = [];
 
         if (($regionId == \NULL) || ($regionId == 0)) {
-            return $fetchList;
+            return [];
         }
 
-        foreach ($this->eveItemRepository->findAllUpdateableItemsForRegion($regionId) as $entry) {
-            $fetchList[] = $entry->getEveId();
-        }
+        $fetchList = $this->eveItemRepository->findAllUpdateableItemsForRegion($regionId);
         return $fetchList;
     }
 
@@ -127,15 +124,12 @@ class UpdateEveItemListTask extends AbstractTask {
      * @return array
      */
     protected function getListOfOutdatedItemsForSystem($systemId) {
-        $fetchList = [];
 
         if (($systemId == \NULL) || ($systemId == 0)) {
-            return $fetchList;
+            return [];
         }
 
-        foreach ($this->eveItemRepository->findAllUpdateableItemsForSystem($systemId) as $entry) {
-            $fetchList[] = $entry->getEveId();
-        }
+        $fetchList = $this->eveItemRepository->findAllUpdateableItemsForSystem($systemId);
         return $fetchList;
     }
 

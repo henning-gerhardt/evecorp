@@ -19,9 +19,8 @@
 
 namespace Gerh\Evecorp\Domain\Repository;
 
-use TYPO3\CMS\Core\Database\PreparedStatement;
-use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
-use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 
 /**
  *
@@ -31,6 +30,11 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  *
  */
 class EveitemRepository extends BaseRepository {
+
+    /**
+     * @var string
+     */
+    private $tableName = 'tx_evecorp_domain_model_eveitem';
 
     /**
      * Check is given column name 'region' or 'solar_system'
@@ -55,24 +59,22 @@ class EveitemRepository extends BaseRepository {
      * @return array
      */
     protected function getListOfUniqueColumn($searchColumn) {
-        $result = [];
-        $returnRawQueryResult = \TRUE;
 
         if (!$this->isCorrectColumn($searchColumn)) {
-            return $result;
+            return [];
         }
 
-        /** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
-        $query = $this->createQuery();
-
-        /** todo replace if possible with matching query */
-        $statement = 'SELECT DISTINCT `' . $searchColumn . '` FROM `tx_evecorp_domain_model_eveitem` ';
-        $statement .= ' WHERE (`' . $searchColumn . '` > 0) AND (`deleted` = 0) AND (`hidden` = 0) ';
-
-        $rowData = $query->statement($statement)->execute($returnRawQueryResult);
+        /* @var $queryBuilder QueryBuilder */
+        $queryBuilder = $this->objectManager->get(ConnectionPool::class)->getQueryBuilderForTable($this->tableName);
+        $queryBuilder
+            ->select($searchColumn)
+            ->from($this->tableName)
+            ->where($queryBuilder->expr()->gt($searchColumn, 0))
+            ->groupBy($searchColumn);
 
         // own data mapping
-        foreach ($rowData as $rows) {
+        $result = [];
+        foreach ($queryBuilder->execute()->fetchAll() as $rows) {
             foreach ($rows as $columnValue) {
                 $result[] = $columnValue;
             }
@@ -86,34 +88,28 @@ class EveitemRepository extends BaseRepository {
      *
      * @param \integer $searchId
      * @param \string  $searchColumn Must be 'region' or 'solar_system'
-     * @return QueryResultInterface|array
+     * @return array
      */
     protected function findAllUpdateableItemsForColumn($searchId, $searchColumn) {
 
         if ($searchId == \NULL || $searchId == 0) {
-            return new QueryResult();
+            return [];
         }
 
         if (!$this->isCorrectColumn($searchColumn)) {
-            return new QueryResult();
+            return [];
         }
 
-        /** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
-        $query = $this->createQuery();
+        /* @var $queryBuilder QueryBuilder */
+        $queryBuilder = $this->objectManager->get(ConnectionPool::class)->getQueryBuilderForTable($this->tableName);
+        $queryBuilder
+            ->select('eve_id')
+            ->from($this->tableName)
+            ->where($queryBuilder->expr()->lt('cache_time', '(UNIX_TIMESTAMP() - (`time_to_cache` * 60))'))
+            ->andWhere($queryBuilder->expr()->eq($searchColumn, $searchId))
+            ->groupBy('eve_id');
 
-        /** @todo replace if possible with matching query */
-        $queryStatement = 'SELECT * FROM `tx_evecorp_domain_model_eveitem` ';
-        $queryStatement .= ' WHERE `cache_time` < (UNIX_TIMESTAMP() - (`time_to_cache` * 60)) ';
-        $queryStatement .= ' AND (`' . $searchColumn . '` = :searchId) ';
-        $queryStatement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
-
-        $statement = new PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
-        $statement->bindValues([':searchId' => (int) $searchId]);
-        $query->statement($statement);
-
-        /** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
-        $result = $query->execute();
-
+        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
         return $result;
     }
 
@@ -123,29 +119,28 @@ class EveitemRepository extends BaseRepository {
      * @param \integer $eveId
      * @param \integer $searchId
      * @param \string  $searchColumn Must be 'region' or 'system'
-     * @return QueryResultInterface|array
+     * @return array
      */
     public function findByEveIdAndColumn($eveId, $searchId, $searchColumn) {
 
         if (!$this->isCorrectColumn($searchColumn)) {
-            return new QueryResult();
+            return [];
         }
 
-        /** @var $query \TYPO3\CMS\Extbase\Persistence\QueryInterface */
-        $query = $this->createQuery();
+        /* @var $queryBuilder QueryBuilder */
+        $queryBuilder = $this->objectManager->get(ConnectionPool::class)->getQueryBuilderForTable($this->tableName);
+        $queryBuilder
+            ->select('uid')
+            ->from($this->tableName)
+            ->where($queryBuilder->expr()->eq('eve_id', $eveId))
+            ->andWhere($queryBuilder->expr()->eq($searchColumn, $searchId));
 
-        /** @todo replace if possible with matching query */
-        $queryStatement = 'SELECT * FROM `tx_evecorp_domain_model_eveitem` ';
-        $queryStatement .= ' WHERE (`eve_id` = :eveId) ';
-        $queryStatement .= ' AND (`' . $searchColumn . '` = :searchId) ';
-        $queryStatement .= ' AND (`deleted` = 0) AND (`hidden` = 0) ';
+        $result = [];
+        foreach ($queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN) as $rowUid) {
+            // load hit as model object
+            $result[] = $this->findByUid($rowUid);
+        }
 
-        $statement = new PreparedStatement($queryStatement, 'tx_evecorp_domain_model_eveitem');
-        $statement->bindValues([':eveId' => (int) $eveId, ':searchId' => (int) $searchId]);
-        $query->statement($statement);
-
-        /** @var $result \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult */
-        $result = $query->execute();
         return $result;
     }
 
@@ -177,7 +172,7 @@ class EveitemRepository extends BaseRepository {
      * Search for all out of date EVE items for a given region
      *
      * @param \integer $regionId
-     * @return QueryResultInterface|array
+     * @return array
      */
     public function findAllUpdateableItemsForRegion($regionId) {
 
@@ -190,7 +185,7 @@ class EveitemRepository extends BaseRepository {
      * Search for all out of date EVE items for a given system
      *
      * @param \integer $systemId
-     * @return QueryResultInterface|array
+     * @return array
      */
     public function findAllUpdateableItemsForSystem($systemId) {
 
@@ -204,7 +199,7 @@ class EveitemRepository extends BaseRepository {
      *
      * @param \integer $eveId
      * @param \integer $regionId
-     * @return QueryResultInterface|array
+     * @return array
      */
     public function findByEveIdAndRegionId($eveId, $regionId) {
 
@@ -218,7 +213,7 @@ class EveitemRepository extends BaseRepository {
      *
      * @param \integer $eveId
      * @param \integer $systemId
-     * @return QueryResultInterface|array
+     * @return array
      */
     public function findByEveIdAndSystemId($eveId, $systemId) {
 
