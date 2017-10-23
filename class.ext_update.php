@@ -30,17 +30,23 @@ class ext_update
 {
 
     /**
-     * @var string Name of the extension this controller belongs to
+     * Name of the extension this controller belongs to
+     *
+     * @var string
      */
     protected $extensionName = 'evecorp';
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager Extbase Object Manager
+     * Extbase Object Manager
+     *
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
      */
     protected $objectManager;
 
     /**
-     * @var \TYPO3\CMS\Extensionmanager\Utility\InstallUtility Extension Manager Install Tool
+     * Extension Manager Install Tool
+     *
+     * @var \TYPO3\CMS\Extensionmanager\Utility\InstallUtility
      */
     protected $installTool;
 
@@ -86,7 +92,8 @@ class ext_update
         $installToolSqlParser = GeneralUtility::makeInstance(SqlSchemaMigrationService::class);
         $this->installTool->injectInstallToolSqlParser($installToolSqlParser);
 
-        // Process the database updates of this base extension (we want to re-process these updates every time the update script is invoked)
+        // Process the database updates of this base extension
+        // (we want to re-process these updates every time the update script is invoked)
         $extensionSitePath = ExtensionManagementUtility::extPath(GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName));
         $content .= '<p>Updating tables for evecorp extension</p>';
 

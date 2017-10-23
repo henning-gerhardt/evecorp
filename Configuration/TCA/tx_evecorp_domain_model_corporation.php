@@ -20,9 +20,11 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
+$localLangDb = 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf';
+
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation',
+        'title' => $localLangDb . ':tx_evecorp_domain_model_corporation',
         'label' => 'corporation_name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -51,7 +53,7 @@ return [
         ],
         'corporation_id' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.corporation_id',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_corporation.corporation_id',
             'config' => [
                 'type' => 'input',
                 'size' => 10,
@@ -60,7 +62,7 @@ return [
         ],
         'corporation_name' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.corporation_name',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_corporation.corporation_name',
             'config' => [
                 'type' => 'input',
                 'size' => 32,
@@ -69,7 +71,7 @@ return [
         ],
         'current_alliance' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_alliance',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_alliance',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -81,7 +83,7 @@ return [
         ],
         'usergroup' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.usergroup',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_corporation.usergroup',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -93,7 +95,7 @@ return [
         ],
         'apikeys' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.corporation',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_apikey.corporation',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_evecorp_domain_model_apikeycorporation',
@@ -102,7 +104,7 @@ return [
         ],
         'titles' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.titles',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_corporation.titles',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_evecorp_domain_model_corporationtitle',

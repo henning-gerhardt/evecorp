@@ -189,10 +189,12 @@ class ApiKeyMapper
                 $this->createAndAddNewCharacter($characterId, $apiKeyAccountModel);
             }
         } catch (PhealException $ex) {
-            $this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage() . '" Model was not be updated!';
+            $this->errorMessage = 'Fetched PhealException with message: "';
+            $this->errorMessage .= $ex->getMessage() . '" Model was not be updated!';
             return \FALSE;
         } catch (Exception $e) {
-            $this->errorMessage = 'Fetched general exception with message: "' . $e->getMessage() . '" Model was not be updated!';
+            $this->errorMessage = 'Fetched general exception with message: "';
+            $this->errorMessage .= $e->getMessage() . '" Model was not be updated!';
             return \FALSE;
         }
 
@@ -263,7 +265,8 @@ class ApiKeyMapper
             $removedCharacterIds = \array_diff($currentCharacterIds, $wellKnownCharacterIds);
             $this->removeCharacters($removedCharacterIds, $apiKeyAccount);
         } catch (ExceptionViewHelper $ex) {
-            $this->errorMessage = 'Fetched general exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
+            $this->errorMessage = 'Fetched general exception with message: "';
+            $this->errorMessage .= $ex->getMessage() . '" Model was not be updated!';
             return \FALSE;
         }
 

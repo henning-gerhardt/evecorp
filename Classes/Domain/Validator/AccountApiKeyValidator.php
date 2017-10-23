@@ -89,7 +89,10 @@ class AccountApiKeyValidator extends AbstractValidator
         $character = $this->getCharacterFromDatabase($internalCharacterInfo->getCharacterId());
         if ($character instanceof CharacterModel) {
             if ($character->getCorpMember() instanceof CorpMember) {
-                $this->addError('Character "' . $character->getCharacterName() . '" is already assigned to a login.', 1234567890);
+                $message = 'Character "';
+                $message .= $character->getCharacterName();
+                $message .= '" is already assigned to a login.';
+                $this->addError($message, 1234567890);
                 return \FALSE;
             }
         }
@@ -115,12 +118,15 @@ class AccountApiKeyValidator extends AbstractValidator
         $apiKeyInfo = $mapper->retrieveApiKeyInfo();
 
         if ($apiKeyInfo->getType() !== 'Account') {
-            $this->addError('Given API key is not an Account API key.', 123456890);
+            $message = 'Given API key is not an Account API key.';
+            $this->addError($message, 123456890);
             return \FALSE;
         }
 
         if (!$this->hasCorrectAccessMask(\intval($apiKeyInfo->getAccessMask()))) {
-            $this->addError('Given API key has not correct access mask: ' . $this->getAccessMask(), 1234567890);
+            $message = 'Given API key has not correct access mask: ';
+            $message .= $this->getAccessMask();
+            $this->addError($message, 1234567890);
             return \FALSE;
         }
 
@@ -161,7 +167,8 @@ class AccountApiKeyValidator extends AbstractValidator
     {
 
         if (($value instanceof ApiKey) === \FALSE) {
-            $this->addError('Given object has wrong type!', 1234567890);
+            $message = 'Given object has wrong type!';
+            $this->addError($message, 1234567890);
             return \FALSE;
         }
 
@@ -169,22 +176,26 @@ class AccountApiKeyValidator extends AbstractValidator
         $vCode = $value->getVCode();
 
         if (empty($keyId) === \TRUE) {
-            $this->addError('Key ID is empty!', 1234567890);
+            $message = 'Key ID is empty!';
+            $this->addError($message, 1234567890);
             return \FALSE;
         }
 
         if (\is_int($keyId) === \FALSE) {
-            $this->addError('Key ID is not a integer value!', 1234567890);
+            $message = 'Key ID is not a integer value!';
+            $this->addError($message, 1234567890);
             return \FALSE;
         }
 
         if (empty($vCode) === \TRUE) {
-            $this->addError('Verification code is empty!', 1234567890);
+            $message = 'Verification code is empty!';
+            $this->addError($message, 1234567890);
             return \FALSE;
         }
 
         if ($this->isKeyIdAlreadyInDatabase($keyId)) {
-            $this->addError('Key already stored in database', 1234567890);
+            $message = 'Key already stored in database';
+            $this->addError($message, 1234567890);
             return \FALSE;
         }
 
@@ -199,7 +210,7 @@ class AccountApiKeyValidator extends AbstractValidator
      * @param array $options
      * @return void
      */
-    public function __construct(ApiKeyAccountRepository $apiKeyAccountRepository, CharacterRepository $characterRepository, array $options = array())
+    public function __construct(ApiKeyAccountRepository $apiKeyAccountRepository, CharacterRepository $characterRepository, array $options = [])
     {
         // call default validator constructor
         parent::__construct($options);

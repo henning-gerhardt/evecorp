@@ -108,7 +108,9 @@ class ApiKeyManagementController extends ActionController
         $corpMember = $this->accessControlService->getCorpMember();
 
         if (($corpMember === \NULL) || (!$corpMember instanceof CorpMember)) {
-            $this->addFlashMessage('FE user not defined as Gerh_Evecorp_Domain_Model_CorpMember. Notice your local TYPO3 administrator to change your account to correct record type!', 'Error happening', AbstractMessage::ERROR);
+            $errorMessage = 'FE user not defined as Gerh_Evecorp_Domain_Model_CorpMember.';
+            $errorMessage .= ' Notice your local TYPO3 administrator to change your account to correct record type!';
+            $this->addFlashMessage($errorMessage, 'Error happening', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }

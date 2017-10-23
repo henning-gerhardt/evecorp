@@ -36,13 +36,11 @@ class CorporationTitleMapper
 {
 
     /**
-     *
      * @var \Gerh\Evecorp\Domain\Model\ApiKeyCorporation
      */
     private $corporationApiKey;
 
     /**
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\CorporationTitle>
      */
     private $corporationTitles;

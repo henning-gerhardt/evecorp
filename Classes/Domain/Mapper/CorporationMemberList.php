@@ -107,7 +107,8 @@ class CorporationMemberList
             $response = $pheal->corpScope->MemberTracking();
             return $response->members;
         } catch (Exception $ex) {
-            $this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage();
+            $this->errorMessage = 'Fetched PhealException with message: "';
+            $this->errorMessage .= $ex->getMessage() . '"';
         }
         return new ArrayObject();
     }

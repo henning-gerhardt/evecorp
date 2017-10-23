@@ -39,7 +39,8 @@ class Corporation
     const MEMBERMEDALS = 4;
 
     /**
-     * Exposes basic'Show Info'information as well as Member Limit and basic division and wallet info.
+     * Exposes basic'Show Info'information as well as Member Limit and
+     * basic division and wallet info.
      */
     const CORPORATIONSHEET = 8;
 
@@ -144,12 +145,14 @@ class Corporation
     const CONTRACTS = 8388608;
 
     /**
-     * Allows the fetching of coordinate and name data for items owned by the corporation.
+     * Allows the fetching of coordinate and name data for items owned by
+     * the corporation.
      */
     const LOCATIONS = 16777216;
 
     /**
-     * Extensive Member information. Time of last logoff, last known location and ship.
+     * Extensive Member information. Time of last logoff, last known location
+     * and ship.
      */
     const MEMBERTRACKINGEXTENDED = 33554432;
 

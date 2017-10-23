@@ -17,8 +17,10 @@
  */
 namespace Gerh\Evecorp\Service;
 
-use Pheal\Pheal;
+use Pheal\Access\StaticCheck;
+use Pheal\Cache\FileStorage;
 use Pheal\Core\Config;
+use Pheal\Pheal;
 use TYPO3\CMS\Core\SingletonInterface;
 
 /**
@@ -80,15 +82,15 @@ class PhealService implements SingletonInterface
 
         Config::getInstance()->http_ssl_verifypeer = $this->isHttpsConnectionVerified();
         Config::getInstance()->http_timeout = $this->getConnectionTimeout();
-        Config::getInstance()->cache = new \Pheal\Cache\FileStorage($this->getPhealCacheDirectory() . \DIRECTORY_SEPARATOR, $this->getUmaskOptions());
-        Config::getInstance()->access = new \Pheal\Access\StaticCheck();
+        Config::getInstance()->cache = new FileStorage($this->getPhealCacheDirectory() . \DIRECTORY_SEPARATOR, $this->getUmaskOptions());
+        Config::getInstance()->access = new StaticCheck();
         $this->pheal = new Pheal($keyId, $vCode, $scope);
     }
 
     /**
      * Return fully configured Pheal object.
      *
-     * @return Pheal\Pheal
+     * @return Pheal
      */
     public function getPhealInstance()
     {
@@ -113,7 +115,9 @@ class PhealService implements SingletonInterface
     protected function setPhealCacheDirectory($phealCacheDirectory)
     {
         $this->phealCacheDirectory = \realpath(PATH_site . 'typo3temp');
-        if ((\file_exists($phealCacheDirectory)) && (\is_dir($phealCacheDirectory)) && (\is_writable($phealCacheDirectory))) {
+        if ((\file_exists($phealCacheDirectory)) &&
+            (\is_dir($phealCacheDirectory)) &&
+            (\is_writable($phealCacheDirectory))) {
             $this->phealCacheDirectory = \realpath($phealCacheDirectory);
         }
     }

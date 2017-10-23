@@ -128,7 +128,8 @@ class CorporationTitleManagementController extends ActionController
     public function fetchAction()
     {
         if ($this->selectedCorporation < 1) {
-            $this->addFlashMessage('No corporation selected!', 'Error', AbstractMessage::ERROR);
+            $message = 'No corporation selected!';
+            $this->addFlashMessage($message, 'Error', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
@@ -136,7 +137,8 @@ class CorporationTitleManagementController extends ActionController
         // fetch corporation from database
         $corporation = $this->corporationRepository->findByUid($this->selectedCorporation);
         if (!$corporation instanceof Corporation) {
-            $this->addFlashMessage('Corporation not found!', 'Error', AbstractMessage::ERROR);
+            $message = 'Corporation not found!';
+            $this->addFlashMessage($message, 'Error', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
@@ -144,7 +146,8 @@ class CorporationTitleManagementController extends ActionController
         // determinate api key with corp title access
         $corporationApiKey = $corporation->findFirstApiKeyByAccessMask(Corporation2::TITLES);
         if (!$corporationApiKey instanceof ApiKeyCorporation) {
-            $this->addFlashMessage('No corporation api key found with title access!', 'Error', AbstractMessage::ERROR);
+            $message = 'No corporation api key found with title access!';
+            $this->addFlashMessage($message, 'Error', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }

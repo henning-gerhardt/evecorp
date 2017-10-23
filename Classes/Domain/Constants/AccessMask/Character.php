@@ -39,7 +39,9 @@ class Character
     const CALENDAREVENTATTENDEES = 4;
 
     /**
-     * Character Sheet information. Contains basic'Show Info'information along with clones, account balance, implants, attributes, skills, certificates and corporation roles.
+     * Character Sheet information. Contains basic 'Show Info' information
+     * along with clones, account balance, implants, attributes, skills,
+     * certificates and corporation roles.
      */
     const CHARACTERSHEET = 8;
 
@@ -99,12 +101,14 @@ class Character
     const NOTIFICATIONS = 16384;
 
     /**
-     * Actual body of notifications sent to the character. Requires Notification access to function.
+     * Actual body of notifications sent to the character.
+     * Requires Notification access to function.
      */
     const NOTIFICATIONTEXTS = 32768;
 
     /**
-     * List of all Research agents working for the character and the progress of the research.
+     * List of all Research agents working for the character and
+     * the progress of the research.
      */
     const RESEARCH = 65536;
 
@@ -139,12 +143,14 @@ class Character
     const WALLETTRANSACTIONS = 4194304;
 
     /**
-     * Character information, exposes skill points and current ship information on top of'Show Info'information.
+     * Character information, exposes skill points and current ship information
+     * on top of'Show Info'information.
      */
     const CHARACTERINFOPUBLIC = 8388608;
 
     /**
-     * Sensitive Character Information, exposes account balance and last known location on top of the other Character Information call.
+     * Sensitive Character Information, exposes account balance and last known
+     * location on top of the other Character Information call.
      */
     const CHARACTERINFOPRIVATE = 16777216;
 

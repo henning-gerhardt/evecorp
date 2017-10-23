@@ -20,9 +20,11 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
+$localLangDb = 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf';
+
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_eveitem',
+        'title' => $localLangDb . ':tx_evecorp_domain_model_eveitem',
         'label' => 'eve_name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -51,7 +53,7 @@ return [
         ],
         'eve_name' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_eveitem.eve_name',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_eveitem.eve_name',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -60,7 +62,7 @@ return [
         ],
         'eve_id' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_eveitem.eve_id',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_eveitem.eve_id',
             'config' => [
                 'type' => 'input',
                 'size' => 10,
@@ -102,7 +104,7 @@ return [
         ],
         'solar_system' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_eveitem.solarsystem',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_eveitem.solarsystem',
             'readOnly' => 1,
             'config' => [
                 'type' => 'select',
@@ -113,7 +115,7 @@ return [
                 'maxitems' => 1,
                 'disableNoMatchingValueElement' => 1,
                 'items' => [
-                    ['LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_eveitem.solarsystem.noSolarSystemSelected', '0'],
+                    [$localLangDb . ':tx_evecorp_domain_model_eveitem.solarsystem.noSolarSystemSelected', '0'],
                     ['', '--div--'],
                 ],
                 'wizards' => [
@@ -128,7 +130,7 @@ return [
         ],
         'region' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_eveitem.region',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_eveitem.region',
             'readOnly' => 1,
             'config' => [
                 'type' => 'select',
@@ -139,7 +141,7 @@ return [
                 'maxitems' => 1,
                 'disableNoMatchingValueElement' => 1,
                 'items' => [
-                    ['LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_eveitem.region.noRegionSelected', '0'],
+                    [$localLangDb . ':tx_evecorp_domain_model_eveitem.region.noRegionSelected', '0'],
                     ['', '--div--'],
                 ],
                 'wizards' => [
@@ -154,7 +156,7 @@ return [
         ],
         'time_to_cache' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_eveitem.time_to_cache',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_eveitem.time_to_cache',
             'config' => [
                 'type' => 'input',
                 'size' => 10,

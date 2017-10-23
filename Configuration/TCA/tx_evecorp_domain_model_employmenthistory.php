@@ -20,9 +20,11 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
+$localLangDb = 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf';
+
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_employmenthistory',
+        'title' => $localLangDb . ':tx_evecorp_domain_model_employmenthistory',
         'label' => 'character_uid',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -51,7 +53,7 @@ return [
         ],
         'character_uid' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_character',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -63,7 +65,7 @@ return [
         ],
         'corporation_uid' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_corporation',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -75,7 +77,7 @@ return [
         ],
         'record_id' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_employmenthistory.record_id',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_employmenthistory.record_id',
             'config' => [
                 'type' => 'input',
                 'size' => 16,
@@ -84,7 +86,7 @@ return [
         ],
         'start_date' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_employmenthistory.start_date',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_employmenthistory.start_date',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',

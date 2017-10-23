@@ -20,9 +20,11 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
+$localLangDb = 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf';
+
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_alliance',
+        'title' => $localLangDb . ':tx_evecorp_domain_model_alliance',
         'label' => 'alliance_name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -51,7 +53,7 @@ return [
         ],
         'alliance_id' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_alliance.alliance_id',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_alliance.alliance_id',
             'config' => [
                 'type' => 'input',
                 'size' => 10,
@@ -60,7 +62,7 @@ return [
         ],
         'alliance_name' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_alliance.alliance_name',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_alliance.alliance_name',
             'config' => [
                 'type' => 'input',
                 'size' => 32,
@@ -69,7 +71,7 @@ return [
         ],
         'corporations' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_alliance.corporation',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_alliance.corporation',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_evecorp_domain_model_corporation',

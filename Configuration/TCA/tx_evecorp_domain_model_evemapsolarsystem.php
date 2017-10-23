@@ -20,9 +20,11 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
+$localLangDb = 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf';
+
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_evemapsolarsystem',
+        'title' => $localLangDb . ':tx_evecorp_domain_model_evemapsolarsystem',
         'label' => 'solar_system_name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -55,7 +57,7 @@ return [
         ],
         'solar_system_id' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_evemapsolarsystem.solar_system_id',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_evemapsolarsystem.solar_system_id',
             'config' => [
                 'type' => 'input',
                 'size' => '10',
@@ -64,7 +66,7 @@ return [
         ],
         'solar_system_name' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_evemapsolarsystem.solar_system_name',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_evemapsolarsystem.solar_system_name',
             'config' => [
                 'type' => 'input',
                 'size' => '20',

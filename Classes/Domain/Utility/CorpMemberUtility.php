@@ -45,14 +45,16 @@ class CorpMemberUtility
         $collected = [];
         foreach ($corpMember->getCharacters() as $character) {
             $corpUserGroup = $character->getCurrentCorporation()->getUserGroup();
-            if ((empty($corpUserGroup) === \FALSE) && (\array_key_exists($corpUserGroup->getUid(), $collected) === \FALSE)) {
+            if ((empty($corpUserGroup) === \FALSE) &&
+                (\array_key_exists($corpUserGroup->getUid(), $collected) === \FALSE)) {
                 $collected[$corpUserGroup->getUid()] = $corpUserGroup;
             }
 
             /* @var $corpTitle CorporationTitle */
             foreach ($character->getTitles() as $corpTitle) {
                 $corpTitleGroup = $corpTitle->getUsergroup();
-                if ((empty($corpTitleGroup) === \FALSE) && (\array_key_exists($corpTitleGroup->getUid(), $collected) === \FALSE)) {
+                if ((empty($corpTitleGroup) === \FALSE) &&
+                    (\array_key_exists($corpTitleGroup->getUid(), $collected) === \FALSE)) {
                     $collected[$corpTitleGroup->getUid()] = $corpTitleGroup;
                 }
             }

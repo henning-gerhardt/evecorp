@@ -312,7 +312,7 @@ class CharacterMapper
         $this->characterRepositoryStoragePids = $characterRepository->getRepositoryStoragePid();
 
         $this->corporationRepository = $corporationRepository;
-        $this->CorporationRepositoryStoragePids = $corporationRepository->getRepositoryStoragePid();
+        $this->corporationRepositoryStoragePids = $corporationRepository->getRepositoryStoragePid();
 
         $this->employmentHistoryRepository = $employmentHistoryRepository;
         $this->employmentHistoryRepositoryStoragePids = $employmentHistoryRepository->getRepositoryStoragePid();
@@ -351,7 +351,8 @@ class CharacterMapper
         try {
             $response = $pheal->eveScope->CharacterInfo(['CharacterID' => $characterId]);
         } catch (\Pheal\Exceptions\PhealException $ex) {
-            $this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage();
+            $this->errorMessage = 'Fetched PhealException with message: "';
+            $this->errroMessage .= $ex->getMessage() . '"';
             return \NULL;
         }
 
@@ -368,7 +369,8 @@ class CharacterMapper
 
             $this->addEmploymentHistoryOfCharacter($character, $response->employmentHistory);
         } catch (Exception $ex) {
-            $this->errorMessage = 'Fetched general Exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
+            $this->errorMessage = 'Fetched general Exception with message: "';
+            $this->errorMessage .= $ex->getMessage() . '" Model was not be updated!';
             return \NULL;
         }
 
@@ -376,14 +378,16 @@ class CharacterMapper
             try {
                 $response = $pheal->charScope->CharacterSheet(['CharacterID' => $characterId]);
             } catch (\Pheal\Exceptions\PhealException $ex) {
-                $this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage();
+                $this->errorMessage = 'Fetched PhealException with message: "';
+                $this->errorMessage .= $ex->getMessage() . '"';
                 return \NULL;
             }
 
             try {
                 $this->setCharacterCorporationTitles($character, $response->corporationTitles);
             } catch (Exception $ex) {
-                $this->errorMessage = 'Fetched general Exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
+                $this->errorMessage = 'Fetched general Exception with message: "';
+                $this->errorMessage .= $ex->getMessage() . '" Model was not be updated!';
                 return \NULL;
             }
         }
@@ -439,7 +443,8 @@ class CharacterMapper
         try {
             $response = $pheal->eveScope->CharacterInfo(['CharacterID' => $characterId]);
         } catch (\Pheal\Exceptions\PhealException $ex) {
-            $this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage();
+            $this->errorMessage = 'Fetched PhealException with message: "';
+            $this->errorMessage .= $ex->getMessage() . '"';
             return \FALSE;
         }
 
@@ -448,7 +453,8 @@ class CharacterMapper
 
             $this->updateEmploymentHistoryOfCharacter($characterModel, $response->employmentHistory);
         } catch (Exception $ex) {
-            $this->errorMessage = 'Fetched general Exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
+            $this->errorMessage = 'Fetched general Exception with message: "';
+            $this->errorMessage .= $ex->getMessage() . '" Model was not be updated!';
             return \FALSE;
         }
 
@@ -456,14 +462,16 @@ class CharacterMapper
             try {
                 $response = $pheal->charScope->CharacterSheet(['CharacterID' => $characterId]);
             } catch (\Pheal\Exceptions\PhealException $ex) {
-                $this->errorMessage = 'Fetched PhealException with message: "' . $ex->getMessage();
+                $this->errorMessage = 'Fetched PhealException with message: "';
+                $this->errrorMessage .= $ex->getMessage() . '"';
                 return \FALSE;
             }
 
             try {
                 $this->setCharacterCorporationTitles($characterModel, $response->corporationTitles);
             } catch (Exception $ex) {
-                $this->errorMessage = 'Fetched general Exception with message: "' . $ex->getMessage() . '" Model was not be updated!';
+                $this->errorMessage = 'Fetched general Exception with message: "';
+                $this->errorMessage .= $ex->getMessage() . '" Model was not be updated!';
                 return \FALSE;
             }
         }

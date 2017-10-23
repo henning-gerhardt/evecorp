@@ -20,9 +20,11 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
+$localLangDb = 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf';
+
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account',
+        'title' => $localLangDb . ':tx_evecorp_domain_model_apikey.account',
         'label' => 'key_id',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -51,7 +53,7 @@ return [
         ],
         'key_id' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.keyid',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_apikey.keyid',
             'config' => [
                 'type' => 'input',
                 'size' => 10,
@@ -60,7 +62,7 @@ return [
         ],
         'v_code' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.vcode',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_apikey.vcode',
             'config' => [
                 'type' => 'input',
                 'size' => 64,
@@ -69,7 +71,7 @@ return [
         ],
         'corp_member' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.account.corpmember',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_apikey.account.corpmember',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -81,14 +83,14 @@ return [
         ],
         'access_mask' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.accessmask',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_apikey.accessmask',
             'config' => [
                 'type' => 'none',
             ],
         ],
         'expires' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_apikey.expires',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_apikey.expires',
             'config' => [
                 'type' => 'none',
                 'format' => 'date',
@@ -100,7 +102,7 @@ return [
         ],
         'characters' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_character',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_evecorp_domain_model_character',

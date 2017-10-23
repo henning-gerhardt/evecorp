@@ -179,13 +179,15 @@ class CorpMemberListController extends ActionController
     public function updateAction()
     {
         if (\count($this->choosedCorporation) != 1) {
-            $this->addFlashMessage('No or to many corporations selected!', '', AbstractMessage::ERROR);
+            $message = 'No or to many corporations selected!';
+            $this->addFlashMessage($message, '', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
 
         if (!$this->hasCorpMemberListAccess()) {
-            $this->addFlashMessage('No access to corporation member list!', '', AbstractMessage::ERROR);
+            $message = 'No access to corporation member list!';
+            $this->addFlashMessage($message, '', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
@@ -193,7 +195,8 @@ class CorpMemberListController extends ActionController
         $corporation = $this->corporationRepository->findByUid($this->choosedCorporation[0]);
         $corporationApiKey = $corporation->findFirstApiKeyByAccessMask(Corporation2::MEMBERTRACKINGLIMITED);
         if (!$corporationApiKey instanceof ApiKeyCorporation) {
-            $this->addFlashMessage('No corporation API key found for accessing corporation member list!', '', AbstractMessage::ERROR);
+            $message = 'No corporation API key found for accessing corporation member list!';
+            $this->addFlashMessage($message, '', AbstractMessage::ERROR);
             $this->redirect('index');
             return;
         }
@@ -210,7 +213,8 @@ class CorpMemberListController extends ActionController
         ];
 
         if ($result === \FALSE) {
-            $flashMessage['message'] = 'Error while updating corporation member list!Reason: ' . $corpMemberListUpdater->getErrorMessage();
+            $message = 'Error while updating corporation member list! Reason: ';
+            $flashMessage['message'] = $message . $corpMemberListUpdater->getErrorMessage();
             $flashMessage['severity'] = AbstractMessage::ERROR;
         }
 

@@ -65,8 +65,10 @@ class EveitemRepository extends BaseRepository
             return [];
         }
 
+        /* @var $connectionPool ConnectionPool */
+        $connectionPool = $this->objectManager->get(ConnectionPool::class);
         /* @var $queryBuilder QueryBuilder */
-        $queryBuilder = $this->objectManager->get(ConnectionPool::class)->getQueryBuilderForTable($this->tableName);
+        $queryBuilder = $connectionPool->getQueryBuilderForTable($this->tableName);
         $queryBuilder
             ->select($searchColumn)
             ->from($this->tableName)
@@ -102,8 +104,10 @@ class EveitemRepository extends BaseRepository
             return [];
         }
 
+        /* @var $connectionPool ConnectionPool */
+        $connectionPool = $this->objectManager->get(ConnectionPool::class);
         /* @var $queryBuilder QueryBuilder */
-        $queryBuilder = $this->objectManager->get(ConnectionPool::class)->getQueryBuilderForTable($this->tableName);
+        $queryBuilder = $connectionPool->getQueryBuilderForTable($this->tableName);
         $queryBuilder
             ->select('eve_id')
             ->from($this->tableName)
@@ -130,8 +134,10 @@ class EveitemRepository extends BaseRepository
             return [];
         }
 
+        /* @var $connectionPool ConnectionPool */
+        $connectionPool = $this->objectManager->get(ConnectionPool::class);
         /* @var $queryBuilder QueryBuilder */
-        $queryBuilder = $this->objectManager->get(ConnectionPool::class)->getQueryBuilderForTable($this->tableName);
+        $queryBuilder = $connectionPool->getQueryBuilderForTable($this->tableName);
         $queryBuilder
             ->select('uid')
             ->from($this->tableName)

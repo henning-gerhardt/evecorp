@@ -20,9 +20,11 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
+$localLangDb = 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf';
+
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation_title',
+        'title' => $localLangDb . ':tx_evecorp_domain_model_corporation_title',
         'label' => 'title_name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -51,7 +53,7 @@ return [
         ],
         'title_id' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation_title.titleid',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_corporation_title.titleid',
             'config' => [
                 'type' => 'input',
                 'eval' => 'trim,int,required'
@@ -59,7 +61,7 @@ return [
         ],
         'title_name' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation_title.titlename',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_corporation_title.titlename',
             'config' => [
                 'type' => 'input',
                 'eval' => 'trim,required'
@@ -67,7 +69,7 @@ return [
         ],
         'corporation' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_corporation',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -76,7 +78,7 @@ return [
         ],
         'usergroup' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_corporation.usergroup',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_corporation.usergroup',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -88,7 +90,7 @@ return [
         ],
         'characters' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:evecorp/Resources/Private/Language/locallang_db.xlf:tx_evecorp_domain_model_character',
+            'label' => $localLangDb . ':tx_evecorp_domain_model_character',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectCheckBox',

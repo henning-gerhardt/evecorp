@@ -54,7 +54,8 @@ class CorporationApiKeyValidator extends AbstractValidator
         $apiKeyInfo = $mapper->retrieveApiKeyInfo();
 
         if ($apiKeyInfo->getType() !== 'Corporation') {
-            $this->addError('Given API key is not an corporation API key.', 123456890);
+            $message = 'Given API key is not an corporation API key.';
+            $this->addError($message, 123456890);
             return \FALSE;
         }
 
@@ -88,7 +89,8 @@ class CorporationApiKeyValidator extends AbstractValidator
     {
 
         if (($value instanceof ApiKey) === \FALSE) {
-            $this->addError('Given object has wrong type!', 1234567890);
+            $message = 'Given object has wrong type!';
+            $this->addError($message, 1234567890);
             return \FALSE;
         }
 
@@ -96,22 +98,26 @@ class CorporationApiKeyValidator extends AbstractValidator
         $vCode = $value->getVCode();
 
         if (empty($keyId) === \TRUE) {
-            $this->addError('Key ID is empty!', 1234567890);
+            $message = 'Key ID is empty!';
+            $this->addError($message, 1234567890);
             return \FALSE;
         }
 
         if (\is_int($keyId) === \FALSE) {
-            $this->addError('Key ID is not a integer value!', 1234567890);
+            $message = 'Key ID is not a integer value!';
+            $this->addError($message, 1234567890);
             return \FALSE;
         }
 
         if (empty($vCode) === \TRUE) {
-            $this->addError('Verification code is empty!', 1234567890);
+            $message = 'Verification code is empty!';
+            $this->addError($message, 1234567890);
             return \FALSE;
         }
 
         if ($this->isKeyIdAlreadyInDatabase($keyId)) {
-            $this->addError('Key already stored in database', 1234567890);
+            $message = 'Key already stored in database';
+            $this->addError($message, 1234567890);
             return \FALSE;
         }
 
@@ -125,7 +131,7 @@ class CorporationApiKeyValidator extends AbstractValidator
      * @param array $options
      * @return void
      */
-    public function __construct(ApiKeyCorporationRepository $apiKeyCorporationRepository, array $options = array())
+    public function __construct(ApiKeyCorporationRepository $apiKeyCorporationRepository, array $options = [])
     {
         // call default validator constructor
         parent::__construct($options);

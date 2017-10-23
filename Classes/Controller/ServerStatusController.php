@@ -19,7 +19,6 @@ namespace Gerh\Evecorp\Controller;
 
 use Gerh\Evecorp\Service\PhealService;
 use Pheal\Exceptions\PhealException;
-use Pheal\Pheal;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
