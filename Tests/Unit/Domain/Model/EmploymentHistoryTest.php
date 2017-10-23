@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Domain\Model;
 
 use Gerh\Evecorp\Domain\Model\Character;
@@ -32,12 +30,14 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EmploymentHistoryTest extends UnitTestCase {
+class EmploymentHistoryTest extends UnitTestCase
+{
 
     /**
      * @test
      */
-    public function classCouldBeInitiated() {
+    public function classCouldBeInitiated()
+    {
         $history = new EmploymentHistory();
 
         $this->assertInstanceOf(EmploymentHistory::class, $history);
@@ -46,7 +46,8 @@ class EmploymentHistoryTest extends UnitTestCase {
     /**
      * @test
      */
-    public function characterCouldBeSet() {
+    public function characterCouldBeSet()
+    {
         $expected = new Character();
         $expected->setCharacterId(815);
         $expected->setCharacterName('Foo Bar');
@@ -60,7 +61,8 @@ class EmploymentHistoryTest extends UnitTestCase {
     /**
      * @test
      */
-    public function corporationCouldBeSet() {
+    public function corporationCouldBeSet()
+    {
         $expected = new Corporation;
         $expected->setCorporationId(1234);
         $expected->setCorporationName('Bar Corporation');
@@ -74,7 +76,8 @@ class EmploymentHistoryTest extends UnitTestCase {
     /**
      * @test
      */
-    public function recordIdCouldBeSet() {
+    public function recordIdCouldBeSet()
+    {
         $expected = 987654;
 
         $history = new EmploymentHistory();
@@ -86,7 +89,8 @@ class EmploymentHistoryTest extends UnitTestCase {
     /**
      * @test
      */
-    public function startDateCouldBeSet() {
+    public function startDateCouldBeSet()
+    {
         $expected = new DateTime();
 
         $history = new EmploymentHistory();
@@ -94,5 +98,4 @@ class EmploymentHistoryTest extends UnitTestCase {
 
         $this->assertEquals($expected, $history->getStartDate());
     }
-
 }

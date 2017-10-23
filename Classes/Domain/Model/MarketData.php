@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use Gerh\Evecorp\Domain\Repository\EveitemRepository;
@@ -28,7 +26,8 @@ use Gerh\Evecorp\Domain\Repository\EveitemRepository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class MarketData {
+class MarketData
+{
 
     /**
      * @var \float Holds current used tax rate
@@ -48,7 +47,8 @@ class MarketData {
      * @param Eveitem $entry
      * @return \array
      */
-    protected function extractDisplayData(Eveitem $entry) {
+    protected function extractDisplayData(Eveitem $entry)
+    {
 
         $result = new EveItemDisplay();
         $result->setDisplayName($entry->getEveName());
@@ -67,7 +67,8 @@ class MarketData {
      * @param EveitemRepository $eveitemRepository
      * @return void
      */
-    public function __construct(EveitemRepository $eveitemRepository) {
+    public function __construct(EveitemRepository $eveitemRepository)
+    {
         $this->eveitemRepository = $eveitemRepository;
     }
 
@@ -76,7 +77,8 @@ class MarketData {
      *
      * @return array
      */
-    public function getMarketData() {
+    public function getMarketData()
+    {
         $result = [];
         foreach ($this->eveitemRepository->findAll() as $dbEntry) {
             if ($dbEntry != \NULL) {
@@ -92,7 +94,8 @@ class MarketData {
      *
      * @return integer
      */
-    public function getCorpTax() {
+    public function getCorpTax()
+    {
         return $this->corpTax;
     }
 
@@ -101,11 +104,11 @@ class MarketData {
      *
      * @param \float $corpTax
      */
-    public function setCorpTax($corpTax) {
+    public function setCorpTax($corpTax)
+    {
         if (($corpTax < 0.0) || ($corpTax > 100.0)) {
             $corpTax = 0;
         }
         $this->corpTax = $corpTax;
     }
-
 }

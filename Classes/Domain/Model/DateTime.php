@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use DateTimeZone;
@@ -27,14 +25,15 @@ use DateTimeZone;
  * class must extends as \DateTime (no use statement!) or
  * class must be renamed to a better name
  */
-class DateTime extends \DateTime {
+class DateTime extends \DateTime
+{
 
-    public function __construct($time = 'now', DateTimeZone $timezone = \NULL) {
+    public function __construct($time = 'now', DateTimeZone $timezone = \NULL)
+    {
         // We need to override the constructor, because Extbase tries to apply the reflection API
         // on it, which will result in a "Cannot determine default value for internal functions"
         // exception.
 
         parent::__construct($time, $timezone);
     }
-
 }

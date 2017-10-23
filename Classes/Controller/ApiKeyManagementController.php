@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Controller;
 
 use Gerh\Evecorp\Domain\Mapper\ApiKeyMapper;
@@ -37,7 +35,8 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyManagementController extends ActionController {
+class ApiKeyManagementController extends ActionController
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Repository\ApiKeyAccountRepository
@@ -56,7 +55,8 @@ class ApiKeyManagementController extends ActionController {
      * @param AccessControlService $accessControlService
      * @return void
      */
-    public function __construct(ApiKeyAccountRepository $apiKeyAccountRepository, AccessControlService $accessControlService) {
+    public function __construct(ApiKeyAccountRepository $apiKeyAccountRepository, AccessControlService $accessControlService)
+    {
         // calling default controller constructor
         parent::__construct();
 
@@ -69,7 +69,8 @@ class ApiKeyManagementController extends ActionController {
      *
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $corpMember = $this->accessControlService->getCorpMember();
 
         $displayName = $corpMember->getName();
@@ -88,7 +89,8 @@ class ApiKeyManagementController extends ActionController {
      * @ignorevalidation $newApiKey
      * @return void
      */
-    public function newAction(ApiKey $newApiKey = \NULL) {
+    public function newAction(ApiKey $newApiKey = \NULL)
+    {
         $this->view->assign('newApiKey', $newApiKey);
 
         $accessMask = AccessMaskUtility::getAccessMask();
@@ -101,7 +103,8 @@ class ApiKeyManagementController extends ActionController {
      * @param ApiKey $newApiKeyAccount
      * @validate $newApiKeyAccount \Gerh\Evecorp\Domain\Validator\AccountApiKeyValidator
      */
-    public function createAction(ApiKeyAccount $newApiKeyAccount) {
+    public function createAction(ApiKeyAccount $newApiKeyAccount)
+    {
         $corpMember = $this->accessControlService->getCorpMember();
 
         if (($corpMember === \NULL) || (!$corpMember instanceof CorpMember)) {
@@ -136,7 +139,8 @@ class ApiKeyManagementController extends ActionController {
      * @ignorevalidation $apiKeyAccount
      * @return void
      */
-    public function deleteAction(ApiKeyAccount $apiKeyAccount) {
+    public function deleteAction(ApiKeyAccount $apiKeyAccount)
+    {
         $this->apiKeyAccountRepository->remove($apiKeyAccount);
 
         $corpMember = $this->accessControlService->getCorpMember();
@@ -153,7 +157,8 @@ class ApiKeyManagementController extends ActionController {
      * @ignorevalidation $apiKeyAccount
      * @return void
      */
-    public function updateAction(ApiKeyAccount $apiKeyAccount) {
+    public function updateAction(ApiKeyAccount $apiKeyAccount)
+    {
         $mapper = $this->objectManager->get(ApiKeyMapper::class);
 
         $result = $mapper->updateApiKeyAccount($apiKeyAccount);
@@ -172,5 +177,4 @@ class ApiKeyManagementController extends ActionController {
 
         $this->redirect('index');
     }
-
 }

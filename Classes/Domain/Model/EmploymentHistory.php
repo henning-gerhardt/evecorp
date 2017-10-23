@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
@@ -29,7 +27,8 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EmploymentHistory extends AbstractEntity {
+class EmploymentHistory extends AbstractEntity
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Model\Character
@@ -61,7 +60,8 @@ class EmploymentHistory extends AbstractEntity {
      *
      * @return Character
      */
-    public function getCharacter() {
+    public function getCharacter()
+    {
         if ($this->characterUid instanceof LazyLoadingProxy) {
             $this->characterUid->_loadRealInstance();
         }
@@ -74,7 +74,8 @@ class EmploymentHistory extends AbstractEntity {
      *
      * @param Character $character
      */
-    public function setCharacter(Character $character) {
+    public function setCharacter(Character $character)
+    {
         $this->characterUid = $character;
     }
 
@@ -83,7 +84,8 @@ class EmploymentHistory extends AbstractEntity {
      *
      * @return Corporation
      */
-    public function getCorporation() {
+    public function getCorporation()
+    {
         if ($this->corporationUid instanceof LazyLoadingProxy) {
             $this->corporationUid->_loadRealInstance();
         }
@@ -96,7 +98,8 @@ class EmploymentHistory extends AbstractEntity {
      *
      * @param Corporation $corporation
      */
-    public function setCorporation(Corporation $corporation) {
+    public function setCorporation(Corporation $corporation)
+    {
         $this->corporationUid = $corporation;
     }
 
@@ -105,7 +108,8 @@ class EmploymentHistory extends AbstractEntity {
      *
      * @return \integer
      */
-    public function getRecordId() {
+    public function getRecordId()
+    {
         return $this->recordId;
     }
 
@@ -114,7 +118,8 @@ class EmploymentHistory extends AbstractEntity {
      *
      * @param \integer $recordId
      */
-    public function setRecordId($recordId) {
+    public function setRecordId($recordId)
+    {
         $this->recordId = intval($recordId);
     }
 
@@ -123,7 +128,8 @@ class EmploymentHistory extends AbstractEntity {
      *
      * @return DateTime
      */
-    public function getStartDate() {
+    public function getStartDate()
+    {
         return $this->startDate;
     }
 
@@ -132,8 +138,8 @@ class EmploymentHistory extends AbstractEntity {
      *
      * @param DateTime $startDate
      */
-    public function setStartDate(DateTime $startDate) {
+    public function setStartDate(DateTime $startDate)
+    {
         $this->startDate = $startDate;
     }
-
 }

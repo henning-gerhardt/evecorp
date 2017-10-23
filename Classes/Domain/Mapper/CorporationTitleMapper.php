@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Mapper;
 
 use Gerh\Evecorp\Domain\Model\ApiKeyCorporation;
@@ -34,7 +32,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorporationTitleMapper {
+class CorporationTitleMapper
+{
 
     /**
      *
@@ -53,7 +52,8 @@ class CorporationTitleMapper {
      *
      * @param RowSet $titleObjects
      */
-    protected function mapRetrievedInformation(RowSet $titleObjects) {
+    protected function mapRetrievedInformation(RowSet $titleObjects)
+    {
 
         foreach ($titleObjects as $retrievedTitle) {
             $corporationTitle = new CorporationTitle();
@@ -70,7 +70,8 @@ class CorporationTitleMapper {
      *
      * @param ApiKeyCorporation $corporationApiKey
      */
-    public function __construct(ApiKeyCorporation $corporationApiKey) {
+    public function __construct(ApiKeyCorporation $corporationApiKey)
+    {
         $this->corporationApiKey = $corporationApiKey;
         $this->corporationTitles = new ObjectStorage();
     }
@@ -80,7 +81,8 @@ class CorporationTitleMapper {
      *
      * @return ObjectStorage
      */
-    public function fetchCorporationTitles() {
+    public function fetchCorporationTitles()
+    {
         try {
             $phealService = GeneralUtility::makeInstance(
                     PhealService::class, $this->corporationApiKey->getKeyId(), $this->corporationApiKey->getVCode()
@@ -95,5 +97,4 @@ class CorporationTitleMapper {
 
         return $this->corporationTitles;
     }
-
 }

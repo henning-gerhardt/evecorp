@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Repository;
 
 use Gerh\Evecorp\Domain\Model\Character;
@@ -30,7 +28,8 @@ use Gerh\Evecorp\Domain\Model\DateTime;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EmploymentHistoryRepository extends BaseRepository {
+class EmploymentHistoryRepository extends BaseRepository
+{
 
     /**
      *
@@ -39,7 +38,8 @@ class EmploymentHistoryRepository extends BaseRepository {
      * @param DateTime $startDate
      * @return null | \Gerh\Evecorp\Domain\Model\EmploymentHistory
      */
-    public function searchForEmployment(Character $character, Corporation $corporation, DateTime $startDate) {
+    public function searchForEmployment(Character $character, Corporation $corporation, DateTime $startDate)
+    {
         $query = $this->createQuery();
 
         $constraints = [];
@@ -54,5 +54,4 @@ class EmploymentHistoryRepository extends BaseRepository {
         }
         return \NULL;
     }
-
 }

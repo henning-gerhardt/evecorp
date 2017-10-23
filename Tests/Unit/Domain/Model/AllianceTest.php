@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Domain\Model;
 
 use Gerh\Evecorp\Domain\Model\Alliance;
@@ -29,12 +27,14 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class AllianceTest extends UnitTestCase {
+class AllianceTest extends UnitTestCase
+{
 
     /**
      * @test
      */
-    public function classCouldBeInitiated() {
+    public function classCouldBeInitiated()
+    {
         $alliance = new Alliance();
 
         $this->assertInstanceOf(Alliance::class, $alliance);
@@ -43,7 +43,8 @@ class AllianceTest extends UnitTestCase {
     /**
      * @test
      */
-    public function allianceIdCouldBeSet() {
+    public function allianceIdCouldBeSet()
+    {
         $expected = 123456;
 
         $alliance = new Alliance();
@@ -55,7 +56,8 @@ class AllianceTest extends UnitTestCase {
     /**
      * @test
      */
-    public function allianceNameCouldBeSet() {
+    public function allianceNameCouldBeSet()
+    {
         $expected = 'FooBar';
 
         $alliance = new Alliance();
@@ -67,7 +69,8 @@ class AllianceTest extends UnitTestCase {
     /**
      * @test
      */
-    public function allianceCouldBeInitializedThroughConstructor() {
+    public function allianceCouldBeInitializedThroughConstructor()
+    {
         $allianceId = 567890;
         $allianceName = 'BarFoo';
 
@@ -76,5 +79,4 @@ class AllianceTest extends UnitTestCase {
         $this->assertEquals($allianceId, $alliance->getAllianceId());
         $this->assertEquals($allianceName, $alliance->getAllianceName());
     }
-
 }

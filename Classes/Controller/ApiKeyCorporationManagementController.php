@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Controller;
 
 use Gerh\Evecorp\Domain\Constants\AccessMask\Corporation as CorporationAccessMask;
@@ -35,7 +33,8 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyCorporationManagementController extends ActionController {
+class ApiKeyCorporationManagementController extends ActionController
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository
@@ -61,7 +60,8 @@ class ApiKeyCorporationManagementController extends ActionController {
      * @param CorporationRepository $corporationRepository
      * @return void
      */
-    public function __construct(ApiKeyCorporationRepository $apiKeyCorporationRepository, CorporationRepository $corporationRepository) {
+    public function __construct(ApiKeyCorporationRepository $apiKeyCorporationRepository, CorporationRepository $corporationRepository)
+    {
         // calling default controller constructor
         parent::__construct();
 
@@ -72,7 +72,8 @@ class ApiKeyCorporationManagementController extends ActionController {
     /**
      * @see ActionController::initializeAction()
      */
-    public function initializeAction() {
+    public function initializeAction()
+    {
         $selectedCorporation = (\strlen($this->settings['corporation']) > 0) ?
             GeneralUtility::intExplode(',', $this->settings['corporation']) : [];
 
@@ -91,7 +92,8 @@ class ApiKeyCorporationManagementController extends ActionController {
      *
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
 
         $hasTitleAccess = \FALSE;
 
@@ -117,7 +119,8 @@ class ApiKeyCorporationManagementController extends ActionController {
      * @ignorevalidation $newApiKeyCorporation
      * @return void
      */
-    public function newAction(ApiKeyCorporation $newApiKeyCorporation = NULL) {
+    public function newAction(ApiKeyCorporation $newApiKeyCorporation = NULL)
+    {
         $this->view->assign('newApiKeyCorporation', $newApiKeyCorporation);
     }
 
@@ -128,7 +131,8 @@ class ApiKeyCorporationManagementController extends ActionController {
      * @validate $newApiKeyCorporation \Gerh\Evecorp\Domain\Validator\CorporationApiKeyValidator
      * @return void
      */
-    public function createAction(ApiKeyCorporation $newApiKeyCorporation) {
+    public function createAction(ApiKeyCorporation $newApiKeyCorporation)
+    {
 
         if ($this->selectedCorporation <= 0) {
             $this->addFlashMessage('No or to many corporations selected!');
@@ -156,10 +160,10 @@ class ApiKeyCorporationManagementController extends ActionController {
      * @ignorevalidation $apiKeyCorporation
      * @return void
      */
-    public function deleteAction(ApiKeyCorporation $apiKeyCorporation) {
+    public function deleteAction(ApiKeyCorporation $apiKeyCorporation)
+    {
         $this->apiKeyCorporationRepository->remove($apiKeyCorporation);
 
         $this->redirect('index');
     }
-
 }

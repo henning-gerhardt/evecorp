@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
@@ -26,14 +24,16 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *
  * @author Henning Gerhardt
  */
-class BaseRepository extends Repository {
+class BaseRepository extends Repository
+{
 
     /**
      * Returns used storage pids for this repository.
      *
      * @return array
      */
-    public function getRepositoryStoragePid() {
+    public function getRepositoryStoragePid()
+    {
         return $this->createQuery()->getQuerySettings()->getStoragePageIds();
     }
 
@@ -42,11 +42,11 @@ class BaseRepository extends Repository {
      *
      * @param \int $storagePid
      */
-    public function setRepositoryStoragePid($storagePid = 0) {
+    public function setRepositoryStoragePid($storagePid = 0)
+    {
         $querySettings = $this->createQuery()->getQuerySettings();
         $querySettings->setStoragePageIds([$storagePid]);
         $querySettings->setRespectStoragePage(\TRUE);
         $this->setDefaultQuerySettings($querySettings);
     }
-
 }

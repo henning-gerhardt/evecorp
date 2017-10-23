@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Utility;
 
 /**
@@ -26,18 +24,19 @@ namespace Gerh\Evecorp\Domain\Utility;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class AccessMaskUtility {
+class AccessMaskUtility
+{
 
     /**
      * Returns access mask for valid API keys
      *
      * @return \integer
      */
-    public static function getAccessMask() {
+    public static function getAccessMask()
+    {
         $extconf = \unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
         $result = (\strlen($extconf['accessMask']) > 0) ?
-                \trim($extconf['accessMask']) : 0;
+            \trim($extconf['accessMask']) : 0;
         return \intval($result);
     }
-
 }

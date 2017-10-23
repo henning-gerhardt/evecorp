@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Controller;
 
 use Gerh\Evecorp\Domain\Model\MarketData;
@@ -29,7 +27,8 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class AppController extends ActionController {
+class AppController extends ActionController
+{
 
     /**
      * Holds instance for market data
@@ -44,7 +43,8 @@ class AppController extends ActionController {
      * @param MarketData $marketData
      * @return void
      */
-    public function __construct(MarketData $marketData) {
+    public function __construct(MarketData $marketData)
+    {
         // calling default controller constructor
         parent::__construct();
 
@@ -56,7 +56,8 @@ class AppController extends ActionController {
      *
      * @return void
      */
-    public function initializeAction() {
+    public function initializeAction()
+    {
         $this->marketData->setCorpTax($this->settings['corptax']);
     }
 
@@ -65,7 +66,8 @@ class AppController extends ActionController {
      *
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $result = $this->marketData->getMarketData();
 
         $this->view->assign('result', $result);
@@ -75,5 +77,4 @@ class AppController extends ActionController {
         $this->view->assign('showBuyCorpColumn', $this->settings['showbuycorpcolumn']);
         $this->view->assign('showFetchColumn', $this->settings['showfetchcolumn']);
     }
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Service;
 
 use Gerh\Evecorp\Service\PhealService;
@@ -26,12 +24,14 @@ use const PATH_site;
 /**
  * Testcase for PhealService
  */
-class PhealServiceTest extends UnitTestCase {
+class PhealServiceTest extends UnitTestCase
+{
 
     /**
      * @test
      */
-    public function classCouldBeInstantiated() {
+    public function classCouldBeInstantiated()
+    {
         $service = new PhealService();
         $this->assertInstanceOf(PhealService::class, $service);
     }
@@ -39,7 +39,8 @@ class PhealServiceTest extends UnitTestCase {
     /**
      * @test
      */
-    public function serviceReturnsInstanceOfPhealClass() {
+    public function serviceReturnsInstanceOfPhealClass()
+    {
         $service = new PhealService();
         $this->assertInstanceOf(\Pheal\Pheal::class, $service->getPhealInstance());
     }
@@ -47,7 +48,8 @@ class PhealServiceTest extends UnitTestCase {
     /**
      * @test
      */
-    public function defaultConnectionTimeoutIsUsedIfNonConfigurated() {
+    public function defaultConnectionTimeoutIsUsedIfNonConfigurated()
+    {
         $service = new PhealService();
         $this->assertEquals(120, $service->getConnectionTimeout());
     }
@@ -56,7 +58,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function connectionTimoutIsSetCorrect() {
+    public function connectionTimoutIsSetCorrect()
+    {
         $expected = 5;
         $modifier = ['phealConnectionTimeout' => $expected];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
@@ -69,7 +72,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function connectionTimoutCouldBeSetToOneSecond() {
+    public function connectionTimoutCouldBeSetToOneSecond()
+    {
         $expected = 1;
         $modifier = ['phealConnectionTimeout' => $expected];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
@@ -82,7 +86,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function connectionTimoutCouldNotBeSetBelowOneSecond() {
+    public function connectionTimoutCouldNotBeSetBelowOneSecond()
+    {
         $expected = 0;
         $modifier = ['phealConnectionTimeout' => $expected];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
@@ -95,7 +100,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function defaultCachePathIsUsedIfNonConfigurated() {
+    public function defaultCachePathIsUsedIfNonConfigurated()
+    {
         $modifier = ['phealCacheDirectory' => \NULL];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
@@ -108,7 +114,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function defaultCachePathIsUsedIfCacheDirectoryDoesNotExists() {
+    public function defaultCachePathIsUsedIfCacheDirectoryDoesNotExists()
+    {
         $modifier = ['phealCacheDirectory' => '\a\b\a'];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
@@ -121,7 +128,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function defaultCachePathIsUsedIfCacheDirectoryIsNotADirectory() {
+    public function defaultCachePathIsUsedIfCacheDirectoryIsNotADirectory()
+    {
         $modifier = ['phealCacheDirectory' => \tempnam(\sys_get_temp_dir(), 'FOO')];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
@@ -134,7 +142,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function cacheDirectoryCouldBeSet() {
+    public function cacheDirectoryCouldBeSet()
+    {
         $expected = \sys_get_temp_dir();
         $modifier = ['phealCacheDirectory' => $expected];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
@@ -146,7 +155,8 @@ class PhealServiceTest extends UnitTestCase {
     /**
      * @test
      */
-    public function verifyingHttpsConnectionIsFalseOnDefault() {
+    public function verifyingHttpsConnectionIsFalseOnDefault()
+    {
         $service = new PhealService();
         $this->assertFalse($service->isHttpsConnectionVerified());
     }
@@ -155,7 +165,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function verifyHttpsConnectoinsCouldBeTrue() {
+    public function verifyHttpsConnectoinsCouldBeTrue()
+    {
         $modifier = ['phealVerifyingHttpsConnection' => \TRUE];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
         $service = new PhealService();
@@ -166,7 +177,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function verifyHttpsConnectoinsIsFalseOnWrongValues() {
+    public function verifyHttpsConnectoinsIsFalseOnWrongValues()
+    {
         $modifier = ['phealVerifyingHttpsConnection' => 'bla'];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
         $service = new PhealService();
@@ -177,7 +189,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function fileCreateMaskCouldBeSet() {
+    public function fileCreateMaskCouldBeSet()
+    {
         $octValue = '0777';
         $expected = 511;
         $modifier = ['phealFileCreateMask' => $octValue];
@@ -192,7 +205,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function fileCreateHasDefaultValueIfNotDefined() {
+    public function fileCreateHasDefaultValueIfNotDefined()
+    {
         $expected = 0666; // value is octal!
         // reset productive values
         $modifier = ['phealFileCreateMask' => ''];
@@ -207,7 +221,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function folderCreateMaskCouldBeSet() {
+    public function folderCreateMaskCouldBeSet()
+    {
         $octValue = '2777';
         $expected = 1535;
         $modifier = ['phealFolderCreateMask' => $octValue];
@@ -222,7 +237,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function folderCreateHasDefaultValueIfNotDefined() {
+    public function folderCreateHasDefaultValueIfNotDefined()
+    {
         $expected = 0777; // value is octal!
         // reset productive values
         $modifier = ['phealFolderCreateMask' => ''];
@@ -237,7 +253,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function getUmaskOptionsReturnsCorrectArrayConstructOnNotDefined() {
+    public function getUmaskOptionsReturnsCorrectArrayConstructOnNotDefined()
+    {
         $expected = ['umask' => 0666, 'umask_directory' => 0777]; // values are octal!
         // reset productive values
         $modifier = ['phealFileCreateMask' => '', 'phealFolderCreateMask' => ''];
@@ -252,7 +269,8 @@ class PhealServiceTest extends UnitTestCase {
      * @backupGlobals enabled
      * @test
      */
-    public function getUmaskOptionsReturnsCorrectArrayConstructOnDefinedValues() {
+    public function getUmaskOptionsReturnsCorrectArrayConstructOnDefinedValues()
+    {
         $expected = ['umask' => 416, 'umask_directory' => 488];
         $modifier = ['phealFileCreateMask' => '0640', 'phealFolderCreateMask' => '0750'];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
@@ -261,5 +279,4 @@ class PhealServiceTest extends UnitTestCase {
 
         $this->assertEquals($expected, $service->getUmaskOptions());
     }
-
 }

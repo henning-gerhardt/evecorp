@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Domain\Model;
 
 use Gerh\Evecorp\Domain\Model\EveCentralFetcher;
@@ -25,12 +23,14 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 /**
  * Testcase for EveCentralFetcher
  */
-class EveCentralFetcherTest extends UnitTestCase {
+class EveCentralFetcherTest extends UnitTestCase
+{
 
     /**
      * @test
      */
-    public function baseUriCouldBeSet() {
+    public function baseUriCouldBeSet()
+    {
         $baseUri = 'http://api.eve-central.com/api/marketstat';
         $fetcher = new EveCentralFetcher();
         $fetcher->setBaseUri($baseUri);
@@ -40,7 +40,8 @@ class EveCentralFetcherTest extends UnitTestCase {
     /**
      * @test
      */
-    public function regionIdCouldBeSet() {
+    public function regionIdCouldBeSet()
+    {
         $regionId = 10000002;
         $fetcher = new EveCentralFetcher();
         $fetcher->setRegionId($regionId);
@@ -50,7 +51,8 @@ class EveCentralFetcherTest extends UnitTestCase {
     /**
      * @test
      */
-    public function regionIdCouldNotBeSetBelowZero() {
+    public function regionIdCouldNotBeSetBelowZero()
+    {
         $regionId = -1;
         $expected = 0;
         $fetcher = new EveCentralFetcher();
@@ -61,7 +63,8 @@ class EveCentralFetcherTest extends UnitTestCase {
     /**
      * @test
      */
-    public function systemIdCouldBeSet() {
+    public function systemIdCouldBeSet()
+    {
         $systemId = 30000142;
         $fetcher = new EveCentralFetcher();
         $fetcher->setSystemId($systemId);
@@ -71,7 +74,8 @@ class EveCentralFetcherTest extends UnitTestCase {
     /**
      * @test
      */
-    public function systemIdCouldNotBeSetBelowZero() {
+    public function systemIdCouldNotBeSetBelowZero()
+    {
         $systemId = -1;
         $expected = 0;
         $fetcher = new EveCentralFetcher();
@@ -82,7 +86,8 @@ class EveCentralFetcherTest extends UnitTestCase {
     /**
      * @test
      */
-    public function typeIdsCouldBeSet() {
+    public function typeIdsCouldBeSet()
+    {
         $typeIds = [34, 35];
         $fetcher = new EveCentralFetcher();
         $fetcher->setTypeIds($typeIds);
@@ -92,7 +97,8 @@ class EveCentralFetcherTest extends UnitTestCase {
     /**
      * @test
      */
-    public function queryReturnsEmptyArrayOnNonConfiguredFetcher() {
+    public function queryReturnsEmptyArrayOnNonConfiguredFetcher()
+    {
         $expected = [];
         $fetcher = new EveCentralFetcher();
         $this->assertEquals($expected, $fetcher->query());
@@ -101,7 +107,8 @@ class EveCentralFetcherTest extends UnitTestCase {
     /**
      * @test
      */
-    public function regionAndSystemIdCouldNotBeSetAtSameTime() {
+    public function regionAndSystemIdCouldNotBeSetAtSameTime()
+    {
         $fetcher = new EveCentralFetcher();
         $fetcher->setRegionId(1);
         $fetcher->setSystemId(2);
@@ -113,7 +120,8 @@ class EveCentralFetcherTest extends UnitTestCase {
     /**
      * @test
      */
-    public function systemAndRegionIdCouldNotBeSetAtSameTime() {
+    public function systemAndRegionIdCouldNotBeSetAtSameTime()
+    {
         $fetcher = new EveCentralFetcher();
         $fetcher->setSystemId(1);
         $fetcher->setRegionId(2);
@@ -121,5 +129,4 @@ class EveCentralFetcherTest extends UnitTestCase {
         $this->assertEquals(2, $fetcher->getRegionId());
         $this->assertEquals(0, $fetcher->getSystemId());
     }
-
 }

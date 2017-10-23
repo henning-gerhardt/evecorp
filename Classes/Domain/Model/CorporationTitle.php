@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup;
@@ -31,7 +29,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorporationTitle extends AbstractEntity {
+class CorporationTitle extends AbstractEntity
+{
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
@@ -67,7 +66,8 @@ class CorporationTitle extends AbstractEntity {
     /**
      * class constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->characters = new ObjectStorage();
     }
 
@@ -76,7 +76,8 @@ class CorporationTitle extends AbstractEntity {
      *
      * @return Corporation
      */
-    public function getCorporation() {
+    public function getCorporation()
+    {
         if ($this->corporation instanceof LazyLoadingProxy) {
             $this->corporation->_loadRealInstance();
         }
@@ -89,7 +90,8 @@ class CorporationTitle extends AbstractEntity {
      *
      * @return \integer
      */
-    public function getTitleId() {
+    public function getTitleId()
+    {
         return $this->titleId;
     }
 
@@ -98,7 +100,8 @@ class CorporationTitle extends AbstractEntity {
      *
      * @return \string
      */
-    public function getTitleName() {
+    public function getTitleName()
+    {
         return $this->titleName;
     }
 
@@ -107,7 +110,8 @@ class CorporationTitle extends AbstractEntity {
      *
      * @return FrontendUserGroup
      */
-    public function getUsergroup() {
+    public function getUsergroup()
+    {
         if ($this->usergroup instanceof LazyLoadingProxy) {
             $this->usergroup->_loadRealInstance();
         }
@@ -120,7 +124,8 @@ class CorporationTitle extends AbstractEntity {
      *
      * @param Corporation $corporation
      */
-    public function setCorporation(Corporation $corporation) {
+    public function setCorporation(Corporation $corporation)
+    {
         $this->corporation = $corporation;
     }
 
@@ -129,7 +134,8 @@ class CorporationTitle extends AbstractEntity {
      *
      * @param \integer $titleId
      */
-    public function setTitleId($titleId) {
+    public function setTitleId($titleId)
+    {
         $this->titleId = $titleId;
     }
 
@@ -138,7 +144,8 @@ class CorporationTitle extends AbstractEntity {
      *
      * @param \string $titleName
      */
-    public function setTitleName($titleName) {
+    public function setTitleName($titleName)
+    {
         $this->titleName = $titleName;
     }
 
@@ -148,7 +155,8 @@ class CorporationTitle extends AbstractEntity {
      * @param FrontendUserGroup $usergroup
      * @return void
      */
-    public function setUsergroup(FrontendUserGroup $usergroup = \NULL) {
+    public function setUsergroup(FrontendUserGroup $usergroup = \NULL)
+    {
         $this->usergroup = $usergroup;
     }
 
@@ -157,7 +165,8 @@ class CorporationTitle extends AbstractEntity {
      *
      * @param Character $character
      */
-    public function addCharacter(Character $character) {
+    public function addCharacter(Character $character)
+    {
         $this->characters->attach($character);
     }
 
@@ -166,7 +175,8 @@ class CorporationTitle extends AbstractEntity {
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
      */
-    public function getCharacters() {
+    public function getCharacters()
+    {
         if ($this->characters instanceof LazyLoadingProxy) {
             $this->characters->_loadRealInstance();
         }
@@ -179,14 +189,16 @@ class CorporationTitle extends AbstractEntity {
      *
      * @param Character $character
      */
-    public function removeCharacter(Character $character) {
+    public function removeCharacter(Character $character)
+    {
         $this->characters->detach($character);
     }
 
     /**
      * Remove all characters from this title
      */
-    public function removeAllCharacters() {
+    public function removeAllCharacters()
+    {
         $this->characters = new ObjectStorage();
     }
 
@@ -195,8 +207,8 @@ class CorporationTitle extends AbstractEntity {
      *
      * @param ObjectStorage $characters
      */
-    public function setCharacters(ObjectStorage $characters) {
+    public function setCharacters(ObjectStorage $characters)
+    {
         $this->characters = $characters;
     }
-
 }

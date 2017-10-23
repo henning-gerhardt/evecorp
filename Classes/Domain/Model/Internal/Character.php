@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model\Internal;
 
 /**
@@ -24,7 +22,8 @@ namespace Gerh\Evecorp\Domain\Model\Internal;
  *
  * @author Henning Gerhardt
  */
-class Character {
+class Character
+{
 
     protected $characterId;
     protected $characterName;
@@ -35,68 +34,83 @@ class Character {
     protected $factionId;
     protected $factionName;
 
-    public function getCharacterId() {
+    public function getCharacterId()
+    {
         return $this->characterId;
     }
 
-    public function getCharacterName() {
+    public function getCharacterName()
+    {
         return $this->characterName;
     }
 
-    public function getCorporationId() {
+    public function getCorporationId()
+    {
         return $this->corporationId;
     }
 
-    public function getCorporationName() {
+    public function getCorporationName()
+    {
         return $this->corporationName;
     }
 
-    public function getAllianceId() {
+    public function getAllianceId()
+    {
         return $this->allianceId;
     }
 
-    public function getAllianceName() {
+    public function getAllianceName()
+    {
         return $this->allianceName;
     }
 
-    public function getFactionId() {
+    public function getFactionId()
+    {
         return $this->factionId;
     }
 
-    public function getFactionName() {
+    public function getFactionName()
+    {
         return $this->factionName;
     }
 
-    public function setCharacterId($characterId) {
+    public function setCharacterId($characterId)
+    {
         $this->characterId = $characterId;
     }
 
-    public function setCharacterName($characterName) {
+    public function setCharacterName($characterName)
+    {
         $this->characterName = $characterName;
     }
 
-    public function setCorporationId($corporationId) {
+    public function setCorporationId($corporationId)
+    {
         $this->corporationId = $corporationId;
     }
 
-    public function setCorporationName($corporationName) {
+    public function setCorporationName($corporationName)
+    {
         $this->corporationName = $corporationName;
     }
 
-    public function setAllianceId($allianceId) {
+    public function setAllianceId($allianceId)
+    {
         $this->allianceId = $allianceId;
     }
 
-    public function setAllianceName($allianceName) {
+    public function setAllianceName($allianceName)
+    {
         $this->allianceName = $allianceName;
     }
 
-    public function setFactionId($factionId) {
+    public function setFactionId($factionId)
+    {
         $this->factionId = $factionId;
     }
 
-    public function setFactionName($factionName) {
+    public function setFactionName($factionName)
+    {
         $this->factionName = $factionName;
     }
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Mapper;
 
 use ArrayObject;
@@ -35,7 +33,8 @@ use TYPO3\CMS\Install\ViewHelpers\Exception;
  *
  * @author Henning Gerhardt
  */
-class CorporationMemberList {
+class CorporationMemberList
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
@@ -77,7 +76,8 @@ class CorporationMemberList {
      * @param \int $characterId
      * @return \boolean
      */
-    protected function createAndStoreNewCharacterByCharacterId($characterId) {
+    protected function createAndStoreNewCharacterByCharacterId($characterId)
+    {
         /* @var $characterMapper CharacterMapper */
         $characterMapper = $this->objectManager->get(CharacterMapper::class);
         $characterMapper->setStoragePid($this->storagePid);
@@ -96,7 +96,8 @@ class CorporationMemberList {
      *
      * @return \Pheal\Core\RowSet | ArrayObject
      */
-    protected function fetchCurrentCorporationMembers() {
+    protected function fetchCurrentCorporationMembers()
+    {
         try {
             $phealService = GeneralUtility::makeInstance(
                     PhealService::class, $this->corporationApiKey->getKeyId(), $this->corporationApiKey->getVCode()
@@ -116,7 +117,8 @@ class CorporationMemberList {
      *
      * @param Character $formerCorporationMember
      */
-    protected function updateFormerCorporationMember(Character $formerCorporationMember) {
+    protected function updateFormerCorporationMember(Character $formerCorporationMember)
+    {
         /* @var $characterMapper CharacterMapper */
         $characterMapper = $this->objectManager->get(CharacterMapper::class);
         $characterMapper->setApiKey($formerCorporationMember->getApiKey());
@@ -134,7 +136,8 @@ class CorporationMemberList {
      * @param PersistenceManager $persistenceManager
      * @return void
      */
-    public function __construct(CharacterRepository $characterRepository, ObjectManager $objectManager, PersistenceManager $persistenceManager) {
+    public function __construct(CharacterRepository $characterRepository, ObjectManager $objectManager, PersistenceManager $persistenceManager)
+    {
 
         $this->characterRepository = $characterRepository;
         $this->objectManager = $objectManager;
@@ -146,7 +149,8 @@ class CorporationMemberList {
      *
      * @return \string
      */
-    public function getErrorMessage() {
+    public function getErrorMessage()
+    {
         return $this->errorMessage;
     }
 
@@ -155,7 +159,8 @@ class CorporationMemberList {
      *
      * @param Corporation $corporation
      */
-    public function setCorporation(Corporation $corporation) {
+    public function setCorporation(Corporation $corporation)
+    {
         $this->corporation = $corporation;
     }
 
@@ -164,7 +169,8 @@ class CorporationMemberList {
      *
      * @param ApiKeyCorporation $corporationApiKey
      */
-    public function setCorporationApiKey(ApiKeyCorporation $corporationApiKey) {
+    public function setCorporationApiKey(ApiKeyCorporation $corporationApiKey)
+    {
         $this->corporationApiKey = $corporationApiKey;
     }
 
@@ -173,7 +179,8 @@ class CorporationMemberList {
      *
      * @param \int $storagePid
      */
-    public function setStoragePid($storagePid = 0) {
+    public function setStoragePid($storagePid = 0)
+    {
         if ($storagePid !== \NULL) {
             $this->storagePid = $storagePid;
             $this->characterRepository->setRepositoryStoragePid($storagePid);
@@ -185,7 +192,8 @@ class CorporationMemberList {
      *
      * @return boolean
      */
-    public function updateCorpMemberList() {
+    public function updateCorpMemberList()
+    {
         $newCorpMemberIdList = [];
 
         // hold current member list
@@ -224,5 +232,4 @@ class CorporationMemberList {
 
         return \TRUE;
     }
-
 }

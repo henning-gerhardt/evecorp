@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
@@ -30,7 +28,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Character extends AbstractEntity {
+class Character extends AbstractEntity
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Model\ApiKeyAccount
@@ -102,7 +101,8 @@ class Character extends AbstractEntity {
     /**
      * class constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->employments = new ObjectStorage();
         $this->titles = new ObjectStorage();
     }
@@ -112,7 +112,8 @@ class Character extends AbstractEntity {
      *
      * @return ApiKey
      */
-    public function getApiKey() {
+    public function getApiKey()
+    {
         if ($this->apiKey instanceof LazyLoadingProxy) {
             $this->apiKey->_loadRealInstance();
         }
@@ -125,7 +126,8 @@ class Character extends AbstractEntity {
      *
      * @param ApiKeyAccount $apiKeyAccount
      */
-    public function setApiKey(ApiKeyAccount $apiKeyAccount) {
+    public function setApiKey(ApiKeyAccount $apiKeyAccount)
+    {
         $this->apiKey = $apiKeyAccount;
     }
 
@@ -134,7 +136,8 @@ class Character extends AbstractEntity {
      *
      * @return \integer
      */
-    public function getCharacterId() {
+    public function getCharacterId()
+    {
         return $this->characterId;
     }
 
@@ -143,7 +146,8 @@ class Character extends AbstractEntity {
      *
      * @param \integer $characterId
      */
-    public function setCharacterId($characterId) {
+    public function setCharacterId($characterId)
+    {
         $this->characterId = $characterId;
     }
 
@@ -152,7 +156,8 @@ class Character extends AbstractEntity {
      *
      * @return \string
      */
-    public function getCharacterName() {
+    public function getCharacterName()
+    {
         return $this->characterName;
     }
 
@@ -161,7 +166,8 @@ class Character extends AbstractEntity {
      *
      * @param \string $characterName
      */
-    public function setCharacterName($characterName) {
+    public function setCharacterName($characterName)
+    {
         $this->characterName = $characterName;
     }
 
@@ -170,7 +176,8 @@ class Character extends AbstractEntity {
      *
      * @return CorpMember
      */
-    public function getCorpMember() {
+    public function getCorpMember()
+    {
         if ($this->corpMember instanceof LazyLoadingProxy) {
             $this->corpMember->_loadRealInstance();
         }
@@ -183,7 +190,8 @@ class Character extends AbstractEntity {
      *
      * @param CorpMember
      */
-    public function setCorpMember(CorpMember $corpMember = \NULL) {
+    public function setCorpMember(CorpMember $corpMember = \NULL)
+    {
         $this->corpMember = $corpMember;
     }
 
@@ -193,7 +201,8 @@ class Character extends AbstractEntity {
      *
      * @return DateTime
      */
-    public function getCorporationDate() {
+    public function getCorporationDate()
+    {
         return $this->corporationDate;
     }
 
@@ -202,7 +211,8 @@ class Character extends AbstractEntity {
      *
      * @param DateTime $corporationDate
      */
-    public function setCorporationDate(DateTime $corporationDate) {
+    public function setCorporationDate(DateTime $corporationDate)
+    {
         $this->corporationDate = $corporationDate;
     }
 
@@ -211,7 +221,8 @@ class Character extends AbstractEntity {
      *
      * @return Corporation
      */
-    public function getCurrentCorporation() {
+    public function getCurrentCorporation()
+    {
         if ($this->currentCorporation instanceof LazyLoadingProxy) {
             $this->currentCorporation->_loadRealInstance();
         }
@@ -224,7 +235,8 @@ class Character extends AbstractEntity {
      *
      * @param Corporation $corporation
      */
-    public function setCurrentCorporation(Corporation $corporation) {
+    public function setCurrentCorporation(Corporation $corporation)
+    {
         $this->currentCorporation = $corporation;
     }
 
@@ -233,7 +245,8 @@ class Character extends AbstractEntity {
      *
      * @param EmploymentHistory $employment
      */
-    public function addEmployment(EmploymentHistory $employment) {
+    public function addEmployment(EmploymentHistory $employment)
+    {
         $this->employments->attach($employment);
     }
 
@@ -242,7 +255,8 @@ class Character extends AbstractEntity {
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\EmploymentHistory>
      */
-    public function getEmployments() {
+    public function getEmployments()
+    {
         if ($this->employments instanceof LazyLoadingProxy) {
             $this->employments->_loadRealInstance();
         }
@@ -255,14 +269,16 @@ class Character extends AbstractEntity {
      *
      * @param EmploymentHistory $employment
      */
-    public function removeEmployment(EmploymentHistory $employment) {
+    public function removeEmployment(EmploymentHistory $employment)
+    {
         $this->employments->detach($employment);
     }
 
     /**
      * Remove all employments of character
      */
-    public function removeAllEmployments() {
+    public function removeAllEmployments()
+    {
         $this->employments = new ObjectStorage();
     }
 
@@ -271,7 +287,8 @@ class Character extends AbstractEntity {
      *
      * @param ObjectStorage $employments
      */
-    public function setEmployments(ObjectStorage $employments) {
+    public function setEmployments(ObjectStorage $employments)
+    {
         $this->employments = $employments;
     }
 
@@ -280,7 +297,8 @@ class Character extends AbstractEntity {
      *
      * @return \string
      */
-    public function getRace() {
+    public function getRace()
+    {
         return $this->race;
     }
 
@@ -289,7 +307,8 @@ class Character extends AbstractEntity {
      *
      * @param \string $race
      */
-    public function setRace($race) {
+    public function setRace($race)
+    {
         $this->race = $race;
     }
 
@@ -298,7 +317,8 @@ class Character extends AbstractEntity {
      *
      * @return \float
      */
-    public function getSecurityStatus() {
+    public function getSecurityStatus()
+    {
         return $this->securityStatus;
     }
 
@@ -307,7 +327,8 @@ class Character extends AbstractEntity {
      *
      * @param \float $securityStatus
      */
-    public function setSecurityStatus($securityStatus) {
+    public function setSecurityStatus($securityStatus)
+    {
         $this->securityStatus = $securityStatus;
     }
 
@@ -316,7 +337,8 @@ class Character extends AbstractEntity {
      *
      * @param CorporationTitle $title
      */
-    public function addTitle(CorporationTitle $title) {
+    public function addTitle(CorporationTitle $title)
+    {
         $this->titles->attach($title);
     }
 
@@ -325,7 +347,8 @@ class Character extends AbstractEntity {
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\CorporationTitle>
      */
-    public function getTitles() {
+    public function getTitles()
+    {
         if ($this->titles instanceof LazyLoadingProxy) {
             $this->titles->_loadRealInstance();
         }
@@ -338,14 +361,16 @@ class Character extends AbstractEntity {
      *
      * @param CorporationTitle $title
      */
-    public function removeTitle(CorporationTitle $title) {
+    public function removeTitle(CorporationTitle $title)
+    {
         $this->titles->detach($title);
     }
 
     /**
      * Remove all corporation titles from character
      */
-    public function removeAllTitles() {
+    public function removeAllTitles()
+    {
         $this->titles = new ObjectStorage();
     }
 
@@ -354,8 +379,8 @@ class Character extends AbstractEntity {
      *
      * @param ObjectStorage $titles
      */
-    public function setTitles(ObjectStorage $titles) {
+    public function setTitles(ObjectStorage $titles)
+    {
         $this->titles = $titles;
     }
-
 }

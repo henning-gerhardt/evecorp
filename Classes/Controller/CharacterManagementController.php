@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Controller;
 
 use Gerh\Evecorp\Domain\Model\Character;
@@ -29,7 +27,8 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CharacterManagementController extends ActionController {
+class CharacterManagementController extends ActionController
+{
 
     /**
      * Show character information
@@ -37,8 +36,8 @@ class CharacterManagementController extends ActionController {
      * @param Character $character
      * @return void
      */
-    public function showAction(Character $character) {
+    public function showAction(Character $character)
+    {
         $this->view->assign('character', $character);
     }
-
 }

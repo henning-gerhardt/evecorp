@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 /**
@@ -26,7 +24,8 @@ namespace Gerh\Evecorp\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EveItemDisplay {
+class EveItemDisplay
+{
 
     /**
      * display name of EVE item
@@ -75,7 +74,8 @@ class EveItemDisplay {
      *
      * @return \real
      */
-    protected function getCorpTaxModifier() {
+    protected function getCorpTaxModifier()
+    {
         $result = \round(1 - ($this->getCorpTax() / 100), 3);
         return $result;
     }
@@ -86,7 +86,8 @@ class EveItemDisplay {
      * @param \float $price
      * @return \float
      */
-    protected function getCorpPrice($price) {
+    protected function getCorpPrice($price)
+    {
         $result = \round($price * $this->getCorpTaxModifier(), 3);
         return $result;
     }
@@ -96,7 +97,8 @@ class EveItemDisplay {
      *
      * @return \string
      */
-    public function getDisplayName() {
+    public function getDisplayName()
+    {
         return $this->displayName;
     }
 
@@ -106,7 +108,8 @@ class EveItemDisplay {
      * @param \string $displayName
      * @return void
      */
-    public function setDisplayName($displayName) {
+    public function setDisplayName($displayName)
+    {
         $this->displayName = $displayName;
     }
 
@@ -115,7 +118,8 @@ class EveItemDisplay {
      *
      * @return \float $buyPrice
      */
-    public function getBuyPrice() {
+    public function getBuyPrice()
+    {
         return $this->buyPrice;
     }
 
@@ -124,7 +128,8 @@ class EveItemDisplay {
      *
      * @return \float $buyPrice
      */
-    public function getCorpBuyPrice() {
+    public function getCorpBuyPrice()
+    {
         return $this->getCorpPrice($this->getBuyPrice());
     }
 
@@ -134,7 +139,8 @@ class EveItemDisplay {
      * @param \float $buyPrice
      * @return void
      */
-    public function setBuyPrice($buyPrice) {
+    public function setBuyPrice($buyPrice)
+    {
         $this->buyPrice = $buyPrice;
     }
 
@@ -143,7 +149,8 @@ class EveItemDisplay {
      *
      * @return \float $sellPrice
      */
-    public function getSellPrice() {
+    public function getSellPrice()
+    {
         return $this->sellPrice;
     }
 
@@ -152,7 +159,8 @@ class EveItemDisplay {
      *
      * @return \float $sellPrice
      */
-    public function getCorpSellPrice() {
+    public function getCorpSellPrice()
+    {
         return $this->getCorpPrice($this->getSellPrice());
     }
 
@@ -162,7 +170,8 @@ class EveItemDisplay {
      * @param \float $sellPrice
      * @return void
      */
-    public function setSellPrice($sellPrice) {
+    public function setSellPrice($sellPrice)
+    {
         $this->sellPrice = $sellPrice;
     }
 
@@ -171,7 +180,8 @@ class EveItemDisplay {
      *
      * @return EveMapRegion
      */
-    public function getRegionName() {
+    public function getRegionName()
+    {
         return $this->regionName;
     }
 
@@ -180,7 +190,8 @@ class EveItemDisplay {
      *
      * @param \string $regionName
      */
-    public function setRegionName($regionName) {
+    public function setRegionName($regionName)
+    {
         $this->regionName = $regionName;
     }
 
@@ -189,7 +200,8 @@ class EveItemDisplay {
      *
      * @param EveMapRegion $region
      */
-    public function setRegionNameByRegion(EveMapRegion $region = \NULL) {
+    public function setRegionNameByRegion(EveMapRegion $region = \NULL)
+    {
         if (($region instanceof EveMapRegion) && ($region != \NULL)) {
             $this->setRegionName($region->getRegionName());
         }
@@ -200,7 +212,8 @@ class EveItemDisplay {
      *
      * @return EveMapSolarSystem
      */
-    public function getSolarSystemName() {
+    public function getSolarSystemName()
+    {
         return $this->solarSystemName;
     }
 
@@ -210,7 +223,8 @@ class EveItemDisplay {
      * @param \string $solarSystemName
      * @return void
      */
-    public function setSolarSystemName($solarSystemName) {
+    public function setSolarSystemName($solarSystemName)
+    {
         $this->solarSystemName = $solarSystemName;
     }
 
@@ -220,7 +234,8 @@ class EveItemDisplay {
      * @param EveMapSolarSystem $solarSystem
      * @return void
      */
-    public function setSolarSystemNameBySolarSystem(EveMapSolarSystem $solarSystem = \NULL) {
+    public function setSolarSystemNameBySolarSystem(EveMapSolarSystem $solarSystem = \NULL)
+    {
         if (($solarSystem instanceof EveMapSolarSystem) && ($solarSystem != \NULL)) {
             $this->setSolarSystemName($solarSystem->getSolarSystemName());
         }
@@ -231,7 +246,8 @@ class EveItemDisplay {
      *
      * @return \float
      */
-    public function getCorpTax() {
+    public function getCorpTax()
+    {
         return $this->corpTax;
     }
 
@@ -240,11 +256,11 @@ class EveItemDisplay {
      *
      * @param type $corpTax
      */
-    public function setCorpTax($corpTax) {
+    public function setCorpTax($corpTax)
+    {
         $this->corpTax = 0.0;
         if (($corpTax >= 0.0) && ($corpTax <= 100.0)) {
             $this->corpTax = $corpTax;
         }
     }
-
 }

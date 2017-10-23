@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Controller;
 
 use Gerh\Evecorp\Service\PhealService;
@@ -31,7 +29,8 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ServerStatusController extends ActionController {
+class ServerStatusController extends ActionController
+{
 
     /**
      * @var \Gerh\Evecorp\Service\PhealService
@@ -49,7 +48,8 @@ class ServerStatusController extends ActionController {
      * @param PhealService $phealService
      * @return void
      */
-    public function __construct(PhealService $phealService) {
+    public function __construct(PhealService $phealService)
+    {
         // calling default controller constructor
         parent::__construct();
 
@@ -61,7 +61,8 @@ class ServerStatusController extends ActionController {
      *
      * @return void
      */
-    public function initializeAction() {
+    public function initializeAction()
+    {
         $this->pheal = $this->phealService->getPhealInstance();
     }
 
@@ -70,7 +71,8 @@ class ServerStatusController extends ActionController {
      *
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
 
         try {
             $response = $this->pheal->serverScope->ServerStatus();
@@ -84,5 +86,4 @@ class ServerStatusController extends ActionController {
         $this->view->assign('server_status', $serverStatus);
         $this->view->assign('online_players', $onlinePlayers);
     }
-
 }

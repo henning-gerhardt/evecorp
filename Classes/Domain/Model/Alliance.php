@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
@@ -29,7 +27,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Alliance extends AbstractEntity {
+class Alliance extends AbstractEntity
+{
 
     /**
      * @var \integer
@@ -57,7 +56,8 @@ class Alliance extends AbstractEntity {
      * @param \integer $allianceId   (Optional) Alliance id
      * @param \string  $allianceName (Optional) Alliance name
      */
-    public function __construct($allianceId = \NULL, $allianceName = \NULL) {
+    public function __construct($allianceId = \NULL, $allianceName = \NULL)
+    {
         $this->setAllianceId($allianceId);
         $this->setAllianceName($allianceName);
 
@@ -69,7 +69,8 @@ class Alliance extends AbstractEntity {
      *
      * @return \integer
      */
-    public function getAllianceId() {
+    public function getAllianceId()
+    {
         return $this->allianceId;
     }
 
@@ -78,7 +79,8 @@ class Alliance extends AbstractEntity {
      *
      * @param \integer $allianceId
      */
-    public function setAllianceId($allianceId) {
+    public function setAllianceId($allianceId)
+    {
         $this->allianceId = $allianceId;
     }
 
@@ -87,7 +89,8 @@ class Alliance extends AbstractEntity {
      *
      * @return \string
      */
-    public function getAllianceName() {
+    public function getAllianceName()
+    {
         return $this->allianceName;
     }
 
@@ -96,7 +99,8 @@ class Alliance extends AbstractEntity {
      *
      * @param \string $allianceName
      */
-    public function setAllianceName($allianceName) {
+    public function setAllianceName($allianceName)
+    {
         $this->allianceName = $allianceName;
     }
 
@@ -105,7 +109,8 @@ class Alliance extends AbstractEntity {
      *
      * @param Corporation $corporation
      */
-    public function addCorporation(Corporation $corporation) {
+    public function addCorporation(Corporation $corporation)
+    {
         $this->corporations->attach($corporation);
     }
 
@@ -114,14 +119,16 @@ class Alliance extends AbstractEntity {
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Corporation>
      */
-    public function getCorporations() {
+    public function getCorporations()
+    {
         return $this->corporations;
     }
 
     /**
      * Remove all corporations from alliance
      */
-    public function removeAllCorporations() {
+    public function removeAllCorporations()
+    {
         $this->corporations = new ObjectStorage();
     }
 
@@ -130,7 +137,8 @@ class Alliance extends AbstractEntity {
      *
      * @param Corporation $corporation
      */
-    public function removeCorporation(Corporation $corporation) {
+    public function removeCorporation(Corporation $corporation)
+    {
         $this->corporations->detach($corporation);
     }
 
@@ -139,8 +147,8 @@ class Alliance extends AbstractEntity {
      *
      * @param ObjectStorage $corporations
      */
-    public function setCorporations(ObjectStorage $corporations) {
+    public function setCorporations(ObjectStorage $corporations)
+    {
         $this->corporations = $corporations;
     }
-
 }

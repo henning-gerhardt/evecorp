@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -29,7 +27,8 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CharacterRepository extends BaseRepository {
+class CharacterRepository extends BaseRepository
+{
 
     /**
      * Find all characters sorted by character name.
@@ -38,7 +37,8 @@ class CharacterRepository extends BaseRepository {
      * @param array $corporations (Optional) corporations
      * @return QueryResultInterface|array
      */
-    public function findAllCharactersSortedByCharacterName(array $corporations) {
+    public function findAllCharactersSortedByCharacterName(array $corporations)
+    {
         $orderings = [
             'characterName' => QueryInterface::ORDER_ASCENDING
         ];
@@ -52,5 +52,4 @@ class CharacterRepository extends BaseRepository {
 
         return $query->execute();
     }
-
 }

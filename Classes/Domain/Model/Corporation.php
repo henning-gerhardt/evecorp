@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup;
@@ -31,7 +29,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Corporation extends AbstractEntity {
+class Corporation extends AbstractEntity
+{
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyCorporation>
@@ -78,7 +77,8 @@ class Corporation extends AbstractEntity {
      * @param type $corporationId   (Optional) Corporation id
      * @param type $corporationName (Optional) Corporation name
      */
-    public function __construct($corporationId = \NULL, $corporationName = \NULL) {
+    public function __construct($corporationId = \NULL, $corporationName = \NULL)
+    {
         $this->setCorporationId($corporationId);
         $this->setCorporationName($corporationName);
         $this->apikeys = new ObjectStorage();
@@ -90,7 +90,8 @@ class Corporation extends AbstractEntity {
      *
      * @return \integer
      */
-    public function getCorporationId() {
+    public function getCorporationId()
+    {
         return $this->corporationId;
     }
 
@@ -99,7 +100,8 @@ class Corporation extends AbstractEntity {
      *
      * @param type $corporationId
      */
-    public function setCorporationId($corporationId) {
+    public function setCorporationId($corporationId)
+    {
         $this->corporationId = $corporationId;
     }
 
@@ -108,7 +110,8 @@ class Corporation extends AbstractEntity {
      *
      * @return string
      */
-    public function getCorporationName() {
+    public function getCorporationName()
+    {
         return $this->corporationName;
     }
 
@@ -117,7 +120,8 @@ class Corporation extends AbstractEntity {
      *
      * @param \string $corporationName
      */
-    public function setCorporationName($corporationName) {
+    public function setCorporationName($corporationName)
+    {
         $this->corporationName = $corporationName;
     }
 
@@ -126,7 +130,8 @@ class Corporation extends AbstractEntity {
      *
      * @return Alliance | NULL
      */
-    public function getCurrentAlliance() {
+    public function getCurrentAlliance()
+    {
         if ($this->currentAlliance instanceof LazyLoadingProxy) {
             $this->currentAlliance->_loadRealInstance();
         }
@@ -139,7 +144,8 @@ class Corporation extends AbstractEntity {
      *
      * @param Alliance $alliance
      */
-    public function setCurrentAlliance(Alliance $alliance = \NULL) {
+    public function setCurrentAlliance(Alliance $alliance = \NULL)
+    {
         $this->currentAlliance = $alliance;
     }
 
@@ -148,7 +154,8 @@ class Corporation extends AbstractEntity {
      *
      * @return string
      */
-    public function getAllianceName() {
+    public function getAllianceName()
+    {
         $result = '';
         $alliance = $this->getCurrentAlliance();
         if ($alliance instanceof Alliance) {
@@ -163,7 +170,8 @@ class Corporation extends AbstractEntity {
      *
      * @return FrontendUserGroup
      */
-    public function getUsergroup() {
+    public function getUsergroup()
+    {
         if ($this->usergroup instanceof LazyLoadingProxy) {
             $this->usergroup->_loadRealInstance();
         }
@@ -177,7 +185,8 @@ class Corporation extends AbstractEntity {
      * @param FrontendUserGroup $usergroup
      * @return void
      */
-    public function setUsergroup(FrontendUserGroup $usergroup = \NULL) {
+    public function setUsergroup(FrontendUserGroup $usergroup = \NULL)
+    {
         $this->usergroup = $usergroup;
     }
 
@@ -186,7 +195,8 @@ class Corporation extends AbstractEntity {
      *
      * @param ApiKeyCorporation $apikey
      */
-    public function addApiKey(ApiKeyCorporation $apikey) {
+    public function addApiKey(ApiKeyCorporation $apikey)
+    {
         $this->apikeys->attach($apikey);
     }
 
@@ -195,7 +205,8 @@ class Corporation extends AbstractEntity {
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyCorporation>
      */
-    public function getApiKeys() {
+    public function getApiKeys()
+    {
         if ($this->apikeys instanceof LazyLoadingProxy) {
             $this->apikeys->_loadRealInstance();
         }
@@ -205,7 +216,8 @@ class Corporation extends AbstractEntity {
     /**
      * Remove all api keys from corporation
      */
-    public function removeAllApiKeys() {
+    public function removeAllApiKeys()
+    {
         $this->apikeys = new ObjectStorage();
     }
 
@@ -214,7 +226,8 @@ class Corporation extends AbstractEntity {
      *
      * @param ApiKeyCorporation $apikey
      */
-    public function removeApiKey(ApiKeyCorporation $apikey) {
+    public function removeApiKey(ApiKeyCorporation $apikey)
+    {
         $this->apikeys->detach($apikey);
     }
 
@@ -223,7 +236,8 @@ class Corporation extends AbstractEntity {
      *
      * @param ObjectStorage $apikeys
      */
-    public function setApiKeys(ObjectStorage $apikeys) {
+    public function setApiKeys(ObjectStorage $apikeys)
+    {
         $this->apikeys = $apikeys;
     }
 
@@ -232,7 +246,8 @@ class Corporation extends AbstractEntity {
      *
      * @param CorporationTitle $title
      */
-    public function addCorporationTitle(CorporationTitle $title) {
+    public function addCorporationTitle(CorporationTitle $title)
+    {
         $this->titles->attach($title);
     }
 
@@ -241,14 +256,16 @@ class Corporation extends AbstractEntity {
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\CorporationTitle>
      */
-    public function getCorporationTitles() {
+    public function getCorporationTitles()
+    {
         return $this->titles;
     }
 
     /**
      * Remove all titles from corporation
      */
-    public function removeAllCorporationTitles() {
+    public function removeAllCorporationTitles()
+    {
         $this->titles = new ObjectStorage();
     }
 
@@ -257,7 +274,8 @@ class Corporation extends AbstractEntity {
      *
      * @param CorporationTitle $title
      */
-    public function removeCorporationTitle(CorporationTitle $title) {
+    public function removeCorporationTitle(CorporationTitle $title)
+    {
         $this->titles->detach($title);
     }
 
@@ -266,7 +284,8 @@ class Corporation extends AbstractEntity {
      *
      * @param ObjectStorage $titles
      */
-    public function setCorporationTitles(ObjectStorage $titles) {
+    public function setCorporationTitles(ObjectStorage $titles)
+    {
         $this->titles = $titles;
     }
 
@@ -276,7 +295,8 @@ class Corporation extends AbstractEntity {
      * @param \integer $accessMaskToProve
      * @return \boolean
      */
-    public function hasAccessTo($accessMaskToProve) {
+    public function hasAccessTo($accessMaskToProve)
+    {
         $result = \FALSE;
         foreach ($this->getApiKeys() as $apiKey) {
             if ($apiKey->hasAccessTo($accessMaskToProve)) {
@@ -294,7 +314,8 @@ class Corporation extends AbstractEntity {
      * @param \integer $accessMaskToSearchFor
      * @return \NULL|ApiKeyCorporation
      */
-    public function findFirstApiKeyByAccessMask($accessMaskToSearchFor) {
+    public function findFirstApiKeyByAccessMask($accessMaskToSearchFor)
+    {
         $result = \NULL;
         foreach ($this->getApiKeys() as $apiKey) {
             if ($apiKey->hasAccessTo($accessMaskToSearchFor)) {
@@ -305,5 +326,4 @@ class Corporation extends AbstractEntity {
 
         return $result;
     }
-
 }

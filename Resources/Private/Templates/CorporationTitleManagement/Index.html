@@ -6,19 +6,19 @@
 
     <f:flashMessages />
 
-<f:if condition="{amountOfSelectedCorporations} == 1">
-    <f:then>
-        <f:if condition="{amountOfTitles} > 0">
-            <h2><f:translate key="corporationtitlemanagement.index.listof">List of corporation titles</f:translate></h2>
+    <f:if condition="{amountOfSelectedCorporations} == 1">
+        <f:then>
+            <f:if condition="{amountOfTitles} > 0">
+                <h2><f:translate key="corporationtitlemanagement.index.listof">List of corporation titles</f:translate></h2>
 
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th><f:translate key="corporationtitlemanagement.index.title.id">id</f:translate></th>
-                            <th><f:translate key="corporationtitlemanagement.index.title.name">name</f:translate></th>
-                            <th><f:translate key="corporationtitlemanagement.index.title.usergroup">frontend user group</f:translate></th>
-                            <th><f:translate key="corporationtitlemanagement.index.title.action">action</f:translate></th>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th><f:translate key="corporationtitlemanagement.index.title.id">id</f:translate></th>
+                        <th><f:translate key="corporationtitlemanagement.index.title.name">name</f:translate></th>
+                        <th><f:translate key="corporationtitlemanagement.index.title.usergroup">frontend user group</f:translate></th>
+                        <th><f:translate key="corporationtitlemanagement.index.title.action">action</f:translate></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,23 +28,23 @@
                             <td>{corporationTitle.titleName}</td>
                             <td>{corporationTitle.usergroup.title}</td>
                             <td>
-                                <f:link.action action="edit" controller="CorporationTitleManagement" arguments="{corporationTitle : corporationTitle}"><f:translate key="corporationtitlemanagement.index.title.edit">Edit</f:translate></f:link.action>
-                            </td>
+                        <f:link.action action="edit" controller="CorporationTitleManagement" arguments="{corporationTitle : corporationTitle}"><f:translate key="corporationtitlemanagement.index.title.edit">Edit</f:translate></f:link.action>
+                        </td>
                         </tr>
-                    </f:for>
-                    </tbody>
-                </table>
-            </div>
-        </f:if>
-        <f:if condition="{titleAccess}">
-            <p><f:link.action action="fetch" controller="CorporationTitleManagement"><f:translate key="corporationtitlemanagement.index.discardandfetch">Discard old and fetch new corporation titles</f:translate></f:link.action></p>
-        </f:if>
-    </f:then>
-    <f:else>
-        <p class="text-warning"><f:translate key="corporationtitlemanagement.index.nocorporationselected">No corporation selected in plugin options.</f:translate></p>
-    </f:else>
-</f:if>
+                        </f:for>
+                        </tbody>
+                    </table>
+                </div>
+            </f:if>
+            <f:if condition="{titleAccess}">
+                <p><f:link.action action="fetch" controller="CorporationTitleManagement"><f:translate key="corporationtitlemanagement.index.discardandfetch">Discard old and fetch new corporation titles</f:translate></f:link.action></p>
+            </f:if>
+        </f:then>
+        <f:else>
+            <p class="text-warning"><f:translate key="corporationtitlemanagement.index.nocorporationselected">No corporation selected in plugin options.</f:translate></p>
+        </f:else>
+    </f:if>
 
-<p><f:link.action action="index" controller="ApiKeyCorporationManagement"><f:translate key="corporationtitlemanagement.index.backto">Back to corporation api key management.</f:translate></f:link.action></p>
+    <p><f:link.action action="index" controller="ApiKeyCorporationManagement"><f:translate key="corporationtitlemanagement.index.backto">Back to corporation api key management.</f:translate></f:link.action></p>
 
 </f:section>

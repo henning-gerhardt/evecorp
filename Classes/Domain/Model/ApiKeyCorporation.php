@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
@@ -28,7 +26,8 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyCorporation extends ApiKey {
+class ApiKeyCorporation extends ApiKey
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Model\Corporation
@@ -41,7 +40,8 @@ class ApiKeyCorporation extends ApiKey {
      *
      * @return Corporation
      */
-    public function getCorporation() {
+    public function getCorporation()
+    {
         if ($this->corporation instanceof LazyLoadingProxy) {
             $this->corporation->_loadRealInstance();
         }
@@ -54,8 +54,8 @@ class ApiKeyCorporation extends ApiKey {
      *
      * @param Corporation $corporation
      */
-    public function setCorporation(Corporation $corporation) {
+    public function setCorporation(Corporation $corporation)
+    {
         $this->corporation = $corporation;
     }
-
 }

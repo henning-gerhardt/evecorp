@@ -2,21 +2,21 @@
 <f:layout name="default" />
 <f:section name="content">
 
-<h1><f:translate key="apikeymanagement.index.welcome">EVE API Key Account Management</f:translate></h1>
+    <h1><f:translate key="apikeymanagement.index.welcome">EVE API Key Account Management</f:translate></h1>
 
-<f:flashMessages />
+    <f:flashMessages />
 
-<f:if condition="{corpMember.ApiKeys}">
-    <h2><f:translate key="apikeymanagement.index.overview" arguments="{1: displayName}">List of stored account API keys for {displayName}</f:translate></h2>
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th><f:translate key="apikeymanagement.index.keyid">key id</f:translate></th>
-                    <th><f:translate key="apikeymanagement.index.expires">expires</f:translate></th>
-                    <th><f:translate key="apikeymanagement.index.accessmask">access mask</f:translate></th>
-                    <th><f:translate key="apikeymanagement.index.characters">characters</f:translate></th>
-                    <th><f:translate key="apikeymanagement.index.action">action</f:translate></th>
+    <f:if condition="{corpMember.ApiKeys}">
+        <h2><f:translate key="apikeymanagement.index.overview" arguments="{1: displayName}">List of stored account API keys for {displayName}</f:translate></h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th><f:translate key="apikeymanagement.index.keyid">key id</f:translate></th>
+                <th><f:translate key="apikeymanagement.index.expires">expires</f:translate></th>
+                <th><f:translate key="apikeymanagement.index.accessmask">access mask</f:translate></th>
+                <th><f:translate key="apikeymanagement.index.characters">characters</f:translate></th>
+                <th><f:translate key="apikeymanagement.index.action">action</f:translate></th>
                 </tr>
             </thead>
             <tbody>
@@ -24,8 +24,8 @@
                 <tr>
                     <td>{apiKeyAccount.keyId}</td>
                     <td><f:if condition="{apiKeyAccount.expires}"><f:then><f:format.date format="Y-m-d">{apiKeyAccount.expires}</f:format.date></f:then><f:else><f:translate key="apikeymanagement.index.expires.never">never</f:translate></f:else></f:if></td>
-                    <td>{apiKeyAccount.accessMask}</td>
-                    <td>
+                <td>{apiKeyAccount.accessMask}</td>
+                <td>
                     <f:if condition="{apiKeyAccount.characters}">
                         <f:for each="{apiKeyAccount.characters}" as="character">
                             <f:link.action controller="CharacterManagement" action="show" arguments="{character: character}"><evecorp:format.eveImage characterId="{character.characterId}" characterName="{character.characterName}" size="64"/></f:link.action>
@@ -33,13 +33,13 @@
                     </f:if>
                     </td>
                     <td><f:link.action action="delete" controller="ApiKeyManagement" class="text-danger" arguments="{apiKeyAccount : apiKeyAccount}"><f:translate key="apikeymanagement.index.action.delete">Delete</f:translate></f:link.action> <f:link.action action="update" controller="ApiKeyManagement" class="text-danger" arguments="{apiKeyAccount : apiKeyAccount}"><f:translate key="apikeymanagement.index.action.update">Update</f:translate></f:link.action></td>
-                </tr>
-            </f:for>
-            </tbody>
-        </table>
-    </div>
-</f:if>
+                    </tr>
+                </f:for>
+                </tbody>
+            </table>
+        </div>
+    </f:if>
 
-<f:link.action action="new" controller="ApiKeyManagement"><f:translate key="apikeymanagement.index.action.new">Add new account API key</f:translate></f:link.action>
+    <f:link.action action="new" controller="ApiKeyManagement"><f:translate key="apikeymanagement.index.action.new">Add new account API key</f:translate></f:link.action>
 
 </f:section>

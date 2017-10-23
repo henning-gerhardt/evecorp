@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Repository;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -29,7 +27,8 @@ use TYPO3\CMS\Core\Database\Query\QueryBuilder;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EveitemRepository extends BaseRepository {
+class EveitemRepository extends BaseRepository
+{
 
     /**
      * @var string
@@ -42,7 +41,8 @@ class EveitemRepository extends BaseRepository {
      * @param \string $columnName
      * @return boolean
      */
-    protected function isCorrectColumn($columnName) {
+    protected function isCorrectColumn($columnName)
+    {
 
         $result = \FALSE;
         if (($columnName === 'region') || ($columnName === 'solar_system')) {
@@ -58,7 +58,8 @@ class EveitemRepository extends BaseRepository {
      * @param \string $searchColumn Must be 'region' or 'solar_system'
      * @return array
      */
-    protected function getListOfUniqueColumn($searchColumn) {
+    protected function getListOfUniqueColumn($searchColumn)
+    {
 
         if (!$this->isCorrectColumn($searchColumn)) {
             return [];
@@ -90,7 +91,8 @@ class EveitemRepository extends BaseRepository {
      * @param \string  $searchColumn Must be 'region' or 'solar_system'
      * @return array
      */
-    protected function findAllUpdateableItemsForColumn($searchId, $searchColumn) {
+    protected function findAllUpdateableItemsForColumn($searchId, $searchColumn)
+    {
 
         if ($searchId == \NULL || $searchId == 0) {
             return [];
@@ -121,7 +123,8 @@ class EveitemRepository extends BaseRepository {
      * @param \string  $searchColumn Must be 'region' or 'system'
      * @return array
      */
-    public function findByEveIdAndColumn($eveId, $searchId, $searchColumn) {
+    public function findByEveIdAndColumn($eveId, $searchId, $searchColumn)
+    {
 
         if (!$this->isCorrectColumn($searchColumn)) {
             return [];
@@ -149,7 +152,8 @@ class EveitemRepository extends BaseRepository {
      *
      * @return array
      */
-    public function getListOfUniqueRegionId() {
+    public function getListOfUniqueRegionId()
+    {
 
         $result = $this->getListOfUniqueColumn('region');
 
@@ -161,7 +165,8 @@ class EveitemRepository extends BaseRepository {
      *
      * @return array
      */
-    public function getListOfUniqueSystemId() {
+    public function getListOfUniqueSystemId()
+    {
 
         $result = $this->getListOfUniqueColumn('solar_system');
 
@@ -174,7 +179,8 @@ class EveitemRepository extends BaseRepository {
      * @param \integer $regionId
      * @return array
      */
-    public function findAllUpdateableItemsForRegion($regionId) {
+    public function findAllUpdateableItemsForRegion($regionId)
+    {
 
         $result = $this->findAllUpdateableItemsForColumn($regionId, 'region');
 
@@ -187,7 +193,8 @@ class EveitemRepository extends BaseRepository {
      * @param \integer $systemId
      * @return array
      */
-    public function findAllUpdateableItemsForSystem($systemId) {
+    public function findAllUpdateableItemsForSystem($systemId)
+    {
 
         $result = $this->findAllUpdateableItemsForColumn($systemId, 'solar_system');
 
@@ -201,7 +208,8 @@ class EveitemRepository extends BaseRepository {
      * @param \integer $regionId
      * @return array
      */
-    public function findByEveIdAndRegionId($eveId, $regionId) {
+    public function findByEveIdAndRegionId($eveId, $regionId)
+    {
 
         $result = $this->findByEveIdAndColumn($eveId, $regionId, 'region');
 
@@ -215,11 +223,11 @@ class EveitemRepository extends BaseRepository {
      * @param \integer $systemId
      * @return array
      */
-    public function findByEveIdAndSystemId($eveId, $systemId) {
+    public function findByEveIdAndSystemId($eveId, $systemId)
+    {
 
         $result = $this->findByEveIdAndColumn($eveId, $systemId, 'solar_system');
 
         return $result;
     }
-
 }

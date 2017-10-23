@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\ViewHelpers\Format;
 
 use DateTime;
@@ -30,7 +28,8 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EmploymentHistoryViewHelper extends AbstractViewHelper {
+class EmploymentHistoryViewHelper extends AbstractViewHelper
+{
 
     /**
      * Render employment history of given character
@@ -38,7 +37,8 @@ class EmploymentHistoryViewHelper extends AbstractViewHelper {
      * @param Character $character
      * @return \string
      */
-    public function render(Character $character) {
+    public function render(Character $character)
+    {
 
         $output = '';
         $lastJoinDate = \NULL;
@@ -63,5 +63,4 @@ class EmploymentHistoryViewHelper extends AbstractViewHelper {
 
         return $output;
     }
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Domain\Model;
 
 use Gerh\Evecorp\Domain\Model\ApiKeyAccount;
@@ -30,12 +28,14 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyAccountTest extends UnitTestCase {
+class ApiKeyAccountTest extends UnitTestCase
+{
 
     /**
      * @test
      */
-    public function classCouldBeInitiated() {
+    public function classCouldBeInitiated()
+    {
         $apiKeyAccount = new ApiKeyAccount();
 
         $this->assertInstanceOf(ApiKeyAccount::class, $apiKeyAccount);
@@ -44,7 +44,8 @@ class ApiKeyAccountTest extends UnitTestCase {
     /**
      * @test
      */
-    public function corpMemberCouldBeSet() {
+    public function corpMemberCouldBeSet()
+    {
         $expected = new CorpMember();
 
         $apiKeyAccount = new ApiKeyAccount();
@@ -52,5 +53,4 @@ class ApiKeyAccountTest extends UnitTestCase {
 
         $this->assertEquals($expected, $apiKeyAccount->getCorpMember());
     }
-
 }

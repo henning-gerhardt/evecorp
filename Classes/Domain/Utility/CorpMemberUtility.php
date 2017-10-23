@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Utility;
 
 use Gerh\Evecorp\Domain\Model\CorpMember;
@@ -33,7 +31,8 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorpMemberUtility {
+class CorpMemberUtility
+{
 
     /**
      * Returns all frontend user groups from characters corporations
@@ -41,7 +40,8 @@ class CorpMemberUtility {
      * @param CorpMember $corpMember
      * @return array
      */
-    protected function collectCorpGroups(CorpMember $corpMember) {
+    protected function collectCorpGroups(CorpMember $corpMember)
+    {
         $collected = [];
         foreach ($corpMember->getCharacters() as $character) {
             $corpUserGroup = $character->getCurrentCorporation()->getUserGroup();
@@ -65,7 +65,8 @@ class CorpMemberUtility {
      *
      * @param CorpMember $corpMember
      */
-    protected function persistenceCorpMember(CorpMember $corpMember) {
+    protected function persistenceCorpMember(CorpMember $corpMember)
+    {
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $corpMemberRepository = $objectManager->get(CorpMemberRepository::class);
         $corpMemberRepository->update($corpMember);
@@ -80,7 +81,8 @@ class CorpMemberUtility {
      *
      * @param CorpMember $corpMember
      */
-    public function adjustFrontendUserGroups(CorpMember $corpMember) {
+    public function adjustFrontendUserGroups(CorpMember $corpMember)
+    {
 
         // persistence maybe pending changes
         $this->persistenceCorpMember($corpMember);
@@ -105,5 +107,4 @@ class CorpMemberUtility {
         // persistence changed corp member information
         $this->persistenceCorpMember($corpMember);
     }
-
 }

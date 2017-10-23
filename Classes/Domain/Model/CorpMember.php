@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
@@ -30,7 +28,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorpMember extends FrontendUser {
+class CorpMember extends FrontendUser
+{
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyAccount>
@@ -58,7 +57,8 @@ class CorpMember extends FrontendUser {
      * @param \string $username
      * @param \string $password
      */
-    public function __construct($username = '', $password = '') {
+    public function __construct($username = '', $password = '')
+    {
         parent::__construct($username, $password);
         $this->apiKeys = new ObjectStorage();
         $this->characters = new ObjectStorage();
@@ -70,7 +70,8 @@ class CorpMember extends FrontendUser {
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\ApiKeyAccount>
      */
-    public function getApiKeys() {
+    public function getApiKeys()
+    {
         return $this->apiKeys;
     }
 
@@ -79,7 +80,8 @@ class CorpMember extends FrontendUser {
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
      */
-    public function getCharacters() {
+    public function getCharacters()
+    {
         return $this->characters;
     }
 
@@ -88,7 +90,8 @@ class CorpMember extends FrontendUser {
      *
      * @param FrontendUserGroup $group
      */
-    public function addEveCorpGroup(FrontendUserGroup $group) {
+    public function addEveCorpGroup(FrontendUserGroup $group)
+    {
         $this->eveCorpGroups->attach($group);
         $this->usergroup->attach($group);
     }
@@ -98,7 +101,8 @@ class CorpMember extends FrontendUser {
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup>
      */
-    public function getEveCorpGroups() {
+    public function getEveCorpGroups()
+    {
         if ($this->eveCorpGroups === \NULL) {
             $this->eveCorpGroups = new ObjectStorage();
         }
@@ -111,9 +115,9 @@ class CorpMember extends FrontendUser {
      *
      * @param FrontendUserGroup $group
      */
-    public function removeEveCorpGroup(FrontendUserGroup $group) {
+    public function removeEveCorpGroup(FrontendUserGroup $group)
+    {
         $this->eveCorpGroups->detach($group);
         $this->usergroup->detach($group);
     }
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Domain\Model;
 
 use Gerh\Evecorp\Domain\Model\EveItemDisplay;
@@ -27,12 +25,14 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 /**
  * Testcase for EveItemDisplay
  */
-class EveItemDisplayTest extends UnitTestCase {
+class EveItemDisplayTest extends UnitTestCase
+{
 
     /**
      * @test
      */
-    public function displayNameCouldBeSet() {
+    public function displayNameCouldBeSet()
+    {
         $eveName = 'Tritanium';
 
         $item = new EveItemDisplay();
@@ -44,7 +44,8 @@ class EveItemDisplayTest extends UnitTestCase {
     /**
      * @test
      */
-    public function buyPriceCouldBeSet() {
+    public function buyPriceCouldBeSet()
+    {
         $price = 4.45;
 
         $item = new EveItemDisplay();
@@ -56,7 +57,8 @@ class EveItemDisplayTest extends UnitTestCase {
     /**
      * @test
      */
-    public function sellPriceCouldBeSet() {
+    public function sellPriceCouldBeSet()
+    {
         $price = 4.05;
 
         $item = new EveItemDisplay();
@@ -68,7 +70,8 @@ class EveItemDisplayTest extends UnitTestCase {
     /**
      * @test
      */
-    public function corpTaxCouldBeSet() {
+    public function corpTaxCouldBeSet()
+    {
         $corpTax = 15.0;
 
         $eveItemDisplay = new EveItemDisplay();
@@ -80,7 +83,8 @@ class EveItemDisplayTest extends UnitTestCase {
     /**
      * @test
      */
-    public function corpTaxCouldNotBeSetLowerThanZero() {
+    public function corpTaxCouldNotBeSetLowerThanZero()
+    {
         $corpTax = -0.1;
 
         $eveItemDisplay = new EveItemDisplay();
@@ -92,7 +96,8 @@ class EveItemDisplayTest extends UnitTestCase {
     /**
      * @test
      */
-    public function corpTaxCouldNotBeSetHigherThanOneHundred() {
+    public function corpTaxCouldNotBeSetHigherThanOneHundred()
+    {
         $corpTax = 100.1;
 
         $eveItemDisplay = new EveItemDisplay();
@@ -104,7 +109,8 @@ class EveItemDisplayTest extends UnitTestCase {
     /**
      * @test
      */
-    public function getCorpTaxModifierWorksAsExpected() {
+    public function getCorpTaxModifierWorksAsExpected()
+    {
         $corpTax = 15.5;
 
         $eveItemDisplay = new EveItemDisplay();
@@ -119,7 +125,8 @@ class EveItemDisplayTest extends UnitTestCase {
     /**
      * @test
      */
-    public function regionNameCouldBeSet() {
+    public function regionNameCouldBeSet()
+    {
         $regionName = 'The Forge';
 
         $eveItemDisplay = new EveItemDisplay();
@@ -131,7 +138,8 @@ class EveItemDisplayTest extends UnitTestCase {
     /**
      * @test
      */
-    public function regionNameCouldBeSetByRegionObject() {
+    public function regionNameCouldBeSetByRegionObject()
+    {
         $regionName = 'The Forge';
 
         $region = new EveMapRegion();
@@ -146,7 +154,8 @@ class EveItemDisplayTest extends UnitTestCase {
     /**
      * @test
      */
-    public function regionNameIsNullOnNullRegionObject() {
+    public function regionNameIsNullOnNullRegionObject()
+    {
         $eveItemDisplay = new EveItemDisplay();
         $eveItemDisplay->setRegionNameByRegion(\NULL);
 
@@ -156,7 +165,8 @@ class EveItemDisplayTest extends UnitTestCase {
     /**
      * @test
      */
-    public function solarSystemNameCouldBeSet() {
+    public function solarSystemNameCouldBeSet()
+    {
         $solarSystemName = 'Jita';
 
         $eveItemDisplay = new EveItemDisplay();
@@ -168,7 +178,8 @@ class EveItemDisplayTest extends UnitTestCase {
     /**
      * @test
      */
-    public function solarSystemNameCouldBeSetBySolarSystemObject() {
+    public function solarSystemNameCouldBeSetBySolarSystemObject()
+    {
         $solarSystemName = 'Jita';
 
         $solarSystem = new EveMapSolarSystem();
@@ -183,11 +194,11 @@ class EveItemDisplayTest extends UnitTestCase {
     /**
      * @test
      */
-    public function solarSystemNameIsNullOnNullSolarSystemObject() {
+    public function solarSystemNameIsNullOnNullSolarSystemObject()
+    {
         $eveItemDisplay = new EveItemDisplay();
         $eveItemDisplay->setSolarSystemName(\NULL);
 
         $this->assertEquals(\NULL, $eveItemDisplay->getSolarSystemName());
     }
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Domain\Model;
 
 use Gerh\Evecorp\Domain\Model\EveMapSolarSystem;
@@ -25,12 +23,14 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 /**
  * Testcase for EveMapRegion
  */
-class EveMapSolarSystemTest extends UnitTestCase {
+class EveMapSolarSystemTest extends UnitTestCase
+{
 
     /**
      * @test
      */
-    public function solarSystemIdCouldBeSet() {
+    public function solarSystemIdCouldBeSet()
+    {
         $systemId = 30000142;
         $solarSystem = new EveMapSolarSystem();
         $solarSystem->setSolarSystemId($systemId);
@@ -41,12 +41,12 @@ class EveMapSolarSystemTest extends UnitTestCase {
     /**
      * @test
      */
-    public function solarSystemNameCouldBeSet() {
+    public function solarSystemNameCouldBeSet()
+    {
         $systemName = 'Jita';
         $solarSystem = new EveMapSolarSystem();
         $solarSystem->setSolarSystemName($systemName);
 
         $this->assertEquals($systemName, $solarSystem->getSolarSystemName());
     }
-
 }

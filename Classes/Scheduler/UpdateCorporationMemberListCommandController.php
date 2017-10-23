@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Scheduler;
 
 use Gerh\Evecorp\Domain\Constants\AccessMask\Corporation;
@@ -30,7 +28,8 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
  *
  * @author Henning Gerhardt
  */
-class UpdateCorporationMemberListCommandController extends CommandController {
+class UpdateCorporationMemberListCommandController extends CommandController
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository
@@ -47,7 +46,8 @@ class UpdateCorporationMemberListCommandController extends CommandController {
      *
      * @param \integer $storagePid
      */
-    protected function setApiKeyCorporationRepositoryStoragePid($storagePid = 0) {
+    protected function setApiKeyCorporationRepositoryStoragePid($storagePid = 0)
+    {
         $querySettings = $this->apiKeyCorporationRepository->createQuery()->getQuerySettings();
         $querySettings->setStoragePageIds([$storagePid]);
         $querySettings->setRespectStoragePage(\TRUE);
@@ -59,7 +59,8 @@ class UpdateCorporationMemberListCommandController extends CommandController {
      *
      * @param \integer $storagePid
      */
-    protected function initializeRepositories($storagePid = 0) {
+    protected function initializeRepositories($storagePid = 0)
+    {
         $this->setApiKeyCorporationRepositoryStoragePid($storagePid);
     }
 
@@ -70,7 +71,8 @@ class UpdateCorporationMemberListCommandController extends CommandController {
      * @param PersistenceManager $persistenceManager
      * @return void
      */
-    public function __construct(ApiKeyCorporationRepository $apiKeyCorporationRepository, PersistenceManager $persistenceManager) {
+    public function __construct(ApiKeyCorporationRepository $apiKeyCorporationRepository, PersistenceManager $persistenceManager)
+    {
         $this->apiKeyCorporationRepository = $apiKeyCorporationRepository;
         $this->persistenceManager = $persistenceManager;
     }
@@ -81,7 +83,8 @@ class UpdateCorporationMemberListCommandController extends CommandController {
      * @param \int $storagePid
      * @return boolean
      */
-    public function updateCorporationMemberListCommand($storagePid = 0) {
+    public function updateCorporationMemberListCommand($storagePid = 0)
+    {
 
         $this->initializeRepositories($storagePid);
 
@@ -102,5 +105,4 @@ class UpdateCorporationMemberListCommandController extends CommandController {
 
         return \TRUE;
     }
-
 }

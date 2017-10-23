@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Task;
 
 use Gerh\Evecorp\Scheduler\UpdateEveItemListTask;
@@ -30,14 +28,15 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class UpdateEveItemListTaskTest extends UnitTestCase {
+class UpdateEveItemListTaskTest extends UnitTestCase
+{
 
     /**
      * @test
      */
-    public function updateEveItemListTaskIsInstanceOfAbstractTask() {
+    public function updateEveItemListTaskIsInstanceOfAbstractTask()
+    {
         $taskMock = $this->createMock(UpdateEveItemListTask::class);
         $this->assertInstanceOf(AbstractTask::class, $taskMock);
     }
-
 }

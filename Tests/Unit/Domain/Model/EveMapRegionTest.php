@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Domain\Model;
 
 use Gerh\Evecorp\Domain\Model\EveMapRegion;
@@ -25,12 +23,14 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 /**
  * Testcase for EveMapRegion
  */
-class EveMapRegionTest extends UnitTestCase {
+class EveMapRegionTest extends UnitTestCase
+{
 
     /**
      * @test
      */
-    public function regionIdCouldBeSet() {
+    public function regionIdCouldBeSet()
+    {
         $regionId = 10000002;
         $region = new EveMapRegion();
         $region->setRegionId($regionId);
@@ -41,12 +41,12 @@ class EveMapRegionTest extends UnitTestCase {
     /**
      * @test
      */
-    public function regionNameCouldBeSet() {
+    public function regionNameCouldBeSet()
+    {
         $regionName = 'The Forge';
         $region = new EveMapRegion();
         $region->setRegionName($regionName);
 
         $this->assertEquals($regionName, $region->getRegionName());
     }
-
 }

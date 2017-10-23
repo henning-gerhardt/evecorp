@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
@@ -28,7 +26,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Eveitem extends AbstractEntity {
+class Eveitem extends AbstractEntity
+{
 
     /**
      * eveName
@@ -97,7 +96,8 @@ class Eveitem extends AbstractEntity {
      *
      * @return \string $eveName
      */
-    public function getEveName() {
+    public function getEveName()
+    {
         return $this->eveName;
     }
 
@@ -107,7 +107,8 @@ class Eveitem extends AbstractEntity {
      * @param \string $eveName
      * @return void
      */
-    public function setEveName($eveName) {
+    public function setEveName($eveName)
+    {
         $this->eveName = $eveName;
     }
 
@@ -116,7 +117,8 @@ class Eveitem extends AbstractEntity {
      *
      * @return \integer $eveId
      */
-    public function getEveId() {
+    public function getEveId()
+    {
         return $this->eveId;
     }
 
@@ -126,7 +128,8 @@ class Eveitem extends AbstractEntity {
      * @param \integer $eveId
      * @return void
      */
-    public function setEveId($eveId) {
+    public function setEveId($eveId)
+    {
         $this->eveId = $eveId;
     }
 
@@ -135,7 +138,8 @@ class Eveitem extends AbstractEntity {
      *
      * @return \float $buyPrice
      */
-    public function getBuyPrice() {
+    public function getBuyPrice()
+    {
         return $this->buyPrice;
     }
 
@@ -145,7 +149,8 @@ class Eveitem extends AbstractEntity {
      * @param \float $buyPrice
      * @return void
      */
-    public function setBuyPrice($buyPrice) {
+    public function setBuyPrice($buyPrice)
+    {
         $this->buyPrice = $buyPrice;
     }
 
@@ -154,7 +159,8 @@ class Eveitem extends AbstractEntity {
      *
      * @return \float $sellPrice
      */
-    public function getSellPrice() {
+    public function getSellPrice()
+    {
         return $this->sellPrice;
     }
 
@@ -164,7 +170,8 @@ class Eveitem extends AbstractEntity {
      * @param \float $sellPrice
      * @return void
      */
-    public function setSellPrice($sellPrice) {
+    public function setSellPrice($sellPrice)
+    {
         $this->sellPrice = $sellPrice;
     }
 
@@ -173,7 +180,8 @@ class Eveitem extends AbstractEntity {
      *
      * @return \integer $cacheTime
      */
-    public function getCacheTime() {
+    public function getCacheTime()
+    {
         return $this->cacheTime;
     }
 
@@ -183,7 +191,8 @@ class Eveitem extends AbstractEntity {
      * @param \integer $cacheTime
      * @return void
      */
-    public function setCacheTime($cacheTime) {
+    public function setCacheTime($cacheTime)
+    {
         $this->cacheTime = $cacheTime;
     }
 
@@ -192,7 +201,8 @@ class Eveitem extends AbstractEntity {
      *
      * @return \integer $cacheTime
      */
-    public function getTimeToCache() {
+    public function getTimeToCache()
+    {
         return $this->timeToCache;
     }
 
@@ -202,7 +212,8 @@ class Eveitem extends AbstractEntity {
      * @param \integer $timeToCache
      * @return void
      */
-    public function setTimeToCache($timeToCache) {
+    public function setTimeToCache($timeToCache)
+    {
         $this->timeToCache = 1;
         if (\is_int($timeToCache) && ($timeToCache > 0)) {
             $this->timeToCache = \intval($timeToCache);
@@ -214,7 +225,8 @@ class Eveitem extends AbstractEntity {
      *
      * @return EveMapRegion
      */
-    public function getRegion() {
+    public function getRegion()
+    {
         return $this->region;
     }
 
@@ -223,7 +235,8 @@ class Eveitem extends AbstractEntity {
      *
      * @param EveMapRegion $region
      */
-    public function setRegion(EveMapRegion $region) {
+    public function setRegion(EveMapRegion $region)
+    {
         $this->region = $region;
     }
 
@@ -232,7 +245,8 @@ class Eveitem extends AbstractEntity {
      *
      * @return EveMapSolarSystem
      */
-    public function getSolarSystem() {
+    public function getSolarSystem()
+    {
         return $this->solarSystem;
     }
 
@@ -242,8 +256,8 @@ class Eveitem extends AbstractEntity {
      * @param EveMapSolarSystem $solarSystem
      * @return void
      */
-    public function setSolarSystem(EveMapSolarSystem $solarSystem) {
+    public function setSolarSystem(EveMapSolarSystem $solarSystem)
+    {
         $this->solarSystem = $solarSystem;
     }
-
 }

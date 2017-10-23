@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
@@ -28,7 +26,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EveMapSolarSystem extends AbstractEntity {
+class EveMapSolarSystem extends AbstractEntity
+{
 
     /**
      * @var \integer
@@ -45,7 +44,8 @@ class EveMapSolarSystem extends AbstractEntity {
      *
      * @return \integer
      */
-    public function getSolarSystemId() {
+    public function getSolarSystemId()
+    {
         return $this->solarSystemId;
     }
 
@@ -55,7 +55,8 @@ class EveMapSolarSystem extends AbstractEntity {
      * @param \integer $solarSystemId
      * @return void
      */
-    public function setSolarSystemId($solarSystemId) {
+    public function setSolarSystemId($solarSystemId)
+    {
         $this->solarSystemId = $solarSystemId;
     }
 
@@ -64,7 +65,8 @@ class EveMapSolarSystem extends AbstractEntity {
      *
      * @return \string
      */
-    public function getSolarSystemName() {
+    public function getSolarSystemName()
+    {
         return $this->solarSystemName;
     }
 
@@ -74,8 +76,8 @@ class EveMapSolarSystem extends AbstractEntity {
      * @param \string $solarSystemName
      * @return void
      */
-    public function setSolarSystemName($solarSystemName) {
+    public function setSolarSystemName($solarSystemName)
+    {
         $this->solarSystemName = $solarSystemName;
     }
-
 }

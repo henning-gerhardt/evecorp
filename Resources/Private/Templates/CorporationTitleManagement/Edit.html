@@ -4,23 +4,23 @@
 
     <h1><f:translate key="corporationtitlemanagement.edit.welcome">Edit frontend user group for corporation title</f:translate></h1>
 
-<f:render partial="FormErrors" arguments="{formName: 'corporationTitle'}" />
-<f:form method="post" action="update" controller="CorporationTitleManagement" name="corporationTitle" object="{corporationTitle}">
-    <div class="form-group">
-        <label for="titleid"><f:translate key="corporationtitlemanagement.edit.titleid">Title ID</f:translate></label>
-        <f:form.textfield name="titleid" property="titleId" readonly="true" class="form-control"/>
-    </div>
+    <f:render partial="FormErrors" arguments="{formName: 'corporationTitle'}" />
+    <f:form method="post" action="update" controller="CorporationTitleManagement" name="corporationTitle" object="{corporationTitle}">
+        <div class="form-group">
+            <label for="titleid"><f:translate key="corporationtitlemanagement.edit.titleid">Title ID</f:translate></label>
+            <f:form.textfield name="titleid" property="titleId" readonly="true" class="form-control"/>
+        </div>
 
-    <div class="form-group">
-        <label for="titlename"><f:translate key="corporationtitlemanagement.edit.titlename">Title name</f:translate></label>
-        <f:form.textfield name="titlename" property="titleName" readonly="true" class="form-control"/>
-    </div>
+        <div class="form-group">
+            <label for="titlename"><f:translate key="corporationtitlemanagement.edit.titlename">Title name</f:translate></label>
+            <f:form.textfield name="titlename" property="titleName" readonly="true" class="form-control"/>
+        </div>
 
-    <div class="form-group">
-        <label for="usergroup"><f:translate key="corporationtitlemanagement.edit.usergroup">Frontend user group</f:translate></label>
-        <f:form.select name="usergroup" property="usergroup"  options="{usergroups}" optionLabelField="title" class="form-control"/>
-    </div>
+        <div class="form-group">
+            <label for="usergroup"><f:translate key="corporationtitlemanagement.edit.usergroup">Frontend user group</f:translate></label>
+            <f:form.select name="usergroup" property="usergroup"  options="{usergroups}" optionLabelField="title" class="form-control"/>
+        </div>
 
-    <f:form.submit value="{f:translate(key: 'corporationtitlemanagement.edit.submit', default: 'Submit')}" class="btn btn-default"/>
-</f:form>
+        <f:form.submit value="{f:translate(key: 'corporationtitlemanagement.edit.submit', default: 'Submit')}" class="btn btn-default"/>
+    </f:form>
 </f:section>

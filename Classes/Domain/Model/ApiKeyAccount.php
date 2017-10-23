@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
@@ -30,7 +28,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyAccount extends ApiKey {
+class ApiKeyAccount extends ApiKey
+{
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
@@ -48,7 +47,8 @@ class ApiKeyAccount extends ApiKey {
     /**
      * class constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->characters = new ObjectStorage();
     }
 
@@ -57,7 +57,8 @@ class ApiKeyAccount extends ApiKey {
      *
      * @param Character $character
      */
-    public function addCharacter(Character $character) {
+    public function addCharacter(Character $character)
+    {
         $this->characters->attach($character);
     }
 
@@ -66,7 +67,8 @@ class ApiKeyAccount extends ApiKey {
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Gerh\Evecorp\Domain\Model\Character>
      */
-    public function getCharacters() {
+    public function getCharacters()
+    {
         return $this->characters;
     }
 
@@ -75,14 +77,16 @@ class ApiKeyAccount extends ApiKey {
      *
      * @param Character $character
      */
-    public function removeCharacter(Character $character) {
+    public function removeCharacter(Character $character)
+    {
         $this->characters->detach($character);
     }
 
     /**
      * Remove all characters from API key
      */
-    public function removeAllCharacters() {
+    public function removeAllCharacters()
+    {
         $this->characters = new ObjectStorage();
     }
 
@@ -91,7 +95,8 @@ class ApiKeyAccount extends ApiKey {
      *
      * @param ObjectStorage $characters
      */
-    public function setCharacters(ObjectStorage $characters) {
+    public function setCharacters(ObjectStorage $characters)
+    {
         $this->characters = $characters;
     }
 
@@ -100,7 +105,8 @@ class ApiKeyAccount extends ApiKey {
      *
      * @return FrontendUser
      */
-    public function getCorpMember() {
+    public function getCorpMember()
+    {
         if ($this->corpMember instanceof LazyLoadingProxy) {
             $this->corpMember->_loadRealInstance();
         }
@@ -113,8 +119,8 @@ class ApiKeyAccount extends ApiKey {
      *
      * @param CorpMember
      */
-    public function setCorpMember(CorpMember $corpMember) {
+    public function setCorpMember(CorpMember $corpMember)
+    {
         $this->corpMember = $corpMember;
     }
-
 }

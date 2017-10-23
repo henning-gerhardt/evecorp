@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Repository;
 
 /**
@@ -26,6 +24,7 @@ namespace Gerh\Evecorp\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorpMemberRepository extends BaseRepository {
+class CorpMemberRepository extends BaseRepository
+{
 
 }

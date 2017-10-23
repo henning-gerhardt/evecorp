@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Service;
 
 use Gerh\Evecorp\Domain\Model\CorpMember;
@@ -32,7 +30,8 @@ use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class AccessControlService implements SingletonInterface {
+class AccessControlService implements SingletonInterface
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Repository\CorpMemberRepository
@@ -50,7 +49,8 @@ class AccessControlService implements SingletonInterface {
      * @param CorpMemberRepository $corpMemberRepository
      * @param FrontendUserRepository $frontendUserRepository
      */
-    public function __construct(CorpMemberRepository $corpMemberRepository, FrontendUserRepository $frontendUserRepository) {
+    public function __construct(CorpMemberRepository $corpMemberRepository, FrontendUserRepository $frontendUserRepository)
+    {
         $this->corpMemberRepository = $corpMemberRepository;
         $this->frontendUserRepository = $frontendUserRepository;
     }
@@ -60,7 +60,8 @@ class AccessControlService implements SingletonInterface {
      *
      * @return \boolean
      */
-    public function isLoggedIn() {
+    public function isLoggedIn()
+    {
         return $GLOBALS['TSFE']->loginUser == \TRUE ? \TRUE : \FALSE;
     }
 
@@ -69,7 +70,8 @@ class AccessControlService implements SingletonInterface {
      *
      * @return \integer | NULL if not logged in
      */
-    public function getFrontendUserId() {
+    public function getFrontendUserId()
+    {
         if ($this->isLoggedIn()) {
             return \intval($GLOBALS['TSFE']->fe_user->user['uid']);
         }
@@ -82,7 +84,8 @@ class AccessControlService implements SingletonInterface {
      *
      * @return FrontendUser | NULL if not logged in
      */
-    public function getFrontendUser() {
+    public function getFrontendUser()
+    {
         if ($this->isLoggedIn()) {
             return $this->frontendUserRepository->findByUid($this->getFrontendUserId());
         }
@@ -95,12 +98,12 @@ class AccessControlService implements SingletonInterface {
      *
      * @return CorpMember | NULL
      */
-    public function getCorpMember() {
+    public function getCorpMember()
+    {
         if ($this->isLoggedIn()) {
             return $this->corpMemberRepository->findByUid($this->getFrontendUserId());
         }
 
         return \NULL;
     }
-
 }

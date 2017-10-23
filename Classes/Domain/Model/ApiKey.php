@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
@@ -28,7 +26,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKey extends AbstractEntity {
+class ApiKey extends AbstractEntity
+{
 
     /**
      * @var \integer
@@ -61,7 +60,8 @@ class ApiKey extends AbstractEntity {
      *
      * @return \integer
      */
-    public function getAccessMask() {
+    public function getAccessMask()
+    {
         return $this->accessMask;
     }
 
@@ -70,7 +70,8 @@ class ApiKey extends AbstractEntity {
      *
      * @param \integer $accessMask
      */
-    public function setAccessMask($accessMask) {
+    public function setAccessMask($accessMask)
+    {
         $this->accessMask = \intval($accessMask);
     }
 
@@ -79,7 +80,8 @@ class ApiKey extends AbstractEntity {
      *
      * @return DateTime | NULL if no expire date
      */
-    public function getExpires() {
+    public function getExpires()
+    {
         return $this->expires;
     }
 
@@ -88,7 +90,8 @@ class ApiKey extends AbstractEntity {
      *
      * @param DateTime $expires
      */
-    public function setExpires(DateTime $expires = \NULL) {
+    public function setExpires(DateTime $expires = \NULL)
+    {
         $this->expires = $expires;
     }
 
@@ -97,7 +100,8 @@ class ApiKey extends AbstractEntity {
      *
      * @return \integer
      */
-    public function getKeyId() {
+    public function getKeyId()
+    {
         return $this->keyId;
     }
 
@@ -106,7 +110,8 @@ class ApiKey extends AbstractEntity {
      *
      * @param \integer $keyId
      */
-    public function setKeyId($keyId) {
+    public function setKeyId($keyId)
+    {
         $this->keyId = \intval($keyId);
     }
 
@@ -115,7 +120,8 @@ class ApiKey extends AbstractEntity {
      *
      * @return \string
      */
-    public function getVCode() {
+    public function getVCode()
+    {
         return $this->vCode;
     }
 
@@ -124,7 +130,8 @@ class ApiKey extends AbstractEntity {
      *
      * @param \string $vCode
      */
-    public function setVCode($vCode) {
+    public function setVCode($vCode)
+    {
         $this->vCode = $vCode;
     }
 
@@ -134,8 +141,8 @@ class ApiKey extends AbstractEntity {
      * @param \integer $toProveAgainst
      * @return \boolean
      */
-    public function hasAccessTo($toProveAgainst) {
+    public function hasAccessTo($toProveAgainst)
+    {
         return (($this->accessMask & $toProveAgainst) > 0) ? \TRUE : \FALSE;
     }
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Scheduler;
 
 use Gerh\Evecorp\Domain\Repository\CorpMemberRepository;
@@ -31,7 +29,8 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorpMemberUserGroupCommandController extends CommandController {
+class CorpMemberUserGroupCommandController extends CommandController
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Repository\CorpMemberRepository
@@ -50,7 +49,8 @@ class CorpMemberUserGroupCommandController extends CommandController {
      * @param PersistenceManager $persistenceManager
      * @return void
      */
-    public function __construct(CorpMemberRepository $corpMemberRepository, PersistenceManager $persistenceManager) {
+    public function __construct(CorpMemberRepository $corpMemberRepository, PersistenceManager $persistenceManager)
+    {
         $this->corpMemberRepository = $corpMemberRepository;
         $this->persistenceManager = $persistenceManager;
     }
@@ -61,7 +61,8 @@ class CorpMemberUserGroupCommandController extends CommandController {
      * @param \integer $storagePid PID of stored corp member (mostly fe user pid)
      * @return bool
      */
-    public function corpMemberUserGroupCommand($storagePid = 0) {
+    public function corpMemberUserGroupCommand($storagePid = 0)
+    {
 
         $querySettings = $this->corpMemberRepository->createQuery()->getQuerySettings();
         $querySettings->setStoragePageIds([$storagePid]);
@@ -73,5 +74,4 @@ class CorpMemberUserGroupCommandController extends CommandController {
         $this->persistenceManager->persistAll();
         return \TRUE;
     }
-
 }

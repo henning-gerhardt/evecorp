@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Domain\Model;
 
 use Gerh\Evecorp\Domain\Model\CorpMember;
@@ -25,15 +23,16 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 /**
  * Testcase for CorpMember class
  */
-class CorpMemberTest extends UnitTestCase {
+class CorpMemberTest extends UnitTestCase
+{
 
     /**
      * @test
      */
-    public function classCouldBeInitiatedWithoutUsernameAndPassword() {
+    public function classCouldBeInitiatedWithoutUsernameAndPassword()
+    {
         $corpMember = new CorpMember();
 
         $this->assertInstanceOf(CorpMember::class, $corpMember);
     }
-
 }

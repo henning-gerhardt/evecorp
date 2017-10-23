@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Service;
 
 use Pheal\Pheal;
@@ -30,7 +28,8 @@ use TYPO3\CMS\Core\SingletonInterface;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class PhealService implements SingletonInterface {
+class PhealService implements SingletonInterface
+{
 
     /**
      * @var \string
@@ -70,7 +69,8 @@ class PhealService implements SingletonInterface {
      * @param \string $scope    optional scope to use, default account, could be change while runtime
      * @return void
      */
-    public function __construct($keyId = \NULL, $vCode = \NULL, $scope = 'account') {
+    public function __construct($keyId = \NULL, $vCode = \NULL, $scope = 'account')
+    {
         $extconf = \unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp']);
         $this->setPhealCacheDirectory($extconf['phealCacheDirectory']);
         $this->setHttpsConnectionVerified($extconf['phealVerifyingHttpsConnection']);
@@ -90,7 +90,8 @@ class PhealService implements SingletonInterface {
      *
      * @return Pheal\Pheal
      */
-    public function getPhealInstance() {
+    public function getPhealInstance()
+    {
         return $this->pheal;
     }
 
@@ -99,7 +100,8 @@ class PhealService implements SingletonInterface {
      *
      * @return \string
      */
-    public function getPhealCacheDirectory() {
+    public function getPhealCacheDirectory()
+    {
         return $this->phealCacheDirectory;
     }
 
@@ -108,7 +110,8 @@ class PhealService implements SingletonInterface {
      *
      * @param \string $phealCacheDirectory
      */
-    protected function setPhealCacheDirectory($phealCacheDirectory) {
+    protected function setPhealCacheDirectory($phealCacheDirectory)
+    {
         $this->phealCacheDirectory = \realpath(PATH_site . 'typo3temp');
         if ((\file_exists($phealCacheDirectory)) && (\is_dir($phealCacheDirectory)) && (\is_writable($phealCacheDirectory))) {
             $this->phealCacheDirectory = \realpath($phealCacheDirectory);
@@ -120,7 +123,8 @@ class PhealService implements SingletonInterface {
      *
      * @return \integer
      */
-    public function getConnectionTimeout() {
+    public function getConnectionTimeout()
+    {
         return $this->phealConnectionTimeout;
     }
 
@@ -129,7 +133,8 @@ class PhealService implements SingletonInterface {
      *
      * @param \integer $timeout
      */
-    protected function setConnectionTimeout($timeout) {
+    protected function setConnectionTimeout($timeout)
+    {
         $this->phealConnectionTimeout = 120;
         if (\is_int($timeout) && ($timeout > 0)) {
             $this->phealConnectionTimeout = (int) $timeout;
@@ -141,7 +146,8 @@ class PhealService implements SingletonInterface {
      *
      * @return \boolean
      */
-    public function isHttpsConnectionVerified() {
+    public function isHttpsConnectionVerified()
+    {
         return $this->phealVerifyHttpsConnecton;
     }
 
@@ -150,7 +156,8 @@ class PhealService implements SingletonInterface {
      *
      * @param \boolean $verified
      */
-    protected function setHttpsConnectionVerified($verified) {
+    protected function setHttpsConnectionVerified($verified)
+    {
         $this->phealVerifyHttpsConnecton = \FALSE;
         if (\is_bool($verified) && $verified) {
             $this->phealVerifyHttpsConnecton = \TRUE;
@@ -162,7 +169,8 @@ class PhealService implements SingletonInterface {
      *
      * @return \string
      */
-    public function getFileMask() {
+    public function getFileMask()
+    {
         return $this->phealFileMask;
     }
 
@@ -171,7 +179,8 @@ class PhealService implements SingletonInterface {
      *
      * @param \string $fileMask
      */
-    protected function setFileMask($fileMask) {
+    protected function setFileMask($fileMask)
+    {
         $this->phealFileMask = 0666;
         if (!empty($fileMask)) {
             $this->phealFileMask = \octdec($fileMask);
@@ -183,7 +192,8 @@ class PhealService implements SingletonInterface {
      *
      * @return \string
      */
-    public function getFolderMask() {
+    public function getFolderMask()
+    {
         return $this->phealFolderMask;
     }
 
@@ -192,7 +202,8 @@ class PhealService implements SingletonInterface {
      *
      * @param \string $folderMask
      */
-    protected function setFolderMask($folderMask) {
+    protected function setFolderMask($folderMask)
+    {
         $this->phealFolderMask = 0777;
         if (!empty($folderMask)) {
             $this->phealFolderMask = \octdec($folderMask);
@@ -204,11 +215,11 @@ class PhealService implements SingletonInterface {
      *
      * @return array
      */
-    public function getUmaskOptions() {
+    public function getUmaskOptions()
+    {
         return [
             'umask' => $this->getFileMask(),
             'umask_directory' => $this->getFolderMask(),
         ];
     }
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Mapper;
 
 use DateTimeZone;
@@ -43,7 +41,8 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CharacterMapper {
+class CharacterMapper
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Repository\AllianceRepository
@@ -121,7 +120,8 @@ class CharacterMapper {
      * @param Character $character
      * @param \Pheal\Core\RowSet $employmentHistory
      */
-    protected function addEmploymentHistoryOfCharacter(Character $character, \Pheal\Core\RowSet $employmentHistory) {
+    protected function addEmploymentHistoryOfCharacter(Character $character, \Pheal\Core\RowSet $employmentHistory)
+    {
         foreach ($employmentHistory as $record) {
             $corporation = $this->getOrCreateCorporationModel(\intval($record->corporationID), $record->corporationName);
             $startDate = new DateTime($record->startDate, new DateTimeZone('UTC'));
@@ -141,7 +141,8 @@ class CharacterMapper {
      * @param DateTime $startDate
      * @return EmploymentHistory
      */
-    protected function createEmploymentHistoryModel($character, $corporation, $recordId, $startDate) {
+    protected function createEmploymentHistoryModel($character, $corporation, $recordId, $startDate)
+    {
         $employment = new EmploymentHistory();
         $employment->setCharacter($character);
         $employment->setCorporation($corporation);
@@ -160,7 +161,8 @@ class CharacterMapper {
      * @return Alliance
      * @throws Exception Throws exception if allianceId is less then one.
      */
-    protected function getOrCreateAllianceModel($allianceId, $allianceName) {
+    protected function getOrCreateAllianceModel($allianceId, $allianceName)
+    {
         if ($allianceId > 0) {
             $searchResult = $this->allianceRepository->findOneByAllianceId($allianceId);
             if ($searchResult) {
@@ -187,7 +189,8 @@ class CharacterMapper {
      * @return Corporation
      * @throws Exception Throws exception if corporationId is less then one.
      */
-    protected function getOrCreateCorporationModel($corporationId, $corporationName) {
+    protected function getOrCreateCorporationModel($corporationId, $corporationName)
+    {
         if ($corporationId > 0) {
             $searchResult = $this->corporationRepository->findOneByCorporationId($corporationId);
             if ($searchResult) {
@@ -212,7 +215,8 @@ class CharacterMapper {
      * @param Character $character
      * @param \Pheal\Core\Result $response
      */
-    protected function setCharacterInformationFromCharacterInfoResponse($character, $response) {
+    protected function setCharacterInformationFromCharacterInfoResponse($character, $response)
+    {
         $character->setCharacterName($response->characterName);
         $character->setRace($response->race);
         $character->setSecurityStatus($response->securityStatus);
@@ -242,7 +246,8 @@ class CharacterMapper {
      * @param \Pheal\Core\RowSet $employmentHistory
      * @return void
      */
-    protected function updateEmploymentHistoryOfCharacter(Character $character, \Pheal\Core\RowSet $employmentHistory) {
+    protected function updateEmploymentHistoryOfCharacter(Character $character, \Pheal\Core\RowSet $employmentHistory)
+    {
 
         $currentEmployments = $this->employmentHistoryRepository->findByCharacterUid($character);
         $wellknownEmployments = [];
@@ -275,7 +280,8 @@ class CharacterMapper {
      * @param Character $characterModel
      * @param \Pheal\Core\RowSet $fetchedTitles
      */
-    protected function setCharacterCorporationTitles(Character $characterModel, \Pheal\Core\RowSet $fetchedTitles) {
+    protected function setCharacterCorporationTitles(Character $characterModel, \Pheal\Core\RowSet $fetchedTitles)
+    {
         $existingCorpTitles = $characterModel->getCurrentCorporation()->getCorporationTitles();
         $characterModel->removeAllTitles();
         foreach ($fetchedTitles as $fetchedTitle) {
@@ -299,7 +305,8 @@ class CharacterMapper {
      * @param ApiKey $apiKeyModel
      * @return void
      */
-    public function __construct(CharacterRepository $characterRepository, CorporationRepository $corporationRepository, EmploymentHistoryRepository $employmentHistoryRepository, AllianceRepository $allianceRepository, PersistenceManager $persistenceMananger) {
+    public function __construct(CharacterRepository $characterRepository, CorporationRepository $corporationRepository, EmploymentHistoryRepository $employmentHistoryRepository, AllianceRepository $allianceRepository, PersistenceManager $persistenceMananger)
+    {
 
         $this->characterRepository = $characterRepository;
         $this->characterRepositoryStoragePids = $characterRepository->getRepositoryStoragePid();
@@ -325,7 +332,8 @@ class CharacterMapper {
      *
      * @return \string
      */
-    public function getErrorMessage() {
+    public function getErrorMessage()
+    {
         return $this->errorMessage;
     }
 
@@ -335,7 +343,8 @@ class CharacterMapper {
      * @param \integer $characterId
      * @return Character | NULL
      */
-    public function createModel($characterId) {
+    public function createModel($characterId)
+    {
 
         $pheal = $this->phealService->getPhealInstance();
 
@@ -390,7 +399,8 @@ class CharacterMapper {
      * @param ApiKey $apiKey
      * @return void
      */
-    public function setApiKey(ApiKey $apiKey) {
+    public function setApiKey(ApiKey $apiKey)
+    {
         $this->apiKey = $apiKey;
         $this->phealService = new PhealService($this->apiKey->getKeyId(), $this->apiKey->getVCode(), 'eve');
     }
@@ -400,7 +410,8 @@ class CharacterMapper {
      *
      * @param \int $storagePid
      */
-    public function setStoragePid($storagePid = 0) {
+    public function setStoragePid($storagePid = 0)
+    {
         if ($storagePid !== \NULL) {
             $this->allianceRepository->setRepositoryStoragePid($storagePid);
             $this->allianceRepositoryStoragePids = [$storagePid];
@@ -419,7 +430,8 @@ class CharacterMapper {
      * @param Character $characterModel
      * @return boolean
      */
-    public function updateModel(Character $characterModel) {
+    public function updateModel(Character $characterModel)
+    {
 
         $pheal = $this->phealService->getPhealInstance();
         $characterId = $characterModel->getCharacterId();
@@ -460,5 +472,4 @@ class CharacterMapper {
 
         return \TRUE;
     }
-
 }

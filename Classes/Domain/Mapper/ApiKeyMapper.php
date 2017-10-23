@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Mapper;
 
 use DateTimeZone;
@@ -37,7 +35,8 @@ use TYPO3\CMS\Install\ViewHelpers\Exception as ExceptionViewHelper;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyMapper {
+class ApiKeyMapper
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
@@ -72,7 +71,8 @@ class ApiKeyMapper {
      * @throws Exception
      * @return void
      */
-    protected function createAndAddNewCharacter($characterId, ApiKeyAccount $apiKeyAccount) {
+    protected function createAndAddNewCharacter($characterId, ApiKeyAccount $apiKeyAccount)
+    {
         $characterMapper = $this->getNewCharacterMapper($apiKeyAccount);
         $characterModel = $characterMapper->createModel($characterId);
 
@@ -91,7 +91,8 @@ class ApiKeyMapper {
      * @param ApiKeyAccount $apiKeyAccount
      * @return CharacterMapper
      */
-    protected function getNewCharacterMapper(ApiKeyAccount $apiKeyAccount) {
+    protected function getNewCharacterMapper(ApiKeyAccount $apiKeyAccount)
+    {
         /* @var $characterMapper CharacterMapper */
         $characterMapper = $this->objectManager->get(CharacterMapper::class);
         $characterMapper->setApiKey($apiKeyAccount);
@@ -106,7 +107,8 @@ class ApiKeyMapper {
      * @param array $removedCharacterIds
      * @param ApiKeyAccount $apiKeyAccount
      */
-    protected function removeCharacters(array $removedCharacterIds, ApiKeyAccount $apiKeyAccount) {
+    protected function removeCharacters(array $removedCharacterIds, ApiKeyAccount $apiKeyAccount)
+    {
         foreach ($removedCharacterIds as $characterId) {
             $characterModel = $this->characterRepository->findOneByCharacterId($characterId);
             $characterModel->setCorpMember(\NULL);
@@ -122,7 +124,8 @@ class ApiKeyMapper {
      * @param ApiKeyAccount $apiKeyAccount
      * @throws Exception
      */
-    protected function updateCharacter($characterId, $apiKeyAccount) {
+    protected function updateCharacter($characterId, $apiKeyAccount)
+    {
         $characterModel = $this->characterRepository->findOneByCharacterId($characterId);
         $characterMapper = $this->getNewCharacterMapper($apiKeyAccount);
         $result = $characterMapper->updateModel($characterModel);
@@ -140,7 +143,8 @@ class ApiKeyMapper {
      * @param PersistenceManager $persistenceManager
      * @return void
      */
-    public function __construct(CharacterRepository $characterRepository, ObjectManager $objectManager, PersistenceManager $persistenceManager) {
+    public function __construct(CharacterRepository $characterRepository, ObjectManager $objectManager, PersistenceManager $persistenceManager)
+    {
         $this->characterRepository = $characterRepository;
         $this->objectManager = $objectManager;
         $this->persistenceManager = $persistenceManager;
@@ -151,7 +155,8 @@ class ApiKeyMapper {
      *
      * @return \string
      */
-    public function getErrorMessage() {
+    public function getErrorMessage()
+    {
         return $this->errorMessage;
     }
 
@@ -160,7 +165,8 @@ class ApiKeyMapper {
      * @param ApiKeyAccount $apiKeyAccountModel
      * @return boolean
      */
-    public function fillUpModel(ApiKeyAccount $apiKeyAccountModel) {
+    public function fillUpModel(ApiKeyAccount $apiKeyAccountModel)
+    {
         $keyId = $apiKeyAccountModel->getKeyId();
         $vCode = $apiKeyAccountModel->getVCode();
         $scope = 'Account';
@@ -200,7 +206,8 @@ class ApiKeyMapper {
      *
      * @param \int $storagePid
      */
-    public function setStoragePid($storagePid = 0) {
+    public function setStoragePid($storagePid = 0)
+    {
         if ($storagePid !== \NULL) {
             $this->storagePid = $storagePid;
             $this->characterRepository->setRepositoryStoragePid($storagePid);
@@ -213,7 +220,8 @@ class ApiKeyMapper {
      * @param ApiKeyAccount $apiKeyAccount
      * @return boolean
      */
-    public function updateApiKeyAccount(ApiKeyAccount $apiKeyAccount) {
+    public function updateApiKeyAccount(ApiKeyAccount $apiKeyAccount)
+    {
         $keyId = $apiKeyAccount->getKeyId();
         $vCode = $apiKeyAccount->getVCode();
         $scope = 'Account';
@@ -263,5 +271,4 @@ class ApiKeyMapper {
 
         return \TRUE;
     }
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Validator;
 
 use Gerh\Evecorp\Domain\Mapper\ApiKeyInfoMapper;
@@ -31,7 +29,8 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorporationApiKeyValidator extends AbstractValidator {
+class CorporationApiKeyValidator extends AbstractValidator
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Repository\ApiKeyCorporationRepository
@@ -46,7 +45,8 @@ class CorporationApiKeyValidator extends AbstractValidator {
      * @param \string $vCode
      * @return \boolean
      */
-    protected function checkApiKey($keyId, $vCode) {
+    protected function checkApiKey($keyId, $vCode)
+    {
 
         $mapper = new ApiKeyInfoMapper();
         $mapper->setKeyId($keyId);
@@ -67,7 +67,8 @@ class CorporationApiKeyValidator extends AbstractValidator {
      * @param \integer $keyId
      * @return \boolean
      */
-    protected function isKeyIdAlreadyInDatabase($keyId) {
+    protected function isKeyIdAlreadyInDatabase($keyId)
+    {
 
         $result = $this->apiKeyCorporationRepository->countByKeyId($keyId);
         if ($result > 0) {
@@ -83,7 +84,8 @@ class CorporationApiKeyValidator extends AbstractValidator {
      * @param ApiKey $value
      * @return \boolean
      */
-    protected function isValid($value) {
+    protected function isValid($value)
+    {
 
         if (($value instanceof ApiKey) === \FALSE) {
             $this->addError('Given object has wrong type!', 1234567890);
@@ -123,11 +125,11 @@ class CorporationApiKeyValidator extends AbstractValidator {
      * @param array $options
      * @return void
      */
-    public function __construct(ApiKeyCorporationRepository $apiKeyCorporationRepository, array $options = array()) {
+    public function __construct(ApiKeyCorporationRepository $apiKeyCorporationRepository, array $options = array())
+    {
         // call default validator constructor
         parent::__construct($options);
 
         $this->apiKeyCorporationRepository = $apiKeyCorporationRepository;
     }
-
 }

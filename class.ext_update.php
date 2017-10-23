@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -27,7 +26,8 @@ use TYPO3\CMS\Install\Service\SqlSchemaMigrationService;
  * Class for updating Evecorp data
  *
  */
-class ext_update {
+class ext_update
+{
 
     /**
      * @var string Name of the extension this controller belongs to
@@ -50,7 +50,8 @@ class ext_update {
      * @param string $extensionSitePath
      * @return void
      */
-    protected function importStaticSqlFile($extensionSitePath) {
+    protected function importStaticSqlFile($extensionSitePath)
+    {
         $extTablesStaticSqlFile = $extensionSitePath . 'ext_tables_static+adt.sql';
         $extTablesStaticSqlContent = '';
         if (file_exists($extTablesStaticSqlFile)) {
@@ -66,7 +67,8 @@ class ext_update {
      *
      * @return \boolean true to allow access
      */
-    public function access() {
+    public function access()
+    {
         return \TRUE;
     }
 
@@ -75,7 +77,8 @@ class ext_update {
      *
      * @return \string
      */
-    public function main() {
+    public function main()
+    {
 
         $content = '';
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
@@ -91,5 +94,4 @@ class ext_update {
 
         return $content;
     }
-
 }

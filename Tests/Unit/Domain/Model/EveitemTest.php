@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Domain\Model;
 
 use Gerh\Evecorp\Domain\Model\Eveitem;
@@ -27,12 +25,14 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 /**
  * Testcase for Eveitem
  */
-class EveitemTest extends UnitTestCase {
+class EveitemTest extends UnitTestCase
+{
 
     /**
      * @test
      */
-    public function nameOfEveitemCouldBeSet() {
+    public function nameOfEveitemCouldBeSet()
+    {
         $eveName = 'Tritanium';
         $item = new Eveitem();
         $item->setEveName($eveName);
@@ -42,7 +42,8 @@ class EveitemTest extends UnitTestCase {
     /**
      * @test
      */
-    public function idOfEveitemCouldBeSet() {
+    public function idOfEveitemCouldBeSet()
+    {
         $eveId = 34;
         $item = new Eveitem();
         $item->setEveId($eveId);
@@ -52,7 +53,8 @@ class EveitemTest extends UnitTestCase {
     /**
      * @test
      */
-    public function buyPriceOfEveitemCouldBeSet() {
+    public function buyPriceOfEveitemCouldBeSet()
+    {
         $price = 4.45;
         $item = new Eveitem();
         $item->setBuyPrice($price);
@@ -62,7 +64,8 @@ class EveitemTest extends UnitTestCase {
     /**
      * @test
      */
-    public function sellPriceOfEveitemCouldBeSet() {
+    public function sellPriceOfEveitemCouldBeSet()
+    {
         $price = 4.05;
         $item = new Eveitem();
         $item->setSellPrice($price);
@@ -72,7 +75,8 @@ class EveitemTest extends UnitTestCase {
     /**
      * @test
      */
-    public function cacheTimeOfEveitemCouldBeSet() {
+    public function cacheTimeOfEveitemCouldBeSet()
+    {
         $cacheTime = \time();
         $item = new Eveitem();
         $item->setCacheTime($cacheTime);
@@ -82,7 +86,8 @@ class EveitemTest extends UnitTestCase {
     /**
      * @test
      */
-    public function solarSystemOfEveitemCouldBeSet() {
+    public function solarSystemOfEveitemCouldBeSet()
+    {
         $solarSystem = new EveMapSolarSystem();
         $solarSystem->setSolarSystemId(30000142);
         $solarSystem->setSolarSystemName('Jita');
@@ -96,7 +101,8 @@ class EveitemTest extends UnitTestCase {
     /**
      * @test
      */
-    public function timeToCacheOfEveitemCouldBeSet() {
+    public function timeToCacheOfEveitemCouldBeSet()
+    {
         $timeToCache = 5;
         $item = new Eveitem();
         $item->setTimeToCache($timeToCache);
@@ -106,7 +112,8 @@ class EveitemTest extends UnitTestCase {
     /**
      * @test
      */
-    public function timeToCacheCouldNotBeSetBelowOne() {
+    public function timeToCacheCouldNotBeSetBelowOne()
+    {
         $timeToCache = 0;
         $expected = 1;
         $item = new Eveitem();
@@ -117,7 +124,8 @@ class EveitemTest extends UnitTestCase {
     /**
      * @test
      */
-    public function regionCouldBeSet() {
+    public function regionCouldBeSet()
+    {
         $region = new EveMapRegion();
         $region->setRegionId(10000002);
         $region->setRegionName('The Forge');
@@ -127,5 +135,4 @@ class EveitemTest extends UnitTestCase {
 
         $this->assertEquals($region, $item->getRegion());
     }
-
 }

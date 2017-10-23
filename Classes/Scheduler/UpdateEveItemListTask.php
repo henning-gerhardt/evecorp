@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Scheduler;
 
 use Gerh\Evecorp\Domain\Model\EveCentralFetcher;
@@ -33,7 +31,8 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class UpdateEveItemListTask extends AbstractTask {
+class UpdateEveItemListTask extends AbstractTask
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Repository\EveitemRepository
@@ -50,7 +49,8 @@ class UpdateEveItemListTask extends AbstractTask {
      *
      * @return void
      */
-    protected function updateEveItemList() {
+    protected function updateEveItemList()
+    {
 
         /** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
@@ -72,7 +72,8 @@ class UpdateEveItemListTask extends AbstractTask {
     /**
      * Update out of date EVE items on base of region id
      */
-    protected function updateItemsBasedOnRegionId() {
+    protected function updateItemsBasedOnRegionId()
+    {
         foreach ($this->eveItemRepository->getListOfUniqueRegionId() as $regionId) {
             // get out dated items
             $listOfOutdatedItems = $this->getListOfOutdatedItemsForRegion($regionId);
@@ -88,7 +89,8 @@ class UpdateEveItemListTask extends AbstractTask {
     /**
      * Update out date EVE items on base of system id
      */
-    protected function updateItemsBasedOnSystemId() {
+    protected function updateItemsBasedOnSystemId()
+    {
         foreach ($this->eveItemRepository->getListOfUniqueSystemId() as $systemId) {
             // get out dated items
             $listOfOutdatedItems = $this->getListOfOutdatedItemsForSystem($systemId);
@@ -107,7 +109,8 @@ class UpdateEveItemListTask extends AbstractTask {
      * @param \integer $regionId
      * @return array
      */
-    protected function getListOfOutdatedItemsForRegion($regionId) {
+    protected function getListOfOutdatedItemsForRegion($regionId)
+    {
 
         if (($regionId == \NULL) || ($regionId == 0)) {
             return [];
@@ -123,7 +126,8 @@ class UpdateEveItemListTask extends AbstractTask {
      * @param \integer $systemId
      * @return array
      */
-    protected function getListOfOutdatedItemsForSystem($systemId) {
+    protected function getListOfOutdatedItemsForSystem($systemId)
+    {
 
         if (($systemId == \NULL) || ($systemId == 0)) {
             return [];
@@ -140,7 +144,8 @@ class UpdateEveItemListTask extends AbstractTask {
      * @param \integer $regionId
      * @return array
      */
-    protected function fetchUpdateableItemsForRegion($fetchList, $regionId) {
+    protected function fetchUpdateableItemsForRegion($fetchList, $regionId)
+    {
 
         if ((count($fetchList) == 0) || ($regionId == \NULL) || ($regionId == 0)) {
             return [];
@@ -160,7 +165,8 @@ class UpdateEveItemListTask extends AbstractTask {
      * @param \integer $systemId
      * @return array
      */
-    protected function fetchUpdateableItemsForSystem($fetchList, $systemId) {
+    protected function fetchUpdateableItemsForSystem($fetchList, $systemId)
+    {
 
         if ((count($fetchList) == 0) || ($systemId == \NULL) || ($systemId == 0)) {
             return [];
@@ -179,7 +185,8 @@ class UpdateEveItemListTask extends AbstractTask {
      * @param array $eveItemUpdateList
      * @param \integer $regionId
      */
-    protected function updateEveItemsForRegion($eveItemUpdateList, $regionId) {
+    protected function updateEveItemsForRegion($eveItemUpdateList, $regionId)
+    {
 
         if ((count($eveItemUpdateList) == 0) || ($regionId == \NULL) || $regionId == 0) {
             return;
@@ -201,7 +208,8 @@ class UpdateEveItemListTask extends AbstractTask {
      * @param array $eveItemUpdateList
      * @param \integer $systemId
      */
-    protected function updateEveItemsForSystem($eveItemUpdateList, $systemId) {
+    protected function updateEveItemsForSystem($eveItemUpdateList, $systemId)
+    {
 
         if ((count($eveItemUpdateList) == 0) || ($systemId == \NULL) || $systemId == 0) {
             return;
@@ -222,10 +230,10 @@ class UpdateEveItemListTask extends AbstractTask {
      *
      * @return boolean TRUE on success
      */
-    public function execute() {
+    public function execute()
+    {
         $this->updateEveItemList();
 
         return \TRUE;
     }
-
 }

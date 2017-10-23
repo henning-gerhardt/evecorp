@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,13 +15,13 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Constants\AccessMask;
 
 /**
  *
  */
-class Character {
+class Character
+{
 
     /**
      * Current balance of characters wallet.

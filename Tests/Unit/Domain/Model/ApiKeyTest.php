@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Domain\Model;
 
 use Gerh\Evecorp\Domain\Constants\AccessMask\Character;
@@ -32,12 +30,14 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyTest extends UnitTestCase {
+class ApiKeyTest extends UnitTestCase
+{
 
     /**
      * @test
      */
-    public function classCouldBeInitiated() {
+    public function classCouldBeInitiated()
+    {
         $apiKey = new ApiKey();
 
         $this->assertInstanceOf(ApiKey::class, $apiKey);
@@ -46,7 +46,8 @@ class ApiKeyTest extends UnitTestCase {
     /**
      * @test
      */
-    public function accessMaskCouldBeSet() {
+    public function accessMaskCouldBeSet()
+    {
         $expected = 1234567890;
 
         $apiKey = new ApiKey();
@@ -58,7 +59,8 @@ class ApiKeyTest extends UnitTestCase {
     /**
      * @test
      */
-    public function expiresCouldBeSet() {
+    public function expiresCouldBeSet()
+    {
         $expected = new DateTime();
 
         $apiKey = new ApiKey();
@@ -70,7 +72,8 @@ class ApiKeyTest extends UnitTestCase {
     /**
      * @test
      */
-    public function keyIdCouldBeSet() {
+    public function keyIdCouldBeSet()
+    {
         $expected = 1234567890;
 
         $apiKey = new ApiKey();
@@ -82,7 +85,8 @@ class ApiKeyTest extends UnitTestCase {
     /**
      * @test
      */
-    public function vCodeCouldBeSet() {
+    public function vCodeCouldBeSet()
+    {
         $expected = 'FooBar';
 
         $apiKey = new ApiKey();
@@ -95,7 +99,8 @@ class ApiKeyTest extends UnitTestCase {
      *
      * @return array
      */
-    public function accessProvider() {
+    public function accessProvider()
+    {
         $characterMask = Character::BOOKMARKS +
             Character::KILLLOG +
             Character::CONTACTLIST;
@@ -121,12 +126,12 @@ class ApiKeyTest extends UnitTestCase {
      * @param \integer $toProveAgainst
      * @dataProvider accessProvider
      */
-    public function hasAccessToChecks($expected, $accessMask, $toProveAgainst) {
+    public function hasAccessToChecks($expected, $accessMask, $toProveAgainst)
+    {
         $apiKey = new ApiKey();
         $apiKey->setAccessMask($accessMask);
         $result = $apiKey->hasAccessTo($toProveAgainst);
 
         $this->assertEquals($expected, $result);
     }
-
 }

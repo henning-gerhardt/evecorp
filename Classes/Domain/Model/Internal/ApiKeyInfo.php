@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model\Internal;
 
 /**
@@ -26,7 +24,8 @@ namespace Gerh\Evecorp\Domain\Model\Internal;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ApiKeyInfo {
+class ApiKeyInfo
+{
 
     /**
      * @var string
@@ -53,7 +52,8 @@ class ApiKeyInfo {
      *
      * @return string
      */
-    public function getAccessMask() {
+    public function getAccessMask()
+    {
         return $this->accessMask;
     }
 
@@ -62,7 +62,8 @@ class ApiKeyInfo {
      *
      * @param Character $character
      */
-    public function addCharacter(Character $character) {
+    public function addCharacter(Character $character)
+    {
         $this->characters[] = $character;
     }
 
@@ -70,7 +71,8 @@ class ApiKeyInfo {
      *
      * @return array
      */
-    public function getCharacters() {
+    public function getCharacters()
+    {
         return $this->characters;
     }
 
@@ -78,7 +80,8 @@ class ApiKeyInfo {
      *
      * @return string
      */
-    public function getExpires() {
+    public function getExpires()
+    {
         return $this->expires;
     }
 
@@ -86,7 +89,8 @@ class ApiKeyInfo {
      *
      * @return string
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
@@ -94,7 +98,8 @@ class ApiKeyInfo {
      *
      * @param string $accessMask
      */
-    public function setAccessMask($accessMask) {
+    public function setAccessMask($accessMask)
+    {
         $this->accessMask = $accessMask;
     }
 
@@ -102,7 +107,8 @@ class ApiKeyInfo {
      *
      * @param array $characters
      */
-    public function setCharacters(array $characters) {
+    public function setCharacters(array $characters)
+    {
         $this->characters = $characters;
     }
 
@@ -110,7 +116,8 @@ class ApiKeyInfo {
      *
      * @param string $expires
      */
-    public function setExpires($expires) {
+    public function setExpires($expires)
+    {
         $this->expires = $expires;
     }
 
@@ -118,8 +125,8 @@ class ApiKeyInfo {
      *
      * @param string $type
      */
-    public function setType($type) {
+    public function setType($type)
+    {
         $this->type = $type;
     }
-
 }

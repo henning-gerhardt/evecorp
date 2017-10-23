@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use DOMDocument;
@@ -29,7 +27,8 @@ use DOMXPath;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EveCentralFetcher {
+class EveCentralFetcher
+{
 
     /**
      * @var string Holds static part of Eve-Central uri
@@ -57,7 +56,8 @@ class EveCentralFetcher {
      *
      * @return string
      */
-    public function getBaseUri() {
+    public function getBaseUri()
+    {
         return $this->baseUri;
     }
 
@@ -66,7 +66,8 @@ class EveCentralFetcher {
      *
      * @param string $baseUri
      */
-    public function setBaseUri($baseUri) {
+    public function setBaseUri($baseUri)
+    {
         $this->baseUri = $baseUri;
     }
 
@@ -75,7 +76,8 @@ class EveCentralFetcher {
      *
      * @return \integer
      */
-    public function getRegionId() {
+    public function getRegionId()
+    {
         return $this->regionId;
     }
 
@@ -84,7 +86,8 @@ class EveCentralFetcher {
      *
      * @param \integer $regionId
      */
-    public function setRegionId($regionId) {
+    public function setRegionId($regionId)
+    {
         $this->regionId = 0;
         if ($regionId > 0) {
             $this->regionId = $regionId;
@@ -98,7 +101,8 @@ class EveCentralFetcher {
      *
      * @return \integer
      */
-    public function getSystemId() {
+    public function getSystemId()
+    {
         return $this->systemId;
     }
 
@@ -107,7 +111,8 @@ class EveCentralFetcher {
      *
      * @param \integer $systemId
      */
-    public function setSystemId($systemId) {
+    public function setSystemId($systemId)
+    {
         if ($systemId > 0) {
             $this->systemId = $systemId;
             // region and solar system id could not be set at the same time
@@ -122,7 +127,8 @@ class EveCentralFetcher {
      *
      * @return array
      */
-    public function getTypeIds() {
+    public function getTypeIds()
+    {
         return $this->typeIds;
     }
 
@@ -131,7 +137,8 @@ class EveCentralFetcher {
      *
      * @param array $typeIds
      */
-    public function setTypeIds(array $typeIds) {
+    public function setTypeIds(array $typeIds)
+    {
         $this->typeIds = $typeIds;
     }
 
@@ -140,7 +147,8 @@ class EveCentralFetcher {
      *
      * @return array
      */
-    public function query() {
+    public function query()
+    {
         $result = [];
         $query = $this->buildQuery();
         if (!empty($query)) {
@@ -158,7 +166,8 @@ class EveCentralFetcher {
      *
      * @return string
      */
-    protected function buildQuery() {
+    protected function buildQuery()
+    {
         $result = $this->baseUri;
 
         if ($this->getSystemId() > 0) {
@@ -182,7 +191,8 @@ class EveCentralFetcher {
      * @param string $content
      * @return array
      */
-    protected function parse($content) {
+    protected function parse($content)
+    {
         $result = [];
 
         if (empty($content)) {
@@ -207,5 +217,4 @@ class EveCentralFetcher {
 
         return $result;
     }
-
 }

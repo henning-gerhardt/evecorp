@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
@@ -28,7 +26,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EveMapRegion extends AbstractEntity {
+class EveMapRegion extends AbstractEntity
+{
 
     /**
      * @var \integer
@@ -45,7 +44,8 @@ class EveMapRegion extends AbstractEntity {
      *
      * @return \integer
      */
-    public function getRegionId() {
+    public function getRegionId()
+    {
         return $this->regionId;
     }
 
@@ -55,7 +55,8 @@ class EveMapRegion extends AbstractEntity {
      * @param \integer $regionId
      * @return void
      */
-    public function setRegionId($regionId) {
+    public function setRegionId($regionId)
+    {
         $this->regionId = $regionId;
     }
 
@@ -64,7 +65,8 @@ class EveMapRegion extends AbstractEntity {
      *
      * @return \string
      */
-    public function getRegionName() {
+    public function getRegionName()
+    {
         return $this->regionName;
     }
 
@@ -74,8 +76,8 @@ class EveMapRegion extends AbstractEntity {
      * @param \string $regionName
      * @return void
      */
-    public function setRegionName($regionName) {
+    public function setRegionName($regionName)
+    {
         $this->regionName = $regionName;
     }
-
 }

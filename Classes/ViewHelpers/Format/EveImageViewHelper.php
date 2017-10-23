@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\ViewHelpers\Format;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
@@ -28,7 +26,8 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EveImageViewHelper extends AbstractTagBasedViewHelper {
+class EveImageViewHelper extends AbstractTagBasedViewHelper
+{
 
     /**
      * @var string
@@ -38,7 +37,8 @@ class EveImageViewHelper extends AbstractTagBasedViewHelper {
     /**
      * initialize arguments
      */
-    public function initializeArguments() {
+    public function initializeArguments()
+    {
         parent::initializeArguments();
         $this->registerUniversalTagAttributes();
         $this->registerArgument('characterId', 'integer', 'character id for image', \TRUE);
@@ -54,7 +54,8 @@ class EveImageViewHelper extends AbstractTagBasedViewHelper {
      *
      * @return type
      */
-    public function render() {
+    public function render()
+    {
         // use protocol less uri as of http://www.ietf.org/rfc/rfc3986.txt
         $imageUri = '//imageserver.eveonline.com/Character/' . $this->arguments['characterId'] . '_' . $this->arguments['size'] . '.jpg';
         $this->tag->addAttribute('src', $imageUri);
@@ -64,5 +65,4 @@ class EveImageViewHelper extends AbstractTagBasedViewHelper {
         $this->tag->addAttribute('height', $this->arguments['size']);
         return $this->tag->render();
     }
-
 }

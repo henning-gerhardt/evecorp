@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Domain\Model;
 
 use Gerh\Evecorp\Domain\Constants\AccessMask\Corporation as Corporation2;
@@ -32,12 +30,14 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorporationTest extends UnitTestCase {
+class CorporationTest extends UnitTestCase
+{
 
     /**
      * @test
      */
-    public function classCouldBeInitiated() {
+    public function classCouldBeInitiated()
+    {
         $corporation = new Corporation();
 
         $this->assertInstanceOf(Corporation::class, $corporation);
@@ -46,7 +46,8 @@ class CorporationTest extends UnitTestCase {
     /**
      * @test
      */
-    public function corporationIdCouldBeSet() {
+    public function corporationIdCouldBeSet()
+    {
         $expected = 123456;
 
         $corporation = new Corporation();
@@ -58,7 +59,8 @@ class CorporationTest extends UnitTestCase {
     /**
      * @test
      */
-    public function corporationNameCouldBeSet() {
+    public function corporationNameCouldBeSet()
+    {
         $expected = 'FooBar';
 
         $corporation = new Corporation();
@@ -70,7 +72,8 @@ class CorporationTest extends UnitTestCase {
     /**
      * @test
      */
-    public function corporationCouldBeInitializedThroughConstructor() {
+    public function corporationCouldBeInitializedThroughConstructor()
+    {
         $corporationId = 567890;
         $corporationName = 'BarFoo';
 
@@ -83,7 +86,8 @@ class CorporationTest extends UnitTestCase {
     /**
      * @test
      */
-    public function currentAllianceCouldBeSetToCorporation() {
+    public function currentAllianceCouldBeSetToCorporation()
+    {
         $expected = new Alliance(12, 'FooBar');
 
         $corporation = new Corporation();
@@ -95,7 +99,8 @@ class CorporationTest extends UnitTestCase {
     /**
      * @test
      */
-    public function currentAllianceNameCouldBeGet() {
+    public function currentAllianceNameCouldBeGet()
+    {
         $expected = 'BarFoo';
         $alliance = new Alliance(12, $expected);
 
@@ -108,10 +113,11 @@ class CorporationTest extends UnitTestCase {
     /**
      * @test
      */
-    public function corporationApiKeyCouldBeSet() {
+    public function corporationApiKeyCouldBeSet()
+    {
         $apiKey = new ApiKeyCorporation();
         $apiKey->setAccessMask(
-                Corporation2::ASSETLIST +
+            Corporation2::ASSETLIST +
             Corporation2::CORPORATIONSHEET
         );
         $apiKey->setKeyId(12345678);
@@ -124,10 +130,11 @@ class CorporationTest extends UnitTestCase {
     /**
      * @test
      */
-    public function hasApiKeyWithProperAccessMask() {
+    public function hasApiKeyWithProperAccessMask()
+    {
         $apiKeyOne = new ApiKeyCorporation();
         $apiKeyOne->setAccessMask(
-                Corporation2::ASSETLIST +
+            Corporation2::ASSETLIST +
             Corporation2::CORPORATIONSHEET
         );
         $apiKeyOne->setKeyId(12345678);
@@ -135,7 +142,7 @@ class CorporationTest extends UnitTestCase {
 
         $apiKeyTwo = new ApiKeyCorporation();
         $apiKeyTwo->setAccessMask(
-                Corporation2::TITLES +
+            Corporation2::TITLES +
             Corporation2::MEMBERSECURITY
         );
         $apiKeyTwo->setKeyId(123456789);
@@ -151,10 +158,11 @@ class CorporationTest extends UnitTestCase {
     /**
      * @test
      */
-    public function hasNoneApiKeyWithProperAccessMask() {
+    public function hasNoneApiKeyWithProperAccessMask()
+    {
         $apiKeyOne = new ApiKeyCorporation();
         $apiKeyOne->setAccessMask(
-                Corporation2::ASSETLIST +
+            Corporation2::ASSETLIST +
             Corporation2::CORPORATIONSHEET
         );
         $apiKeyOne->setKeyId(12345678);
@@ -162,7 +170,7 @@ class CorporationTest extends UnitTestCase {
 
         $apiKeyTwo = new ApiKeyCorporation();
         $apiKeyTwo->setAccessMask(
-                Corporation2::TITLES +
+            Corporation2::TITLES +
             Corporation2::MEMBERSECURITY
         );
         $apiKeyTwo->setKeyId(123456789);
@@ -178,10 +186,11 @@ class CorporationTest extends UnitTestCase {
     /**
      * @test
      */
-    public function findApiKeyByAccessMask() {
+    public function findApiKeyByAccessMask()
+    {
         $apiKeyOne = new ApiKeyCorporation();
         $apiKeyOne->setAccessMask(
-                Corporation2::ASSETLIST +
+            Corporation2::ASSETLIST +
             Corporation2::CORPORATIONSHEET
         );
         $apiKeyOne->setKeyId(12345678);
@@ -189,7 +198,7 @@ class CorporationTest extends UnitTestCase {
 
         $apiKeyTwo = new ApiKeyCorporation();
         $apiKeyTwo->setAccessMask(
-                Corporation2::TITLES +
+            Corporation2::TITLES +
             Corporation2::MEMBERSECURITY
         );
         $apiKeyTwo->setKeyId(123456789);
@@ -206,10 +215,11 @@ class CorporationTest extends UnitTestCase {
     /**
      * @test
      */
-    public function findNoneApiKeyByAccessMask() {
+    public function findNoneApiKeyByAccessMask()
+    {
         $apiKeyOne = new ApiKeyCorporation();
         $apiKeyOne->setAccessMask(
-                Corporation2::ASSETLIST +
+            Corporation2::ASSETLIST +
             Corporation2::CORPORATIONSHEET
         );
         $apiKeyOne->setKeyId(12345678);
@@ -217,7 +227,7 @@ class CorporationTest extends UnitTestCase {
 
         $apiKeyTwo = new ApiKeyCorporation();
         $apiKeyTwo->setAccessMask(
-                Corporation2::TITLES +
+            Corporation2::TITLES +
             Corporation2::MEMBERSECURITY
         );
         $apiKeyTwo->setKeyId(123456789);
@@ -230,5 +240,4 @@ class CorporationTest extends UnitTestCase {
         $result = $corporation->findFirstApiKeyByAccessMask(Corporation2::MEDALS);
         $this->assertNull($result);
     }
-
 }

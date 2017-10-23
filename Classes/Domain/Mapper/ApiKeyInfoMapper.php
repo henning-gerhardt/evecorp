@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Domain\Mapper;
 
 use Gerh\Evecorp\Domain\Model\Internal\ApiKeyInfo;
@@ -29,7 +27,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Henning Gerhardt
  */
-class ApiKeyInfoMapper {
+class ApiKeyInfoMapper
+{
 
     /**
      * @var int
@@ -46,7 +45,8 @@ class ApiKeyInfoMapper {
      * @param \Pheal\Core\Element $resultElement
      * @return ApiKeyInfo
      */
-    protected function mapRetrievedInformation(\Pheal\Core\Element $resultElement) {
+    protected function mapRetrievedInformation(\Pheal\Core\Element $resultElement)
+    {
         $result = new ApiKeyInfo();
         $result->setAccessMask($resultElement->accessMask);
         $result->setExpires($resultElement->expires);
@@ -73,7 +73,8 @@ class ApiKeyInfoMapper {
      *
      * @param int $keyId
      */
-    public function setKeyId($keyId) {
+    public function setKeyId($keyId)
+    {
         $this->keyId = $keyId;
     }
 
@@ -81,7 +82,8 @@ class ApiKeyInfoMapper {
      *
      * @param string $vCode
      */
-    public function setVcode($vCode) {
+    public function setVcode($vCode)
+    {
         $this->vCode = $vCode;
     }
 
@@ -89,7 +91,8 @@ class ApiKeyInfoMapper {
      *
      * @return ApiKeyInfo
      */
-    public function retrieveApiKeyInfo() {
+    public function retrieveApiKeyInfo()
+    {
 
         try {
             $phealService = GeneralUtility::makeInstance(PhealService::class, $this->keyId, $this->vCode);
@@ -101,5 +104,4 @@ class ApiKeyInfoMapper {
             return new ApiKeyInfo();
         }
     }
-
 }

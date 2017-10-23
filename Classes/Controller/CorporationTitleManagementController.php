@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Controller;
 
 use Gerh\Evecorp\Domain\Constants\AccessMask\Corporation as Corporation2;
@@ -39,7 +37,8 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorporationTitleManagementController extends ActionController {
+class CorporationTitleManagementController extends ActionController
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Repository\CorporationRepository
@@ -71,7 +70,8 @@ class CorporationTitleManagementController extends ActionController {
      * @param FrontendUserGroupRepository $frontendUserGroupRepository
      * @return void
      */
-    public function __construct(CorporationRepository $corporationRepository, CorporationTitleRepository $corporationTitleRepository, FrontendUserGroupRepository $frontendUserGroupRepository) {
+    public function __construct(CorporationRepository $corporationRepository, CorporationTitleRepository $corporationTitleRepository, FrontendUserGroupRepository $frontendUserGroupRepository)
+    {
         // calling default controller constructor
         parent::__construct();
 
@@ -83,7 +83,8 @@ class CorporationTitleManagementController extends ActionController {
     /**
      * @see ActionController::initializeAction()
      */
-    public function initializeAction() {
+    public function initializeAction()
+    {
         $selectedCorporation = (\strlen($this->settings['corporation']) > 0) ?
             GeneralUtility::intExplode(',', $this->settings['corporation']) : [];
 
@@ -100,7 +101,8 @@ class CorporationTitleManagementController extends ActionController {
     /**
      * index action
      */
-    public function indexAction() {
+    public function indexAction()
+    {
 
         $hasTitleAccess = \FALSE;
 
@@ -123,7 +125,8 @@ class CorporationTitleManagementController extends ActionController {
     /**
      * fetch action
      */
-    public function fetchAction() {
+    public function fetchAction()
+    {
         if ($this->selectedCorporation < 1) {
             $this->addFlashMessage('No corporation selected!', 'Error', AbstractMessage::ERROR);
             $this->redirect('index');
@@ -165,7 +168,8 @@ class CorporationTitleManagementController extends ActionController {
      *
      * @param CorporationTitle $corporationTitle
      */
-    public function editAction(CorporationTitle $corporationTitle) {
+    public function editAction(CorporationTitle $corporationTitle)
+    {
         $this->view->assign('corporationTitle', $corporationTitle);
         $defaultQuerySettings = new Typo3QuerySettings();
         $defaultQuerySettings->setRespectStoragePage(\FALSE);
@@ -183,10 +187,10 @@ class CorporationTitleManagementController extends ActionController {
      *
      * @param CorporationTitle $corporationTitle
      */
-    public function updateAction(CorporationTitle $corporationTitle) {
+    public function updateAction(CorporationTitle $corporationTitle)
+    {
         $this->corporationTitleRepository->update($corporationTitle);
         $this->addFlashMessage('Corporation title successful changed.');
         $this->redirect('index');
     }
-
 }

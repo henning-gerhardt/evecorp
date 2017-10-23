@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Domain\Model;
 
 use Gerh\Evecorp\Domain\Model\ApiKeyAccount;
@@ -32,12 +30,14 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CharacterTest extends UnitTestCase {
+class CharacterTest extends UnitTestCase
+{
 
     /**
      * @test
      */
-    public function classCouldBeInitiated() {
+    public function classCouldBeInitiated()
+    {
         $character = new Character();
 
         $this->assertInstanceOf(Character::class, $character);
@@ -46,7 +46,8 @@ class CharacterTest extends UnitTestCase {
     /**
      * @test
      */
-    public function apiKeyCouldBeSet() {
+    public function apiKeyCouldBeSet()
+    {
         $expected = new ApiKeyAccount();
 
         $character = new Character();
@@ -58,7 +59,8 @@ class CharacterTest extends UnitTestCase {
     /**
      * @test
      */
-    public function characterIdCouldBeSet() {
+    public function characterIdCouldBeSet()
+    {
         $expected = 13579;
 
         $character = new Character();
@@ -70,7 +72,8 @@ class CharacterTest extends UnitTestCase {
     /**
      * @test
      */
-    public function characterNameCouldBeSet() {
+    public function characterNameCouldBeSet()
+    {
         $expected = 'FooBar';
 
         $character = new Character();
@@ -82,7 +85,8 @@ class CharacterTest extends UnitTestCase {
     /**
      * @test
      */
-    public function corpMemberCouldBeSet() {
+    public function corpMemberCouldBeSet()
+    {
         $expected = new CorpMember();
 
         $character = new Character();
@@ -94,7 +98,8 @@ class CharacterTest extends UnitTestCase {
     /**
      * @test
      */
-    public function currentCorporationCouldBeSet() {
+    public function currentCorporationCouldBeSet()
+    {
         $expected = new Corporation();
 
         $character = new Character();
@@ -106,7 +111,8 @@ class CharacterTest extends UnitTestCase {
     /**
      * @test
      */
-    public function raceCouldBeSet() {
+    public function raceCouldBeSet()
+    {
         $expected = 'Baar';
 
         $character = new Character();
@@ -118,7 +124,8 @@ class CharacterTest extends UnitTestCase {
     /**
      * @test
      */
-    public function securityStatusCouldBeSet() {
+    public function securityStatusCouldBeSet()
+    {
         $expected = 4.3;
 
         $character = new Character();
@@ -126,5 +133,4 @@ class CharacterTest extends UnitTestCase {
 
         $this->assertEquals($expected, $character->getSecurityStatus());
     }
-
 }

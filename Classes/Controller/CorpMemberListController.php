@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Controller;
 
 use Gerh\Evecorp\Domain\Constants\AccessMask\Corporation as Corporation2;
@@ -36,7 +34,8 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class CorpMemberListController extends ActionController {
+class CorpMemberListController extends ActionController
+{
 
     /**
      * @var \Gerh\Evecorp\Domain\Repository\CharacterRepository
@@ -78,7 +77,8 @@ class CorpMemberListController extends ActionController {
      * @param string $booleanString
      * @return boolean
      */
-    private function convertCheckboxValueToBoolean($booleanString) {
+    private function convertCheckboxValueToBoolean($booleanString)
+    {
         // an activated chechkbox returning string with value one
         return ($booleanString == '1') ? \TRUE : \FALSE;
     }
@@ -89,7 +89,8 @@ class CorpMemberListController extends ActionController {
      * @param string $checkBoxName
      * @return boolean
      */
-    private function hasCheckboxBooleanValue($setting, $checkBoxName) {
+    private function hasCheckboxBooleanValue($setting, $checkBoxName)
+    {
         if ((\array_key_exists($checkBoxName, $setting)) && (\strlen($setting[$checkBoxName]) > 0)) {
             return $this->convertCheckboxValueToBoolean($setting[$checkBoxName]);
         }
@@ -100,7 +101,8 @@ class CorpMemberListController extends ActionController {
      *
      * @return boolean
      */
-    private function hasCorpMemberListAccess() {
+    private function hasCorpMemberListAccess()
+    {
         if (\count($this->choosedCorporation) == 1) {
             $corporation = $this->corporationRepository->findByUid($this->choosedCorporation[0]);
             if ($corporation instanceof Corporation) {
@@ -117,7 +119,8 @@ class CorpMemberListController extends ActionController {
      * @param CorporationRepository $corporationRepository
      * @return void
      */
-    public function __construct(CharacterRepository $characterRepository, CorporationRepository $corporationRepository) {
+    public function __construct(CharacterRepository $characterRepository, CorporationRepository $corporationRepository)
+    {
         // calling default controller constructor
         parent::__construct();
 
@@ -128,7 +131,8 @@ class CorpMemberListController extends ActionController {
     /**
      * Called before every action method call.
      */
-    public function initializeAction() {
+    public function initializeAction()
+    {
 
         $this->showApiKeyState = $this->hasCheckboxBooleanValue($this->settings, 'showApiKeyState');
         $this->showCorporationJoinDate = $this->hasCheckboxBooleanValue($this->settings, 'showCorporationJoinDate');
@@ -144,7 +148,8 @@ class CorpMemberListController extends ActionController {
      *
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $corpMembers = $this->characterRepository->findAllCharactersSortedByCharacterName($this->choosedCorporation);
         $this->view->assign('corpMembers', $corpMembers);
         $this->view->assign('hasCorpMemberListAccess', $this->hasCorpMemberListAccess());
@@ -158,7 +163,8 @@ class CorpMemberListController extends ActionController {
      *
      * @return void
      */
-    public function showLightAction() {
+    public function showLightAction()
+    {
         $corpMembers = $this->characterRepository->findAllCharactersSortedByCharacterName($this->choosedCorporation);
         $this->view->assign('corpMembers', $corpMembers);
         $this->view->assign('showApiKeyState', $this->showApiKeyState);
@@ -170,7 +176,8 @@ class CorpMemberListController extends ActionController {
     /**
      * Update corporation member list
      */
-    public function updateAction() {
+    public function updateAction()
+    {
         if (\count($this->choosedCorporation) != 1) {
             $this->addFlashMessage('No or to many corporations selected!', '', AbstractMessage::ERROR);
             $this->redirect('index');
@@ -210,5 +217,4 @@ class CorpMemberListController extends ActionController {
         $this->addFlashMessage($flashMessage['message'], $flashMessage['title'], $flashMessage['severity']);
         $this->redirect('index');
     }
-
 }

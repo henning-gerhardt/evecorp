@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Domain\Validator;
 
 use Gerh\Evecorp\Domain\Model\ApiKeyAccount;
@@ -38,7 +36,8 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class AccountApiKeyValidatorTest extends UnitTestCase {
+class AccountApiKeyValidatorTest extends UnitTestCase
+{
 
     /**
      * @var ObjectManagerInterface
@@ -53,7 +52,8 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
     /**
      * Testsuite setup
      */
-    public function setup() {
+    public function setup()
+    {
         $this->mockObjectManager = $this->createMock(ObjectManagerInterface::class);
 
         $apiKeyAccountRepository = $this->getMockBuilder(ApiKeyAccountRepository::class)
@@ -74,7 +74,8 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      * Data provider with invalid validation types
      * @return array
      */
-    public function invalidValidationTypes() {
+    public function invalidValidationTypes()
+    {
         return [
             ['string'],
             [12345],
@@ -87,7 +88,8 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      * @dataProvider invalidValidationTypes
      * @param mixed $types
      */
-    public function wrongValidationTypeResultsInFailure($types) {
+    public function wrongValidationTypeResultsInFailure($types)
+    {
         $this->assertTrue($this->validator->validate($types)->hasErrors());
     }
 
@@ -95,7 +97,8 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      * Data provider with invalid key
      * @return array
      */
-    public function invalidKeyIdOrVCode() {
+    public function invalidKeyIdOrVCode()
+    {
         return [
             ['', ''],
             [12, ''],
@@ -110,7 +113,8 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      * @param mixed $keyId
      * @param mixed $vCode
      */
-    public function apiKeyAccountValidatorReturnFalseForInvalidKeyIdOrVCode($keyId, $vCode) {
+    public function apiKeyAccountValidatorReturnFalseForInvalidKeyIdOrVCode($keyId, $vCode)
+    {
         $apiKeyAccountModel = new ApiKeyAccount();
         $apiKeyAccountModel->setKeyId($keyId);
         $apiKeyAccountModel->setVCode($vCode);
@@ -123,7 +127,8 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      *
      * @return array
      */
-    public function countOfKeyIds() {
+    public function countOfKeyIds()
+    {
         return [
             [0, false],
             [1, true]
@@ -136,7 +141,8 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      * @param \integer $returnValue
      * @param \boolean $expected
      */
-    public function checkIsKeyAlreadyInDatabase($returnValue, $expected) {
+    public function checkIsKeyAlreadyInDatabase($returnValue, $expected)
+    {
 
         $mockedRepository = $this->getMockBuilder(ApiKeyAccountRepository::class)
             ->setConstructorArgs([$this->mockObjectManager])
@@ -160,7 +166,8 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      *
      * @return array
      */
-    public function characterInDatabase() {
+    public function characterInDatabase()
+    {
         $internalCharacter = new Character();
         $internalCharacter->setCharacterId(1);
         $simpleCharacter = new CharacterModel();
@@ -181,7 +188,8 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      * @param mixed $databaseValue
      * @param \boolean $expected
      */
-    public function checkIsCharacterIsNotInDatabaseNorHasALoginAssigned($internalCharacter, $databaseValue, $expected) {
+    public function checkIsCharacterIsNotInDatabaseNorHasALoginAssigned($internalCharacter, $databaseValue, $expected)
+    {
         $mockObjectManager = $this->createMock(ObjectManagerInterface::class);
 
         $mockedRepository = $this->getMockBuilder(CharacterRepository::class)
@@ -207,7 +215,8 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      *
      * @return \array
      */
-    public function accessMaskList() {
+    public function accessMaskList()
+    {
         return [
             [8388608, 8388608, \TRUE],
             [8388608, 2, \FALSE],
@@ -223,7 +232,8 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
      * @param \integer $actualAccessMask
      * @param \boolean $expected
      */
-    public function checkAccessMask($configuredAccessMask, $actualAccessMask, $expected) {
+    public function checkAccessMask($configuredAccessMask, $actualAccessMask, $expected)
+    {
         $modifier = ['accessMask' => $configuredAccessMask];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['evecorp'] = \serialize($modifier);
 
@@ -231,5 +241,4 @@ class AccountApiKeyValidatorTest extends UnitTestCase {
 
         $this->assertEquals($expected, $actual);
     }
-
 }

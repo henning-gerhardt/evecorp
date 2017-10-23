@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright notice
  *
@@ -16,7 +15,6 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 namespace Gerh\Evecorp\Test\Domain\Model;
 
 use Gerh\Evecorp\Domain\Model\MarketData;
@@ -28,7 +26,8 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 /**
  * Testcase for MarketData
  */
-class MarketDataTest extends UnitTestCase {
+class MarketDataTest extends UnitTestCase
+{
 
     /**
      * @var EveitemRepository
@@ -43,7 +42,8 @@ class MarketDataTest extends UnitTestCase {
     /**
      * Sets up this test case.
      */
-    public function setUp() {
+    public function setUp()
+    {
         $this->mockObjectManager = $this->createMock(ObjectManagerInterface::class);
 
         $this->eveitemRepository = $this->getMockBuilder(EveitemRepository::class)
@@ -54,7 +54,8 @@ class MarketDataTest extends UnitTestCase {
     /**
      * @test
      */
-    public function corpTaxCouldBeSet() {
+    public function corpTaxCouldBeSet()
+    {
         $corpTax = 10;
         $marketData = new MarketData($this->eveitemRepository);
         $marketData->setCorpTax($corpTax);
@@ -64,7 +65,8 @@ class MarketDataTest extends UnitTestCase {
     /**
      * @test
      */
-    public function corpTaxCouldNotBeSetLowerThanZero() {
+    public function corpTaxCouldNotBeSetLowerThanZero()
+    {
         $corpTax = -0.1;
         $marketData = new MarketData($this->eveitemRepository);
         $marketData->setCorpTax($corpTax);
@@ -74,7 +76,8 @@ class MarketDataTest extends UnitTestCase {
     /**
      * @test
      */
-    public function corpTaxCouldNotBeSetHigherThanOneHundred() {
+    public function corpTaxCouldNotBeSetHigherThanOneHundred()
+    {
         $corpTax = 100.1;
         $marketData = new MarketData($this->eveitemRepository);
         $marketData->setCorpTax($corpTax);
@@ -84,7 +87,8 @@ class MarketDataTest extends UnitTestCase {
     /**
      * @test
      */
-    public function getMarketDataReturnsEmptyArrayOnEmptyRepository() {
+    public function getMarketDataReturnsEmptyArrayOnEmptyRepository()
+    {
 
         $mockedQueryInterface = $this->createMock(QueryInterface::class);
 
@@ -107,5 +111,4 @@ class MarketDataTest extends UnitTestCase {
         $actual = $marketData->getMarketData();
         $this->assertEquals($expected, $actual);
     }
-
 }
