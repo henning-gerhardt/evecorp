@@ -9,6 +9,11 @@ language: php
 php:
     - '7.0'
 
-install: composer update
+install:
+ - composer update
 
-script: composer test
+script:
+ - composer test
+
+after_script:
+- .build/bin/codacycoverage clover .build/clover.xml

@@ -20,7 +20,8 @@
     },
     "require-dev": {
         "typo3/testing-framework": "^1.1",
-        "phpunit/phpunit": "^6.4"
+        "phpunit/phpunit": "^6.4",
+        "codacy/coverage": "dev-master"
     },
     "replace": {
         "evecorp": "self.version"
@@ -45,7 +46,7 @@
             "[ -d .build/web/typo3conf/ext ] || mkdir -p .build/web/typo3conf/ext",
             "[ -L .build/web/typo3conf/ext/evecorp ] || ln -snvf ../../../../. .build/web/typo3conf/ext/evecorp"
         ],
-        "test": "export TYPO3_PATH_WEB=`pwd`/.build/web; export typo3DatabaseName='evecorp'; export typo3DatabaseHost='127.0.0.1'; export typo3DatabaseUsername='evecorp'; export typo3DatabasePassword=''; .build/bin/phpunit --colors -c .build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/"
+        "test": "export TYPO3_PATH_WEB=`pwd`/.build/web; export typo3DatabaseName='evecorp'; export typo3DatabaseHost='127.0.0.1'; export typo3DatabaseUsername='evecorp'; export typo3DatabasePassword=''; .build/bin/phpunit --colors -c .build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/ --whitelist Classes/ --coverage-clover .build/clover.xml"
     },
     "extra": {
         "typo3/cms": {
