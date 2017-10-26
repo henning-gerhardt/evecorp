@@ -4,7 +4,7 @@ Integration of EVE data through EVE API calls or data from other EVE third party
 
 ## Requirements
 
-* TYPO3 version 7.6
+* TYPO3 version 8.7
 * some time as usual
 
 ## Using
