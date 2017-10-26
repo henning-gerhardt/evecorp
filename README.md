@@ -2,6 +2,11 @@
 
 Integration of EVE data through EVE API calls or data from other EVE third party developers developed / hosted sites.
 
+[![Latest Stable Version](https://poser.pugx.org/gerh/evecorp/v/stable)](https://packagist.org/packages/gerh/evecorp)
+[![Latest Unstable Version](https://poser.pugx.org/gerh/evecorp/v/unstable)](https://packagist.org/packages/gerh/evecorp)
+[![License](https://poser.pugx.org/gerh/evecorp/license)](https://packagist.org/packages/gerh/evecorp)
+[![Total Downloads](https://poser.pugx.org/gerh/evecorp/downloads)](https://packagist.org/packages/gerh/evecorp)
+
 ## Requirements
 
 * TYPO3 version 8.7
