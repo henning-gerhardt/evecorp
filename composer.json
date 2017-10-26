@@ -16,7 +16,7 @@
     ],
     "require": {
         "typo3/cms": "^8.7",
-        "3rdpartyeve/phealng": "2.1.0"
+        "3rdpartyeve/phealng": "^2.3"
     },
     "require-dev": {
         "typo3/testing-framework": "^1.1",
