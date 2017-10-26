@@ -32,6 +32,13 @@ class EmploymentHistoryViewHelper extends AbstractViewHelper
 {
 
     /**
+     * As this ViewHelper renders HTML, the output must not be escaped.
+     *
+     * @var bool
+     */
+    protected $escapeOutput = false;
+
+    /**
      * Render employment history of given character
      *
      * @param Character $character
