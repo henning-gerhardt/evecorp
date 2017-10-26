@@ -31,9 +31,10 @@ Started as basic example of TYPO3 extension development on version 6.0 (how its 
 
 ## Code analysis and continues integration tools
 
-Using automatic code analysis, continues intregration tools beside test execution is a good practice and used in this project
+Using automatic code analysis, continues intregration tools beside test execution is a good practice and used in this project.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/1221c637986c4e939f0a927aeafd46a6)](https://www.codacy.com/app/henning-gerhardt/evecorp)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/1221c637986c4e939f0a927aeafd46a6)](https://www.codacy.com/app/henning-gerhardt/evecorp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=henning-gerhardt/evecorp&amp;utm_campaign=Badge_Coverage)
 [![Build Status](https://travis-ci.org/henning-gerhardt/evecorp.svg?branch=master)](https://travis-ci.org/henning-gerhardt/evecorp)
 
 ## Copyright notice
