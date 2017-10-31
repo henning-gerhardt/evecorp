@@ -41,6 +41,10 @@ if (!defined('TYPO3_MODE')) {
     ]
 );
 
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    'Gerh.' . $_EXTKEY, 'Pi6', ['SsoLogin' => 'index,callback'], ['SsoLogin' => 'index,callback']
+);
+
 // Register EVE item list update task
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Gerh\\Evecorp\\Scheduler\\UpdateEveItemListTask'] = [
     'extension' => $_EXTKEY,

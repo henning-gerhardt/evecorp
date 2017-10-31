@@ -29,6 +29,10 @@ plugin.tx_evecorp {
     features {
         # uncomment the following line to enable the new Property Mapper.
         rewrittenPropertyMapper = 1
+        # see https://docs.typo3.org/typo3cms/extensions/core/8.7/Changelog/8.5/Breaking-78002-EnforceCHashArgumentForExtbaseActions.html
+        # required for action "callback" of SsoLogin controller
+        # to disable cHash check :/
+        requireCHashArgumentForActionArguments = 0
     }
 }
 

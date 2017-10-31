@@ -1,0 +1,22 @@
+<f:layout name="default" />
+<f:section name="content">
+
+    <h1>Test page for ESI Login</h1>
+
+    <f:flashMessages />
+
+    <f:if condition="{showSubmitButton} == 1">
+        <form method="GET" action="{authUri}">
+            <input type="hidden" name="response_type" value="code" />
+            <input type="hidden" name="redirect_uri" value="{redirectUri}" />
+            <input type="hidden" name="client_id" value="{clientId}" />
+            <input type="hidden" name="state" value="{state}" />
+            <f:form.submit value="Submit" class="btn btn-default"/>
+        </form>
+    </f:if>
+
+    <f:if condition="{showCallbackLink} == 1">
+        <f:link.action action="callback" class="text-danger" noCache="{noCache}" noCacheHash="{noCacheHash}">Link to callback action</f:link.action>
+    </f:if>
+
+</f:section>

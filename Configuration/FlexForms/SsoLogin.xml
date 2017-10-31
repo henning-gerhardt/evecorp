@@ -1,0 +1,53 @@
+<T3DataStructure>
+    <meta>
+        <langDisable>1</langDisable>
+    </meta>
+    <sheets>
+        <sDefault>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>EVE SSO Login Plugin Configuration</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <settings.authorizeUri>
+                        <TCEforms>
+                            <label>EVE SSO authorize URI</label>
+                            <config>
+                                <type>input</type>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.authorizeUri>
+                    <settings.clientId>
+                        <TCEforms>
+                            <label>Client ID</label>
+                            <config>
+                                <type>input</type>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.clientId>
+                    <settings.secretKey>
+                        <TCEforms>
+                            <label>Secret Key</label>
+                            <config>
+                                <type>input</type>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.secretKey>
+                    <settings.showCallbackLink>
+                        <TCEforms>
+                            <label>Show callback link</label>
+                            <config>
+                                <type>check</type>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.showCallbackLink>
+                </el>
+            </ROOT>
+        </sDefault>
+    </sheets>
+</T3DataStructure>
